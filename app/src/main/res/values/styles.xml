@@ -1,0 +1,109 @@
+<resources>
+
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MainTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabMaxWidth">@dimen/design_tab_max_width</item>
+        <item name="tabBackground">@color/transparent</item>
+    </style>
+
+
+    <style name="indicate_text">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_unread</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:layout_marginTop">2.5dp</item>
+    </style>
+
+    <style name="menu_button">
+        <item name="android:button">@null</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/tab_btn_textcolor_selector</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="toolbar_title">
+        <item name="android:textColor">@color/c444</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/bg_white_dialog</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabGravity">center</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabMaxWidth">@dimen/design_tab_max_width</item>
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">10dp</item>
+        <item name="tabPaddingEnd">10dp</item>
+        <item name="tabPaddingBottom">-5dp</item>
+        <item name="tabBackground">@color/transparent</item>
+        <item name="tabTextAppearance">@style/TextAppearanceMyCustomTabLayout</item>
+        <item name="tabSelectedTextColor">#444</item>
+        <item name="tabIndicatorMargin">10dp</item>
+        <item name="tabIndicatorRadius">1dp</item>
+    </style>
+
+    <style name="TextAppearanceMyCustomTabLayout">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#A2A2A2</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="OrderTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabGravity">center</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabMaxWidth">@dimen/design_tab_max_width</item>
+        <item name="tabIndicatorHeight">1dp</item>
+        <item name="tabIndicatorColor">#f95725</item>
+        <item name="tabPaddingStart">16dp</item>
+        <item name="tabPaddingEnd">16dp</item>
+        <item name="tabBackground">@color/transparent</item>
+        <item name="tabTextColor">#666</item>
+        <item name="tabSelectedTextColor">#f95725</item>
+        <item name="tabIndicatorMargin">4dp</item>
+        <item name="tabIndicatorRadius">14dp</item>
+    </style>
+
+    <!--<style name="MyCheck_Box" parent="@android:style/Widget.CompoundButton.CheckBox">-->
+        <!--<item name="android:button">@drawable/checkbox_style</item>-->
+    <!--</style>-->
+
+</resources>

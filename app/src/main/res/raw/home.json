@@ -1,0 +1,183 @@
+﻿{
+  "code": "0",
+  "msg": "SUCCESS",
+  "result": {
+    "banner": [
+      {
+        "adImg": "http://qiniu.rrenji.com/FrqCCd8XKMlK9Jc4nUqcPRxtRteK",
+        "adUrl": "https://baike.baidu.com/item/%E6%B7%B1%E5%9C%B3%E4%BA%BA%E4%BA%BA%E6%9C%BA%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/19700805"
+      },
+      {
+        "adImg": "http://qiniu.rrenji.com/FiLRibRrGwz4Vp1RSnKtpMjKVFpW",
+        "adUrl": "https://baike.baidu.com/item/%E6%B7%B1%E5%9C%B3%E4%BA%BA%E4%BA%BA%E6%9C%BA%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/19700805"
+      },
+      {
+        "adImg": "http://qiniu.rrenji.com/FvkKkE-iD1OxU43vRD_Vko0YLHJA",
+        "adUrl": "https://baike.baidu.com/item/%E6%B7%B1%E5%9C%B3%E4%BA%BA%E4%BA%BA%E6%9C%BA%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/19700805"
+      }
+    ],
+    "categoryList": [
+      {
+        "categoryId": 1,
+        "categoryImg": "http://qiniu.rrenji.com/FvkKkE-iD1OxU43vRD_Vko0YLHJA",
+        "categoryName": "iPhone"
+      },
+      {
+        "categoryId": 2,
+        "categoryImg": "http://qiniu.rrenji.com/FvkKkE-iD1OxU43vRD_Vko0YLHJA",
+        "categoryName": "安卓"
+      },
+      {
+        "categoryId": 3,
+        "categoryImg": "http://qiniu.rrenji.com/FvkKkE-iD1OxU43vRD_Vko0YLHJA",
+        "categoryName": "笔记本"
+      },
+      {
+        "categoryId": 4,
+        "categoryImg": "http://qiniu.rrenji.com/FvkKkE-iD1OxU43vRD_Vko0YLHJA",
+        "categoryName": "配件"
+      }
+    ],
+    "hotData": [
+      {
+        "hotImg": "http://qiniu.rrenji.com/FvkKkE-iD1OxU43vRD_Vko0YLHJA",
+        "hotContent": "平板性价比王者iPad mini2，仅售1099。",
+        "hotDesc": "活动限量20台，手快有，手慢无。【支持支付宝花呗和京东白条】",
+        "productId": "10001"
+      },
+      {
+        "hotImg": "http://qiniu.rrenji.com/FiLRibRrGwz4Vp1RSnKtpMjKVFpW",
+        "hotContent": "平板性价比王者iPad mini2，仅售1099。",
+        "hotDesc": "活动限量20台，手快有，手慢无。【支持支付宝花呗和京东白条】",
+        "productId": "10001"
+      }
+    ],
+    "hotIphone": [
+      {
+        "goodsId": "366",
+        "goodsCode": "1540026007096",
+        "discoverImg": "http://qiniu.rrenji.com/Fvo-obQ9iXsh9lRWO31ZNH9YmivW",
+        "goodsPrice": 3799,
+        "originalPrice": 3888,
+        "goodsName": "全新 华为P20 6+128G 全色",
+        "subtitleList": [],
+        "conditionId": 1,
+        "version": "",
+        "memory": "128G",
+        "color": "黑色",
+        "newLog": 3
+      },
+      {
+        "goodsId": "379",
+        "goodsCode": "1540468956725",
+        "discoverImg": "http://qiniu.rrenji.com/FoV35NIHQH2VfeVBdnkhEuxJjjp3",
+        "goodsPrice": 2220,
+        "originalPrice": 2488,
+        "goodsName": "全新 华为平板M5 10寸32G",
+        "subtitleList": [],
+        "conditionId": 1,
+        "version": "国行",
+        "memory": "32G",
+        "color": "金色",
+        "newLog": 2
+      }
+    ],
+    "hotAndroid": [
+      {
+        "goodsId": "366",
+        "goodsCode": "1540026007096",
+        "discoverImg": "http://qiniu.rrenji.com/Fvo-obQ9iXsh9lRWO31ZNH9YmivW",
+        "goodsPrice": 3799,
+        "originalPrice": 3888,
+        "goodsName": "全新 华为P20 6+128G 全色",
+        "subtitleList": [],
+        "conditionId": 1,
+        "version": "",
+        "memory": "128G",
+        "color": "黑色",
+        "newLog": 3
+      },
+      {
+        "goodsId": "379",
+        "goodsCode": "1540468956725",
+        "discoverImg": "http://qiniu.rrenji.com/FoV35NIHQH2VfeVBdnkhEuxJjjp3",
+        "goodsPrice": 2220,
+        "originalPrice": 2488,
+        "goodsName": "全新 华为平板M5 10寸32G",
+        "subtitleList": [],
+        "conditionId": 1,
+        "version": "国行",
+        "memory": "32G",
+        "color": "金色",
+        "newLog": 2
+      }
+    ],
+    "ad": [
+      {
+        "adImg": "http://qiniu.rrenji.com/FgtZsNYFGVmZVx0VvxvDspAmelh8",
+        "adUrl": "https://baike.baidu.com/item/%E6%B7%B1%E5%9C%B3%E4%BA%BA%E4%BA%BA%E6%9C%BA%E7%A7%91%E6%8A%80%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/19700805"
+      },
+      {
+        "adImg": "http://qiniu.rrenji.com/FgrLMga8OnEbP53nrddJ72ubTvbb",
+        "adUrl": "https://mp.weixin.qq.com/s/QriNBzX-zaTE4Cg0I7X28A"
+      }
+    ],
+    "optimization": [
+      {
+        "goodsId": "366",
+        "goodsCode": "1540026007096",
+        "discoverImg": "http://qiniu.rrenji.com/Fvo-obQ9iXsh9lRWO31ZNH9YmivW",
+        "goodsPrice": 3799,
+        "originalPrice": 3888,
+        "goodsName": "全新 华为P20 6+128G 全色",
+        "subtitleList": [],
+        "conditionId": 1,
+        "version": "",
+        "memory": "128G",
+        "color": "黑色",
+        "newLog": 3
+      },
+      {
+        "goodsId": "379",
+        "goodsCode": "1540468956725",
+        "discoverImg": "http://qiniu.rrenji.com/FoV35NIHQH2VfeVBdnkhEuxJjjp3",
+        "goodsPrice": 2220,
+        "originalPrice": 2488,
+        "goodsName": "全新 华为平板M5 10寸32G",
+        "subtitleList": [],
+        "conditionId": 1,
+        "version": "国行",
+        "memory": "32G",
+        "color": "金色",
+        "newLog": 2
+      }
+    ],
+    "community": [
+      {
+        "communityImg": "http://qiniu.rrenji.com/FgtZsNYFGVmZVx0VvxvDspAmelh8",
+        "CommunityContent": "5 年损失数十亿美元：苹果与'骗保'团伙的攻防战",
+        "CommunityDesc": "苹果在过去的数年里，一直在应对国内专业的骗保团队。而在顶峰时期，有多达 60% 的iPhone 保修期内维修都…",
+        "CommunityUrl": "http://qiniu.rrenji.com/FoV35NIHQH2VfeVBdnkhEuxJjjp3"
+      },
+      {
+        "communityImg": "http://qiniu.rrenji.com/FgtZsNYFGVmZVx0VvxvDspAmelh8",
+        "CommunityContent": "5 年损失数十亿美元：苹果与'骗保'团伙的攻防战",
+        "CommunityDesc": "苹果在过去的数年里，一直在应对国内专业的骗保团队。而在顶峰时期，有多达 60% 的iPhone 保修期内维修都…",
+        "CommunityUrl": "http://qiniu.rrenji.com/FoV35NIHQH2VfeVBdnkhEuxJjjp3"
+      }
+    ], 
+    "RHome": [
+      { 
+        "RHomeImg": [
+          "http://qiniu.rrenji.com/FgtZsNYFGVmZVx0VvxvDspAmelh8",
+          "http://qiniu.rrenji.com/FgtZsNYFGVmZVx0VvxvDspAmelh8",
+          "http://qiniu.rrenji.com/FgtZsNYFGVmZVx0VvxvDspAmelh8"
+        ],
+        "RHomeContent": "深圳福田区人人之家旗舰店",
+        "RHomeDesc": "这是小米上市港交所之前公开募股时，雷军发表的公开信中所阐述的小米硬件产品的愿景，或者说是小米自己努力的方向。",
+        "RHomeUrl": "http://qiniu.rrenji.com/FoV35NIHQH2VfeVBdnkhEuxJjjp3"
+      }
+    ],
+    "state": "0"
+  }
+}

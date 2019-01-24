@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:paddingTop="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <ImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/collection" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/user_avatar"
+        android:text="17603009825"
+        android:textColor="#000"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/device_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_name"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/user_avatar"
+        android:background="@drawable/drying_tag_bg"
+        android:gravity="left|center"
+        android:paddingLeft="7dp"
+        android:paddingTop="4dp"
+        android:paddingRight="7dp"
+        android:paddingBottom="4dp"
+        android:text="iPhone XS Max 256G iPhone XS Max 256G"
+        android:textColor="#ef5311"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/icon_dry_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="4dp"
+        android:layout_toLeftOf="@+id/dry_address"
+        android:src="@drawable/icon_dry_address" />
+
+    <TextView
+        android:id="@+id/dry_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="江苏省   宿迁"
+        android:textColor="#999"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/dry_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/device_tag"
+        android:layout_marginTop="19dp"
+        android:lineSpacingExtra="5dp"
+        android:text="机子是正品，非常不错！希望以后机子一切好，别出问题！快快
+递，简直是太快了！！！卖家很好，服务那真的没话说，一个字
+，好！宝贝也非常好，特意使用了几天才确认的！发的顺丰也非
+常给力！这次网上购物是我最满意的一次，推荐大家购买！"
+        android:textColor="#333"
+        android:textSize="12sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/dry_pic_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dry_content"
+        android:layout_marginTop="3dp">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/dry_pic_recycler_view"
+        android:layout_marginTop="5dp"
+        android:background="#e5e5e5"></View>
+
+    <TextView
+        android:id="@+id/dry_time"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/line"
+        android:gravity="center_vertical"
+        android:text="2018-10-29"
+        android:textColor="#999"
+        android:textSize="12sp" />
+</RelativeLayout>

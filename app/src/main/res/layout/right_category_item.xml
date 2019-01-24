@@ -1,0 +1,17 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="wrap_content"
+   >
+    <ImageView
+        android:layout_centerInParent="true"
+        android:id="@+id/image_src"
+        android:layout_width="81dp"
+        android:src="@drawable/banner_bo"
+        android:scaleType="fitXY"
+        android:layout_height="37dp" />
+
+
+</RelativeLayout>

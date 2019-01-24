@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/empty"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/nodata_text_line1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dip"
+        android:gravity="center"
+        android:text="@string/no_data"
+        android:textSize="14sp">
+
+    </TextView>
+
+</LinearLayout>

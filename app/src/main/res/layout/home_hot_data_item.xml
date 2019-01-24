@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/hot_data_image"
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/hot_data_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hot_data_image"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="14dp"
+        android:text="平板性价比王者iPad mini2，仅售1099。"
+        android:textColor="#000000"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/hot_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hot_data_text"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="9dp"
+        android:src="@drawable/icon_hot" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hot_data_text"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="13dp"
+        android:layout_toRightOf="@+id/hot_icon"
+        android:text="活动限量20台，手快有，手慢无。【支持支付宝花呗和京东白条】"
+        android:textSize="9sp" />
+</RelativeLayout>

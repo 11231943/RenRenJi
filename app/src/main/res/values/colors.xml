@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/red</color>
+
+    <color name="red">#FE5252</color>
+    <color name="mine_red">#f95b27</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="actionbar_bg">#F6F6F6</color>
+    <color name="c444">#444</color>
+    <color name="content_bg_color">#ededed</color>
+    <color name="action_bar_item_color">#444444</color>
+    <color name="color_666">#666666</color>
+    <color name="color_f9">#f95725</color>
+</resources>

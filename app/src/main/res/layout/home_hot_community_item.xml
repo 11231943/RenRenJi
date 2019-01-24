@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:id="@+id/hot_community_image"
+        android:layout_width="154dp"
+        android:layout_height="100dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/hot_community_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/hot_community_image"
+        android:textStyle="bold"
+        android:lineSpacingExtra="8dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginRight="13dp"
+        android:text="5 年损失数十亿美元：苹果与 “骗保”团伙的攻防战"
+        android:textColor="#000000"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/community_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hot_community_text"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="9dp"
+        android:lineSpacingExtra="5dp"
+        android:layout_marginRight="13dp"
+        android:layout_toLeftOf="@+id/hot_community_image"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="苹果在过去的数年里，一直在应对国内
+专业的骗保团队。而在顶峰时期，有
+多达 60% 的iPhone 保修期内维修都…"
+        android:textColor="#999999"
+        android:textSize="11sp" />
+
+    <View
+        android:layout_below="@+id/hot_community_image"
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:layout_height="1dp"
+         />
+
+</RelativeLayout>

@@ -1,0 +1,25 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:id="@+id/image_bottom"
+        android:layout_width="match_parent"
+        android:textSize="18sp"
+        android:layout_marginLeft="14dp"
+        android:textColor="#000000"
+        android:text="热门活动"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/image_bottom"
+        android:id="@+id/hot_data_recycler_view"
+        android:layout_marginTop="13dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

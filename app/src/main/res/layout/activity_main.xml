@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+    <include
+        layout="@layout/tabhost_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="47dp" />
+
+    <com.trade.rrenji.utils.TabLayoutNoIndicator
+        android:id="@+id/main_tabs"
+        style="@style/MainTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="#fff" />
+
+    <FrameLayout
+        android:paddingLeft="3dp"
+        android:layout_alignTop="@+id/main_tabs"
+        android:id="@+id/msgCountLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/msgCount"
+            style="@style/indicate_text"
+            android:minWidth="17dp"
+            android:visibility="gone"
+            tools:layout_gravity="center_horizontal"
+            tools:layout_marginLeft="6dp"
+            tools:text="12"
+            tools:visibility="visible" />
+    </FrameLayout>
+</RelativeLayout>

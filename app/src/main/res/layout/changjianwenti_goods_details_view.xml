@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="常见问题"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/fengexin_bg" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        android:text="1.我购买的手机会是翻新机么？"
+        android:textColor="#333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        android:text="我们出售的每一件二手物品都是经过我们质检团队专业的检测，坚决不出手翻新机。"
+        android:textColor="#666"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        android:text="2. 你们平台非国行机会是有锁机器吗？使用与国行机有区别么？"
+        android:textColor="#333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        android:text="我们平台只出售无锁机器，使用时与国行机没有区别，均可正常升级等。如有个别不同之处我们均会标注清楚，只要您选择对您所需要支持的网络制式即可。"
+        android:textColor="#666"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        android:text="3.二手设备中设备编号代表什么？"
+        android:textColor="#333"
+        android:textSize="13sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="10dp"
+        android:text="二手设备页面中展示的设备编号，通常以RXXX表示，仅代表示设备在人人机仓库中的编号，该设备对应的版本和成色以页面标注为准。"
+        android:textColor="#666"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/show_changjianwenti_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="43dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/chakan_icon"
+        android:gravity="center"
+        android:text="查看完整内容"
+        android:textColor="#f93b01"
+        android:textSize="11sp" />
+
+</LinearLayout>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/tect_list_image"
+        android:layout_width="match_parent"
+        android:layout_height="124dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/main_recommed_today" />
+
+    <TextView
+        android:id="@+id/tect_list_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tect_list_image"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="5dp"
+        android:maxLines="2"
+        tools:text="#深度解读#深度解读深度解读深度解读深度解读深度解读深度解读深度解读深度解读深度解读"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:id="@+id/zan_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tect_list_name"
+        android:layout_marginTop="17dp">
+
+        <ImageView
+            android:id="@+id/zan_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/zan_icon" />
+
+        <TextView
+            android:id="@+id/praiseNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            android:textColor="#666"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/zan_icon"
+            tools:text="66" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/read_layout"
+        android:layout_toRightOf="@+id/zan_layout"
+        android:layout_marginLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tect_list_name"
+        android:layout_marginTop="17dp">
+
+        <ImageView
+            android:id="@+id/read_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/read_icon" />
+
+        <TextView
+            android:id="@+id/readingNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="4dp"
+            android:textSize="9sp"
+            android:textColor="#666"
+            android:layout_toRightOf="@+id/read_icon"
+            tools:text="1200" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_below="@+id/tect_list_name"
+        android:layout_marginTop="17dp"
+        android:id="@+id/tect_list_content2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="9sp"
+        android:textColor="#999999"
+        android:layout_alignParentRight="true"
+        tools:text="2013年03年30日#" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/main_list_item_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tect_list_imageff"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:gravity="bottom"
+                android:scaleType="fitXY"
+                android:src="@drawable/order_shijian"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tect_list_content1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/tect_list_imageff"
+                android:text="#深度解读#"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:scaleType="fitXY"
+                android:text="#深度解读#" />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:gravity="bottom"
+                android:src="@drawable/order_shijian" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

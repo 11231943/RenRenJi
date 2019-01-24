@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/user_avatar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/user_rule"
+        android:layout_marginTop="7dp"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="头像"
+            android:textColor="#333"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="17dp"
+            android:layout_toLeftOf="@+id/user_avatar_go"
+            android:src="@drawable/icon_setting_wechat" />
+
+        <ImageView
+            android:id="@+id/user_avatar_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:src="@drawable/icon_go" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:background="#eee" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/user_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/user_rule"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="昵称"
+            android:textColor="#333"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginRight="17dp"
+            android:layout_toLeftOf="@+id/user_name_go"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:textColor="#999999"
+            android:text="17603009825" />
+
+        <ImageView
+            android:id="@+id/user_name_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:src="@drawable/icon_go" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:background="#eee" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/bind_sex"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="性别"
+            android:textColor="#333"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/text_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginRight="17dp"
+            android:layout_toLeftOf="@+id/icon_sex_go"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:textColor="#999999"
+            android:text="男" />
+
+        <ImageView
+            android:id="@+id/icon_sex_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:src="@drawable/icon_go" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:background="#eee" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/address_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/user_rule"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="地址"
+            android:textColor="#333"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/text_address"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="17dp"
+            android:layout_toLeftOf="@+id/text_address_go"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:textColor="#999999"
+            android:text="湖北武汉" />
+
+        <ImageView
+            android:id="@+id/text_address_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:src="@drawable/icon_go" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:background="#eee" />
+    </RelativeLayout>
+
+</LinearLayout>
