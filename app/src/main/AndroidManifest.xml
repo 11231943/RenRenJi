@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".biz.address.ui.activity.AddressActivity"
+            android:name=".biz.address.ui.activity.AddressAdminActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -70,6 +70,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".biz.goods.ui.activity.GoodsDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
+
+        <activity android:name=".biz.address.ui.activity.UpdateAddressActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             />

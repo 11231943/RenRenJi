@@ -6,15 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.trade.rrenji.MainActivity;
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.account.ui.activity.AccountActivity;
 import com.trade.rrenji.biz.account.ui.activity.LoginActivity;
-import com.trade.rrenji.biz.address.ui.activity.AddressActivity;
+import com.trade.rrenji.biz.address.ui.activity.AddressAdminActivity;
 import com.trade.rrenji.biz.auth.ui.AuthActivity;
 import com.trade.rrenji.biz.collection.ui.activity.CollectionActivity;
 import com.trade.rrenji.biz.coupon.ui.activity.CouponActivity;
@@ -25,7 +21,6 @@ import com.trade.rrenji.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 /**
@@ -49,7 +44,7 @@ public class MineFragment extends Fragment {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.address_layout:
-                intent = new Intent(getActivity(), AddressActivity.class);
+                intent = new Intent(getActivity(), AddressAdminActivity.class);
                 startActivity(intent);
                 break;
             case R.id.user_setting:

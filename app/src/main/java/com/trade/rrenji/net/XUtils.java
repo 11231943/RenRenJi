@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 import org.xutils.common.Callback;
@@ -87,6 +88,38 @@ public class XUtils {
 
     }
 
+    public void put(String url, Map<String, String> maps, final ResultListener listener) {
+        RequestParams params = new RequestParams(url);
+        if (maps != null && !maps.isEmpty()) {
+            for (Map.Entry<String, String> entry : maps.entrySet()) {
+                params.addBodyParameter(entry.getKey(), entry.getValue());
+            }
+        }
+        Log.d(TAG, url + "params : " + params.toString());
+        x.http().request(HttpMethod.PUT, params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                listener.onResponse(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                listener.onError(ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+
     /**
      * 异步post请求
      *
@@ -95,7 +128,6 @@ public class XUtils {
      * @param listener
      */
     public void post(String url, Map<String, String> maps, final ResultListener listener) {
-
         RequestParams params = new RequestParams(url);
         if (maps != null && !maps.isEmpty()) {
             for (Map.Entry<String, String> entry : maps.entrySet()) {

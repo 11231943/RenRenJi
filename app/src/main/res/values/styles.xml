@@ -102,8 +102,16 @@
         <item name="tabIndicatorRadius">14dp</item>
     </style>
 
+    <style name="Animation.Popup" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+    <style name="CustomCheckBoxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
     <!--<style name="MyCheck_Box" parent="@android:style/Widget.CompoundButton.CheckBox">-->
-        <!--<item name="android:button">@drawable/checkbox_style</item>-->
+    <!--<item name="android:button">@drawable/checkbox_style</item>-->
     <!--</style>-->
 
 </resources>

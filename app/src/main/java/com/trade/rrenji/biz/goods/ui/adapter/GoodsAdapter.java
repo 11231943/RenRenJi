@@ -129,8 +129,8 @@ public class GoodsAdapter extends RecyclerListAdapter<AddressListBean> {
             address_edit_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(mContext, NewAddressActivity.class);
-//                    intent.putExtra("type", NewAddressActivity.TYPE_UPDATE);
+//                    Intent intent = new Intent(mContext, UpdateAddressActivity.class);
+//                    intent.putExtra("type", UpdateAddressActivity.TYPE_UPDATE);
 //                    intent.putExtra("address", data);
 //                    mContext.startActivity(intent);
                 }

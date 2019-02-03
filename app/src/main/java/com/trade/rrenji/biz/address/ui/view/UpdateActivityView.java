@@ -2,17 +2,15 @@ package com.trade.rrenji.biz.address.ui.view;
 
 import com.trade.rrenji.bean.address.AddressUpdateBean;
 import com.trade.rrenji.bean.address.NetAddressBean;
-import com.trade.rrenji.bean.drying.NetShareBean;
 import com.trade.rrenji.biz.base.BaseView;
 
 /**
  * Created by monster on 8/4/18.
  */
 
-public interface AddressActivityView extends BaseView {
+public interface UpdateActivityView extends BaseView {
 
-    void getAddressListSuccess(NetAddressBean netShareBean);
+    void updateAddressSuccess(AddressUpdateBean updateBean);
 
-    void getAddressListError(int code, String msg);
-
+    void updateAddressError(int code, String msg);
 }

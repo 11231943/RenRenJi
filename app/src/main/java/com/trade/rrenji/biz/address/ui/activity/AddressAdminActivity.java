@@ -1,7 +1,10 @@
 package com.trade.rrenji.biz.address.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
@@ -21,7 +24,7 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.List;
 
 @ContentView(R.layout.base_activity_super_recyclerview)
-public class AddressActivity extends BaseActivity implements AddressActivityView {
+public class AddressAdminActivity extends BaseActivity implements AddressActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
     @ViewInject(R.id.base_activity_recycler_view)
@@ -37,6 +40,24 @@ public class AddressActivity extends BaseActivity implements AddressActivityView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_address, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_address_btn:
+                Intent intent =new Intent(this,UpdateAddressActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void init() {
