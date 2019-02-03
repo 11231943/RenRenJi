@@ -1,11 +1,13 @@
 package com.trade.rrenji.biz.address.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.trade.rrenji.R;
@@ -21,6 +23,7 @@ import com.trade.rrenji.utils.AssetsUtils;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GsonUtils;
 import com.trade.rrenji.utils.ThreadPoolManager;
+import com.trade.rrenji.utils.Utils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -60,6 +63,8 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
 
     UpdateAddressActivityPresenter mPresenter;
 
+    Handler mUiHandler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +88,49 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_address:
-                updateAddress();
+                if (check()) {
+                    updateAddress();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    boolean check() {
+
+        String name = address_name.getText().toString();
+        if (null == name || "".equals(name)) {
+            Toast.makeText(this, "请填写收件人!", Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+        String phone = address_phone.getText().toString();
+        if (null == phone || "".equals(phone)) {
+            Toast.makeText(this, "请填写联系方式!", Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+        if (!Utils.isMobile(phone)) {
+            Toast.makeText(this, "请填写正确联系方式!", Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+        String zone = mProvince.toString();
+        if (null == zone || "".equals(zone)) {
+            Toast.makeText(this, "操作失败!", Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+        String detail = address_info.getText().toString();
+        if (null == detail || "".equals(detail)) {
+            Toast.makeText(this, "操作失败!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+
+    }
+
 
     private void updateAddress() {
         UserAddressCurd userAddressCurd = new UserAddressCurd();
@@ -179,7 +221,17 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
 
     @Override
     public void updateAddressSuccess(AddressUpdateBean updateBean) {
-
+        if (updateBean.getCode().equals("0")) {
+            Toast.makeText(this, "操作成功!", Toast.LENGTH_SHORT).show();
+            mUiHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 2000);
+        } else {
+            Toast.makeText(this, "操作失败!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
