@@ -42,6 +42,37 @@ public class AddressModelImpl implements AddressModel {
     }
 
     @Override
+    public void delAddress(Context mContext, String addressId,final ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.address.del");
+        String sessionKey = Contetns.sessionKey;
+        long timeStamp = System.currentTimeMillis();
+        String token = "1";
+        url = url + sessionKey + "/" + timeStamp+ "/" + addressId + "/" + token;
+        RequestParams requestParams = new RequestParams(url);
+        x.http().request(HttpMethod.DELETE,requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                resultListener.onResponse(result);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                resultListener.onError(ex);
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    @Override
     public void updateAddress(Context mContext, int type, UserAddressCurd addressCurd,final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.address.operate");
         String sessionKey = Contetns.sessionKey;

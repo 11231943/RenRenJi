@@ -15,5 +15,4 @@ public interface AddressActivityPresenter extends Presenter<AddressActivityView>
 
     void getAddressList(Context mContext, int pageNum);
 
-
 }

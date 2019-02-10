@@ -12,4 +12,6 @@ public interface AddressModel extends PlusBaseService {
 
     void updateAddress(Context mContext,int type, UserAddressCurd addressCurd, ResultListener resultListener);
 
+    void delAddress(Context mContext,String addressId, ResultListener resultListener);
+
 }
