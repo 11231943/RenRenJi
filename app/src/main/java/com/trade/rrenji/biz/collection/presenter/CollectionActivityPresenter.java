@@ -10,6 +10,6 @@ import com.trade.rrenji.biz.collection.ui.view.CollectionActivityView;
  */
 public interface CollectionActivityPresenter extends Presenter<CollectionActivityView> {
 
-    void getCollectionList(Context mContext, int pageNum);
+    void getCollectionList(Context mContext, String goodsCode);
 
 }

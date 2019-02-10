@@ -29,7 +29,7 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
     CollectionAdapter mCollectionAdapter = null;
 
 
-    private int mIndexPage = 1;
+    private String mGoodsCode = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +46,11 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
             @Override
             public void onRefresh() {
-                mIndexPage = 1;
                 loadData();
             }
 
             @Override
             public void onMore() {
-                mIndexPage++;
                 loadData();
             }
         });
@@ -60,7 +58,7 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
     }
 
     private void loadData() {
-        mPresenter.getCollectionList(this, mIndexPage);
+        mPresenter.getCollectionList(this, mGoodsCode);
     }
 
     @Override

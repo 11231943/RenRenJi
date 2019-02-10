@@ -21,12 +21,13 @@ public class CollectionModelImpl implements CollectionModel {
     }
 
     @Override
-    public void getCollectionList(Context mContext, int pageNum, XUtils.ResultListener resultListener) {
-        String url = ServiceHelper.buildUrl("api.v2.address.list");
+    public void getCollectionList(Context mContext, String goodsCode, XUtils.ResultListener resultListener) {
+        //product/favorite/v1/{sessionKey}/{timestamp}/{goodsCode}/{token}
+        String url = ServiceHelper.buildUrl("api.v2.product.favorite");
         String sessionKey = Contetns.sessionKey;
         long timeStamp = System.currentTimeMillis();
         String token = "1";
-        url = url + sessionKey + "/" + timeStamp + "/" + pageNum + "/" + token;
+        url = url + sessionKey + "/" + timeStamp + "/" + goodsCode + "/" + token;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
 //        paramBuilder.add("sessionKey", "1");
 //        paramBuilder.add("timeStamp", System.currentTimeMillis());

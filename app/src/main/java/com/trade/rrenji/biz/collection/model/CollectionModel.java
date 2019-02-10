@@ -11,6 +11,6 @@ import com.trade.rrenji.net.XUtils.ResultListener;
 
 public interface CollectionModel extends PlusBaseService {
 
-    void getCollectionList(Context mContext, int pageNum, ResultListener resultListener);
+    void getCollectionList(Context mContext, String goodsCode, ResultListener resultListener);
 
 }

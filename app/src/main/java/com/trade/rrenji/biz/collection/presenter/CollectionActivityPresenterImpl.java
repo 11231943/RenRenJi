@@ -34,8 +34,8 @@ public class CollectionActivityPresenterImpl extends BasePresenter<CollectionAct
     }
 
     @Override
-    public void getCollectionList(Context mContext, int pageNum) {
-        mModel.getCollectionList(mContext, pageNum, new XUtils.ResultListener() {
+    public void getCollectionList(Context mContext, String goodsCode) {
+        mModel.getCollectionList(mContext, goodsCode, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
                 try {
