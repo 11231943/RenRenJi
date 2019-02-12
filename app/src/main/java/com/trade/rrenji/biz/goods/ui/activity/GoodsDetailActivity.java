@@ -12,11 +12,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.collection.NetCollectionBean;
 import com.trade.rrenji.bean.goods.NetGoodsDetailBean;
 import com.trade.rrenji.bean.goods.NetGoodsDetailBean.ResultBean.EvaluateListBean;
 import com.trade.rrenji.biz.base.BaseActivity;
+import com.trade.rrenji.biz.collection.presenter.AddCollectionActivityPresenter;
+import com.trade.rrenji.biz.collection.presenter.AddCollectionActivityPresenterImpl;
+import com.trade.rrenji.biz.collection.ui.view.AddCollectionActivityView;
 import com.trade.rrenji.biz.goods.presenter.GoodsActivityPresenter;
 import com.trade.rrenji.biz.goods.presenter.GoodsActivityPresenterImpl;
 import com.trade.rrenji.biz.goods.ui.adapter.GoodsBannerAdapter;
@@ -29,18 +34,19 @@ import com.trade.rrenji.utils.LoopViewPager;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
 
-
 @ContentView(R.layout.goods_datail_layout)
-public class GoodsDetailActivity extends BaseActivity implements GoodsActivityView {
+public class GoodsDetailActivity extends BaseActivity implements GoodsActivityView, AddCollectionActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
 
     GoodsActivityPresenter mPresenter;
+    AddCollectionActivityPresenter mAddCollectionPresenter;
 
     private String mGoodsCode = "";
 
@@ -181,17 +187,47 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     protected void attachPresenter() {
         mPresenter = new GoodsActivityPresenterImpl(this);
         mPresenter.attachView(this);
+        mAddCollectionPresenter = new AddCollectionActivityPresenterImpl(this);
+        mAddCollectionPresenter.attachView(this);
     }
 
     @Override
     protected void detachPresenter() {
         mPresenter.detachView();
         mPresenter = null;
+        mAddCollectionPresenter.detachView();
+        mAddCollectionPresenter = null;
+    }
+
+    @Event(value = {R.id.goods_detail_detail_colloect, R.id.goods_detail_detail_buy})
+    private void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.goods_detail_detail_colloect:
+                mAddCollectionPresenter.addCollection(this, mGoodsCode);
+                break;
+            case R.id.goods_detail_detail_buy:
+                break;
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void addCollection(NetCollectionBean netShareBean) {
+        if (netShareBean.getCode().equals("0")) {
+            Toast.makeText(this, "添加收藏成功!", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "添加收藏失败!", Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
+    @Override
+    public void addCollectionError(int code, String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -203,9 +239,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
         initRecycler(netGoodsDetailBean.getResult().getGoodsPics());
     }
 
-    private void initRecycler(List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> beans){
-        mRecyclerImageAdapter =new RecyclerImageAdapter(this);
-        id_recyclerview.setLayoutManager(new LinearLayoutManager(this){
+    private void initRecycler(List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> beans) {
+        mRecyclerImageAdapter = new RecyclerImageAdapter(this);
+        id_recyclerview.setLayoutManager(new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -219,9 +255,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     public void getGoodsDetailError(int code, String msg) {
 
     }
-    
-    private void initBase(NetGoodsDetailBean.ResultBean resultBean){
-        
+
+    private void initBase(NetGoodsDetailBean.ResultBean resultBean) {
+
         testing_desc.setText(resultBean.getGoodsDesc());
         //标题
         goods_detail_detail_param_name.setText(resultBean.getTitle());
@@ -284,33 +320,33 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
             if (listBeans != null && listBeans.size() > 0) {
                 final EvaluateListBean bean = listBeans.get(0);
 
-                if(!TextUtils.isEmpty(bean.getUserName())){
-                    if(bean.getUserName().endsWith("0")){
+                if (!TextUtils.isEmpty(bean.getUserName())) {
+                    if (bean.getUserName().endsWith("0")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_0, R.drawable.user_default_icon, re_user_image);
-                    }else if(bean.getUserName().endsWith("1")){
+                    } else if (bean.getUserName().endsWith("1")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_1, R.drawable.user_default_icon, re_user_image);
-                    }else if(bean.getUserName().endsWith("2")){
+                    } else if (bean.getUserName().endsWith("2")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_2, R.drawable.user_default_icon, re_user_image);
 
-                    }else if(bean.getUserName().endsWith("3")){
+                    } else if (bean.getUserName().endsWith("3")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_3, R.drawable.user_default_icon, re_user_image);
 
-                    }else if(bean.getUserName().endsWith("4")){
+                    } else if (bean.getUserName().endsWith("4")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_4, R.drawable.user_default_icon, re_user_image);
 
-                    }else if(bean.getUserName().endsWith("5")){
+                    } else if (bean.getUserName().endsWith("5")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_5, R.drawable.user_default_icon, re_user_image);
 
-                    }else if(bean.getUserName().endsWith("6")){
+                    } else if (bean.getUserName().endsWith("6")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_6, R.drawable.user_default_icon, re_user_image);
 
-                    }else if(bean.getUserName().endsWith("7")){
+                    } else if (bean.getUserName().endsWith("7")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_7, R.drawable.user_default_icon, re_user_image);
 
-                    }else if(bean.getUserName().endsWith("8")){
+                    } else if (bean.getUserName().endsWith("8")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_8, R.drawable.user_default_icon, re_user_image);
 
-                    }else if(bean.getUserName().endsWith("9")){
+                    } else if (bean.getUserName().endsWith("9")) {
                         GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_9, R.drawable.user_default_icon, re_user_image);
                     }
                 }
@@ -382,9 +418,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
         }
     }
 
-    private void initViewPage(List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> beans){
-        List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> mCircleAdBeans =beans;
-        GoodsBannerAdapter mSubjectAdAdapter = new GoodsBannerAdapter(this,mLoopViewPager, mCircleAdBeans);
+    private void initViewPage(List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> beans) {
+        List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> mCircleAdBeans = beans;
+        GoodsBannerAdapter mSubjectAdAdapter = new GoodsBannerAdapter(this, mLoopViewPager, mCircleAdBeans);
         mLoopViewPager.setAdapter(mSubjectAdAdapter);
         mIndicator.setViewPager(mLoopViewPager);
 

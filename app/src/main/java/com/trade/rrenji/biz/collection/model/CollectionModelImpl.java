@@ -21,20 +21,26 @@ public class CollectionModelImpl implements CollectionModel {
     }
 
     @Override
-    public void getCollectionList(Context mContext, String goodsCode, XUtils.ResultListener resultListener) {
-        //product/favorite/v1/{sessionKey}/{timestamp}/{goodsCode}/{token}
+    public void getCollectionList(Context mContext, int currentPage, XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.product.favorite.list");
+        String sessionKey = Contetns.sessionKey;
+        long timeStamp = System.currentTimeMillis();
+        String token = "1";
+        url = url + sessionKey + "/" + timeStamp + "/" + currentPage + "/" + token;
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().get(url, params, resultListener);
+    }
+
+    @Override
+    public void addCollection(Context mContext, String goodsCode, XUtils.ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.product.favorite");
         String sessionKey = Contetns.sessionKey;
         long timeStamp = System.currentTimeMillis();
         String token = "1";
         url = url + sessionKey + "/" + timeStamp + "/" + goodsCode + "/" + token;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
-//        paramBuilder.add("sessionKey", "1");
-//        paramBuilder.add("timeStamp", System.currentTimeMillis());
-//        paramBuilder.add("pageNum", pageNum);
-//        paramBuilder.add("token", "1");
         Map<String, String> params = paramBuilder.build();
-        XUtils.getInstance().get(url, params, resultListener);
+        XUtils.getInstance().post(url, params, resultListener);
     }
-
 }

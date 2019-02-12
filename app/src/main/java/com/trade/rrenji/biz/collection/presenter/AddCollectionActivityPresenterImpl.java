@@ -3,41 +3,34 @@ package com.trade.rrenji.biz.collection.presenter;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.trade.rrenji.R;
-import com.trade.rrenji.bean.account.LoginJsonBean;
-import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.collection.NetCollectionBean;
 import com.trade.rrenji.bean.collection.NetCollectionListBean;
-import com.trade.rrenji.biz.account.model.AccountModel;
-import com.trade.rrenji.biz.account.model.AccountModelImpl;
-import com.trade.rrenji.biz.account.ui.view.LoginActivityView;
 import com.trade.rrenji.biz.base.BasePresenter;
 import com.trade.rrenji.biz.collection.model.CollectionModel;
 import com.trade.rrenji.biz.collection.model.CollectionModelImpl;
+import com.trade.rrenji.biz.collection.ui.view.AddCollectionActivityView;
 import com.trade.rrenji.biz.collection.ui.view.CollectionActivityView;
 import com.trade.rrenji.net.XUtils;
 import com.trade.rrenji.utils.Contetns;
-
-import org.json.JSONObject;
 
 /**
  * Created by monster on 8/4/18.
  */
 
-public class CollectionActivityPresenterImpl extends BasePresenter<CollectionActivityView> implements CollectionActivityPresenter {
+public class AddCollectionActivityPresenterImpl extends BasePresenter<AddCollectionActivityView> implements AddCollectionActivityPresenter {
 
     private CollectionModel mModel;
 
     Context mContext;
 
-    public CollectionActivityPresenterImpl(Context context) {
+    public AddCollectionActivityPresenterImpl(Context context) {
         mContext = context;
         mModel = new CollectionModelImpl(context);
     }
 
     @Override
-    public void getCollectionList(Context mContext, int currentPage) {
-        mModel.getCollectionList(mContext, currentPage, new XUtils.ResultListener() {
+    public void addCollection(Context mContext, String goodsCode) {
+        mModel.addCollection(mContext, goodsCode, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
                 try {
@@ -45,14 +38,14 @@ public class CollectionActivityPresenterImpl extends BasePresenter<CollectionAct
                         getActivityView().hideLoading();
                     }
                     Gson gson = new Gson();
-                    final NetCollectionListBean netShareBean = gson.fromJson(result, NetCollectionListBean.class);
+                    final NetCollectionBean netShareBean = gson.fromJson(result, NetCollectionBean.class);
                     if (Integer.valueOf(netShareBean.getCode()) == Contetns.STATE_OK) {
                         if (getActivityView() != null) {
-                            getActivityView().getCollectionListSuccess(netShareBean);
+                            getActivityView().addCollection(netShareBean);
                         }
                     } else {
                         if (getActivityView() != null) {
-                            getActivityView().getCollectionListError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg());
+                            getActivityView().addCollectionError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg());
                         }
                     }
                 } catch (Exception e) {
@@ -62,9 +55,9 @@ public class CollectionActivityPresenterImpl extends BasePresenter<CollectionAct
 
             @Override
             public void onError(Throwable error) {
-                getActivityView().getCollectionListError(-10000, "请求错误");
+                getActivityView().addCollectionError(-10000, "请求错误");
             }
         });
-    }
 
+    }
 }

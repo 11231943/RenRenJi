@@ -1,6 +1,6 @@
 package com.trade.rrenji.biz.collection.ui.view;
 
-import com.trade.rrenji.bean.address.NetAddressBean;
+import com.trade.rrenji.bean.collection.NetCollectionListBean;
 import com.trade.rrenji.biz.base.BaseView;
 
 /**
@@ -9,7 +9,7 @@ import com.trade.rrenji.biz.base.BaseView;
 
 public interface CollectionActivityView extends BaseView {
 
-    void getCollectionList(NetAddressBean netShareBean);
+    void getCollectionListSuccess(NetCollectionListBean netShareBean);
 
     void getCollectionListError(int code, String msg);
 }

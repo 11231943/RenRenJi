@@ -7,6 +7,7 @@ import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.address.NetAddressBean;
+import com.trade.rrenji.bean.collection.NetCollectionListBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.collection.presenter.CollectionActivityPresenter;
 import com.trade.rrenji.biz.collection.presenter.CollectionActivityPresenterImpl;
@@ -29,7 +30,7 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
     CollectionAdapter mCollectionAdapter = null;
 
 
-    private String mGoodsCode = "";
+    private int mPageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
     }
 
     private void loadData() {
-        mPresenter.getCollectionList(this, mGoodsCode);
+        mPresenter.getCollectionList(this, mPageIndex);
     }
 
     @Override
@@ -79,7 +80,7 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
     }
 
     @Override
-    public void getCollectionList(NetAddressBean netShareBean) {
+    public void getCollectionListSuccess(NetCollectionListBean netShareBean) {
 
     }
 
