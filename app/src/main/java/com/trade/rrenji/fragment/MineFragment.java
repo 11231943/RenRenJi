@@ -3,6 +3,7 @@ package com.trade.rrenji.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +78,14 @@ public class MineFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.user_info_layout:
-                intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                if(TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())){
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }else{
+                    intent = new Intent(getActivity(), AccountActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.auth_layout:
                 intent = new Intent(getActivity(), AuthActivity.class);
@@ -86,10 +93,6 @@ public class MineFragment extends Fragment {
                 break;
             case R.id.coupon_layout:
                 intent = new Intent(getActivity(), CouponActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.edit_account:
-                intent = new Intent(getActivity(), AccountActivity.class);
                 startActivity(intent);
                 break;
             case R.id.order_detail_layout:

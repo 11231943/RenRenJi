@@ -10,15 +10,15 @@ import com.trade.rrenji.bean.account.LoginJsonBean;
 public class SettingUtils {
     /**
      * "baichuanPassWord": "renrenji123",
-     * 		"userImg": "",
-     * 		"weChatAuthState": 0,
-     * 		"sessionKey": "11cdf167edab48e9a03351cc1fe16bcc",
-     * 		"phone": "17603009825",
-     * 		"baichuanAccount": "13332959300@139.com",
-     * 		"userName": "雷锋",
-     * 		"message": "已加入人人机5天",
-     * 		"userId": "455",
-     * 		"aliPayAuthState": 0
+     * "userImg": "",
+     * "weChatAuthState": 0,
+     * "sessionKey": "11cdf167edab48e9a03351cc1fe16bcc",
+     * "phone": "17603009825",
+     * "baichuanAccount": "13332959300@139.com",
+     * "userName": "雷锋",
+     * "message": "已加入人人机5天",
+     * "userId": "455",
+     * "aliPayAuthState": 0
      */
     public static final String TAG = "SettingUtils";
     public static final String BAICHUAN_PASSWORD = "baichuanPassWord";
@@ -49,11 +49,12 @@ public class SettingUtils {
     protected SharedPreferences mAppSetting;
 
 
-
     private static SettingUtils sInstance;
+
     public SettingUtils() {
 
     }
+
     public synchronized static SettingUtils getInstance() {
         if (sInstance == null) {
             sInstance = new SettingUtils();
@@ -66,10 +67,10 @@ public class SettingUtils {
         mAppSetting = mContext.getSharedPreferences(NAME_APP_SETTING, Context.MODE_PRIVATE);
     }
 
-    private SharedPreferences getCurrentUserSetting() {
+    public SharedPreferences getCurrentUserSetting() {
         synchronized (KEY_CURRENT_UID) {
             if (mUserSetting == null ||
-                    !TextUtils.equals(getCurrentUid(), mUserSetting.getString(KEY_USER_ID,""))) {
+                    !TextUtils.equals(getCurrentUid(), mUserSetting.getString(KEY_USER_ID, ""))) {
                 String name = NAME_USER_SETTING_PREFIX + getCurrentUid();
                 mUserSetting = mContext.getSharedPreferences(name, Context.MODE_PRIVATE);
             }
@@ -98,6 +99,7 @@ public class SettingUtils {
     public String getBaichuanPassword() {
         return getCurrentUserSetting().getString(BAICHUAN_PASSWORD, "");
     }
+
     public void setUserImg(String userImg) {
         getCurrentUserSetting().edit().putString(USER_IMG, userImg).apply();
     }
@@ -113,6 +115,7 @@ public class SettingUtils {
     public String getSessionkey() {
         return getCurrentUserSetting().getString(SESSIONKEY, "");
     }
+
     public void setPhone(String phone) {
         getCurrentUserSetting().edit().putString(PHONE, phone).apply();
     }
@@ -128,6 +131,7 @@ public class SettingUtils {
     public String getBaichuanAccount() {
         return getCurrentUserSetting().getString(BAICHUAN_ACCOUNT, "");
     }
+
     public void setUsername(String username) {
         getCurrentUserSetting().edit().putString(USERNAME, username).apply();
     }
@@ -135,6 +139,7 @@ public class SettingUtils {
     public String getUsername() {
         return getCurrentUserSetting().getString(USERNAME, "");
     }
+
     public void setMessage(String message) {
         getCurrentUserSetting().edit().putString(MESSAGE, message).apply();
     }
@@ -160,7 +165,7 @@ public class SettingUtils {
         return getCurrentUserSetting().getString(WECHAT_AUTH_STATE, "");
     }
 
-    public void saveMineInfo(LoginJsonBean.DataBean dataBean){
+    public void saveMineInfo(LoginJsonBean.DataBean dataBean) {
         setCurrentUid(dataBean.getUserId());
 
         setBaichuanAccount(dataBean.getBaichuanAccount());
@@ -171,8 +176,8 @@ public class SettingUtils {
         setUserImg(dataBean.getUserImg());
         setUsername(dataBean.getUserName());
         setCurrentUid(dataBean.getUserId());
-        setWechatAuthState(dataBean.getWeChatAuthState()+"");
-        setAlipayAuthState(dataBean.getAliPayAuthState()+"");
+        setWechatAuthState(dataBean.getWeChatAuthState() + "");
+        setAlipayAuthState(dataBean.getAliPayAuthState() + "");
 //        SharedPreferences.Editor editor = getCurrentUserSetting().edit();
 //        editor.putString(USERNAME,dataBean.getUserName());
 //        editor.putString(USER_IMG,dataBean.getUserImg());
@@ -185,5 +190,12 @@ public class SettingUtils {
 //        editor.putInt(WECHAT_AUTH_STATE,dataBean.getWeChatAuthState());
 //        editor.putInt(ALIPAY_AUTH_STATE,dataBean.getAliPayAuthState());
 //        editor.apply();
+    }
+
+    public void clear() {
+        setCurrentUid("");
+        SharedPreferences.Editor editor = getCurrentUserSetting().edit();
+        editor.clear();
+        editor.commit();
     }
 }
