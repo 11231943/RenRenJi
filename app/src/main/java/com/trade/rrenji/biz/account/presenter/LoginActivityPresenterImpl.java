@@ -83,13 +83,13 @@ public class LoginActivityPresenterImpl extends BasePresenter<LoginActivityView>
                     }
                     Gson gson = new Gson();
                     final LoginJsonBean jsonData = gson.fromJson(result, LoginJsonBean.class);
-                    if (jsonData.getCode() == Contetns.STATE_OK) {
+                    if (jsonData.getCode() .equals(Contetns.RESPONSE_OK)) {
                         if (getActivityView() != null) {
                             getActivityView().loginSuccess(jsonData);
                         }
                     } else {
                         if (getActivityView() != null) {
-                            getActivityView().loginError(jsonData.getCode(), jsonData.getMsg());
+                            getActivityView().loginError(-1000, "登陆出错！");
                         }
                     }
                 } catch (Exception e) {

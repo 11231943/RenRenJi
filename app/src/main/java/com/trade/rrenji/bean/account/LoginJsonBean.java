@@ -6,24 +6,19 @@ package com.trade.rrenji.bean.account;
 
 public class LoginJsonBean {
 
-    @Override
-    public String toString() {
-        return "LoginJsonBean{" +
-                "code=" + code +
-                ", data=" + data +
-                ", msg='" + msg + '\'' +
-                '}';
-    }
+    /**
+     * code : 0
+     * data : {"baichuanPassWord":"renrenji123","userImg":"","weChatAuthState":0,"sessionKey":"11cdf167edab48e9a03351cc1fe16bcc","phone":"17603009825","baichuanAccount":"13332959300@139.com","userName":"雷锋","message":"已加入人人机5天","userId":"455","aliPayAuthState":0}
+     */
 
-    private int code;
+    private String code;
     private DataBean data;
-    private String msg;
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -35,180 +30,61 @@ public class LoginJsonBean {
         this.data = data;
     }
 
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
     public static class DataBean {
+        /**
+         * baichuanPassWord : renrenji123
+         * userImg :
+         * weChatAuthState : 0
+         * sessionKey : 11cdf167edab48e9a03351cc1fe16bcc
+         * phone : 17603009825
+         * baichuanAccount : 13332959300@139.com
+         * userName : 雷锋
+         * message : 已加入人人机5天
+         * userId : 455
+         * aliPayAuthState : 0
+         */
 
-        private int age;
-        private String birthday;
-        private String constellation;
-        private String create_time;
-        private String easemob_id;
-        private int follow;
-        private int gender;
-        private String height;
-        private int id;
-        private String income;
-        private int is_effective;
-        private int is_first_login;
-        private int is_register_easemob;
-        private int job_id;
-        private String job_name;
-        private String login_time;
-        private int login_type;
+        private String baichuanPassWord;
+        private String userImg;
+        private int weChatAuthState;
+        private String sessionKey;
         private String phone;
-        private String pic;
-        private String qq_open_id;
-        private int state;
-        private String tag_ids;
-        private String tags;
-        private int to_follow;
-        private String token;
-        private String user_name;
-        private String weight;
-        private String wx_open_id;
-        private String wb_open_id;
+        private String baichuanAccount;
+        private String userName;
+        private String message;
+        private String userId;
+        private int aliPayAuthState;
 
-        public int getAge() {
-            return age;
+        public String getBaichuanPassWord() {
+            return baichuanPassWord;
         }
 
-        public void setAge(int age) {
-            this.age = age;
+        public void setBaichuanPassWord(String baichuanPassWord) {
+            this.baichuanPassWord = baichuanPassWord;
         }
 
-        public String getBirthday() {
-            return birthday;
+        public String getUserImg() {
+            return userImg;
         }
 
-        public void setBirthday(String birthday) {
-            this.birthday = birthday;
+        public void setUserImg(String userImg) {
+            this.userImg = userImg;
         }
 
-        public String getConstellation() {
-            return constellation;
+        public int getWeChatAuthState() {
+            return weChatAuthState;
         }
 
-        public void setConstellation(String constellation) {
-            this.constellation = constellation;
+        public void setWeChatAuthState(int weChatAuthState) {
+            this.weChatAuthState = weChatAuthState;
         }
 
-        public String getCreate_time() {
-            return create_time;
+        public String getSessionKey() {
+            return sessionKey;
         }
 
-        public void setCreate_time(String create_time) {
-            this.create_time = create_time;
-        }
-
-        public String getEasemob_id() {
-            return easemob_id;
-        }
-
-        public void setEasemob_id(String easemob_id) {
-            this.easemob_id = easemob_id;
-        }
-
-        public int getFollow() {
-            return follow;
-        }
-
-        public void setFollow(int follow) {
-            this.follow = follow;
-        }
-
-        public int getGender() {
-            return gender;
-        }
-
-        public void setGender(int gender) {
-            this.gender = gender;
-        }
-
-        public String getHeight() {
-            return height;
-        }
-
-        public void setHeight(String height) {
-            this.height = height;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getIncome() {
-            return income;
-        }
-
-        public void setIncome(String income) {
-            this.income = income;
-        }
-
-        public int getIs_effective() {
-            return is_effective;
-        }
-
-        public void setIs_effective(int is_effective) {
-            this.is_effective = is_effective;
-        }
-
-        public int getIs_first_login() {
-            return is_first_login;
-        }
-
-        public void setIs_first_login(int is_first_login) {
-            this.is_first_login = is_first_login;
-        }
-
-        public int getIs_register_easemob() {
-            return is_register_easemob;
-        }
-
-        public void setIs_register_easemob(int is_register_easemob) {
-            this.is_register_easemob = is_register_easemob;
-        }
-
-        public int getJob_id() {
-            return job_id;
-        }
-
-        public void setJob_id(int job_id) {
-            this.job_id = job_id;
-        }
-
-        public String getJob_name() {
-            return job_name;
-        }
-
-        public void setJob_name(String job_name) {
-            this.job_name = job_name;
-        }
-
-        public String getLogin_time() {
-            return login_time;
-        }
-
-        public void setLogin_time(String login_time) {
-            this.login_time = login_time;
-        }
-
-        public int getLogin_type() {
-            return login_type;
-        }
-
-        public void setLogin_type(int login_type) {
-            this.login_type = login_type;
+        public void setSessionKey(String sessionKey) {
+            this.sessionKey = sessionKey;
         }
 
         public String getPhone() {
@@ -219,127 +95,44 @@ public class LoginJsonBean {
             this.phone = phone;
         }
 
-        public String getPic() {
-            return pic;
+        public String getBaichuanAccount() {
+            return baichuanAccount;
         }
 
-        public void setPic(String pic) {
-            this.pic = pic;
+        public void setBaichuanAccount(String baichuanAccount) {
+            this.baichuanAccount = baichuanAccount;
         }
 
-        public String getQq_open_id() {
-            return qq_open_id;
+        public String getUserName() {
+            return userName;
         }
 
-        public void setQq_open_id(String qq_open_id) {
-            this.qq_open_id = qq_open_id;
+        public void setUserName(String userName) {
+            this.userName = userName;
         }
 
-        public int getState() {
-            return state;
+        public String getMessage() {
+            return message;
         }
 
-        public void setState(int state) {
-            this.state = state;
+        public void setMessage(String message) {
+            this.message = message;
         }
 
-        public String getTag_ids() {
-            return tag_ids;
+        public String getUserId() {
+            return userId;
         }
 
-        public void setTag_ids(String tag_ids) {
-            this.tag_ids = tag_ids;
+        public void setUserId(String userId) {
+            this.userId = userId;
         }
 
-        public String getTags() {
-            return tags;
+        public int getAliPayAuthState() {
+            return aliPayAuthState;
         }
 
-        public void setTags(String tags) {
-            this.tags = tags;
-        }
-
-        public int getTo_follow() {
-            return to_follow;
-        }
-
-        public void setTo_follow(int to_follow) {
-            this.to_follow = to_follow;
-        }
-
-        public String getToken() {
-            return token;
-        }
-
-        public void setToken(String token) {
-            this.token = token;
-        }
-
-        public String getUser_name() {
-            return user_name;
-        }
-
-        public void setUser_name(String user_name) {
-            this.user_name = user_name;
-        }
-
-        public String getWeight() {
-            return weight;
-        }
-
-        public void setWeight(String weight) {
-            this.weight = weight;
-        }
-
-        public String getWx_open_id() {
-            return wx_open_id;
-        }
-
-        public void setWx_open_id(String wx_open_id) {
-            this.wx_open_id = wx_open_id;
-        }
-
-        public String getWb_open_id() {
-            return wb_open_id;
-        }
-
-        public void setWb_open_id(String wb_open_id) {
-            this.wb_open_id = wb_open_id;
-        }
-
-        @Override
-        public String toString() {
-            return "DataBean{" +
-                    "age=" + age +
-                    ", birthday='" + birthday + '\'' +
-                    ", constellation='" + constellation + '\'' +
-                    ", create_time='" + create_time + '\'' +
-                    ", easemob_id='" + easemob_id + '\'' +
-                    ", follow=" + follow +
-                    ", gender=" + gender +
-                    ", height='" + height + '\'' +
-                    ", id=" + id +
-                    ", income='" + income + '\'' +
-                    ", is_effective=" + is_effective +
-                    ", is_first_login=" + is_first_login +
-                    ", is_register_easemob=" + is_register_easemob +
-                    ", job_id=" + job_id +
-                    ", job_name='" + job_name + '\'' +
-                    ", login_time='" + login_time + '\'' +
-                    ", login_type=" + login_type +
-                    ", phone='" + phone + '\'' +
-                    ", pic='" + pic + '\'' +
-                    ", qq_open_id='" + qq_open_id + '\'' +
-                    ", state=" + state +
-                    ", tag_ids='" + tag_ids + '\'' +
-                    ", tags='" + tags + '\'' +
-                    ", to_follow=" + to_follow +
-                    ", token='" + token + '\'' +
-                    ", user_name='" + user_name + '\'' +
-                    ", weight='" + weight + '\'' +
-                    ", wx_open_id='" + wx_open_id + '\'' +
-                    ", wb_open_id='" + wb_open_id + '\'' +
-                    '}';
+        public void setAliPayAuthState(int aliPayAuthState) {
+            this.aliPayAuthState = aliPayAuthState;
         }
     }
 }

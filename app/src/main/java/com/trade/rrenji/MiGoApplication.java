@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
 import com.trade.rrenji.utils.ConfigUtils;
+import com.trade.rrenji.utils.SettingUtils;
 
 import org.xutils.x;
 
@@ -30,5 +31,6 @@ public class MiGoApplication extends MultiDexApplication {
         x.Ext.init(this);
         x.Ext.setDebug(true);
         ConfigUtils.getInstance().init(this, R.raw.app_config);
+        SettingUtils.getInstance().init(this);
     }
 }

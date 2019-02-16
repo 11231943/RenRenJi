@@ -120,11 +120,11 @@ public class ServiceHelper {
         }
 
         public Map<String, String> build() {
-            mParams.put("lon", "");
-            mParams.put("lat", "");
-            mParams.put("devType", "0");//0Android  1IOS
-            String sign = getSign();
-            mParams.put("sign", sign);
+//            mParams.put("lon", "");
+//            mParams.put("lat", "");
+//            mParams.put("devType", "0");//0Android  1IOS
+//            String sign = getSign();
+//            mParams.put("sign", sign);
             return mParams;
         }
 

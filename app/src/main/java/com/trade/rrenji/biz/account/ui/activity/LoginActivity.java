@@ -11,22 +11,24 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import  com.trade.rrenji.R;
-import  com.trade.rrenji.bean.account.LoginJsonBean;
-import  com.trade.rrenji.biz.account.presenter.LoginActivityPresenter;
-import  com.trade.rrenji.biz.account.presenter.LoginActivityPresenterImpl;
-import  com.trade.rrenji.biz.account.ui.view.LoginActivityView;
-import  com.trade.rrenji.biz.base.BaseActivity;
-import  com.trade.rrenji.biz.base.ProgressView;
-import  com.trade.rrenji.utils.Contetns;
-import  com.trade.rrenji.utils.SharedPreferencesUtil;
+import com.trade.rrenji.R;
+import com.trade.rrenji.bean.account.LoginJsonBean;
+import com.trade.rrenji.biz.account.presenter.LoginActivityPresenter;
+import com.trade.rrenji.biz.account.presenter.LoginActivityPresenterImpl;
+import com.trade.rrenji.biz.account.ui.view.LoginActivityView;
+import com.trade.rrenji.biz.base.BaseActivity;
+import com.trade.rrenji.biz.base.ProgressView;
+import com.trade.rrenji.utils.SettingUtils;
+
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+
+import java.util.UUID;
+
 /**
  * Created by monster on 8/4/18.
  */
@@ -103,7 +105,7 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
         mLoginCode.addTextChangedListener(textChangeL);
     }
 
-    @Event(value = {R.id.btn_get_code_ac_login})
+    @Event(value = {R.id.btn_get_code_ac_login, R.id.login})
     private void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_get_code_ac_login:
@@ -133,9 +135,11 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
     private void login() {
         String login_name = mLoginPhone.getText().toString().trim();
         String login_code = mLoginCode.getText().toString().trim();
-        final String mDeviceId = (String) SharedPreferencesUtil.getParam(this, Contetns.DEVICE_ID, "");
-        String mChannelId = SharedPreferencesUtil.getChannelId();
-        mPresenter.login(this, login_name, login_code, mDeviceId, mChannelId);
+//        final String mDeviceId = (String) SharedPreferencesUtil.getParam(this, Contetns.DEVICE_ID, "1");
+//        String mChannelId = SharedPreferencesUtil.getChannelId();
+        UUID uuid = UUID.randomUUID();
+        String rand = uuid.toString().replaceAll("-", "").substring(10, 26);
+        mPresenter.login(this, login_name, login_code, "1", rand);
     }
 
     @Override
@@ -182,7 +186,12 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
     @Override
     public void loginSuccess(LoginJsonBean jsonBean) {
         Log.d("loginSuccess", jsonBean.toString());
-        Toast.makeText(LoginActivity.this, "loginSuccess : " + jsonBean.getData().getUser_name(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(LoginActivity.this, "loginSuccess : " + jsonBean.getData().toString(), Toast.LENGTH_SHORT).show();
+
+        if (jsonBean.getCode().equals("0")) {
+            SettingUtils.getInstance().saveMineInfo(jsonBean.getData());
+            finish();
+        }
     }
 
     @Override
@@ -193,7 +202,7 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
 
     @Override
     public void getVerifyCodeSuccess() {
-
+        Toast.makeText(this, "获取验证码成功！", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.account.ui.activity.AccountActivity;
 import com.trade.rrenji.biz.account.ui.activity.LoginActivity;
@@ -17,10 +20,12 @@ import com.trade.rrenji.biz.coupon.ui.activity.CouponActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderAllActivity;
 import com.trade.rrenji.biz.setting.ui.SettingActivity;
+import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 /**
@@ -30,16 +35,32 @@ import org.xutils.x;
 @ContentView(R.layout.fragment_mine)
 public class MineFragment extends Fragment {
 
+    @ViewInject(R.id.user_avatar)
+    public ImageView user_avatar;
+
+    @ViewInject(R.id.user_name)
+    public TextView user_name;
+
+    @ViewInject(R.id.user_phone)
+    public TextView user_phone;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = x.view().inject(this, inflater, container);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mine_red);
+        init();
         return rootView;
     }
 
-    @Event(value = {R.id.address_layout, R.id.collection_layout, R.id.user_setting,R.id.user_info_layout,R.id.auth_layout
-    ,R.id.coupon_layout,R.id.edit_account,R.id.order_detail_layout,R.id.pre_order_layout})
+    private void init() {
+        user_name.setText(SettingUtils.getInstance().getUsername());
+        user_phone.setText(SettingUtils.getInstance().getPhone());
+    }
+
+    @Event(value = {R.id.address_layout, R.id.collection_layout, R.id.user_setting, R.id.user_info_layout, R.id.auth_layout
+            , R.id.coupon_layout, R.id.edit_account, R.id.order_detail_layout, R.id.pre_order_layout})
     private void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
