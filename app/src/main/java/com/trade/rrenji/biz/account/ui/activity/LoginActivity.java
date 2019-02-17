@@ -2,6 +2,7 @@ package com.trade.rrenji.biz.account.ui.activity;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -96,8 +97,15 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
             public void afterTextChanged(Editable s) {
                 if (mLoginPhone.getText().toString().trim().isEmpty() || mLoginCode.getText().toString().trim().isEmpty()) {
                     mLoginButton.setSelected(false);
+                    mLoginButton.setEnabled(false);
+                    mLoginButton.setBackgroundResource(R.drawable.login_status_normal_bg);
                 } else {
-                    mLoginButton.setSelected(true);
+                    if (mLoginPhone.getText().toString().trim().length() == 11 && mLoginCode.getText().toString().trim().length() >= 6) {
+                        mLoginButton.setSelected(true);
+                        mLoginButton.setEnabled(true);
+                        mLoginButton.setBackgroundResource(R.drawable.login_status_pre_bg);
+                    }
+
                 }
             }
         };

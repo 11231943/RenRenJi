@@ -46,18 +46,42 @@ public class MineFragment extends Fragment {
     public TextView user_phone;
 
 
+    @ViewInject(R.id.login_not)
+    public TextView login_not;
+
+    @ViewInject(R.id.edit_account)
+    public TextView edit_account;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = x.view().inject(this, inflater, container);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.mine_red);
-        init();
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        init();
+    }
+
     private void init() {
-        user_name.setText(SettingUtils.getInstance().getUsername());
-        user_phone.setText(SettingUtils.getInstance().getPhone());
+        if(TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())){
+            login_not.setVisibility(View.VISIBLE);
+            edit_account.setVisibility(View.GONE);
+            user_name.setVisibility(View.GONE);
+            user_phone.setVisibility(View.GONE);
+        }else{
+            edit_account.setVisibility(View.VISIBLE);
+            user_name.setVisibility(View.VISIBLE);
+            user_phone.setVisibility(View.VISIBLE);
+            login_not.setVisibility(View.GONE);
+            user_name.setText(SettingUtils.getInstance().getUsername());
+            user_phone.setText(SettingUtils.getInstance().getPhone());
+        }
     }
 
     @Event(value = {R.id.address_layout, R.id.collection_layout, R.id.user_setting, R.id.user_info_layout, R.id.auth_layout

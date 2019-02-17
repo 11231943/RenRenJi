@@ -71,7 +71,7 @@ public class AccountModelImpl implements AccountModel {
         loginBean.setDeviceCode(channel_id);
         loginBean.setDeviceType(device);
         loginBean.setSmsCode(code);
-        RequestParams requestParams = new RequestParams(url+"/"+timeStamp);
+        RequestParams requestParams = new RequestParams(url+timeStamp);
         requestParams.setAsJsonContent(true);
         requestParams.setBodyContent(GsonUtils.getGson().toJson(loginBean));
         x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {

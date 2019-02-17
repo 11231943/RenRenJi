@@ -30,8 +30,6 @@ public class SettingActivity extends BaseActivity {
     private void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_out:
-
-
                 new AlertDialog.Builder(this)
                         .setMessage("是否退出人人机？")
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -42,7 +40,6 @@ public class SettingActivity extends BaseActivity {
                         })
                         .setNegativeButton(R.string.cancel, null)
                         .show();
-
                 break;
         }
     }

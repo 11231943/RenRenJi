@@ -151,6 +151,7 @@
         android:background="@drawable/login_status_normal_bg"
         android:gravity="center"
         android:text="登录"
+        android:enabled="false"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
 
