@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/webviewBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <ProgressBar
+        android:id="@+id/loading_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="1dip"
+        android:indeterminateOnly="false"
+        android:max="100"
+        android:maxHeight="3dip"
+        android:minHeight="3dip"
+        android:progress="0"
+        android:progressDrawable="@drawable/webview_progress_style" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/loading_progressBar">
+
+        <com.trade.rrenji.biz.ad.NonLeakingWebView
+            android:id="@+id/pay_webview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/loading_progressBar" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/close_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/close_view"
+        android:visibility="gone" />
+
+</RelativeLayout>

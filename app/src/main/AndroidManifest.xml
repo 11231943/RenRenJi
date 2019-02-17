@@ -47,6 +47,11 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name=".biz.ad.AdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".biz.auth.ui.AuthActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -64,20 +69,25 @@
             android:name=".biz.order.ui.activity.OrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".biz.photo.ShowPhotosActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
         <activity
             android:name=".biz.order.ui.activity.OrderAllActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".biz.goods.ui.activity.GoodsDetailActivity"
+        <activity
+            android:name=".biz.goods.ui.activity.GoodsDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
 
-        <activity android:name=".biz.address.ui.activity.UpdateAddressActivity"
+        <activity
+            android:name=".biz.address.ui.activity.UpdateAddressActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

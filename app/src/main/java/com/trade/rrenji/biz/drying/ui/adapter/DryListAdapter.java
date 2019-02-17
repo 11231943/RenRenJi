@@ -1,6 +1,7 @@
 package com.trade.rrenji.biz.drying.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.trade.rrenji.R;
 import com.trade.rrenji.bean.drying.DryingOrdersBean;
 import com.trade.rrenji.bean.drying.NetShareBean;
 import com.trade.rrenji.bean.drying.SharePicturesBean;
+import com.trade.rrenji.biz.photo.ShowPhotosActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;
 
@@ -61,7 +63,7 @@ public class DryListAdapter extends RecyclerListAdapter<NetShareBean.ResultBean.
             dry_time = (TextView) itemView.findViewById(R.id.dry_time);
             dry_pic_recycler_view = (RecyclerView) itemView.findViewById(R.id.dry_pic_recycler_view);
             dry_pic_recycler_view.setHasFixedSize(true);
-            dry_pic_recycler_view.setLayoutManager(new GridLayoutManager(mContext,3));
+            dry_pic_recycler_view.setLayoutManager(new GridLayoutManager(mContext, 3));
             dry_pic_recycler_view.addItemDecoration(new GridSpacingDecoration(20, 20));
         }
 
@@ -75,7 +77,7 @@ public class DryListAdapter extends RecyclerListAdapter<NetShareBean.ResultBean.
             dry_content.setText(data.getComment());
             dry_time.setText(data.getShareTime());
 
-            CategoryAdapter categoryAdapter =new CategoryAdapter(data.getSharePictures());
+            CategoryAdapter categoryAdapter = new CategoryAdapter(data.getSharePictures());
             dry_pic_recycler_view.setAdapter(categoryAdapter);
         }
     }
@@ -84,8 +86,18 @@ public class DryListAdapter extends RecyclerListAdapter<NetShareBean.ResultBean.
 
         List<NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean> mCategoryBeans;
 
+        private String[] mPhoto = null;
+
         public CategoryAdapter(List<NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean> maleBeans) {
             mCategoryBeans = maleBeans;
+            initPhotos(mCategoryBeans);
+        }
+
+        private void initPhotos(List<NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean> maleBeans) {
+            mPhoto = new String[maleBeans.size()];
+            for (int i = 0; i < maleBeans.size(); i++) {
+                mPhoto[i] = maleBeans.get(i).getLargePic();
+            }
         }
 
         public void setCategoryBeans(List<NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean> categoryBeans) {
@@ -101,10 +113,20 @@ public class DryListAdapter extends RecyclerListAdapter<NetShareBean.ResultBean.
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
             final NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean maleBean = mCategoryBeans.get(position);
             GlideUtils.getInstance().loadRFeIamge(mContext, maleBean.getLargePic(), R.drawable.ic_launcher, viewHolder.mImageView);
+            viewHolder.mImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ShowPhotosActivity.class);
+                    intent.putExtra("photo", mPhoto);
+                    intent.putExtra("mPostion", position);
+                    mContext.startActivity(intent);
+                }
+            });
+
         }
 
         @Override
