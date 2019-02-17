@@ -37,7 +37,7 @@ public class HomeActivityPresenterImpl extends BasePresenter<HomeActivityView> i
                     }
                     Gson gson = new Gson();
                     final NetHomeBean netShareBean = gson.fromJson(result, NetHomeBean.class);
-                    if (Integer.valueOf(netShareBean.getCode()) == 200) {
+                    if (Integer.valueOf(netShareBean.getCode()) == 0) {
                         if (getActivityView() != null) {
                             getActivityView().getHomeList(netShareBean);
                         }

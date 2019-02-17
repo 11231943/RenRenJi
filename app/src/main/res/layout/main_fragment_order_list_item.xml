@@ -9,8 +9,9 @@
 
     <ImageView
         android:id="@+id/user_avatar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="45dp"
+        android:layout_marginTop="2dp"
+        android:layout_height="45dp"
         android:src="@drawable/collection" />
 
     <TextView
@@ -18,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="1dp"
         android:layout_toRightOf="@+id/user_avatar"
         android:text="17603009825"
         android:textColor="#000"

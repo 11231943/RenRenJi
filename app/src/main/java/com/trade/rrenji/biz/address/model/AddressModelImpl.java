@@ -8,6 +8,7 @@ import com.trade.rrenji.net.XUtils;
 import com.trade.rrenji.net.XUtils.ResultListener;
 import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.GsonUtils;
+import com.trade.rrenji.utils.SettingUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.http.HttpMethod;
@@ -28,10 +29,9 @@ public class AddressModelImpl implements AddressModel {
     public void getAddressList(Context mContext, int pageNum, ResultListener resultListener) {
         //{sessionKey}/{timeStamp}/{pageNum}/{token}";
         String url = ServiceHelper.buildUrl("api.v2.address.list");
-        String sessionKey = Contetns.sessionKey;
         long timeStamp = System.currentTimeMillis();
         String token = "1";
-        url = url + sessionKey + "/" + timeStamp + "/" + pageNum + "/" + token;
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + pageNum + "/" + token;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
 //        paramBuilder.add("sessionKey", "1");
 //        paramBuilder.add("timeStamp", System.currentTimeMillis());
@@ -44,10 +44,9 @@ public class AddressModelImpl implements AddressModel {
     @Override
     public void delAddress(Context mContext, String addressId,final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.address.del");
-        String sessionKey = Contetns.sessionKey;
         long timeStamp = System.currentTimeMillis();
         String token = "1";
-        url = url + sessionKey + "/" + timeStamp+ "/" + addressId + "/" + token;
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp+ "/" + addressId + "/" + token;
         RequestParams requestParams = new RequestParams(url);
         x.http().request(HttpMethod.DELETE,requestParams, new Callback.CommonCallback<String>() {
             @Override
@@ -75,10 +74,10 @@ public class AddressModelImpl implements AddressModel {
     @Override
     public void updateAddress(Context mContext, int type, UserAddressCurd addressCurd,final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.address.operate");
-        String sessionKey = Contetns.sessionKey;
+
         long timeStamp = System.currentTimeMillis();
         String token = "1";
-        url = url + sessionKey + "/" + timeStamp + "/" + token;
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + token;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
 //        paramBuilder.add("addressId", addressCurd.getAddressId())
 //                .add("city", addressCurd.getCity())

@@ -116,6 +116,15 @@ public class SettingUtils {
         return getCurrentUserSetting().getString(SESSIONKEY, "");
     }
 
+    public String getSessionkeyString() {
+        String sessionkey = "-1";
+        if (TextUtils.isEmpty(getSessionkey())) {
+            return sessionkey;
+        } else {
+            return getSessionkey();
+        }
+    }
+
     public void setPhone(String phone) {
         getCurrentUserSetting().edit().putString(PHONE, phone).apply();
     }

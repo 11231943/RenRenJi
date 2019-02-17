@@ -13,7 +13,7 @@ public class Contetns {
     public static String DEVICE_ID = "mDeviceId";
 
 //    public static String sessionKey = "90574927cfe448a4924496d9d1a38c1b";
-    public static String sessionKey = SettingUtils.getInstance().getSessionkey();
+//    public static String sessionKey = SettingUtils.getInstance().getSessionkey();
 
     //http://112.124.98.145:8080/api/rs/address/list/v1/90574927cfe448a4924496d9d1a38c1b/-9223372035305833421/1/test
 

@@ -32,7 +32,7 @@ public class CategoryActivityPresenterImpl extends BasePresenter<CategoryActivit
                     }
                     Gson gson = new Gson();
                     final NetCategoryBean netShareBean = gson.fromJson(result, NetCategoryBean.class);
-                    if (Integer.valueOf(netShareBean.getCode()) == 200) {
+                    if (Integer.valueOf(netShareBean.getCode()) == 0) {
                         if (getActivityView() != null) {
                             getActivityView().getCategorySuccess(netShareBean);
                         }
