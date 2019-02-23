@@ -10,7 +10,7 @@ import  com.trade.rrenji.bean.account.LoginJsonBean;
 import  com.trade.rrenji.biz.account.model.AccountModel;
 import  com.trade.rrenji.biz.account.model.AccountModelImpl;
 import  com.trade.rrenji.biz.account.ui.view.LoginActivityView;
-import  com.trade.rrenji.biz.base.BasePresenter;
+import com.trade.rrenji.biz.base.BasePresenter;
 import  com.trade.rrenji.net.XUtils;
 import  com.trade.rrenji.utils.Contetns;
 

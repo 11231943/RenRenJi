@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.collection.NetCollectionListBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.collection.presenter.CollectionActivityPresenter;
@@ -14,9 +13,12 @@ import com.trade.rrenji.biz.collection.presenter.CollectionActivityPresenterImpl
 import com.trade.rrenji.biz.collection.ui.adapter.CollectionAdapter;
 import com.trade.rrenji.biz.collection.ui.view.CollectionActivityView;
 import com.trade.rrenji.fragment.DryingTabFragment;
+import com.trade.rrenji.utils.Contetns;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
+
+import java.util.List;
 
 
 @ContentView(R.layout.base_activity_super_recyclerview)
@@ -30,7 +32,7 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
     CollectionAdapter mCollectionAdapter = null;
 
 
-    private int mPageIndex = 0;
+    private int mPageIndex = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +83,16 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
 
     @Override
     public void getCollectionListSuccess(NetCollectionListBean netShareBean) {
-
+        if (mPageIndex == 1) {
+            if (mCollectionAdapter != null) {
+                mCollectionAdapter.clear();
+            }
+        }
+        List<NetCollectionListBean.ResultBean> listBeans = netShareBean.getResult();
+        mSuperRecyclerView.finishRefreshing();
+        mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(listBeans.size()));
+        mSuperRecyclerView.finishMore(!Contetns.hasMoreData(listBeans.size()));
+        mCollectionAdapter.addAll(listBeans);
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenter;

@@ -1,7 +1,6 @@
 package com.trade.rrenji.biz.address.ui.view;
 
 import com.trade.rrenji.bean.address.AddressUpdateBean;
-import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.biz.base.BaseView;
 
 /**

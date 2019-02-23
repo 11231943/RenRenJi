@@ -38,7 +38,7 @@ public class CategoryActivityPresenterImpl extends BasePresenter<CategoryActivit
                         }
                     } else {
                         if (getActivityView() != null) {
-                            getActivityView().getCategoryCodeError(Integer.valueOf(netShareBean.getCode()), netShareBean.getErrorMsg()+"");
+                            getActivityView().getCategoryCodeError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg()+"");
                         }
                     }
                 } catch (Exception e) {

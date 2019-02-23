@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.base.BaseFragment;
-import com.trade.rrenji.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.x;

@@ -3,7 +3,6 @@ package com.trade.rrenji.biz.drying.presenter;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.trade.rrenji.bean.account.LoginJsonBean;
 import com.trade.rrenji.bean.drying.NetShareBean;
 import com.trade.rrenji.biz.base.BasePresenter;
 import com.trade.rrenji.biz.drying.model.DryModel;

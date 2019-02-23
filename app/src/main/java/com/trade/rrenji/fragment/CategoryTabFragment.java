@@ -1,7 +1,6 @@
 package com.trade.rrenji.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
-import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.category.CategoryBean;
 import com.trade.rrenji.bean.category.NetCategoryBean;
@@ -20,7 +17,6 @@ import com.trade.rrenji.biz.category.presenter.CategoryActivityPresenterImpl;
 import com.trade.rrenji.biz.category.ui.apater.LeftCategoryAdapter;
 import com.trade.rrenji.biz.category.ui.apater.RightCategoryAdapter;
 import com.trade.rrenji.biz.category.ui.view.CategoryActivityView;
-import com.trade.rrenji.biz.drying.presenter.DryActivityPresenterImpl;
 import com.trade.rrenji.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ContentView;

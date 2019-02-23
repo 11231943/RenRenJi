@@ -20,6 +20,7 @@ import com.trade.rrenji.biz.address.ui.adapter.AddressAdminAdapter;
 import com.trade.rrenji.biz.address.ui.view.AddressActivityView;
 import com.trade.rrenji.biz.address.ui.view.DelAddressActivityView;
 import com.trade.rrenji.biz.base.BaseActivity;
+
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.Contetns;
 

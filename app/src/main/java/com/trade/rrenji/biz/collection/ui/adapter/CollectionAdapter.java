@@ -13,8 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.address.NetAddressBean.ResultBean.AddressListBean;
+import com.trade.rrenji.bean.collection.NetCollectionListBean;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
+import com.trade.rrenji.utils.GlideUtils;
 
 import java.util.List;
 
@@ -22,7 +25,7 @@ import java.util.List;
 /**
  * Created by wheat on 16/1/14.
  */
-public class CollectionAdapter extends RecyclerListAdapter<AddressListBean> {
+public class CollectionAdapter extends RecyclerListAdapter<NetCollectionListBean.ResultBean> {
 
     private static final int ACTION_DEFAULT = 0;
 
@@ -49,9 +52,9 @@ public class CollectionAdapter extends RecyclerListAdapter<AddressListBean> {
     }
 
     public void removeAddressAdmin(String packId) {
-        List<AddressListBean> beans = getDataSet();
-        for (AddressListBean bean : beans) {
-            if (TextUtils.equals(bean.getAddressId(), packId)) {
+        List<NetCollectionListBean.ResultBean> beans = getDataSet();
+        for (NetCollectionListBean.ResultBean bean : beans) {
+            if (TextUtils.equals(bean.getId(), packId)) {
                 remove(bean);
                 break;
             }
@@ -65,83 +68,41 @@ public class CollectionAdapter extends RecyclerListAdapter<AddressListBean> {
 
     public class AddressViewHolder extends ViewHolder {
 
-        TextView address_name;
-        TextView address_phone;
-        TextView address;
-
-
-        LinearLayout address_edit_layout;
-        LinearLayout address_del_layout;
-
-        ImageView default_img;
-        TextView set_default_address_text;
-        LinearLayout set_default_address;
+        TextView order_name;
+        TextView order_id;
+        TextView order_time;
+        ImageView order_image;
+        TextView order_price;
+        TextView order_mun;
+        TextView cancel_collection;
 
         public AddressViewHolder(View itemView) {
             super(itemView);
-
-            address_edit_layout = (LinearLayout) itemView.findViewById(R.id.address_edit_layout);
-            address_del_layout = (LinearLayout) itemView.findViewById(R.id.address_del_layout);
-            address_name = (TextView) itemView.findViewById(R.id.address_name);
-            address_phone = (TextView) itemView.findViewById(R.id.address_phone);
-            address = (TextView) itemView.findViewById(R.id.address);
-            set_default_address = (LinearLayout) itemView.findViewById(R.id.set_default_address);
-            default_img = (ImageView) itemView.findViewById(R.id.default_img);
-            set_default_address_text = (TextView) itemView.findViewById(R.id.set_default_address_text);
+            order_image = (ImageView) itemView.findViewById(R.id.order_image);
+            order_name = (TextView) itemView.findViewById(R.id.order_name);
+            order_id = (TextView) itemView.findViewById(R.id.order_id);
+            order_time = (TextView) itemView.findViewById(R.id.order_time);
+            order_price = (TextView) itemView.findViewById(R.id.order_price);
+            order_mun = (TextView) itemView.findViewById(R.id.order_mun);
+            cancel_collection = (TextView) itemView.findViewById(R.id.dry_btn);
         }
 
         @Override
-        public void bindData(final AddressListBean data, int position) {
+        public void bindData(final NetCollectionListBean.ResultBean data, int position) {
             super.bindData(data, position);
-            address_name.setText(data.getConsigneeName());
-            address_phone.setText(data.getConsigneeTel());
-            setOnItemClickListener(new OnItemClickListener<AddressListBean>() {
-                @Override
-                public void onItemClick(View v, AddressListBean data) {
-                    if (onClickListener == null) return;
-                    onClickListener.onClick(data);
-//
-                }
-            });
-            if (data.isDefault()) {
-                default_img.setImageResource(R.drawable.check_true_address);
-                set_default_address_text.setTextColor(Color.parseColor("#FD5252"));
-            } else {
-                default_img.setImageResource(R.drawable.check_false_address);
-                set_default_address_text.setTextColor(Color.parseColor("#7D7D7D"));
-            }
-            address.setText(mContext.getResources().getString(R.string.address_show_detail,
-                    data.getProvince(), data.getCity(), data.getDistrict(), data.getLocation()));
-            set_default_address.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!data.isDefault()) {
-                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_default_address_info), ACTION_DEFAULT);
-                    }
-                }
-            });
-            address_del_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.del_address_info), ACTION_DEL);
-                }
-            });
-            address_edit_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent intent = new Intent(mContext, UpdateAddressActivity.class);
-//                    intent.putExtra("type", UpdateAddressActivity.TYPE_UPDATE);
-//                    intent.putExtra("address", data);
-//                    mContext.startActivity(intent);
-                }
-            });
+            GlideUtils.getInstance().loadIcon(mContext, data.getGoodsImg(), R.drawable.ic_launcher, order_image);
+            order_name.setText(data.getGoodsName());
+            order_id.setText("订单号" + data.getGoodsCode());
+            order_price.setText(data.getGoodsPrice() + "");
+            order_mun.setText(mContext.getString(R.string.order_mun, 1));
         }
+
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new AddressViewHolder(inflater.inflate(R.layout.address_admin_item, parent, false));
+        return new AddressViewHolder(inflater.inflate(R.layout.collection_list_item_laytout, parent, false));
     }
 
     private void setAddressTip(final String addressId, String message, final int action) {

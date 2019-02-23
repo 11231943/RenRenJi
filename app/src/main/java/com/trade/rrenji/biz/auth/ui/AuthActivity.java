@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.base.BaseActivity;
 
+
 import org.xutils.view.annotation.ContentView;
 
 @ContentView(R.layout.auth_main_layout)

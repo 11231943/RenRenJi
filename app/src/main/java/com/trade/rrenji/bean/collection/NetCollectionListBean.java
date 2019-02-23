@@ -8,12 +8,12 @@ public class NetCollectionListBean {
     /**
      * code : 0
      * msg : SUCCESS
-     * result : {"favoriteProductList":[{"id":1,"goodsCode":"PG00001","title":"苹果64G","salePrice":5500,"originalPrice":"6500","tags":null,"pics":[{"maxImg":"http://gw.alicdn.com/bao/uploaded/TB1S9cmOFXXXXboXFXXSutbFXXX.jpg_q90","minImg":"http://gw.alicdn.com/bao/uploaded/TB1S9cmOFXXXXboXFXXSutbFXXX.jpg_q90"}]}],"pageInfo":{"currentPage":1,"totalPage":0,"pageSize":10,"totalRow":0}}
+     * result : [{"id":"8","goodsName":" 三星 S7 Edge 64G白色","goodsPrice":0.01,"favoritePrice":2450,"price":2449.99,"goodsCode":"1522235560110","goodsImg":"http://qiniu.rrenji.com/Fm054Fbe8LY_RcqyA09BdBU_Zp1i","userId":"455"},{"id":"7","goodsName":"iPhone8 256G 白色","goodsPrice":0.01,"favoritePrice":4499,"price":4498.99,"goodsCode":"1521435825157","goodsImg":"http://qiniu.rrenji.com/FsTt4G_xpjIWS-tLO4v5ZbOY7onL","userId":"455"},{"id":"6","goodsName":" iPhone 7 32G黑色","goodsPrice":0.01,"favoritePrice":2299,"price":2298.99,"goodsCode":"1516348991814","goodsImg":"http://qiniu.rrenji.com/Fg7CZUoZ0dzBjvu9wVn0aBELf6TZ","userId":"455"},{"id":"5","goodsName":" iPhone 7 Plus 32G磨砂黑","goodsPrice":0.01,"favoritePrice":2999,"price":2998.99,"goodsCode":"1510819249063","goodsImg":"http://qiniu.rrenji.com/FrX-gBL9bKJ5DJDLAkoqv09BS1SZ","userId":"455"}]
      */
 
     private String code;
     private String msg;
-    private ResultBean result;
+    private List<ResultBean> result;
 
     public String getCode() {
         return code;
@@ -31,185 +31,97 @@ public class NetCollectionListBean {
         this.msg = msg;
     }
 
-    public ResultBean getResult() {
+    public List<ResultBean> getResult() {
         return result;
     }
 
-    public void setResult(ResultBean result) {
+    public void setResult(List<ResultBean> result) {
         this.result = result;
     }
 
     public static class ResultBean {
         /**
-         * favoriteProductList : [{"id":1,"goodsCode":"PG00001","title":"苹果64G","salePrice":5500,"originalPrice":"6500","tags":null,"pics":[{"maxImg":"http://gw.alicdn.com/bao/uploaded/TB1S9cmOFXXXXboXFXXSutbFXXX.jpg_q90","minImg":"http://gw.alicdn.com/bao/uploaded/TB1S9cmOFXXXXboXFXXSutbFXXX.jpg_q90"}]}]
-         * pageInfo : {"currentPage":1,"totalPage":0,"pageSize":10,"totalRow":0}
+         * id : 8
+         * goodsName :  三星 S7 Edge 64G白色
+         * goodsPrice : 0.01
+         * favoritePrice : 2450
+         * price : 2449.99
+         * goodsCode : 1522235560110
+         * goodsImg : http://qiniu.rrenji.com/Fm054Fbe8LY_RcqyA09BdBU_Zp1i
+         * userId : 455
          */
 
-        private PageInfoBean pageInfo;
-        private List<FavoriteProductListBean> favoriteProductList;
+        private String id;
+        private String goodsName;
+        private double goodsPrice;
+        private int favoritePrice;
+        private double price;
+        private String goodsCode;
+        private String goodsImg;
+        private String userId;
 
-        public PageInfoBean getPageInfo() {
-            return pageInfo;
+        public String getId() {
+            return id;
         }
 
-        public void setPageInfo(PageInfoBean pageInfo) {
-            this.pageInfo = pageInfo;
+        public void setId(String id) {
+            this.id = id;
         }
 
-        public List<FavoriteProductListBean> getFavoriteProductList() {
-            return favoriteProductList;
+        public String getGoodsName() {
+            return goodsName;
         }
 
-        public void setFavoriteProductList(List<FavoriteProductListBean> favoriteProductList) {
-            this.favoriteProductList = favoriteProductList;
+        public void setGoodsName(String goodsName) {
+            this.goodsName = goodsName;
         }
 
-        public static class PageInfoBean {
-            /**
-             * currentPage : 1
-             * totalPage : 0
-             * pageSize : 10
-             * totalRow : 0
-             */
-
-            private int currentPage;
-            private int totalPage;
-            private int pageSize;
-            private int totalRow;
-
-            public int getCurrentPage() {
-                return currentPage;
-            }
-
-            public void setCurrentPage(int currentPage) {
-                this.currentPage = currentPage;
-            }
-
-            public int getTotalPage() {
-                return totalPage;
-            }
-
-            public void setTotalPage(int totalPage) {
-                this.totalPage = totalPage;
-            }
-
-            public int getPageSize() {
-                return pageSize;
-            }
-
-            public void setPageSize(int pageSize) {
-                this.pageSize = pageSize;
-            }
-
-            public int getTotalRow() {
-                return totalRow;
-            }
-
-            public void setTotalRow(int totalRow) {
-                this.totalRow = totalRow;
-            }
+        public double getGoodsPrice() {
+            return goodsPrice;
         }
 
-        public static class FavoriteProductListBean {
-            /**
-             * id : 1
-             * goodsCode : PG00001
-             * title : 苹果64G
-             * salePrice : 5500
-             * originalPrice : 6500
-             * tags : null
-             * pics : [{"maxImg":"http://gw.alicdn.com/bao/uploaded/TB1S9cmOFXXXXboXFXXSutbFXXX.jpg_q90","minImg":"http://gw.alicdn.com/bao/uploaded/TB1S9cmOFXXXXboXFXXSutbFXXX.jpg_q90"}]
-             */
+        public void setGoodsPrice(double goodsPrice) {
+            this.goodsPrice = goodsPrice;
+        }
 
-            private int id;
-            private String goodsCode;
-            private String title;
-            private int salePrice;
-            private String originalPrice;
-            private Object tags;
-            private List<PicsBean> pics;
+        public int getFavoritePrice() {
+            return favoritePrice;
+        }
 
-            public int getId() {
-                return id;
-            }
+        public void setFavoritePrice(int favoritePrice) {
+            this.favoritePrice = favoritePrice;
+        }
 
-            public void setId(int id) {
-                this.id = id;
-            }
+        public double getPrice() {
+            return price;
+        }
 
-            public String getGoodsCode() {
-                return goodsCode;
-            }
+        public void setPrice(double price) {
+            this.price = price;
+        }
 
-            public void setGoodsCode(String goodsCode) {
-                this.goodsCode = goodsCode;
-            }
+        public String getGoodsCode() {
+            return goodsCode;
+        }
 
-            public String getTitle() {
-                return title;
-            }
+        public void setGoodsCode(String goodsCode) {
+            this.goodsCode = goodsCode;
+        }
 
-            public void setTitle(String title) {
-                this.title = title;
-            }
+        public String getGoodsImg() {
+            return goodsImg;
+        }
 
-            public int getSalePrice() {
-                return salePrice;
-            }
+        public void setGoodsImg(String goodsImg) {
+            this.goodsImg = goodsImg;
+        }
 
-            public void setSalePrice(int salePrice) {
-                this.salePrice = salePrice;
-            }
+        public String getUserId() {
+            return userId;
+        }
 
-            public String getOriginalPrice() {
-                return originalPrice;
-            }
-
-            public void setOriginalPrice(String originalPrice) {
-                this.originalPrice = originalPrice;
-            }
-
-            public Object getTags() {
-                return tags;
-            }
-
-            public void setTags(Object tags) {
-                this.tags = tags;
-            }
-
-            public List<PicsBean> getPics() {
-                return pics;
-            }
-
-            public void setPics(List<PicsBean> pics) {
-                this.pics = pics;
-            }
-
-            public static class PicsBean {
-                /**
-                 * maxImg : http://gw.alicdn.com/bao/uploaded/TB1S9cmOFXXXXboXFXXSutbFXXX.jpg_q90
-                 * minImg : http://gw.alicdn.com/bao/uploaded/TB1S9cmOFXXXXboXFXXSutbFXXX.jpg_q90
-                 */
-
-                private String maxImg;
-                private String minImg;
-
-                public String getMaxImg() {
-                    return maxImg;
-                }
-
-                public void setMaxImg(String maxImg) {
-                    this.maxImg = maxImg;
-                }
-
-                public String getMinImg() {
-                    return minImg;
-                }
-
-                public void setMinImg(String minImg) {
-                    this.minImg = minImg;
-                }
-            }
+        public void setUserId(String userId) {
+            this.userId = userId;
         }
     }
 }

@@ -3,7 +3,6 @@ package com.trade.rrenji.biz.order.presenter;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.biz.base.BasePresenter;
 import com.trade.rrenji.biz.order.model.OrderModel;

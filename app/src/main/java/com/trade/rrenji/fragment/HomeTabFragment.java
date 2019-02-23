@@ -2,7 +2,6 @@ package com.trade.rrenji.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,19 +11,15 @@ import android.view.ViewGroup;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.NetAddressBean;
-import com.trade.rrenji.bean.drying.NetShareBean;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
+
+
 import com.trade.rrenji.biz.base.BaseFragment;
-import com.trade.rrenji.biz.drying.presenter.DryActivityPresenter;
-import com.trade.rrenji.biz.drying.presenter.DryActivityPresenterImpl;
-import com.trade.rrenji.biz.drying.ui.adapter.DryListAdapter;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenter;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenterImpl;
 import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
-import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ContentView;

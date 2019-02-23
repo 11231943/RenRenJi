@@ -2,7 +2,6 @@ package com.trade.rrenji.biz.account.ui.activity;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;

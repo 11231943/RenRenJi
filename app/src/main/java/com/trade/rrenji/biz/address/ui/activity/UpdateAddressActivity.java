@@ -18,6 +18,7 @@ import com.trade.rrenji.biz.address.picker.AddressPicker;
 import com.trade.rrenji.biz.address.presenter.UpdateAddressActivityPresenter;
 import com.trade.rrenji.biz.address.presenter.UpdateAddressActivityPresenterImpl;
 import com.trade.rrenji.biz.address.ui.view.UpdateActivityView;
+
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.utils.AssetsUtils;
 import com.trade.rrenji.utils.CollectionUtils;

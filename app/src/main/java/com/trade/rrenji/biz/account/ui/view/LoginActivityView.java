@@ -1,7 +1,8 @@
 package com.trade.rrenji.biz.account.ui.view;
 
 import  com.trade.rrenji.bean.account.LoginJsonBean;
-import  com.trade.rrenji.biz.base.BaseView;
+import com.trade.rrenji.biz.base.BaseView;
+
 
 /**
  * Created by monster on 8/4/18.

@@ -7,5 +7,7 @@ import com.trade.rrenji.biz.address.ui.view.UpdateActivityView;
 import com.trade.rrenji.biz.base.Presenter;
 
 public interface UpdateAddressActivityPresenter extends Presenter<UpdateActivityView> {
+
     void updateAddress(Context mContext, int type, UserAddressCurd addressCurd);
+
 }

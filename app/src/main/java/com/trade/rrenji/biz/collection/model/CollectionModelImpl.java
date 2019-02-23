@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.trade.rrenji.net.ServiceHelper;
 import com.trade.rrenji.net.XUtils;
-import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.SettingUtils;
 
 import java.util.Map;
@@ -24,10 +23,9 @@ public class CollectionModelImpl implements CollectionModel {
     @Override
     public void getCollectionList(Context mContext, int currentPage, XUtils.ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.product.favorite.list");
-
         long timeStamp = System.currentTimeMillis();
-        String token = "1";
-        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + currentPage + "/" + token;
+        int rows = 10;
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + currentPage + "/" + rows;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
@@ -36,10 +34,8 @@ public class CollectionModelImpl implements CollectionModel {
     @Override
     public void addCollection(Context mContext, String goodsCode, XUtils.ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.product.favorite");
-
         long timeStamp = System.currentTimeMillis();
-        String token = "1";
-        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + goodsCode + "/" + token;
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + goodsCode;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().post(url, params, resultListener);

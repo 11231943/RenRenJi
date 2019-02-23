@@ -4,12 +4,10 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.trade.rrenji.bean.collection.NetCollectionBean;
-import com.trade.rrenji.bean.collection.NetCollectionListBean;
 import com.trade.rrenji.biz.base.BasePresenter;
 import com.trade.rrenji.biz.collection.model.CollectionModel;
 import com.trade.rrenji.biz.collection.model.CollectionModelImpl;
 import com.trade.rrenji.biz.collection.ui.view.AddCollectionActivityView;
-import com.trade.rrenji.biz.collection.ui.view.CollectionActivityView;
 import com.trade.rrenji.net.XUtils;
 import com.trade.rrenji.utils.Contetns;
 

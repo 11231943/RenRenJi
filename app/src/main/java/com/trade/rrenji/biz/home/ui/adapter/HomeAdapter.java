@@ -755,7 +755,8 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(CategoryTypeViewHolder holder, int position) {
                 NetHomeBean.DataBean.CategoryListBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadImage(mContext, bean.getCategoryImg(), R.drawable.ic_launcher, holder.mCateTypeImg);
+//                GlideUtils.getInstance().loadImage(mContext, bean.getCategoryImg(), R.drawable.ic_launcher, holder.mCateTypeImg);
+                GlideUtils.getInstance().loadImage(mContext, mRes[position], R.drawable.ic_launcher, holder.mCateTypeImg);
                 holder.mCateTypeStr.setText(bean.getCategoryName());
             }
         }

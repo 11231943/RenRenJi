@@ -6,12 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import com.trade.rrenji.biz.base.BaseFragment;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.drying.NetShareBean;
-import com.trade.rrenji.biz.base.BaseFragment;
 import com.trade.rrenji.biz.drying.presenter.DryActivityPresenter;
 import com.trade.rrenji.biz.drying.presenter.DryActivityPresenterImpl;
 import com.trade.rrenji.biz.drying.ui.adapter.DryListAdapter;

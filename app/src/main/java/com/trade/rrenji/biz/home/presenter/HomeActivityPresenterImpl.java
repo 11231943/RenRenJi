@@ -9,7 +9,6 @@ import com.trade.rrenji.biz.home.model.HomeModel;
 import com.trade.rrenji.biz.home.model.HomeModelImpl;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
 import com.trade.rrenji.net.XUtils;
-import com.trade.rrenji.utils.Contetns;
 
 /**
  * Created by monster on 8/4/18.

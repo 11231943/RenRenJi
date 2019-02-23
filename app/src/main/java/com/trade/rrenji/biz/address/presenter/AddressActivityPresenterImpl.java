@@ -3,16 +3,11 @@ package com.trade.rrenji.biz.address.presenter;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.trade.rrenji.bean.address.AddressUpdateBean;
 import com.trade.rrenji.bean.address.NetAddressBean;
-import com.trade.rrenji.bean.address.UserAddressCurd;
-import com.trade.rrenji.bean.drying.NetShareBean;
 import com.trade.rrenji.biz.address.model.AddressModel;
 import com.trade.rrenji.biz.address.model.AddressModelImpl;
 import com.trade.rrenji.biz.address.ui.view.AddressActivityView;
 import com.trade.rrenji.biz.base.BasePresenter;
-import com.trade.rrenji.biz.drying.model.DryModel;
-import com.trade.rrenji.biz.drying.model.DryModelImpl;
 import com.trade.rrenji.net.XUtils;
 import com.trade.rrenji.utils.Contetns;
 

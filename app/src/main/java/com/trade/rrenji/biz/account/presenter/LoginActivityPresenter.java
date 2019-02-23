@@ -3,8 +3,7 @@ package com.trade.rrenji.biz.account.presenter;
 import android.content.Context;
 
 import  com.trade.rrenji.biz.account.ui.view.LoginActivityView;
-import  com.trade.rrenji.biz.base.Presenter;
-import  com.trade.rrenji.net.XUtils;
+import com.trade.rrenji.biz.base.Presenter;
 
 /**
  * Created by zhanghuatao on 2016/9/26.
