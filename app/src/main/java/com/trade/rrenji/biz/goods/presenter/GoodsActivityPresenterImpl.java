@@ -37,7 +37,7 @@ public class GoodsActivityPresenterImpl extends BasePresenter<GoodsActivityView>
                     }
                     Gson gson = new Gson();
                     final NetGoodsDetailBean netShareBean = gson.fromJson(result, NetGoodsDetailBean.class);
-                    if (Integer.valueOf(netShareBean.getCode()) == Contetns.STATE_OK) {
+                    if (netShareBean.getCode().equals(Contetns.RESPONSE_OK)) {
                         if (getActivityView() != null) {
                             getActivityView().getGoodsDetail(netShareBean);
                         }

@@ -280,7 +280,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
         } else if (resultBean.getConditionId() == 3) {
             new_status.setImageResource(R.drawable.new_one);
         }
-        int jieyeu = Integer.valueOf(resultBean.getOriginalPrice()) - Integer.valueOf(resultBean.getPrice());
+        double jieyeu = Double.valueOf(resultBean.getOriginalPrice()) - Double.valueOf(resultBean.getPrice());
         price_jieyue_jine.setText(String.valueOf(jieyeu));
         goods_detail_name.setText(resultBean.getTitle());
         //检测报告

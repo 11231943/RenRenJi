@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/order_image"
         android:layout_toLeftOf="@+id/collection_tip_price"
-        android:text="比收藏时便宜了¥200.00"
+        android:text="比收藏时便宜了"
         android:textColor="#000000"
         android:textSize="11sp" />
 

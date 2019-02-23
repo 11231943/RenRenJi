@@ -77,7 +77,7 @@ public class NetGoodsDetailBean {
         private String finenessStandard;
         private int conditionId;
         private String damagePoint;
-        private int price;
+        private double price;
         private QualityEngineerBean qualityEngineer;
         private AddressEntityBean addressEntity;
         private String goodsDesc;
@@ -167,11 +167,11 @@ public class NetGoodsDetailBean {
             this.damagePoint = damagePoint;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 
