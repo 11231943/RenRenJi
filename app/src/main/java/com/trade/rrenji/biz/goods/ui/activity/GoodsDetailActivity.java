@@ -27,6 +27,7 @@ import com.trade.rrenji.biz.goods.presenter.GoodsActivityPresenterImpl;
 import com.trade.rrenji.biz.goods.ui.adapter.GoodsBannerAdapter;
 import com.trade.rrenji.biz.goods.ui.adapter.RecyclerImageAdapter;
 import com.trade.rrenji.biz.goods.ui.view.GoodsActivityView;
+import com.trade.rrenji.biz.order.ui.activity.PreConfirmOrderActivity;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
@@ -154,6 +155,8 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
 
     ImageView[] imageViewone;
 
+    private NetGoodsDetailBean mNetGoodsDetailBean;
+
     private String[] xinjie = new String[]{"无使用痕迹，外观无磨损划伤，屏幕显示正常，功能正常，电池损耗正常。",
             "细微使用痕迹或细小划痕，屏幕显示正常，功能正常，电池损耗正常。",
             "有明显使用痕迹或明显磕碰位置（不多于三处），屏幕显示正常，功能正常，电池损耗正常。",
@@ -206,6 +209,13 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
                 mAddCollectionPresenter.addCollection(this, mGoodsCode);
                 break;
             case R.id.goods_detail_detail_buy:
+                mLoopViewPager.setAutoPagingEnabled(true);
+                Intent intent = new Intent(this, PreConfirmOrderActivity.class);
+                intent.putExtra("goodsId", mNetGoodsDetailBean.getResult().getGoodsId());
+                intent.putExtra("title", mNetGoodsDetailBean.getResult().getTitle());
+                intent.putExtra("goodsImg", mNetGoodsDetailBean.getResult().getGoodsCoverImg());
+                intent.putExtra("price", mNetGoodsDetailBean.getResult().getPrice());
+                startActivity(intent);
                 break;
         }
     }
@@ -219,7 +229,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     public void addCollection(NetCollectionBean netShareBean) {
         if (netShareBean.getCode().equals("0")) {
             Toast.makeText(this, "添加收藏成功!", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(this, "添加收藏失败!", Toast.LENGTH_SHORT).show();
 
         }
@@ -232,6 +242,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
 
     @Override
     public void getGoodsDetail(NetGoodsDetailBean netGoodsDetailBean) {
+        mNetGoodsDetailBean = netGoodsDetailBean;
         //轮播
         initViewPage(netGoodsDetailBean.getResult().getGoodsPics());
         //机友评价

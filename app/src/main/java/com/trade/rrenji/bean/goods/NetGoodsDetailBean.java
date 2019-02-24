@@ -1,5 +1,6 @@
 package com.trade.rrenji.bean.goods;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class NetGoodsDetailBean {
