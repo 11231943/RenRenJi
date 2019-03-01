@@ -93,6 +93,11 @@
             android:name=".biz.order.ui.activity.PreConfirmOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".biz.order.ui.activity.PayConfirmOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

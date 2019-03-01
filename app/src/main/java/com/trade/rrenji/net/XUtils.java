@@ -54,8 +54,7 @@ public class XUtils {
         RequestParams params = new RequestParams(url);
         if (maps != null && !maps.isEmpty()) {
             for (Map.Entry<String, String> entry : maps.entrySet()) {
-//                params.addQueryStringParameter(entry.getKey(), entry.getValue());
-//                params.addParameter();
+                params.addQueryStringParameter(entry.getKey(), entry.getValue());
             }
         }
 

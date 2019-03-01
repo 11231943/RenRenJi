@@ -211,7 +211,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
             case R.id.goods_detail_detail_buy:
                 mLoopViewPager.setAutoPagingEnabled(true);
                 Intent intent = new Intent(this, PreConfirmOrderActivity.class);
-                intent.putExtra("goodsId", mNetGoodsDetailBean.getResult().getGoodsId());
+                intent.putExtra("goodsId", mNetGoodsDetailBean.getResult().getGoodsCode());
                 intent.putExtra("title", mNetGoodsDetailBean.getResult().getTitle());
                 intent.putExtra("goodsImg", mNetGoodsDetailBean.getResult().getGoodsCoverImg());
                 intent.putExtra("price", mNetGoodsDetailBean.getResult().getPrice());

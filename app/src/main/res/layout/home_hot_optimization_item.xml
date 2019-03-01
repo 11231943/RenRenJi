@@ -14,10 +14,12 @@
     <TextView
         android:id="@+id/hot_iphone_text"
         android:layout_width="113dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
         android:layout_below="@+id/hot_data_image"
+        android:layout_marginTop="9dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
         android:text="HUAWEI Mate20 pro 128G plus "
         android:textColor="#000000"
         android:textSize="13sp" />
@@ -73,20 +75,20 @@
         android:id="@+id/iphone_price"
         android:layout_width="113dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_below="@+id/phone_size"
         android:layout_marginTop="9dp"
+        android:gravity="center"
         android:text="￥3599"
         android:textColor="#e8391e"
         android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/pay_type"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_below="@+id/iphone_price"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
