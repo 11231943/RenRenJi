@@ -2,12 +2,14 @@ package com.trade.rrenji.biz.collection.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.collection.NetCollectionListBean;
 import com.trade.rrenji.biz.base.BaseActivity;
+import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.biz.collection.presenter.CollectionActivityPresenter;
 import com.trade.rrenji.biz.collection.presenter.CollectionActivityPresenterImpl;
 import com.trade.rrenji.biz.collection.ui.adapter.CollectionAdapter;
@@ -58,6 +60,12 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
             }
         });
         mSuperRecyclerView.startRefreshing(true);
+        mCollectionAdapter.setOnClickDelListener(new CollectionAdapter.OnClickDelListener() {
+            @Override
+            public void onClick(String id) {
+                mPresenter.delCollection(CollectionActivity.this, id);
+            }
+        });
     }
 
     private void loadData() {
@@ -98,5 +106,20 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
     @Override
     public void getCollectionListError(int code, String msg) {
 
+    }
+
+    @Override
+    public void delCollectionSuccess(NetBaseResultBean netBaseResultBean) {
+        if (netBaseResultBean.getCode().equals(Contetns.RESPONSE_OK)) {
+            Toast.makeText(this, "取消收藏成功", Toast.LENGTH_SHORT).show();
+            loadData();
+        }else{
+            Toast.makeText(this, "取消收藏失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void delCollectionError(int code, String msg) {
+        Toast.makeText(this, "取消收藏失败", Toast.LENGTH_SHORT).show();
     }
 }

@@ -84,7 +84,7 @@ public class CollectionAdapter extends RecyclerListAdapter<NetCollectionListBean
             order_time = (TextView) itemView.findViewById(R.id.order_time);
             order_price = (TextView) itemView.findViewById(R.id.order_price);
             order_mun = (TextView) itemView.findViewById(R.id.order_mun);
-            cancel_collection = (TextView) itemView.findViewById(R.id.dry_btn);
+            cancel_collection = (TextView) itemView.findViewById(R.id.cancel_collection);
         }
 
         @Override
@@ -95,6 +95,12 @@ public class CollectionAdapter extends RecyclerListAdapter<NetCollectionListBean
             order_id.setText("订单号" + data.getGoodsCode());
             order_price.setText(data.getGoodsPrice() + "");
             order_mun.setText(mContext.getString(R.string.order_mun, 1));
+            cancel_collection.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setAddressTip(data.getId());
+                }
+            });
         }
 
     }
@@ -105,19 +111,13 @@ public class CollectionAdapter extends RecyclerListAdapter<NetCollectionListBean
         return new AddressViewHolder(inflater.inflate(R.layout.collection_list_item_laytout, parent, false));
     }
 
-    private void setAddressTip(final String addressId, String message, final int action) {
+    private void setAddressTip(final String addressId) {
         new AlertDialog.Builder(mContext)
-                .setMessage(message)
+                .setMessage("是否取消收藏")
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (action == ACTION_DEFAULT) {
-                            if (onClickSetDefaultListener == null) return;
-                            onClickSetDefaultListener.onClick(addressId);
-                        } else {
-                            if (onClickDelListener == null) return;
-                            onClickDelListener.onClick(addressId);
-                        }
+                        onClickDelListener.onClick(addressId);
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)

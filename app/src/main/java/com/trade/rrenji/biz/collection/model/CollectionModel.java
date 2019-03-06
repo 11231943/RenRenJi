@@ -14,4 +14,6 @@ public interface CollectionModel extends PlusBaseService {
     void getCollectionList(Context mContext, int currentPage, ResultListener resultListener);
 
     void addCollection(Context mContext, String goodsCode, ResultListener resultListener);
+
+    void delCollection(Context mContext, String id, ResultListener resultListener);
 }

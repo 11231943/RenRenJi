@@ -12,4 +12,6 @@ public interface CollectionActivityPresenter extends Presenter<CollectionActivit
 
     void getCollectionList(Context mContext, int currentPage);
 
+    void delCollection(Context mContext,String id);
+
 }

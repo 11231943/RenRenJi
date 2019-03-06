@@ -40,4 +40,14 @@ public class CollectionModelImpl implements CollectionModel {
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().post(url, params, resultListener);
     }
+
+    @Override
+    public void delCollection(Context mContext, String id, XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.product.del.favorite");
+        long timeStamp = System.currentTimeMillis();
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + id;
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().post(url, params, resultListener);
+    }
 }
