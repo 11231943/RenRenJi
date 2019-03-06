@@ -39,4 +39,13 @@ public class OrderModelImpl implements OrderModel {
         params.put("goodsCode",goodsCode);
         XUtils.getInstance().get(url, params, resultListener);
     }
+
+    @Override
+    public void getUserCreateOrderInfoByUserId(Context mContext, ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.order.getUserCreateOrderInfoByUserId");
+        url = url + SettingUtils.getInstance().getSessionkeyString();
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().get(url, params, resultListener);
+    }
 }

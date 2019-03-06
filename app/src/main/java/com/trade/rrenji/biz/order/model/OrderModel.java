@@ -10,4 +10,6 @@ public interface OrderModel extends PlusBaseService {
     void getOrderList(Context mContext, int pageNum, int type, ResultListener resultListener);
 
     void getAccessoryInfo(Context mContext, String goodsCode, ResultListener resultListener);
+
+    void getUserCreateOrderInfoByUserId(Context mContext,ResultListener resultListener);
 }
