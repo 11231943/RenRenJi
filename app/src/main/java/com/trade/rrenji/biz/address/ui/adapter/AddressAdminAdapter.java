@@ -117,14 +117,16 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
                 @Override
                 public void onClick(View v) {
                     if (!data.isDefault()) {
-                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_default_address_info), ACTION_DEFAULT);
+                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_default_address_info), ACTION_DEFAULT,0);
+                    }else{
+                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_cancel_default_address_info), ACTION_DEFAULT, 1);
                     }
                 }
             });
             address_del_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.del_address_info), ACTION_DEL);
+                    setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.del_address_info), ACTION_DEL, -1);
                 }
             });
             address_edit_layout.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +147,7 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
         return new AddressViewHolder(inflater.inflate(R.layout.address_admin_item, parent, false));
     }
 
-    private void setAddressTip(final String addressId, String message, final int action) {
+    private void setAddressTip(final String addressId, String message, final int action, final int type) {
         new AlertDialog.Builder(mContext)
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -153,7 +155,7 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
                     public void onClick(DialogInterface dialog, int which) {
                         if (action == ACTION_DEFAULT) {
                             if (onClickSetDefaultListener == null) return;
-                            onClickSetDefaultListener.onClick(addressId);
+                            onClickSetDefaultListener.onClick(addressId, type);
                         } else {
                             if (onClickDelListener == null) return;
                             onClickDelListener.onClick(addressId);
@@ -170,7 +172,7 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
     }
 
     public interface OnClickSetDefaultListener {
-        void onClick(String addressId);
+        void onClick(String addressId, int type);
     }
 
     public interface OnClickDelListener {

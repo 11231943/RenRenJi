@@ -95,8 +95,12 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
         });
         mAddressAdminAdapter.setOnClickSetDefaultListener(new AddressAdminAdapter.OnClickSetDefaultListener() {
             @Override
-            public void onClick(String addressId) {
-                mDelAddressActivityPresenter.isUpAddress(AddressAdminActivity.this, addressId);
+            public void onClick(String addressId, int type) {
+                if (type == 1) {
+                    mDelAddressActivityPresenter.isNotUpAddress(AddressAdminActivity.this, addressId);
+                }else{
+                    mDelAddressActivityPresenter.isUpAddress(AddressAdminActivity.this, addressId);
+                }
             }
         });
     }
@@ -163,10 +167,10 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
 
     @Override
     public void isUpAddressSuccess(NetBaseResultBean netShareBean) {
-        if(netShareBean.getCode().equals(Contetns.RESPONSE_OK)){
+        if (netShareBean.getCode().equals(Contetns.RESPONSE_OK)) {
             loadData();
             Toast.makeText(this, "设置默认地址成功", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(this, "设置默认地址成功", Toast.LENGTH_SHORT).show();
         }
     }
@@ -174,5 +178,20 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     @Override
     public void isUpAddressError(int code, String msg) {
         Toast.makeText(this, "设置默认地址成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void isNotUpAddressError(int code, String msg) {
+        Toast.makeText(this, "操作失败", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void isNotUpAddressSuccess(NetBaseResultBean netShareBean) {
+        if (netShareBean.getCode().equals(Contetns.RESPONSE_OK)) {
+            loadData();
+            Toast.makeText(this, "取消默认地址成功", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "取消默认地址成功", Toast.LENGTH_SHORT).show();
+        }
     }
 }

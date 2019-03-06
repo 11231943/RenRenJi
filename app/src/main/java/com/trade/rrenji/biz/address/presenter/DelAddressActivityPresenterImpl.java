@@ -21,7 +21,38 @@ public class DelAddressActivityPresenterImpl extends BasePresenter<DelAddressAct
         mContext = context;
         mModel = new AddressModelImpl(context);
     }
+    @Override
+    public void isNotUpAddress(Context mContext, String addressId) {
+        mModel.isNotUpAddress(mContext, addressId, new XUtils.ResultListener() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    if (getActivityView() != null) {
+                        getActivityView().hideLoading();
+                    }
+                    Gson gson = new Gson();
+                    final NetBaseResultBean netShareBean = gson.fromJson(result, NetBaseResultBean.class);
+                    if (Integer.valueOf(netShareBean.getCode()) == Contetns.STATE_OK) {
+                        if (getActivityView() != null) {
+                            getActivityView().delAddressListSuccess(netShareBean);
+                        }
+                    } else {
+                        if (getActivityView() != null) {
+                            getActivityView().delAddressListError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onError(Throwable error) {
+                getActivityView().delAddressListError(-10000, "请求错误");
+            }
+        });
+
+    }
     @Override
     public void isUpAddress(Context mContext, String addressId) {
         mModel.isUpAddress(mContext, addressId, new XUtils.ResultListener() {

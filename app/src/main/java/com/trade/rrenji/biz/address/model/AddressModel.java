@@ -10,10 +10,12 @@ public interface AddressModel extends PlusBaseService {
 
     void getAddressList(Context mContext, int pageNum, ResultListener resultListener);
 
-    void updateAddress(Context mContext,int type, UserAddressCurd addressCurd, ResultListener resultListener);
+    void updateAddress(Context mContext, int type, UserAddressCurd addressCurd, ResultListener resultListener);
 
-    void delAddress(Context mContext,String addressId, ResultListener resultListener);
+    void delAddress(Context mContext, String addressId, ResultListener resultListener);
 
-    void isUpAddress(Context mContext,String addressId, ResultListener resultListener);
+    void isUpAddress(Context mContext, String addressId, ResultListener resultListener);
+
+    void isNotUpAddress(Context mContext, String addressId, ResultListener resultListener);
 
 }

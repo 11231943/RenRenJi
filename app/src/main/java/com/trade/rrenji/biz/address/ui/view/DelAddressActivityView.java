@@ -17,4 +17,7 @@ public interface DelAddressActivityView extends BaseView {
 
     void isUpAddressError(int code, String msg);
 
+    void isNotUpAddressSuccess(NetBaseResultBean netShareBean);
+
+    void isNotUpAddressError(int code, String msg);
 }

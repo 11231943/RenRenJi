@@ -13,4 +13,6 @@ public interface DelAddressActivityPresenter extends Presenter<DelAddressActivit
     void delAddressList(Context mContext, String addressId);
 
     void isUpAddress(Context mContext, String addressId);
+
+    void isNotUpAddress(Context mContext, String addressId);
 }

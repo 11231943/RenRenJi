@@ -37,6 +37,17 @@ public class AddressModelImpl implements AddressModel {
     }
 
     @Override
+    public void isNotUpAddress(Context mContext, String addressId, ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.address.isNotUpAddress");
+        long timeStamp = System.currentTimeMillis();
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp;
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        paramBuilder.add("addressId",addressId);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().post(url, params, resultListener);
+    }
+
+    @Override
     public void isUpAddress(Context mContext, String addressId, ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.address.isUpAddress");
         long timeStamp = System.currentTimeMillis();

@@ -20,6 +20,7 @@
     <string name="address_show_detail">收货地址：%1$s %2$s %3$s %4$s</string>
     <string name="order_mun">共计%1$d件商品</string>
     <string name="set_default_address_info">是否设置该地址为收货的默认地址？</string>
+    <string name="set_cancel_default_address_info">是否取消该地址为收货的默认地址？</string>
     <string name="del_address_info">是否删除该地址？</string>
     <string name="my_order_title">我的订单</string>
     <string name="json_parse_error_tip">Data error</string>
