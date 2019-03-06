@@ -37,6 +37,7 @@
     <string name="a_info_error">收货人详情地址错误!</string>
     <string name="address_admin">收货地址</string>
     <string name="address_show">%1$s %2$s %3$s </string>
+    <string name="account_address_show">%1$s %2$s </string>
     <string name="add_address">+收货地址</string>
     <string name="update_title_address">编辑收货地址</string>
     <string name="feedback_dialog_save">保存</string>

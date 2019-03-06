@@ -5,6 +5,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:id="@+id/user_avatar_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -49,6 +51,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+
         android:id="@+id/user_name_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -64,19 +67,65 @@
             android:textColor="#333"
             android:textSize="13sp" />
 
-        <TextView
+        <EditText
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginRight="17dp"
+            android:background="@null"
             android:layout_toLeftOf="@+id/user_name_go"
             android:gravity="center"
             android:textSize="11sp"
             android:textColor="#999999"
-            android:text="17603009825" />
+            android:text="雷锋" />
 
         <ImageView
             android:id="@+id/user_name_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="13dp"
+            android:src="@drawable/icon_go" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:background="#eee" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/user_phone_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/user_name_layout"
+        android:background="#fff">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"
+            android:text="电话"
+            android:textColor="#333"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginRight="17dp"
+            android:layout_toLeftOf="@+id/user_phone_go"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:background="@null"
+            android:textColor="#999999"
+            android:text="17603009825" />
+
+        <ImageView
+            android:id="@+id/user_phone_go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

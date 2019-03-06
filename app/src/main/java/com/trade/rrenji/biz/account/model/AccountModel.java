@@ -15,4 +15,6 @@ public interface AccountModel extends PlusBaseService {
 
     void getVerifyCode(Context mContext, String phone, ResultListener resultListener);
 
+    void updateUserInfo(Context mContext, String headImg, String name, String sex, String address, ResultListener resultListener);
+
 }

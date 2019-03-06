@@ -130,17 +130,6 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
 
         private List<NetAccessoryListBean.DataBean.ResultListBean> mAccessoryList;
 
-//        public void addAll(List<NetAccessoryListBean.DataBean.ResultListBean> accessoryList) {
-//
-//            if (mAccessoryList == null) {
-//                mAccessoryList = new ArrayList<NetAccessoryListBean.DataBean.ResultListBean>();
-//            } else {
-//                mAccessoryList.clear();
-//            }
-//            mAccessoryList.addAll(accessoryList);
-//            notifyDataSetChanged();
-//        }
-
         public AccessoryInfoAdapter(Activity context) {
             super(context);
             mContext = context;
