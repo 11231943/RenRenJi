@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.DelAdressBean;
 import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.biz.address.presenter.AddressActivityPresenter;
 import com.trade.rrenji.biz.address.presenter.AddressActivityPresenterImpl;
@@ -21,6 +20,7 @@ import com.trade.rrenji.biz.address.ui.view.AddressActivityView;
 import com.trade.rrenji.biz.address.ui.view.DelAddressActivityView;
 import com.trade.rrenji.biz.base.BaseActivity;
 
+import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.Contetns;
 
@@ -93,6 +93,12 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
                 mDelAddressActivityPresenter.delAddressList(AddressAdminActivity.this, addressId);
             }
         });
+        mAddressAdminAdapter.setOnClickSetDefaultListener(new AddressAdminAdapter.OnClickSetDefaultListener() {
+            @Override
+            public void onClick(String addressId) {
+                mDelAddressActivityPresenter.isUpAddress(AddressAdminActivity.this, addressId);
+            }
+        });
     }
 
     private void loadData() {
@@ -121,7 +127,7 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     }
 
     @Override
-    public void delAddressListSuccess(DelAdressBean netShareBean) {
+    public void delAddressListSuccess(NetBaseResultBean netShareBean) {
         if (netShareBean.getCode().equals("0")) {
             Toast.makeText(this, "删除成功!", Toast.LENGTH_SHORT);
             mIndexPage = 1;
@@ -153,5 +159,20 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     @Override
     public void getAddressListError(int code, String msg) {
 
+    }
+
+    @Override
+    public void isUpAddressSuccess(NetBaseResultBean netShareBean) {
+        if(netShareBean.getCode().equals(Contetns.RESPONSE_OK)){
+            loadData();
+            Toast.makeText(this, "设置默认地址成功", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "设置默认地址成功", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void isUpAddressError(int code, String msg) {
+        Toast.makeText(this, "设置默认地址成功", Toast.LENGTH_SHORT).show();
     }
 }

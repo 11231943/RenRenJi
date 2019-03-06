@@ -229,7 +229,7 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
                 public void run() {
                     finish();
                 }
-            }, 2000);
+            }, 500);
         } else {
             Toast.makeText(this, "操作失败!", Toast.LENGTH_SHORT).show();
         }

@@ -113,38 +113,5 @@ public class AccountModelImpl implements AccountModel {
         Map<String, String> params = paramBuilder.build();
         url = url + SettingUtils.getInstance().getSessionkeyString();
         XUtils.getInstance().post(url, params, resultListener);
-//        RequestParams requestParams = new RequestParams(url);
-//        requestParams.addBodyParameter("name","小百度");
-//        requestParams.addBodyParameter("headImg","http://qiniu.rrenji.com/FkBWf3d7MMnDdH7cDQhmIp_RDE4i");
-//        requestParams.addBodyParameter("sex","1");
-//        requestParams.addBodyParameter("address","湖北武汉");
-//        requestParams.setMultipart(true);
-//        try {
-//            Log.d("tag",requestParams.getRequestBody().getContentType()+"");
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
-//        x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                resultListener.onResponse(result);
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//                resultListener.onError(ex);
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
     }
 }

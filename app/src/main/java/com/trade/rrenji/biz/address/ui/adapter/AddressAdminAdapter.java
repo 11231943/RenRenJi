@@ -81,7 +81,6 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
 
         public AddressViewHolder(View itemView) {
             super(itemView);
-
             address_edit_layout = (LinearLayout) itemView.findViewById(R.id.address_edit_layout);
             address_del_layout = (LinearLayout) itemView.findViewById(R.id.address_del_layout);
             address_name = (TextView) itemView.findViewById(R.id.address_name);

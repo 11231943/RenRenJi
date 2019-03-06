@@ -1,7 +1,7 @@
 package com.trade.rrenji.biz.address.ui.view;
 
-import com.trade.rrenji.bean.address.DelAdressBean;
 import com.trade.rrenji.biz.base.BaseView;
+import com.trade.rrenji.biz.base.NetBaseResultBean;
 
 /**
  * Created by monster on 8/4/18.
@@ -9,8 +9,12 @@ import com.trade.rrenji.biz.base.BaseView;
 
 public interface DelAddressActivityView extends BaseView {
 
-    void delAddressListSuccess(DelAdressBean netShareBean);
+    void delAddressListSuccess(NetBaseResultBean netShareBean);
 
     void delAddressListError(int code, String msg);
+
+    void isUpAddressSuccess(NetBaseResultBean netShareBean);
+
+    void isUpAddressError(int code, String msg);
 
 }
