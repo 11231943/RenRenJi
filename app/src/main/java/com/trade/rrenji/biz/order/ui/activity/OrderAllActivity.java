@@ -57,18 +57,27 @@ public class OrderAllActivity extends BaseActivity {
             }
         });
         mList = new ArrayList<OrderClassify>();
+
+        OrderClassify orderClassify0 = new OrderClassify();
+        orderClassify0.setType(0);
+        orderClassify0.setName("全部订单");
+        mList.add(orderClassify0);
+
         OrderClassify orderClassify1 = new OrderClassify();
-        orderClassify1.setType(0);
+        orderClassify1.setType(1);
         orderClassify1.setName("待发货");
         mList.add(orderClassify1);
+
         OrderClassify orderClassify2 = new OrderClassify();
-        orderClassify2.setType(1);
+        orderClassify2.setType(2);
         orderClassify2.setName("待收货");
         mList.add(orderClassify2);
+
         OrderClassify orderClassify3 = new OrderClassify();
-        orderClassify3.setType(2);
+        orderClassify3.setType(3);
         orderClassify3.setName("晒单");
         mList.add(orderClassify3);
+
         initTabs(mList);
     }
 
@@ -124,10 +133,12 @@ public class OrderAllActivity extends BaseActivity {
             OrderClassify classify = mList.get(position);
             switch (classify.getType()) {
                 case 0:
-                    return DeliverFragment.newInstance();
+                    return AllOrderFragment.newInstance();
                 case 1:
-                    return ReceivedFragment.newInstance();
+                    return DeliverFragment.newInstance();
                 case 2:
+                    return ReceivedFragment.newInstance();
+                case 3:
                     return DryingFragment.newInstance();
                 default:
                     break;

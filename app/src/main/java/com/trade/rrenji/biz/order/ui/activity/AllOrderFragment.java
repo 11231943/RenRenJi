@@ -24,12 +24,10 @@ import org.xutils.x;
 import java.util.List;
 
 /**
- * 待发货
+ * 全部
  */
 @ContentView(R.layout.base_activity_super_recyclerview)
-public class DeliverFragment extends BaseFragment implements OrderActivityView {
-
-
+public class AllOrderFragment extends BaseFragment implements OrderActivityView {
     @ViewInject(R.id.base_activity_recycler_view)
     public SuperRecyclerView mSuperRecyclerView;
 
@@ -39,10 +37,9 @@ public class DeliverFragment extends BaseFragment implements OrderActivityView {
 
     private int mIndexPage = 1;
 
-
-    public static DeliverFragment newInstance() {
+    public static AllOrderFragment newInstance() {
         Bundle args = new Bundle();
-        DeliverFragment fragment = new DeliverFragment();
+        AllOrderFragment fragment = new AllOrderFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,6 +50,7 @@ public class DeliverFragment extends BaseFragment implements OrderActivityView {
         View rootView = x.view().inject(this, inflater, container);
         return rootView;
     }
+
     private void init() {
         mSuperRecyclerView.setRecyclerPadding(0, 20, 0, 0);
         mOrderAdminAdapter = new OrderAdminAdapter(getActivity());
@@ -76,7 +74,7 @@ public class DeliverFragment extends BaseFragment implements OrderActivityView {
     }
 
     private void loadData() {
-        mPresenter.getOrderList(getActivity(), mIndexPage, 2);
+        mPresenter.getOrderList(getActivity(), mIndexPage, 0);
     }
 
 

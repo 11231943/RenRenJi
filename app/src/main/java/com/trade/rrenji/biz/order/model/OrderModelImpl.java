@@ -21,12 +21,16 @@ public class OrderModelImpl implements OrderModel {
     @Override
     public void getOrderList(Context mContext, int pageNum, int type, ResultListener resultListener) {
         //{sessionKey}/{timeStamp}/{pageNum}/{type}/{token}
+        //{sessionKey}/{timestamp}/{token}?page=0&rows=2&status=1
         String url = ServiceHelper.buildUrl("api.v2.order.list");
         long timeStamp = System.currentTimeMillis();
         String token = "1";
-        url = url + SettingUtils.getInstance().getSessionkeyString()  + "/" + timeStamp + "/" + pageNum + "/" + type + "/" + token;
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + token;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         Map<String, String> params = paramBuilder.build();
+        params.put("page", pageNum + "");
+        params.put("rows", "20");
+        params.put("status", type + "");
         XUtils.getInstance().get(url, params, resultListener);
     }
 
@@ -36,7 +40,7 @@ public class OrderModelImpl implements OrderModel {
         url = url + SettingUtils.getInstance().getSessionkeyString();
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         Map<String, String> params = paramBuilder.build();
-        params.put("goodsCode",goodsCode);
+        params.put("goodsCode", goodsCode);
         XUtils.getInstance().get(url, params, resultListener);
     }
 

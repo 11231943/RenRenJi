@@ -95,7 +95,7 @@ public class OrderActivity extends BaseActivity implements OrderActivityView {
                 mOrderAdminAdapter.clear();
             }
         }
-        List<NetOrderBean.ResultBean.MyOrderListBean> listBeans = netOrderBean.getResult().getMyOrderList();
+        List<NetOrderBean.DataBean.ResultListBean> listBeans = netOrderBean.getData().getResultList();
         mSuperRecyclerView.finishRefreshing();
         mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(listBeans.size()));
         mSuperRecyclerView.finishMore(!Contetns.hasMoreData(listBeans.size()));

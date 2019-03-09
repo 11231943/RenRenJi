@@ -16,8 +16,8 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_marginLeft="10dp"
         android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/ic_launcher"
         android:gravity="center_vertical"
         android:text="人人机官方"
@@ -25,13 +25,13 @@
         android:textSize="12sp" />
 
     <TextView
-        android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
-        android:text="待支付"
-        android:textColor="#000000"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
         android:gravity="center_vertical"
-        android:textSize="12sp"
-        android:layout_height="30dp" />
+        android:text="待支付"
+        android:textColor="#ef5311"
+        android:textSize="12sp" />
 
 
     <View
@@ -42,96 +42,49 @@
         android:layout_marginBottom="10dp"
         android:background="#eee"></View>
 
-    <ImageView
-        android:id="@+id/order_image"
-        android:layout_width="67dp"
-        android:layout_height="67dp"
-        android:layout_below="@+id/lin1"
-        android:src="@drawable/ic_launcher" />
-
-    <TextView
-        android:id="@+id/order_name"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lin1"
-        android:layout_marginLeft="11dp"
-        android:layout_toRightOf="@+id/order_image"
-        android:text="iPhone XS Max 99新"
-        android:textColor="#000000"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/order_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/order_name"
-        android:layout_marginLeft="11dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/order_image"
-        android:text="产品颜色：深空灰"
-        android:textColor="#000000"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/order_size"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/order_color"
-        android:layout_marginLeft="11dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/order_image"
-        android:text="存储容量：256G"
-        android:textColor="#000000"
-        android:textSize="12sp" />
+        android:layout_below="@+id/lin1"/>
 
     <TextView
         android:id="@+id/order_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/order_image"
-        android:layout_marginLeft="11dp"
+        android:layout_below="@+id/recycler_view"
         android:layout_marginTop="15dp"
         android:text="订单id：155201555183428939"
         android:textColor="#000000"
         android:textSize="12sp" />
+
 
     <TextView
         android:id="@+id/order_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/order_id"
-        android:layout_marginLeft="11dp"
         android:layout_marginTop="10dp"
         android:text="创建订单时间:2018-10-15 12:30:24"
         android:textColor="#000000"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/pay_type"
+        android:id="@+id/order_sum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/order_time"
-        android:layout_marginLeft="11dp"
-        android:layout_marginTop="10dp"
-        android:text="支付方式:支付宝"
-        android:textColor="#000000"
-        android:textSize="12sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pay_type"
         android:layout_marginTop="14dp"
-        android:layout_toLeftOf="@+id/order_price"
+        android:layout_toLeftOf="@+id/order_total"
         android:text="共1件商品 应付款："
         android:textColor="#000000"
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/order_price"
+        android:id="@+id/order_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pay_type"
+        android:layout_below="@+id/order_time"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="10dp"
@@ -143,7 +96,7 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/order_price"
+        android:layout_below="@+id/order_total"
         android:layout_marginTop="10dp"
         android:background="#eee" />
 

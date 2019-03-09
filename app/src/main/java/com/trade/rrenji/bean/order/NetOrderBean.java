@@ -4,15 +4,16 @@ import java.util.List;
 
 public class NetOrderBean {
 
+
     /**
      * code : 0
-     * msg : SUCCESS
-     * result : {"pageInfo":{"currentPage":1,"totalPage":1,"pageSize":10,"totalRow":1},"myOrderList":[{"orderId":"1000000000002065","createOrderTime":"2018-12-14T01:03:53.000+08:00","goodId":"383","goodName":"全新未拆封 iPhone XR 128G 全色","goodImg":"http://qiniu.rrenji.com/FqphBHB1r05jJieLpHq83-QU0cuD","goodPrice":"6599.00","orderSum":"6599.00","goodsCode":"1540962077544","orderStatus":1,"orderStr":"alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2017082308339871&biz_content=%7B%22body%22%3A%22%E5%95%86%E5%93%81%E8%B4%AD%E5%8D%96%22%2C%22out_trade_no%22%3A%221000000000002065%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E4%BA%BA%E4%BA%BA%E6%9C%BA-%E5%85%A8%E6%96%B0%E6%9C%AA%E6%8B%86%E5%B0%81+iPhone+XR+128G+%E5%85%A8%E8%89%B2%22%2C%22timeout_express%22%3A%2230m%22%2C%22total_amount%22%3A%226599.00%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2F112.124.98.145%3A8080%2Fapi%2Frs%2FaliCallback&sign=tSRe1ZpuH69%2FKmbrxZ835d11nypBYieFVUI7hLFdCZc%2Fr2RJ4xp6xGsjn5aKYEI5ESvn35rqVURho0tzMUF7bHLaWEknO5PvlrQcgwZGa3k0AYhJxl%2BT0AOo%2F6E3Lll6KIoHzOdjekFaUXOMnva9Z6ZebeJhCXPmER5SaXN1SzP%2B7S6yqjpsaLh68YPwILouzCfmHpzAB492oax6IC73kx2YIyp6E%2BCRqv7NeO1BvjHO%2Bix1U0jJKg84uvqbg8mRDZfID0whzxDRmOJVuKWvVq3NRgMqunSSGVI2dl6aAzNCmSBube2%2BdyIDF9h%2BHU3kERIO8bXkCT6v4G5xGiaY2Q%3D%3D&sign_type=RSA2&timestamp=2018-12-14+01%3A06%3A23&version=1.0","customerId":"","isShared":false,"payType":2,"jdOrderId":""}]}
+     * msg : null
+     * data : {"resultList":[{"orderId":"155213369102471006","goodsName":"iPhone8 256G 白色","goodsImg":"http://qiniu.rrenji.com/FsTt4G_xpjIWS-tLO4v5ZbOY7onL","payStatus":"1","orderType":"1","orderSum":899.01,"restMoney":899.01,"createTime":"2019-03-09 20:14:51","accessoryList":[{"accessoryId":"1","accessoryName":"(Apple) AirPods 无线耳机","count":1,"payPrice":899}]},{"orderId":"155211304981325205","goodsName":"iPhone8 256G 白色","goodsImg":"http://qiniu.rrenji.com/FsTt4G_xpjIWS-tLO4v5ZbOY7onL","payStatus":"1","orderType":"1","orderSum":0.01,"restMoney":0.01,"createTime":"2019-03-09 14:30:50","accessoryList":[]},{"orderId":"155201555183428939","goodsName":"iPhone8 256G 白色","goodsImg":"http://qiniu.rrenji.com/FsTt4G_xpjIWS-tLO4v5ZbOY7onL","payStatus":"1","orderType":"1","orderSum":0.01,"restMoney":0.01,"createTime":"2019-03-08 11:25:51","accessoryList":[]}]}
      */
 
     private String code;
     private String msg;
-    private ResultBean result;
+    private DataBean data;
 
     public String getCode() {
         return code;
@@ -30,117 +31,56 @@ public class NetOrderBean {
         this.msg = msg;
     }
 
-    public ResultBean getResult() {
-        return result;
+    public DataBean getData() {
+        return data;
     }
 
-    public void setResult(ResultBean result) {
-        this.result = result;
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
-    public static class ResultBean {
-        /**
-         * pageInfo : {"currentPage":1,"totalPage":1,"pageSize":10,"totalRow":1}
-         * myOrderList : [{"orderId":"1000000000002065","createOrderTime":"2018-12-14T01:03:53.000+08:00","goodId":"383","goodName":"全新未拆封 iPhone XR 128G 全色","goodImg":"http://qiniu.rrenji.com/FqphBHB1r05jJieLpHq83-QU0cuD","goodPrice":"6599.00","orderSum":"6599.00","goodsCode":"1540962077544","orderStatus":1,"orderStr":"alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2017082308339871&biz_content=%7B%22body%22%3A%22%E5%95%86%E5%93%81%E8%B4%AD%E5%8D%96%22%2C%22out_trade_no%22%3A%221000000000002065%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E4%BA%BA%E4%BA%BA%E6%9C%BA-%E5%85%A8%E6%96%B0%E6%9C%AA%E6%8B%86%E5%B0%81+iPhone+XR+128G+%E5%85%A8%E8%89%B2%22%2C%22timeout_express%22%3A%2230m%22%2C%22total_amount%22%3A%226599.00%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2F112.124.98.145%3A8080%2Fapi%2Frs%2FaliCallback&sign=tSRe1ZpuH69%2FKmbrxZ835d11nypBYieFVUI7hLFdCZc%2Fr2RJ4xp6xGsjn5aKYEI5ESvn35rqVURho0tzMUF7bHLaWEknO5PvlrQcgwZGa3k0AYhJxl%2BT0AOo%2F6E3Lll6KIoHzOdjekFaUXOMnva9Z6ZebeJhCXPmER5SaXN1SzP%2B7S6yqjpsaLh68YPwILouzCfmHpzAB492oax6IC73kx2YIyp6E%2BCRqv7NeO1BvjHO%2Bix1U0jJKg84uvqbg8mRDZfID0whzxDRmOJVuKWvVq3NRgMqunSSGVI2dl6aAzNCmSBube2%2BdyIDF9h%2BHU3kERIO8bXkCT6v4G5xGiaY2Q%3D%3D&sign_type=RSA2&timestamp=2018-12-14+01%3A06%3A23&version=1.0","customerId":"","isShared":false,"payType":2,"jdOrderId":""}]
-         */
+    public static class DataBean {
+        private List<ResultListBean> resultList;
 
-        private PageInfoBean pageInfo;
-        private List<MyOrderListBean> myOrderList;
-
-        public PageInfoBean getPageInfo() {
-            return pageInfo;
+        public List<ResultListBean> getResultList() {
+            return resultList;
         }
 
-        public void setPageInfo(PageInfoBean pageInfo) {
-            this.pageInfo = pageInfo;
+        public void setResultList(List<ResultListBean> resultList) {
+            this.resultList = resultList;
         }
 
-        public List<MyOrderListBean> getMyOrderList() {
-            return myOrderList;
-        }
-
-        public void setMyOrderList(List<MyOrderListBean> myOrderList) {
-            this.myOrderList = myOrderList;
-        }
-
-        public static class PageInfoBean {
+        public static class ResultListBean {
             /**
-             * currentPage : 1
-             * totalPage : 1
-             * pageSize : 10
-             * totalRow : 1
-             */
-
-            private int currentPage;
-            private int totalPage;
-            private int pageSize;
-            private int totalRow;
-
-            public int getCurrentPage() {
-                return currentPage;
-            }
-
-            public void setCurrentPage(int currentPage) {
-                this.currentPage = currentPage;
-            }
-
-            public int getTotalPage() {
-                return totalPage;
-            }
-
-            public void setTotalPage(int totalPage) {
-                this.totalPage = totalPage;
-            }
-
-            public int getPageSize() {
-                return pageSize;
-            }
-
-            public void setPageSize(int pageSize) {
-                this.pageSize = pageSize;
-            }
-
-            public int getTotalRow() {
-                return totalRow;
-            }
-
-            public void setTotalRow(int totalRow) {
-                this.totalRow = totalRow;
-            }
-        }
-
-        public static class MyOrderListBean {
-            /**
-             * orderId : 1000000000002065
-             * createOrderTime : 2018-12-14T01:03:53.000+08:00
-             * goodId : 383
-             * goodName : 全新未拆封 iPhone XR 128G 全色
-             * goodImg : http://qiniu.rrenji.com/FqphBHB1r05jJieLpHq83-QU0cuD
-             * goodPrice : 6599.00
-             * orderSum : 6599.00
-             * goodsCode : 1540962077544
-             * orderStatus : 1
-             * orderStr : alipay_sdk=alipay-sdk-java-dynamicVersionNo&app_id=2017082308339871&biz_content=%7B%22body%22%3A%22%E5%95%86%E5%93%81%E8%B4%AD%E5%8D%96%22%2C%22out_trade_no%22%3A%221000000000002065%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E4%BA%BA%E4%BA%BA%E6%9C%BA-%E5%85%A8%E6%96%B0%E6%9C%AA%E6%8B%86%E5%B0%81+iPhone+XR+128G+%E5%85%A8%E8%89%B2%22%2C%22timeout_express%22%3A%2230m%22%2C%22total_amount%22%3A%226599.00%22%7D&charset=UTF-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2F112.124.98.145%3A8080%2Fapi%2Frs%2FaliCallback&sign=tSRe1ZpuH69%2FKmbrxZ835d11nypBYieFVUI7hLFdCZc%2Fr2RJ4xp6xGsjn5aKYEI5ESvn35rqVURho0tzMUF7bHLaWEknO5PvlrQcgwZGa3k0AYhJxl%2BT0AOo%2F6E3Lll6KIoHzOdjekFaUXOMnva9Z6ZebeJhCXPmER5SaXN1SzP%2B7S6yqjpsaLh68YPwILouzCfmHpzAB492oax6IC73kx2YIyp6E%2BCRqv7NeO1BvjHO%2Bix1U0jJKg84uvqbg8mRDZfID0whzxDRmOJVuKWvVq3NRgMqunSSGVI2dl6aAzNCmSBube2%2BdyIDF9h%2BHU3kERIO8bXkCT6v4G5xGiaY2Q%3D%3D&sign_type=RSA2&timestamp=2018-12-14+01%3A06%3A23&version=1.0
-             * customerId :
-             * isShared : false
-             * payType : 2
-             * jdOrderId :
+             * orderId : 155213369102471006
+             * goodsName : iPhone8 256G 白色
+             * goodsImg : http://qiniu.rrenji.com/FsTt4G_xpjIWS-tLO4v5ZbOY7onL
+             * payStatus : 1
+             * orderType : 1
+             * orderSum : 899.01
+             * restMoney : 899.01
+             * createTime : 2019-03-09 20:14:51
+             * accessoryList : [{"accessoryId":"1","accessoryName":"(Apple) AirPods 无线耳机","count":1,"payPrice":899}]
              */
 
             private String orderId;
-            private String createOrderTime;
-            private String goodId;
-            private String goodName;
-            private String goodImg;
-            private String goodPrice;
-            private String orderSum;
-            private String goodsCode;
-            private int orderStatus;
-            private String orderStr;
-            private String customerId;
-            private boolean isShared;
-            private int payType;
-            private String jdOrderId;
+            private String goodsName;
+            private String goodsImg;
+            private String payStatus;
+            private String orderType;
+            private double orderSum;
+            private double goodsPrice;
+            private double restMoney;
+            private String createTime;
+            private List<AccessoryListBean> accessoryList;
+
+            public double getGoodsPrice() {
+                return goodsPrice;
+            }
+
+            public void setGoodsPrice(double goodsPrice) {
+                this.goodsPrice = goodsPrice;
+            }
 
             public String getOrderId() {
                 return orderId;
@@ -150,108 +90,123 @@ public class NetOrderBean {
                 this.orderId = orderId;
             }
 
-            public String getCreateOrderTime() {
-                return createOrderTime;
+            public String getGoodsName() {
+                return goodsName;
             }
 
-            public void setCreateOrderTime(String createOrderTime) {
-                this.createOrderTime = createOrderTime;
+            public void setGoodsName(String goodsName) {
+                this.goodsName = goodsName;
             }
 
-            public String getGoodId() {
-                return goodId;
+            public String getGoodsImg() {
+                return goodsImg;
             }
 
-            public void setGoodId(String goodId) {
-                this.goodId = goodId;
+            public void setGoodsImg(String goodsImg) {
+                this.goodsImg = goodsImg;
             }
 
-            public String getGoodName() {
-                return goodName;
+            public String getPayStatus() {
+                return payStatus;
             }
 
-            public void setGoodName(String goodName) {
-                this.goodName = goodName;
+            public void setPayStatus(String payStatus) {
+                this.payStatus = payStatus;
             }
 
-            public String getGoodImg() {
-                return goodImg;
+            public String getOrderType() {
+                return orderType;
             }
 
-            public void setGoodImg(String goodImg) {
-                this.goodImg = goodImg;
+            public void setOrderType(String orderType) {
+                this.orderType = orderType;
             }
 
-            public String getGoodPrice() {
-                return goodPrice;
-            }
-
-            public void setGoodPrice(String goodPrice) {
-                this.goodPrice = goodPrice;
-            }
-
-            public String getOrderSum() {
+            public double getOrderSum() {
                 return orderSum;
             }
 
-            public void setOrderSum(String orderSum) {
+            public void setOrderSum(double orderSum) {
                 this.orderSum = orderSum;
             }
 
-            public String getGoodsCode() {
-                return goodsCode;
+            public double getRestMoney() {
+                return restMoney;
             }
 
-            public void setGoodsCode(String goodsCode) {
-                this.goodsCode = goodsCode;
+            public void setRestMoney(double restMoney) {
+                this.restMoney = restMoney;
             }
 
-            public int getOrderStatus() {
-                return orderStatus;
+            public String getCreateTime() {
+                return createTime;
             }
 
-            public void setOrderStatus(int orderStatus) {
-                this.orderStatus = orderStatus;
+            public void setCreateTime(String createTime) {
+                this.createTime = createTime;
             }
 
-            public String getOrderStr() {
-                return orderStr;
+            public List<AccessoryListBean> getAccessoryList() {
+                return accessoryList;
             }
 
-            public void setOrderStr(String orderStr) {
-                this.orderStr = orderStr;
+            public void setAccessoryList(List<AccessoryListBean> accessoryList) {
+                this.accessoryList = accessoryList;
             }
 
-            public String getCustomerId() {
-                return customerId;
-            }
+            public static class AccessoryListBean {
+                /**
+                 * accessoryId : 1
+                 * accessoryName : (Apple) AirPods 无线耳机
+                 * count : 1
+                 * payPrice : 899
+                 */
 
-            public void setCustomerId(String customerId) {
-                this.customerId = customerId;
-            }
+                private String accessoryId;
+                private String accessoryName;
+                private int count;
+                private double payPrice;
+                private String imageUrl;
 
-            public boolean isIsShared() {
-                return isShared;
-            }
+                public String getImageUrl() {
+                    return imageUrl;
+                }
 
-            public void setIsShared(boolean isShared) {
-                this.isShared = isShared;
-            }
+                public void setImageUrl(String imageUrl) {
+                    this.imageUrl = imageUrl;
+                }
 
-            public int getPayType() {
-                return payType;
-            }
+                public String getAccessoryId() {
+                    return accessoryId;
+                }
 
-            public void setPayType(int payType) {
-                this.payType = payType;
-            }
+                public void setAccessoryId(String accessoryId) {
+                    this.accessoryId = accessoryId;
+                }
 
-            public String getJdOrderId() {
-                return jdOrderId;
-            }
+                public String getAccessoryName() {
+                    return accessoryName;
+                }
 
-            public void setJdOrderId(String jdOrderId) {
-                this.jdOrderId = jdOrderId;
+                public void setAccessoryName(String accessoryName) {
+                    this.accessoryName = accessoryName;
+                }
+
+                public int getCount() {
+                    return count;
+                }
+
+                public void setCount(int count) {
+                    this.count = count;
+                }
+
+                public double getPayPrice() {
+                    return payPrice;
+                }
+
+                public void setPayPrice(double payPrice) {
+                    this.payPrice = payPrice;
+                }
             }
         }
     }
