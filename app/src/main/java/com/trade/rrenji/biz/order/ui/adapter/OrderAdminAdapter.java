@@ -71,7 +71,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.ResultBe
         TextView order_time;
         ImageView order_image;
         TextView order_price;
-        TextView order_mun;
+        //        TextView order_mun;
         TextView dry_btn;
 
         public OrderViewHolder(View itemView) {
@@ -81,7 +81,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.ResultBe
             order_id = (TextView) itemView.findViewById(R.id.order_id);
             order_time = (TextView) itemView.findViewById(R.id.order_time);
             order_price = (TextView) itemView.findViewById(R.id.order_price);
-            order_mun = (TextView) itemView.findViewById(R.id.order_mun);
+//            order_mun = (TextView) itemView.findViewById(R.id.order_mun);
             dry_btn = (TextView) itemView.findViewById(R.id.dry_btn);
 
         }
@@ -91,10 +91,10 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.ResultBe
             super.bindData(data, position);
             GlideUtils.getInstance().loadIcon(mContext, data.getGoodImg(), R.drawable.ic_launcher, order_image);
             order_name.setText(data.getGoodName());
-            order_id.setText("订单号" + data.getGoodId());
-            order_time.setText(data.getCreateOrderTime());
-            order_price.setText(data.getGoodPrice());
-            order_mun.setText(mContext.getString(R.string.order_mun, 1));
+            order_id.setText("订单号: " + data.getOrderId());
+            order_time.setText("创建订单时间: " + data.getCreateOrderTime());
+            order_price.setText("￥" + data.getOrderSum());
+//            order_mun.setText(mContext.getString(R.string.order_mun, 1));
             dry_btn.setText("去支付");
 
         }
