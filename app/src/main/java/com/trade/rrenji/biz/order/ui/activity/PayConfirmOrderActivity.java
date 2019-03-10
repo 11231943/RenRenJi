@@ -1,20 +1,31 @@
 package com.trade.rrenji.biz.order.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.goods.GoodsDetailBean;
+import com.trade.rrenji.bean.goods.NetAccessoryListBean;
+import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
+import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.order.presenter.GetUserCreateOrderInfoPresenter;
 import com.trade.rrenji.biz.order.presenter.GetUserCreateOrderInfoPresenterImpl;
+import com.trade.rrenji.biz.order.ui.adapter.PayOrderAdminAdapter;
 import com.trade.rrenji.biz.order.ui.view.GetUserCreateOrderInfoView;
 import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.GlideUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @ContentView(R.layout.pay_confirm_layout)
 public class PayConfirmOrderActivity extends BaseActivity implements GetUserCreateOrderInfoView {
@@ -25,22 +36,17 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     TextView address_phone;
     @ViewInject(R.id.address)
     TextView address;
-
-    @ViewInject(R.id.order_image)
-    ImageView order_image;
-    @ViewInject(R.id.order_name)
-    TextView order_name;
-    @ViewInject(R.id.order_color)
-    TextView order_color;
-    @ViewInject(R.id.order_size)
-    TextView order_size;
-    @ViewInject(R.id.order_price)
-    TextView order_price;
+    @ViewInject(R.id.recycler_view)
+    RecyclerView recycler_view;
 
     @ViewInject(R.id.goods_detail_detail_buy)
     TextView goods_detail_detail_buy;
 
     GetUserCreateOrderInfoPresenter mPresenter;
+
+    GoodsDetailBean mGoodsDetailBean;
+    private List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans;
+    PayOrderAdminAdapter mPayOrderAdminAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +56,36 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     }
 
     private void initData() {
+        mGoodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("GoodsDetailBean");
+        mListBeans = (List<NetAccessoryListBean.DataBean.ResultListBean>) getIntent().getSerializableExtra("accessoryList");
         mPresenter.getUserCreateOrderInfoByUserId(this);
-//        GlideUtils.getInstance().loadIcon(this, mGoodImg, R.drawable.ic_launcher, order_image);
-//        order_name.setText(mTitle);
-//        order_price.setText("￥" + mGoodPrice);
+        mPayOrderAdminAdapter = new PayOrderAdminAdapter(this);
+        recycler_view.addItemDecoration(new LinearSpacingDecoration(20, 0));
+        recycler_view.setAdapter(mPayOrderAdminAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recycler_view.setLayoutManager(layoutManager);
+        mPayOrderAdminAdapter.addAll(buildData(mGoodsDetailBean, mListBeans));
     }
+
+    private List<LocalOrderInfoBean> buildData(GoodsDetailBean data, List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans) {
+        List<LocalOrderInfoBean> mList = new ArrayList<LocalOrderInfoBean>();
+        LocalOrderInfoBean localOrderInfoBean = new LocalOrderInfoBean();
+        localOrderInfoBean.setOrderId(data.getGoodsCode());
+        localOrderInfoBean.setGoodsName(data.getTitle());
+        localOrderInfoBean.setImg(data.getGoodsCoverImg());
+        localOrderInfoBean.setPayPrice(data.getPrice());
+        mList.add(localOrderInfoBean);
+        for (NetAccessoryListBean.DataBean.ResultListBean bean : mListBeans) {
+            LocalOrderInfoBean orderInfoBean = new LocalOrderInfoBean();
+            orderInfoBean.setOrderId(bean.getAccessoryId() + "");
+            orderInfoBean.setGoodsName(bean.getAccessoryName());
+            orderInfoBean.setImg(bean.getUrl());
+            orderInfoBean.setPayPrice(Double.valueOf(bean.getPrice()));
+            mList.add(orderInfoBean);
+        }
+        return mList;
+    }
+
 
     @Override
     protected void attachPresenter() {

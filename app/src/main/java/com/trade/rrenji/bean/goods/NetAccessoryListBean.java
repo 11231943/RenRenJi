@@ -1,5 +1,6 @@
 package com.trade.rrenji.bean.goods;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class NetAccessoryListBean {
@@ -50,7 +51,7 @@ public class NetAccessoryListBean {
             this.resultList = resultList;
         }
 
-        public static class ResultListBean {
+        public static class ResultListBean implements Serializable {
             /**
              * accessoryId : 5
              * accessoryName : 原装数据线
@@ -62,6 +63,15 @@ public class NetAccessoryListBean {
             private String accessoryName;
             private int price;
             private String url;
+            private boolean isCheck;
+
+            public boolean isCheck() {
+                return isCheck;
+            }
+
+            public void setCheck(boolean check) {
+                isCheck = check;
+            }
 
             public int getAccessoryId() {
                 return accessoryId;

@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.collection.NetCollectionBean;
+import com.trade.rrenji.bean.goods.GoodsDetailBean;
 import com.trade.rrenji.bean.goods.NetGoodsDetailBean;
-import com.trade.rrenji.bean.goods.NetGoodsDetailBean.ResultBean.EvaluateListBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.collection.presenter.AddCollectionActivityPresenter;
 import com.trade.rrenji.biz.collection.presenter.AddCollectionActivityPresenterImpl;
@@ -211,10 +211,11 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
             case R.id.goods_detail_detail_buy:
                 mLoopViewPager.setAutoPagingEnabled(true);
                 Intent intent = new Intent(this, PreConfirmOrderActivity.class);
-                intent.putExtra("goodsId", mNetGoodsDetailBean.getResult().getGoodsCode());
-                intent.putExtra("title", mNetGoodsDetailBean.getResult().getTitle());
-                intent.putExtra("goodsImg", mNetGoodsDetailBean.getResult().getGoodsCoverImg());
-                intent.putExtra("price", mNetGoodsDetailBean.getResult().getPrice());
+                intent.putExtra("mNetGoodsDetailBean", mNetGoodsDetailBean.getResult());
+//                intent.putExtra("goodsId", mNetGoodsDetailBean.getResult().getGoodsCode());
+//                intent.putExtra("title", mNetGoodsDetailBean.getResult().getTitle());
+//                intent.putExtra("goodsImg", mNetGoodsDetailBean.getResult().getGoodsCoverImg());
+//                intent.putExtra("price", mNetGoodsDetailBean.getResult().getPrice());
                 startActivity(intent);
                 break;
         }
@@ -243,14 +244,16 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     @Override
     public void getGoodsDetail(NetGoodsDetailBean netGoodsDetailBean) {
         mNetGoodsDetailBean = netGoodsDetailBean;
+
+        GoodsDetailBean detailBean = netGoodsDetailBean.getResult();
         //轮播
-        initViewPage(netGoodsDetailBean.getResult().getGoodsPics());
+        initViewPage(detailBean.getGoodsPics());
         //机友评价
-        initBase(netGoodsDetailBean.getResult());
-        initRecycler(netGoodsDetailBean.getResult().getGoodsPics());
+        initBase(detailBean);
+        initRecycler(detailBean.getGoodsPics());
     }
 
-    private void initRecycler(List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> beans) {
+    private void initRecycler(List<GoodsDetailBean.GoodsPicsBean> beans) {
         mRecyclerImageAdapter = new RecyclerImageAdapter(this);
         id_recyclerview.setLayoutManager(new LinearLayoutManager(this) {
             @Override
@@ -267,7 +270,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
 
     }
 
-    private void initBase(NetGoodsDetailBean.ResultBean resultBean) {
+    private void initBase(GoodsDetailBean resultBean) {
 
         testing_desc.setText(resultBean.getGoodsDesc());
         //标题
@@ -313,7 +316,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
 
         //本机描述
         if (resultBean.getSpecification().getNativeDesc() != null) {
-            NetGoodsDetailBean.ResultBean.SpecificationBean.NativeDescBean nativeDescBean = resultBean.getSpecification().getNativeDesc();
+            GoodsDetailBean.SpecificationBean.NativeDescBean nativeDescBean = resultBean.getSpecification().getNativeDesc();
             repair_record.setText(nativeDescBean.getRepairRecord());
             edition.setText(nativeDescBean.getEdition());
             battery_life.setText(nativeDescBean.getBatteryLife());
@@ -327,9 +330,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
         if (resultBean.getEvaluateList().size() > 0) {
             reply_no_main_layout.setVisibility(View.GONE);
             reply_main_layout.setVisibility(View.VISIBLE);
-            final List<NetGoodsDetailBean.ResultBean.EvaluateListBean> listBeans = resultBean.getEvaluateList();
+            final List<GoodsDetailBean.EvaluateListBean> listBeans = resultBean.getEvaluateList();
             if (listBeans != null && listBeans.size() > 0) {
-                final EvaluateListBean bean = listBeans.get(0);
+                final GoodsDetailBean.EvaluateListBean bean = listBeans.get(0);
 
                 if (!TextUtils.isEmpty(bean.getUserName())) {
                     if (bean.getUserName().endsWith("0")) {
@@ -429,8 +432,8 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
         }
     }
 
-    private void initViewPage(List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> beans) {
-        List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> mCircleAdBeans = beans;
+    private void initViewPage(List<GoodsDetailBean.GoodsPicsBean> beans) {
+        List<GoodsDetailBean.GoodsPicsBean> mCircleAdBeans = beans;
         GoodsBannerAdapter mSubjectAdAdapter = new GoodsBannerAdapter(this, mLoopViewPager, mCircleAdBeans);
         mLoopViewPager.setAdapter(mSubjectAdAdapter);
         mIndicator.setViewPager(mLoopViewPager);

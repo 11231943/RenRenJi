@@ -37,22 +37,10 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
 
     private Activity mContext;
 
-    private OnClickSetDefaultListener onClickSetDefaultListener;
-
-    private OnClickDelListener onClickDelListener;
-
     private onClickListener onClickListener;
 
     public void setOnClickListener(OrderAdminAdapter.onClickListener onClickListener) {
         this.onClickListener = onClickListener;
-    }
-
-    public void setOnClickDelListener(OnClickDelListener onClickDelListener) {
-        this.onClickDelListener = onClickDelListener;
-    }
-
-    public void setOnClickSetDefaultListener(OnClickSetDefaultListener onClickSetDefaultListener) {
-        this.onClickSetDefaultListener = onClickSetDefaultListener;
     }
 
     public void removeOrder(String packId) {
@@ -164,7 +152,6 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
             LocalOrderInfoBean data = mCategoryList.get(position);
             GlideUtils.getInstance().loadIcon(mContext, data.getImg(), R.drawable.ic_launcher, holder.order_image);
             holder.order_name.setText(data.getGoodsName());
-
             holder.order_price.setText("￥" + data.getPayPrice());
         }
     }
@@ -180,7 +167,6 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
             super(itemView);
             order_image = (ImageView) itemView.findViewById(R.id.order_image);
             order_name = (TextView) itemView.findViewById(R.id.order_name);
-
             order_price = (TextView) itemView.findViewById(R.id.order_price);
         }
     }

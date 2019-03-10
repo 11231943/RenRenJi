@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.goods.GoodsDetailBean;
 import com.trade.rrenji.bean.goods.NetGoodsDetailBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.utils.CollectionUtils;
@@ -16,13 +17,13 @@ import com.trade.rrenji.utils.ViewUtils;
 import java.util.List;
 
 public class GoodsBannerAdapter extends PagerAdapter {
-    private List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> mCircleAdBeans;
+    private List<GoodsDetailBean.GoodsPicsBean> mCircleAdBeans;
     private int width;
     private ViewGroup mContainer;
 
     private Context mContext;
 
-    public GoodsBannerAdapter(Context context, ViewGroup container, List<NetGoodsDetailBean.ResultBean.GoodsPicsBean> circleAdBeans) {
+    public GoodsBannerAdapter(Context context, ViewGroup container, List<GoodsDetailBean.GoodsPicsBean> circleAdBeans) {
         mContainer = container;
         mCircleAdBeans = circleAdBeans;
         mContext = context;
@@ -58,7 +59,7 @@ public class GoodsBannerAdapter extends PagerAdapter {
         if (position > count - 1) {
             return null;
         }
-        final NetGoodsDetailBean.ResultBean.GoodsPicsBean adBean = mCircleAdBeans.get(position);
+        final GoodsDetailBean.GoodsPicsBean adBean = mCircleAdBeans.get(position);
         if (null == adBean)
             return null;
 
