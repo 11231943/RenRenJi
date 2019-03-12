@@ -28,9 +28,7 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @ContentView(R.layout.pre_confirm_layout)
 public class PreConfirmOrderActivity extends BaseActivity implements AccessoryInfoView {
@@ -50,6 +48,10 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     @ViewInject(R.id.pre_order_sum)
     TextView pre_order_sum;
 
+    @ViewInject(R.id.pay_sum_price2)
+    TextView pay_sum_price2;
+
+
     @ViewInject(R.id.order_sum_price)
     TextView order_sum_price;
 
@@ -62,6 +64,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     AccessoryInfoPresenter mPresenter;
     GoodsDetailBean mGoodsDetailBean;
     AccessoryInfoAdapter mAccessoryInfoAdapter;
+    double mSumPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,18 +78,21 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
         GlideUtils.getInstance().loadIcon(this, mGoodsDetailBean.getGoodsCoverImg(), R.drawable.ic_launcher, order_image);
         order_name.setText(mGoodsDetailBean.getTitle());
         order_price.setText("￥" + mGoodsDetailBean.getPrice());
-        order_sum_price.setText("￥" + mGoodsDetailBean.getOriginalPrice());
+        order_sum_price.setText("￥" + mGoodsDetailBean.getPrice());
+        pay_sum_price2.setText("￥" + mGoodsDetailBean.getPrice());
+        mSumPrice = mGoodsDetailBean.getPrice();
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PreConfirmOrderActivity.this, PayConfirmOrderActivity.class);
                 intent.putExtra("GoodsDetailBean", mGoodsDetailBean);
                 intent.putExtra("accessoryList", (Serializable) mAccessoryInfoAdapter.getAccessoryCheckBox());
+                intent.putExtra("mSumPrice", mSumPrice);
                 startActivity(intent);
             }
         });
+        pre_order_sum.setText(getString(R.string.pre_order_mun, 1));
         mPresenter.getAccessoryInfo(this, mGoodsDetailBean.getGoodsCode());
-
     }
 
     @Override
@@ -99,6 +105,20 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
         recyclerView.setLayoutManager(layoutManager);
         mAccessoryInfoAdapter.addAll(netAccessoryListBean.getData().getResultList());
         mAccessoryInfoAdapter.notifyDataSetChanged();
+        mAccessoryInfoAdapter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void OnItemClick(NetAccessoryListBean.DataBean.ResultListBean data, int type) {
+                int tempPrice = 0;
+                for (NetAccessoryListBean.DataBean.ResultListBean bean : mAccessoryInfoAdapter.getAccessoryCheckBox()) {
+                    tempPrice += bean.getPrice();
+                }
+                order_sum_price.setText("￥" + (mGoodsDetailBean.getPrice() + tempPrice));
+                pay_sum_price2.setText("￥" + (mGoodsDetailBean.getPrice() + tempPrice));
+                mSumPrice = mGoodsDetailBean.getPrice() + tempPrice;
+                pre_order_sum.setText(getString(R.string.pre_order_mun, (1 + mAccessoryInfoAdapter.getAccessoryCheckBox().size())));
+            }
+        });
+
     }
 
     @Override
@@ -134,14 +154,6 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
         }
 
         private List<NetAccessoryListBean.DataBean.ResultListBean> getAccessoryCheckBox() {
-            if (mAccessoryList != null) {
-                mAccessoryList.clear();
-            }
-            for (NetAccessoryListBean.DataBean.ResultListBean bean : getDataSet()) {
-                if (bean.isCheck()) {
-                    mAccessoryList.add(bean);
-                }
-            }
             return mAccessoryList;
         }
 
@@ -174,10 +186,14 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
             @Override
             public void bindData(final NetAccessoryListBean.DataBean.ResultListBean data, final int position) {
                 super.bindData(data, position);
-                if (data.isCheck()) {
-                    accessory_check.setChecked(true);
-                } else {
-                    accessory_check.setChecked(false);
+                for (int i = 0; i < mAccessoryList.size(); i++) {
+                    if (mAccessoryList.get(position).getAccessoryId() == data.getAccessoryId()) {
+                        if (mAccessoryList.get(position).isCheck()) {
+                            accessory_check.setChecked(true);
+                        } else {
+                            accessory_check.setChecked(false);
+                        }
+                    }
                 }
                 GlideUtils.getInstance().loadIcon(mContext, data.getUrl(), R.drawable.ic_launcher, accessory_image);
                 accessory_text.setText(data.getAccessoryName());
@@ -185,12 +201,25 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
                 accessory_image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!accessory_check.isChecked()) {
+                        if (!data.isCheck()) {
                             accessory_check.setChecked(true);
                             data.setCheck(true);
+                            mAccessoryList.add(data);
+                            if (mOnClickListener != null) {
+                                mOnClickListener.OnItemClick(data, 1);
+                            }
                         } else {
                             accessory_check.setChecked(false);
                             data.setCheck(false);
+                            for (int i = 0; i < mAccessoryList.size(); i++) {
+                                if (mAccessoryList.get(i).getAccessoryId() == data.getAccessoryId()) {
+                                    mAccessoryList.remove(i);
+                                    break;
+                                }
+                            }
+                            if (mOnClickListener != null) {
+                                mOnClickListener.OnItemClick(data, 0);
+                            }
                         }
                     }
                 });
@@ -199,6 +228,6 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     }
 
     public interface OnClickListener {
-        void OnItemClick(NetAccessoryListBean.DataBean.ResultListBean data, int position);
+        void OnItemClick(NetAccessoryListBean.DataBean.ResultListBean data, int type);
     }
 }

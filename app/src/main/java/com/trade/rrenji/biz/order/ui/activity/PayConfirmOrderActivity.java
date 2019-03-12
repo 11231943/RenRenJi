@@ -36,6 +36,10 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     TextView address_phone;
     @ViewInject(R.id.address)
     TextView address;
+
+    @ViewInject(R.id.pay_sum_price2)
+    TextView pay_sum_price2;
+
     @ViewInject(R.id.recycler_view)
     RecyclerView recycler_view;
 
@@ -47,6 +51,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     GoodsDetailBean mGoodsDetailBean;
     private List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans;
     PayOrderAdminAdapter mPayOrderAdminAdapter;
+    private double mSumPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +61,10 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     }
 
     private void initData() {
+        mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
         mGoodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("GoodsDetailBean");
         mListBeans = (List<NetAccessoryListBean.DataBean.ResultListBean>) getIntent().getSerializableExtra("accessoryList");
+        pay_sum_price2.setText("￥" + mSumPrice);
         mPresenter.getUserCreateOrderInfoByUserId(this);
         mPayOrderAdminAdapter = new PayOrderAdminAdapter(this);
         recycler_view.addItemDecoration(new LinearSpacingDecoration(20, 0));

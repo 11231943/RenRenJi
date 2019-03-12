@@ -238,12 +238,15 @@
                         android:textColor="#999"
                         android:textSize="11sp" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <CheckBox
+                        android:background="@null"
+                        android:layout_marginRight="15dp"
+                        style="@style/CustomCheckBoxTheme"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -280,12 +283,14 @@
                         android:textColor="#999"
                         android:textSize="11sp" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <CheckBox
+                        android:background="@null"
+                        android:layout_marginRight="15dp"
+                        style="@style/CustomCheckBoxTheme"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
 
 
@@ -323,12 +328,14 @@
                         android:textColor="#999"
                         android:textSize="11sp" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <CheckBox
+                        android:background="@null"
+                        android:layout_marginRight="15dp"
+                        style="@style/CustomCheckBoxTheme"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -378,12 +385,14 @@
                         android:textColor="#ff5028"
                         android:textSize="11sp" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <CheckBox
+                        android:background="@null"
+                        android:layout_marginRight="15dp"
+                        style="@style/CustomCheckBoxTheme"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
 
 
