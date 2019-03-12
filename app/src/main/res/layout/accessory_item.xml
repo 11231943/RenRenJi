@@ -40,6 +40,7 @@
         android:id="@+id/accessory_check"
         android:layout_margin="3dp"
         android:background="@null"
+        android:clickable="false"
         android:gravity="right"
         style="@style/CustomCheckBoxTheme"
         android:layout_alignRight="@+id/accessory_image"

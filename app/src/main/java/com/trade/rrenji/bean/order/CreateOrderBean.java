@@ -203,6 +203,7 @@ public class CreateOrderBean {
          */
 
         private String payType;
+
         private int money;
 
         public String getPayType() {
@@ -220,5 +221,23 @@ public class CreateOrderBean {
         public void setMoney(int money) {
             this.money = money;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "CreateOrderBean{" +
+                "payType='" + payType + '\'' +
+                ", plan='" + plan + '\'' +
+                ", addressId='" + addressId + '\'' +
+                ", goodsId='" + goodsId + '\'' +
+                ", goodsCount=" + goodsCount +
+                ", couponId='" + couponId + '\'' +
+                ", userOrderMessage='" + userOrderMessage + '\'' +
+                ", extraServer=" + extraServer +
+                ", total='" + total + '\'' +
+                ", expressType=" + expressType +
+                ", accessories=" + accessories +
+                ", orderGroupPayList=" + orderGroupPayList +
+                '}';
     }
 }

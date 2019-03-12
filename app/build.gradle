@@ -4,6 +4,7 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.trade.rrenji"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -12,21 +13,52 @@ android {
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("sapkey")
+            storePassword "sap2015"
+            keyAlias "sap360"
+            keyPassword "sap2015"
+        }
+        debug {
+            storeFile file("sapkey")
+            storePassword "sap2015"
+            keyAlias "sap360"
+            keyPassword "sap2015"
+        }
+    }
+
     buildTypes {
         beta {
             minifyEnabled false
             buildConfigField "String", "API_TYPE", '"beta"'
         }
         debug {
+            //混淆
             minifyEnabled false
+            //签名
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a","x86"
+            }
             buildConfigField "String", "API_TYPE", '"debug"'
         }
         release {
             buildConfigField "String", "API_TYPE", '"release"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters "armeabi", "armeabi-v7a","x86"
+            }
         }
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     repositories{
         flatDir{ dirs'libs'}
     }
@@ -52,6 +84,7 @@ repositories {
         url 'https://maven.google.com/'
         name 'Google'
     }
+
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -69,4 +102,7 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.0'
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     compile project(':SuperRecyclerView')
+    compile files('libs/alipaySdk-20170922.jar')
+    compile(name: 'jdpayauthor_release', ext: 'aar')
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
 }

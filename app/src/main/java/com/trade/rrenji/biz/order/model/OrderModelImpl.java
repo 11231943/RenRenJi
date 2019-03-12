@@ -1,12 +1,21 @@
 package com.trade.rrenji.biz.order.model;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.trade.rrenji.bean.account.ValidateCodeBean;
+import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.net.ServiceHelper;
 import com.trade.rrenji.net.XUtils;
 import com.trade.rrenji.net.XUtils.ResultListener;
 import com.trade.rrenji.utils.Contetns;
+import com.trade.rrenji.utils.GsonUtils;
 import com.trade.rrenji.utils.SettingUtils;
+
+import org.xutils.common.Callback;
+import org.xutils.http.HttpMethod;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.Map;
 
@@ -51,5 +60,37 @@ public class OrderModelImpl implements OrderModel {
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
+    }
+
+    @Override
+    public void createOrder(Context mContext, CreateOrderBean bean, final ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.order.create");
+        long timeStamp = System.currentTimeMillis();
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + "abc";
+        RequestParams requestParams = new RequestParams(url);
+        requestParams.setAsJsonContent(true);
+        requestParams.setBodyContent(GsonUtils.getGson().toJson(bean));
+        Log.e("createOrder", "url :" + url + " bean = " + GsonUtils.getGson().toJson(bean));
+        x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                resultListener.onResponse(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                resultListener.onError(ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

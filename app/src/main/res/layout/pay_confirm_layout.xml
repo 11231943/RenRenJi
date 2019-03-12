@@ -239,6 +239,8 @@
                         android:textSize="11sp" />
 
                     <CheckBox
+                        android:id="@+id/checkbox_zfb"
+                        android:clickable="false"
                         android:background="@null"
                         android:layout_marginRight="15dp"
                         style="@style/CustomCheckBoxTheme"
@@ -284,7 +286,9 @@
                         android:textSize="11sp" />
 
                     <CheckBox
+                        android:id="@+id/checkbox_wx"
                         android:background="@null"
+                        android:clickable="false"
                         android:layout_marginRight="15dp"
                         style="@style/CustomCheckBoxTheme"
                         android:layout_alignParentRight="true"
@@ -329,7 +333,9 @@
                         android:textSize="11sp" />
 
                     <CheckBox
+                        android:id="@+id/checkbox_jd"
                         android:background="@null"
+                        android:clickable="false"
                         android:layout_marginRight="15dp"
                         style="@style/CustomCheckBoxTheme"
                         android:layout_alignParentRight="true"
@@ -386,6 +392,8 @@
                         android:textSize="11sp" />
 
                     <CheckBox
+                        android:id="@+id/checkbox_zh"
+                        android:clickable="false"
                         android:background="@null"
                         android:layout_marginRight="15dp"
                         style="@style/CustomCheckBoxTheme"
