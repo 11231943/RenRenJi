@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="189dp"
+        android:background="#f95b27">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:text="物流详情"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="45dp"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/back_btn" />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="27dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="67dp"
+            android:layout_marginRight="100dp"
+            android:src="@drawable/renren_feiji_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="70dp"
+            android:gravity="center"
+            android:text="未发货"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/logistics_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="121dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/oder_item_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/logistics_id"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="顺丰快递:666999495827"
+            android:textColor="#333"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="#e5e5e5" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <ImageView
+                android:id="@+id/logistics_icon"
+                android:layout_width="31dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="23dp"
+                android:src="@drawable/renren_feiji_icon" />
+
+            <TextView
+                android:id="@+id/logistics_last_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="17dp"
+                android:layout_toRightOf="@+id/logistics_icon"
+                android:text="快件正在从深圳发往福建的途中…"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logistics_last_txt"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="9dp"
+                android:layout_toRightOf="@+id/logistics_icon"
+                android:text="2018-10-12     17:12:56"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <ImageView
+                android:id="@+id/log_address_icon"
+                android:layout_width="31dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="23dp"
+                android:src="@drawable/log_address_icon" />
+
+            <TextView
+                android:id="@+id/logistics_address_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="17dp"
+                android:layout_toRightOf="@+id/log_address_icon"
+                android:text="彭浩  17603009825"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/logistics_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logistics_address_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="9dp"
+                android:layout_toRightOf="@+id/log_address_icon"
+                android:text="福建省泉州市石狮市南洋路1151号"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:background="#e5e5e5" />
+
+        <TextView
+            android:id="@+id/logistics_more"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="点击查看更多物流详情"
+            android:textColor="#999999"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/renrenji_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@+id/logistics_layout"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:text="人人机自营"
+            android:textColor="#000"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/renrenji_layout"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/oder_item_bg"
+        android:padding="14dp">
+
+        <ImageView
+            android:id="@+id/order_image"
+            android:layout_width="67dp"
+            android:layout_height="67dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/order_image"
+            android:text="iPhone XS Max 99新"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_name"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/order_image"
+            android:text="ps1234567789"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/order_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_id"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/order_image"
+            android:text="ps1234567789"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/order_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_image"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="10dp"
+            android:text="￥5888.00"
+            android:textColor="#f23030"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/order_mun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_image"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="14dp"
+            android:layout_toRightOf="@+id/order_price"
+            android:text="共计1件商品"
+            android:textColor="#000000"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/cancel_collection"
+            android:layout_width="77dp"
+            android:layout_height="23dp"
+            android:layout_below="@+id/order_mun"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/dry_btn_bg"
+            android:gravity="center"
+            android:text="联系客服"
+            android:textColor="#ef5311"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

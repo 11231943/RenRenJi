@@ -66,6 +66,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
         TextView order_id;
         TextView order_time;
         TextView order_sum;
+        TextView del_btn;
 
         public OrderViewHolder(View itemView) {
             super(itemView);
@@ -75,17 +76,24 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
             order_id = (TextView) itemView.findViewById(R.id.order_id);
             order_time = (TextView) itemView.findViewById(R.id.order_time);
             order_sum = (TextView) itemView.findViewById(R.id.order_sum);
+            del_btn = (TextView) itemView.findViewById(R.id.del_btn);
         }
 
         @Override
         public void bindData(final ResultListBean data, int position) {
             super.bindData(data, position);
+            if (!data.getPayStatus().equals("1")) {
+                del_btn.setVisibility(View.GONE);
+                dry_btn.setText("去晒单");
+            } else if (data.getPayStatus().equals("2") || data.getPayStatus().equals("3")) {
+                dry_btn.setText("查看订单");
+            }
             ItemAdapter itemAdapter = new ItemAdapter(mContext);
             order_total.setText("￥" + data.getOrderSum());
             dry_btn.setText("去支付");
             order_id.setText("订单号: " + data.getOrderId());
             order_time.setText("创建订单时间: " + data.getCreateTime());
-            order_sum.setText(mContext.getString(R.string.order_mun,(1+data.getAccessoryList().size())));
+            order_sum.setText(mContext.getString(R.string.order_mun, (1 + data.getAccessoryList().size())));
             recycler_view.addItemDecoration(new LinearSpacingDecoration(20, 0));
             recycler_view.setAdapter(itemAdapter);
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
@@ -114,7 +122,6 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
         }
         return mList;
     }
-
 
     private class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 

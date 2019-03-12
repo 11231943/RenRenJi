@@ -133,7 +133,6 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                     String resultStatus = payResult.getResultStatus();
-
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
@@ -156,7 +155,6 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                     @SuppressWarnings("unchecked")
                     AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
                     String resultStatus = authResult.getResultStatus();
-
                     // 判断resultStatus 为“9000”且result_code
                     // 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
                     if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
@@ -169,7 +167,6 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                         // 其他状态值则为授权失败
                         Toast.makeText(PayConfirmOrderActivity.this,
                                 "授权失败" + String.format("authCode:%s", authResult.getAuthCode()), Toast.LENGTH_SHORT).show();
-
                     }
                     break;
                 }
@@ -239,10 +236,8 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         if (Constants.PAY_RESPONSE_CODE == resultCode) {//返回信息接收
             String result = data.getStringExtra(JDPayAuthor.JDPAY_RESULT);
             Log.e("onActivityResult", result);
-
         }
     }
-
 
     private void initData() {
         mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
