@@ -39,6 +39,10 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
 
     @ViewInject(R.id.pay_sum_price2)
     TextView pay_sum_price2;
+    @ViewInject(R.id.pre_order_sum)
+    TextView pre_order_sum;
+    @ViewInject(R.id.order_sum_price)
+    TextView order_sum_price;
 
     @ViewInject(R.id.recycler_view)
     RecyclerView recycler_view;
@@ -52,6 +56,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     private List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans;
     PayOrderAdminAdapter mPayOrderAdminAdapter;
     private double mSumPrice;
+    private int mSumCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +67,12 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
 
     private void initData() {
         mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
+        mSumCount = getIntent().getIntExtra("mSumCount", -0);
         mGoodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("GoodsDetailBean");
         mListBeans = (List<NetAccessoryListBean.DataBean.ResultListBean>) getIntent().getSerializableExtra("accessoryList");
         pay_sum_price2.setText("￥" + mSumPrice);
+        pre_order_sum.setText(getString(R.string.order_mun, mSumCount));
+        order_sum_price.setText("￥" + mSumPrice);
         mPresenter.getUserCreateOrderInfoByUserId(this);
         mPayOrderAdminAdapter = new PayOrderAdminAdapter(this);
         recycler_view.addItemDecoration(new LinearSpacingDecoration(20, 0));

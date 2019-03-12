@@ -65,6 +65,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     GoodsDetailBean mGoodsDetailBean;
     AccessoryInfoAdapter mAccessoryInfoAdapter;
     double mSumPrice = 0;
+    int mSumCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
         order_sum_price.setText("￥" + mGoodsDetailBean.getPrice());
         pay_sum_price2.setText("￥" + mGoodsDetailBean.getPrice());
         mSumPrice = mGoodsDetailBean.getPrice();
+        mSumPrice = 1;
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +90,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
                 intent.putExtra("GoodsDetailBean", mGoodsDetailBean);
                 intent.putExtra("accessoryList", (Serializable) mAccessoryInfoAdapter.getAccessoryCheckBox());
                 intent.putExtra("mSumPrice", mSumPrice);
+                intent.putExtra("mSumCount", mSumCount);
                 startActivity(intent);
             }
         });
@@ -116,6 +119,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
                 pay_sum_price2.setText("￥" + (mGoodsDetailBean.getPrice() + tempPrice));
                 mSumPrice = mGoodsDetailBean.getPrice() + tempPrice;
                 pre_order_sum.setText(getString(R.string.pre_order_mun, (1 + mAccessoryInfoAdapter.getAccessoryCheckBox().size())));
+                mSumCount = 1 + mAccessoryInfoAdapter.getAccessoryCheckBox().size();
             }
         });
 
