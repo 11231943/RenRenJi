@@ -169,7 +169,7 @@ public class CreateOrderBean {
 
         private int accessoryId;
         private int count;
-        private int payPrice;
+        private double payPrice;
 
         public int getAccessoryId() {
             return accessoryId;
@@ -187,11 +187,11 @@ public class CreateOrderBean {
             this.count = count;
         }
 
-        public int getPayPrice() {
+        public double getPayPrice() {
             return payPrice;
         }
 
-        public void setPayPrice(int payPrice) {
+        public void setPayPrice(double payPrice) {
             this.payPrice = payPrice;
         }
     }

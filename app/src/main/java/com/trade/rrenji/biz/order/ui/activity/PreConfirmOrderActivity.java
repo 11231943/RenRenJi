@@ -20,9 +20,13 @@ import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.order.presenter.AccessoryInfoPresenter;
 import com.trade.rrenji.biz.order.presenter.AccessoryInfoPresenterImpl;
 import com.trade.rrenji.biz.order.ui.view.AccessoryInfoView;
+import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
@@ -73,6 +77,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
         setActionBarTitle("确认订单");
         mGoodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("mNetGoodsDetailBean");
         initData();
+        EventBus.getDefault().register(this);
     }
 
     private void initData() {
@@ -82,7 +87,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
         order_sum_price.setText("￥" + mGoodsDetailBean.getPrice());
         pay_sum_price2.setText("￥" + mGoodsDetailBean.getPrice());
         mSumPrice = mGoodsDetailBean.getPrice();
-        mSumPrice = 1;
+        mSumCount = 1;
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +103,10 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
         mPresenter.getAccessoryInfo(this, mGoodsDetailBean.getGoodsCode());
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GoOrderActivityEvent event){
+        finish();
+    }
     @Override
     public void getAccessoryInfoSuccess(NetAccessoryListBean netAccessoryListBean) {
         mAccessoryInfoAdapter = new AccessoryInfoAdapter(this);
@@ -140,6 +149,12 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     protected void detachPresenter() {
         mPresenter.detachView();
         mPresenter = null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     /**

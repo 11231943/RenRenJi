@@ -28,7 +28,7 @@ public class OrderModelImpl implements OrderModel {
     }
 
     @Override
-    public void getOrderList(Context mContext, int pageNum, int type, ResultListener resultListener) {
+    public void getOrderList(Context mContext, int pageNum, String status, ResultListener resultListener) {
         //{sessionKey}/{timeStamp}/{pageNum}/{type}/{token}
         //{sessionKey}/{timestamp}/{token}?page=0&rows=2&status=1
         String url = ServiceHelper.buildUrl("api.v2.order.list");
@@ -39,7 +39,7 @@ public class OrderModelImpl implements OrderModel {
         Map<String, String> params = paramBuilder.build();
         params.put("page", pageNum + "");
         params.put("rows", "20");
-        params.put("status", type + "");
+        params.put("status", status);
         XUtils.getInstance().get(url, params, resultListener);
     }
 

@@ -61,7 +61,7 @@ public class NetAccessoryListBean {
 
             private int accessoryId;
             private String accessoryName;
-            private int price;
+            private double price;
             private String url;
             private boolean isCheck;
 
@@ -89,11 +89,11 @@ public class NetAccessoryListBean {
                 this.accessoryName = accessoryName;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

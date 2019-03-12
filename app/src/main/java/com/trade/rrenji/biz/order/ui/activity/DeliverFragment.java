@@ -76,7 +76,7 @@ public class DeliverFragment extends BaseFragment implements OrderActivityView {
     }
 
     private void loadData() {
-        mPresenter.getOrderList(getActivity(), mIndexPage, 2);
+        mPresenter.getOrderList(getActivity(), mIndexPage, "2");
     }
 
 

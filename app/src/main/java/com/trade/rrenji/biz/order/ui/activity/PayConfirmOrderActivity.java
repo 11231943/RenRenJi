@@ -1,6 +1,7 @@
 package com.trade.rrenji.biz.order.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
+import com.jdpaysdk.author.Constants;
 import com.jdpaysdk.author.JDPayAuthor;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.goods.GoodsDetailBean;
@@ -34,7 +36,12 @@ import com.trade.rrenji.biz.order.presenter.GetUserCreateOrderInfoPresenter;
 import com.trade.rrenji.biz.order.presenter.GetUserCreateOrderInfoPresenterImpl;
 import com.trade.rrenji.biz.order.ui.adapter.PayOrderAdminAdapter;
 import com.trade.rrenji.biz.order.ui.view.GetUserCreateOrderInfoView;
+import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.utils.Contetns;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -131,13 +138,17 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(PayConfirmOrderActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-
+                        EventBus.getDefault().post(new GoOrderActivityEvent());
+                        Intent intent = new Intent(PayConfirmOrderActivity.this, OrderAllActivity.class);
+                        startActivity(intent);
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(PayConfirmOrderActivity.this, "支付失败---" + resultStatus + "---" + resultInfo, Toast.LENGTH_SHORT).show();
                         Log.e("SLX", payResult.toString());
+                        EventBus.getDefault().post(new GoOrderActivityEvent());
+                        Intent intent = new Intent(PayConfirmOrderActivity.this, OrderActivity.class);
+                        startActivity(intent);
                     }
-
                     finish();
                     break;
                 }
@@ -166,8 +177,6 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                     break;
             }
         }
-
-        ;
     };
 
 
@@ -189,7 +198,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                                     Message msg = new Message();
                                     msg.what = SDK_PAY_FLAG;
                                     msg.obj = result;
-//                                    mHandler.sendMessage(msg);
+                                    mHandler.sendMessage(msg);
                                 } else if (mType == 3) {
                                     JDPayAuthor jdPayAuthor = new JDPayAuthor();
                                     String orderId = orderBean.getResult().getOrderId();
@@ -217,7 +226,23 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         super.onCreate(savedInstanceState);
         setActionBarTitle("确认付款");
         initData();
+        EventBus.getDefault().register(this);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GoOrderActivityEvent event) {
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (Constants.PAY_RESPONSE_CODE == resultCode) {//返回信息接收
+            String result = data.getStringExtra(JDPayAuthor.JDPAY_RESULT);
+            Log.e("onActivityResult", result);
+
+        }
+    }
+
 
     private void initData() {
         mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
@@ -293,14 +318,14 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         createOrderBean.setUserOrderMessage("");
         List<AccessoriesBean> mAccessories = new ArrayList<AccessoriesBean>();
         for (NetAccessoryListBean.DataBean.ResultListBean beans : mListBeans) {
-            AccessoriesBean accessoriesBean =new AccessoriesBean();
+            AccessoriesBean accessoriesBean = new AccessoriesBean();
             accessoriesBean.setAccessoryId(beans.getAccessoryId());
             accessoriesBean.setCount(1);
             accessoriesBean.setPayPrice(beans.getPrice());
             mAccessories.add(accessoriesBean);
         }
         createOrderBean.setAccessories(mAccessories);
-        List<OrderGroupPayListBean> mOrderGroupPayListBean =new ArrayList<OrderGroupPayListBean>();
+        List<OrderGroupPayListBean> mOrderGroupPayListBean = new ArrayList<OrderGroupPayListBean>();
         createOrderBean.setOrderGroupPayList(mOrderGroupPayListBean);
         mPresenter.createOrder(this, createOrderBean);
     }
@@ -368,6 +393,12 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
 
     @Override
     public void createOrderError(int code, String msg) {
-        Log.d("createOrderError", "msg : " +msg);
+        Log.d("createOrderError", "msg : " + msg);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -63,7 +63,7 @@ public class OrderActivity extends BaseActivity implements OrderActivityView {
     }
 
     private void loadData() {
-        mPresenter.getOrderList(this, mIndexPage, 1);
+        mPresenter.getOrderList(this, mIndexPage, "1");
     }
 
     @Override

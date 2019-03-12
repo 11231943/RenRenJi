@@ -28,12 +28,16 @@ import com.trade.rrenji.biz.goods.ui.adapter.GoodsBannerAdapter;
 import com.trade.rrenji.biz.goods.ui.adapter.RecyclerImageAdapter;
 import com.trade.rrenji.biz.goods.ui.view.GoodsActivityView;
 import com.trade.rrenji.biz.order.ui.activity.PreConfirmOrderActivity;
+import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
 import com.trade.rrenji.utils.LoopViewPager;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -174,6 +178,12 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
         init();
         mGoodsCode = getIntent().getStringExtra("goodsCode");
         loadData();
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GoOrderActivityEvent event){
+        finish();
     }
 
     private void init() {
@@ -224,6 +234,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -23,8 +23,8 @@ public class OrderActivityPresenterImpl extends BasePresenter<OrderActivityView>
     }
 
     @Override
-    public void getOrderList(Context mContext, int pageNum, int type) {
-        mModel.getOrderList(mContext, pageNum, type, new XUtils.ResultListener() {
+    public void getOrderList(Context mContext, int pageNum, String status) {
+        mModel.getOrderList(mContext, pageNum, status, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
                 try {
