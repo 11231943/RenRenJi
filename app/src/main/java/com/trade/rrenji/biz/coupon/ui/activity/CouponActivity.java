@@ -7,15 +7,19 @@ import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.address.NetAddressBean;
+import com.trade.rrenji.bean.coupon.NetCouponBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.coupon.presenter.CouponActivityPresenter;
 import com.trade.rrenji.biz.coupon.presenter.CouponActivityPresenterImpl;
 import com.trade.rrenji.biz.coupon.ui.adapter.CouponAdapter;
 import com.trade.rrenji.biz.coupon.ui.view.CouponActivityView;
 import com.trade.rrenji.fragment.DryingTabFragment;
+import com.trade.rrenji.utils.Contetns;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
+
+import java.util.List;
 
 
 @ContentView(R.layout.base_activity_super_recyclerview)
@@ -40,7 +44,8 @@ public class CouponActivity extends BaseActivity implements CouponActivityView {
     private void init() {
         setActionBarTitle("优惠券");
         mCouponAdapter = new CouponAdapter(this);
-        mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(5, 5));
+        mSuperRecyclerView.setRecyclerPadding(0,10,0,0);
+        mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(20, 20));
         mSuperRecyclerView.setAdapter(mCouponAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
@@ -81,8 +86,17 @@ public class CouponActivity extends BaseActivity implements CouponActivityView {
     }
 
     @Override
-    public void getCouponList(NetAddressBean netShareBean) {
-
+    public void getCouponList(NetCouponBean netShareBean) {
+        if (mIndexPage == 1) {
+            if (mCouponAdapter != null) {
+                mCouponAdapter.clear();
+            }
+        }
+        List<NetCouponBean.ResultBean.CouponListBean> listBeans = netShareBean.getResult().getCouponList();
+        mSuperRecyclerView.finishRefreshing();
+        mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(listBeans.size()));
+        mSuperRecyclerView.finishMore(!Contetns.hasMoreData(listBeans.size()));
+        mCouponAdapter.addAll(listBeans);
     }
 
     @Override

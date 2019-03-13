@@ -1,19 +1,13 @@
 package com.trade.rrenji.biz.coupon.ui.adapter;
 
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.NetAddressBean.ResultBean.AddressListBean;
+import com.trade.rrenji.bean.coupon.NetCouponBean.ResultBean.CouponListBean;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 
 import java.util.List;
@@ -22,11 +16,7 @@ import java.util.List;
 /**
  * Created by wheat on 16/1/14.
  */
-public class CouponAdapter extends RecyclerListAdapter<AddressListBean> {
-
-    private static final int ACTION_DEFAULT = 0;
-
-    private static final int ACTION_DEL = 1;
+public class CouponAdapter extends RecyclerListAdapter<CouponListBean> {
 
     private Activity mContext;
 
@@ -48,10 +38,10 @@ public class CouponAdapter extends RecyclerListAdapter<AddressListBean> {
         this.onClickSetDefaultListener = onClickSetDefaultListener;
     }
 
-    public void removeAddressAdmin(String packId) {
-        List<AddressListBean> beans = getDataSet();
-        for (AddressListBean bean : beans) {
-            if (TextUtils.equals(bean.getAddressId(), packId)) {
+    public void removeAddressAdmin(int couponId) {
+        List<CouponListBean> beans = getDataSet();
+        for (CouponListBean bean : beans) {
+            if (bean.getCouponId() == couponId) {
                 remove(bean);
                 break;
             }
@@ -63,109 +53,40 @@ public class CouponAdapter extends RecyclerListAdapter<AddressListBean> {
         mContext = context;
     }
 
-    public class AddressViewHolder extends ViewHolder {
+    public class CouponViewHolder extends ViewHolder {
 
-        TextView address_name;
-        TextView address_phone;
-        TextView address;
+        TextView coupon_value;
+        TextView limit_pay_value;
+        TextView limit_pay_fw;
+        TextView limit_pay_time;
 
-
-        LinearLayout address_edit_layout;
-        LinearLayout address_del_layout;
-
-        ImageView default_img;
-        TextView set_default_address_text;
-        LinearLayout set_default_address;
-
-        public AddressViewHolder(View itemView) {
+        public CouponViewHolder(View itemView) {
             super(itemView);
-
-            address_edit_layout = (LinearLayout) itemView.findViewById(R.id.address_edit_layout);
-            address_del_layout = (LinearLayout) itemView.findViewById(R.id.address_del_layout);
-            address_name = (TextView) itemView.findViewById(R.id.address_name);
-            address_phone = (TextView) itemView.findViewById(R.id.address_phone);
-            address = (TextView) itemView.findViewById(R.id.address);
-            set_default_address = (LinearLayout) itemView.findViewById(R.id.set_default_address);
-            default_img = (ImageView) itemView.findViewById(R.id.default_img);
-            set_default_address_text = (TextView) itemView.findViewById(R.id.set_default_address_text);
+            coupon_value = (TextView) itemView.findViewById(R.id.coupon_value);
+            limit_pay_value = (TextView) itemView.findViewById(R.id.limit_pay_value);
+            limit_pay_fw = (TextView) itemView.findViewById(R.id.limit_pay_fw);
+            limit_pay_time = (TextView) itemView.findViewById(R.id.limit_pay_time);
         }
 
         @Override
-        public void bindData(final AddressListBean data, int position) {
+        public void bindData(final CouponListBean data, int position) {
             super.bindData(data, position);
-            address_name.setText(data.getConsigneeName());
-            address_phone.setText(data.getConsigneeTel());
-            setOnItemClickListener(new OnItemClickListener<AddressListBean>() {
-                @Override
-                public void onItemClick(View v, AddressListBean data) {
-                    if (onClickListener == null) return;
-                    onClickListener.onClick(data);
-//
-                }
-            });
-            if (data.isDefault()) {
-                default_img.setImageResource(R.drawable.check_true_address);
-                set_default_address_text.setTextColor(Color.parseColor("#FD5252"));
-            } else {
-                default_img.setImageResource(R.drawable.check_false_address);
-                set_default_address_text.setTextColor(Color.parseColor("#7D7D7D"));
-            }
-            address.setText(mContext.getResources().getString(R.string.address_show_detail,
-                    data.getProvince(), data.getCity(), data.getDistrict(), data.getLocation()));
-            set_default_address.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!data.isDefault()) {
-                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_default_address_info), ACTION_DEFAULT);
-                    }
-                }
-            });
-            address_del_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.del_address_info), ACTION_DEL);
-                }
-            });
-            address_edit_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent intent = new Intent(mContext, UpdateAddressActivity.class);
-//                    intent.putExtra("type", UpdateAddressActivity.TYPE_UPDATE);
-//                    intent.putExtra("address", data);
-//                    mContext.startActivity(intent);
-                }
-            });
+            coupon_value.setText("¥" + data.getCouponValue());
+            limit_pay_value.setText("满" + data.getLimitPayValue() + "使用");
+            limit_pay_fw.setText("适用范围："+data.getCouponRuleList().get(0));
+            limit_pay_time.setText("有效期至："+data.getCouponRuleList().get(2).substring(data.getCouponRuleList().get(2).indexOf("至") + 1));
         }
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new AddressViewHolder(inflater.inflate(R.layout.address_admin_item, parent, false));
+        return new CouponViewHolder(inflater.inflate(R.layout.coupon_admin_item, parent, false));
     }
 
-    private void setAddressTip(final String addressId, String message, final int action) {
-        new AlertDialog.Builder(mContext)
-                .setMessage(message)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (action == ACTION_DEFAULT) {
-                            if (onClickSetDefaultListener == null) return;
-                            onClickSetDefaultListener.onClick(addressId);
-                        } else {
-                            if (onClickDelListener == null) return;
-                            onClickDelListener.onClick(addressId);
-                        }
-                    }
-                })
-                .setNegativeButton(R.string.cancel, null)
-                .show();
-
-    }
 
     public interface onClickListener {
-        void onClick(AddressListBean data);
+        void onClick(CouponListBean data);
     }
 
     public interface OnClickSetDefaultListener {

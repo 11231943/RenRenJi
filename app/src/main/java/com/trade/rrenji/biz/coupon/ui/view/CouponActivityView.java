@@ -1,6 +1,6 @@
 package com.trade.rrenji.biz.coupon.ui.view;
 
-import com.trade.rrenji.bean.address.NetAddressBean;
+import com.trade.rrenji.bean.coupon.NetCouponBean;
 import com.trade.rrenji.biz.base.BaseView;
 
 /**
@@ -9,7 +9,7 @@ import com.trade.rrenji.biz.base.BaseView;
 
 public interface CouponActivityView extends BaseView {
 
-    void getCouponList(NetAddressBean netShareBean);
+    void getCouponList(NetCouponBean netShareBean);
 
     void getCouponListError(int code, String msg);
 }
