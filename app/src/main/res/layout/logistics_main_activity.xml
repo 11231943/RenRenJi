@@ -17,6 +17,7 @@
             android:textSize="16sp" />
 
         <RelativeLayout
+            android:id="@+id/back_icon"
             android:layout_width="45dp"
             android:layout_height="45dp">
 
@@ -31,15 +32,16 @@
             android:layout_width="55dp"
             android:layout_height="27dp"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="67dp"
+            android:layout_marginTop="60dp"
             android:layout_marginRight="100dp"
             android:src="@drawable/renren_feiji_icon" />
 
         <TextView
+            android:id="@+id/new_status_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="63dp"
             android:gravity="center"
             android:text="未发货"
             android:textColor="#ffffff"
@@ -51,9 +53,9 @@
         android:id="@+id/logistics_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="121dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="12dp"
         android:background="@drawable/oder_item_bg"
         android:orientation="vertical">
 
@@ -97,13 +99,14 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/logistics_last_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/logistics_last_txt"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="9dp"
                 android:layout_toRightOf="@+id/logistics_icon"
-                android:text="2018-10-12     17:12:56"
+                android:text="2018-10-12 17:12:56"
                 android:textColor="#333333"
                 android:textSize="12sp" />
 
@@ -115,17 +118,17 @@
 
             <ImageView
                 android:id="@+id/log_address_icon"
-                android:layout_width="31dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="28dp"
                 android:src="@drawable/log_address_icon" />
 
             <TextView
                 android:id="@+id/logistics_address_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="17dp"
                 android:layout_toRightOf="@+id/log_address_icon"
                 android:text="彭浩  17603009825"
@@ -137,7 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/logistics_address_name"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="9dp"
                 android:layout_toRightOf="@+id/log_address_icon"
                 android:text="福建省泉州市石狮市南洋路1151号"
@@ -165,6 +168,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/renrenji_layout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -188,95 +192,13 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/renrenji_layout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_layout"
+        android:layout_below="@+id/logistics_layout"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:background="@drawable/oder_item_bg"
-        android:padding="14dp">
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/order_image"
-            android:layout_width="67dp"
-            android:layout_height="67dp"
-            android:src="@drawable/ic_launcher" />
-
-        <TextView
-            android:id="@+id/order_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="11dp"
-            android:layout_toRightOf="@+id/order_image"
-            android:text="iPhone XS Max 99新"
-            android:textColor="#000000"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/order_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/order_name"
-            android:layout_marginLeft="11dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/order_image"
-            android:text="ps1234567789"
-            android:textColor="#000000"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/order_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/order_id"
-            android:layout_marginLeft="11dp"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/order_image"
-            android:text="ps1234567789"
-            android:textColor="#000000"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/order_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/order_image"
-            android:layout_marginLeft="3dp"
-            android:layout_marginTop="10dp"
-            android:text="￥5888.00"
-            android:textColor="#f23030"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/order_mun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/order_image"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="14dp"
-            android:layout_toRightOf="@+id/order_price"
-            android:text="共计1件商品"
-            android:textColor="#000000"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/cancel_collection"
-            android:layout_width="77dp"
-            android:layout_height="23dp"
-            android:layout_below="@+id/order_mun"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="9dp"
-            android:background="@drawable/dry_btn_bg"
-            android:gravity="center"
-            android:text="联系客服"
-            android:textColor="#ef5311"
-            android:textSize="12sp" />
-
-    </RelativeLayout>
 </RelativeLayout>

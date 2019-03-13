@@ -35,11 +35,7 @@ public class DeliverFragment extends BaseFragment implements OrderActivityView {
 
     OrderActivityPresenter mPresenter;
     OrderAdminAdapter mOrderAdminAdapter = null;
-
-
     private int mIndexPage = 1;
-
-
     public static DeliverFragment newInstance() {
         Bundle args = new Bundle();
         DeliverFragment fragment = new DeliverFragment();

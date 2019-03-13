@@ -1,5 +1,6 @@
 package com.trade.rrenji.bean.order;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class NetOrderBean {
@@ -50,7 +51,7 @@ public class NetOrderBean {
             this.resultList = resultList;
         }
 
-        public static class ResultListBean {
+        public static class ResultListBean implements Serializable {
             /**
              * orderId : 155213369102471006
              * goodsName : iPhone8 256G 白色
@@ -154,7 +155,7 @@ public class NetOrderBean {
                 this.accessoryList = accessoryList;
             }
 
-            public static class AccessoryListBean {
+            public static class AccessoryListBean implements Serializable {
                 /**
                  * accessoryId : 1
                  * accessoryName : (Apple) AirPods 无线耳机

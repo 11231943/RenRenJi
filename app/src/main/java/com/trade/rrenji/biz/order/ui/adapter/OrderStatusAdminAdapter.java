@@ -2,10 +2,7 @@ package com.trade.rrenji.biz.order.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,20 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
-import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
-import com.trade.rrenji.biz.order.ui.activity.LogisticsActivity;
-import com.trade.rrenji.biz.order.ui.activity.PayConfirmOrderActivity2;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +26,7 @@ import java.util.List;
 /**
  * Created by wheat on 16/1/14.
  */
-public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean.ResultListBean> {
+public class OrderStatusAdminAdapter extends RecyclerListAdapter<ResultListBean> {
 
     private static final int ACTION_DEFAULT = 0;
 
@@ -44,7 +36,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
 
     private onClickListener onClickListener;
 
-    public void setOnClickListener(OrderAdminAdapter.onClickListener onClickListener) {
+    public void setOnClickListener(OrderStatusAdminAdapter.onClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
@@ -58,7 +50,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
         }
     }
 
-    public OrderAdminAdapter(Activity context) {
+    public OrderStatusAdminAdapter(Activity context) {
         super(context);
         mContext = context;
     }
@@ -66,7 +58,6 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
     public class OrderViewHolder extends ViewHolder {
 
         RecyclerView recycler_view;
-        RelativeLayout main_layout;
         TextView order_total;
         TextView dry_btn;
         TextView order_id;
@@ -78,7 +69,6 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
         public OrderViewHolder(View itemView) {
             super(itemView);
             order_total = (TextView) itemView.findViewById(R.id.order_total);
-            main_layout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
             recycler_view = (RecyclerView) itemView.findViewById(R.id.recycler_view);
             dry_btn = (TextView) itemView.findViewById(R.id.dry_btn);
             order_id = (TextView) itemView.findViewById(R.id.order_id);
@@ -91,34 +81,6 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
         @Override
         public void bindData(final ResultListBean data, int position) {
             super.bindData(data, position);
-            if (data.getPayStatus().equals("1")) {
-                del_btn.setVisibility(View.VISIBLE);
-                dry_btn.setText("去支付");
-                order_states.setText("待支付");
-            } else if (data.getPayStatus().equals("2")) {
-                del_btn.setVisibility(View.GONE);
-                dry_btn.setText("查看订单");
-                order_states.setText("待发货");
-            } else if (data.getPayStatus().equals("3")) {
-                del_btn.setVisibility(View.GONE);
-                dry_btn.setText("查看订单");
-                order_states.setText("已发货");
-            }
-            main_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (data.getPayStatus().equals("1")) {
-                        Intent intent = new Intent(mContext, PayConfirmOrderActivity2.class);
-                        mContext.startActivity(intent);
-                    } else if (data.getPayStatus().equals("2") || data.getPayStatus().equals("3")) {
-                        Intent intent = new Intent(mContext, LogisticsActivity.class);
-                        intent.putExtra("data", (Serializable) data);
-                        intent.putExtra("mType", data.getPayStatus());
-
-                        mContext.startActivity(intent);
-                    }
-                }
-            });
             ItemAdapter itemAdapter = new ItemAdapter(mContext);
             order_total.setText("￥" + data.getOrderSum());
             order_id.setText("订单号: " + data.getOrderId());
@@ -211,7 +173,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new OrderViewHolder(inflater.inflate(R.layout.order_list_item_laytout, parent, false));
+        return new OrderViewHolder(inflater.inflate(R.layout.order_status_item, parent, false));
     }
 
     public interface onClickListener {

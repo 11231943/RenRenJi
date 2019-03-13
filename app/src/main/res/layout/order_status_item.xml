@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:id="@+id/main_layout"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="12dp"
-    android:layout_marginRight="12dp"
+    android:layout_below="@+id/logistics_layout"
     android:background="@drawable/oder_item_bg"
-    android:orientation="vertical"
     android:padding="14dp">
 
     <ImageView
@@ -31,7 +29,7 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:gravity="center_vertical"
-        android:text="待支付"
+        android:text="已支付"
         android:textColor="#ef5311"
         android:textSize="12sp" />
 
@@ -48,7 +46,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lin1"/>
+        android:layout_below="@+id/lin1" />
 
     <TextView
         android:id="@+id/order_id"
@@ -93,38 +91,5 @@
         android:text="￥5888.00"
         android:textColor="#f23030"
         android:textSize="17sp" />
-
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/order_total"
-        android:layout_marginTop="10dp"
-        android:background="#eee" />
-
-    <TextView
-        android:id="@+id/del_btn"
-        android:layout_width="77dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/line"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/del_btn_bg"
-        android:gravity="center"
-        android:text="删除订单"
-        android:textColor="#000"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/dry_btn"
-        android:layout_width="77dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/line"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/dry_btn_bg"
-        android:gravity="center"
-        android:text="去晒单"
-        android:textColor="#ef5311"
-        android:textSize="12sp" />
 
 </RelativeLayout>
