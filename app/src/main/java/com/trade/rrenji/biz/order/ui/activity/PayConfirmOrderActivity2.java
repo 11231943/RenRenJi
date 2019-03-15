@@ -22,11 +22,14 @@ import com.jdpaysdk.author.JDPayAuthor;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.goods.GoodsDetailBean;
 import com.trade.rrenji.bean.goods.NetAccessoryListBean;
+import com.trade.rrenji.bean.order.ContinuePayBean;
 import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.bean.order.CreateOrderBean.AccessoriesBean;
 import com.trade.rrenji.bean.order.CreateOrderBean.OrderGroupPayListBean;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
+import com.trade.rrenji.bean.order.NetOrderBean;
+import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
 import com.trade.rrenji.bean.order.NetResultCreateOrderBean;
 import com.trade.rrenji.bean.pay.AuthResult;
 import com.trade.rrenji.bean.pay.PayResult;
@@ -107,7 +110,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
 
 
     GetUserCreateOrderInfoPresenter mPresenter;
-    GoodsDetailBean mGoodsDetailBean;
+    ResultListBean mGoodsDetailBean;
     private List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans;
     PayOrderAdminAdapter mPayOrderAdminAdapter;
     private double mSumPrice;
@@ -235,8 +238,8 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     private void initData() {
         mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
         mSumCount = getIntent().getIntExtra("mSumCount", -0);
-        mGoodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("GoodsDetailBean");
-        mListBeans = (List<NetAccessoryListBean.DataBean.ResultListBean>) getIntent().getSerializableExtra("accessoryList");
+        mGoodsDetailBean = (ResultListBean) getIntent().getSerializableExtra("GoodsDetailBean");
+//        mListBeans = (List<NetAccessoryListBean.DataBean.ResultListBean>) getIntent().getSerializableExtra("accessoryList");
         pay_sum_price2.setText("￥" + mSumPrice);
         pre_order_sum.setText(getString(R.string.order_mun, mSumCount));
         order_sum_price.setText("￥" + mSumPrice);
@@ -246,23 +249,23 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
         recycler_view.setAdapter(mPayOrderAdminAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recycler_view.setLayoutManager(layoutManager);
-        mPayOrderAdminAdapter.addAll(buildData(mGoodsDetailBean, mListBeans));
+        mPayOrderAdminAdapter.addAll(buildData(mGoodsDetailBean));
     }
 
-    private List<LocalOrderInfoBean> buildData(GoodsDetailBean data, List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans) {
+    private List<LocalOrderInfoBean> buildData(ResultListBean data) {
         List<LocalOrderInfoBean> mList = new ArrayList<LocalOrderInfoBean>();
         LocalOrderInfoBean localOrderInfoBean = new LocalOrderInfoBean();
-        localOrderInfoBean.setOrderId(data.getGoodsCode());
-        localOrderInfoBean.setGoodsName(data.getTitle());
-        localOrderInfoBean.setImg(data.getGoodsCoverImg());
-        localOrderInfoBean.setPayPrice(data.getPrice());
+        localOrderInfoBean.setOrderId(data.getOrderId());
+        localOrderInfoBean.setGoodsName(data.getGoodsName());
+        localOrderInfoBean.setImg(data.getGoodsImg());
+        localOrderInfoBean.setPayPrice(data.getOrderSum());
         mList.add(localOrderInfoBean);
-        for (NetAccessoryListBean.DataBean.ResultListBean bean : mListBeans) {
+        for (ResultListBean.AccessoryListBean bean : data.getAccessoryList()) {
             LocalOrderInfoBean orderInfoBean = new LocalOrderInfoBean();
             orderInfoBean.setOrderId(bean.getAccessoryId() + "");
             orderInfoBean.setGoodsName(bean.getAccessoryName());
-            orderInfoBean.setImg(bean.getUrl());
-            orderInfoBean.setPayPrice(Double.valueOf(bean.getPrice()));
+            orderInfoBean.setImg(bean.getImageUrl());
+            orderInfoBean.setPayPrice(Double.valueOf(bean.getPayPrice()));
             mList.add(orderInfoBean);
         }
         return mList;
@@ -293,29 +296,13 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     }
 
     private void onPayOrder() {
-        CreateOrderBean createOrderBean = new CreateOrderBean();
-        createOrderBean.setAddressId(mAddressId);
-        createOrderBean.setCouponId("");
-        createOrderBean.setExpressType(1);
-        createOrderBean.setExtraServer(1);
-        createOrderBean.setGoodsCount(1);
-        createOrderBean.setGoodsId(String.valueOf(mGoodsDetailBean.getGoodsId()));
+        ContinuePayBean createOrderBean = new ContinuePayBean();
         createOrderBean.setPayType(String.valueOf(mType));
-        createOrderBean.setPlan(String.valueOf("0"));
-        createOrderBean.setTotal(String.valueOf(mSumPrice));
-        createOrderBean.setUserOrderMessage("");
-        List<AccessoriesBean> mAccessories = new ArrayList<AccessoriesBean>();
-        for (NetAccessoryListBean.DataBean.ResultListBean beans : mListBeans) {
-            AccessoriesBean accessoriesBean = new AccessoriesBean();
-            accessoriesBean.setAccessoryId(beans.getAccessoryId());
-            accessoriesBean.setCount(1);
-            accessoriesBean.setPayPrice(beans.getPrice());
-            mAccessories.add(accessoriesBean);
-        }
-        createOrderBean.setAccessories(mAccessories);
+        createOrderBean.setOrderType("1");
+        createOrderBean.setOrderId(mGoodsDetailBean.getOrderId());
         List<OrderGroupPayListBean> mOrderGroupPayListBean = new ArrayList<OrderGroupPayListBean>();
         createOrderBean.setOrderGroupPayList(mOrderGroupPayListBean);
-        mPresenter.createOrder(this, createOrderBean);
+        mPresenter.newContinuePay(this, createOrderBean);
     }
 
     private void changeCheckbox(int id) {
@@ -382,6 +369,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     @Override
     public void createOrderError(int code, String msg) {
         Log.d("createOrderError", "msg : " + msg);
+        Toast.makeText(PayConfirmOrderActivity2.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override

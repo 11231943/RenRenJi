@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.goods.GoodsDetailBean;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
@@ -107,16 +108,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
             main_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (data.getPayStatus().equals("1")) {
-                        Intent intent = new Intent(mContext, PayConfirmOrderActivity2.class);
-                        mContext.startActivity(intent);
-                    } else if (data.getPayStatus().equals("2") || data.getPayStatus().equals("3")) {
-                        Intent intent = new Intent(mContext, LogisticsActivity.class);
-                        intent.putExtra("data", (Serializable) data);
-                        intent.putExtra("mType", data.getPayStatus());
-
-                        mContext.startActivity(intent);
-                    }
+                    OrderViewHolder.this.onClick(data);
                 }
             });
             ItemAdapter itemAdapter = new ItemAdapter(mContext);
@@ -129,6 +121,29 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
             recycler_view.setLayoutManager(layoutManager);
             itemAdapter.addAll(buildData(data));
+            itemAdapter.setOnClickItemListener(new OnClickItemListener() {
+                @Override
+                public void onClick() {
+                    OrderViewHolder.this.onClick(data);
+                }
+            });
+        }
+
+        private void onClick(final ResultListBean data) {
+            if (data.getPayStatus().equals("1")) {
+                int mSumCount = 0;
+                mSumCount = 1 + data.getAccessoryList().size();
+                Intent intent = new Intent(mContext, PayConfirmOrderActivity2.class);
+                intent.putExtra("GoodsDetailBean", (Serializable) data);
+                intent.putExtra("mSumPrice", data.getOrderSum());
+                intent.putExtra("mSumCount", mSumCount);
+                mContext.startActivity(intent);
+            } else if (data.getPayStatus().equals("2") || data.getPayStatus().equals("3")) {
+                Intent intent = new Intent(mContext, LogisticsActivity.class);
+                intent.putExtra("data", (Serializable) data);
+                intent.putExtra("mType", data.getPayStatus());
+                mContext.startActivity(intent);
+            }
         }
     }
 
@@ -157,6 +172,11 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
 
         Context mContext;
         List<LocalOrderInfoBean> mCategoryList;
+        OnClickItemListener onClickItemListener;
+
+        public void setOnClickItemListener(OnClickItemListener onClickItemListener) {
+            this.onClickItemListener = onClickItemListener;
+        }
 
         public ItemAdapter(Context context) {
             mContext = context;
@@ -190,18 +210,31 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
             GlideUtils.getInstance().loadIcon(mContext, data.getImg(), R.drawable.ic_launcher, holder.order_image);
             holder.order_name.setText(data.getGoodsName());
             holder.order_price.setText("￥" + data.getPayPrice());
+            holder.item_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickItemListener != null) {
+                        onClickItemListener.onClick();
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnClickItemListener {
+        void onClick();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView order_name;
-
         ImageView order_image;
         TextView order_price;
+        RelativeLayout item_layout;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
+            item_layout = (RelativeLayout) itemView.findViewById(R.id.item_layout);
             order_image = (ImageView) itemView.findViewById(R.id.order_image);
             order_name = (TextView) itemView.findViewById(R.id.order_name);
             order_price = (TextView) itemView.findViewById(R.id.order_price);
@@ -222,8 +255,5 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
         void onClick(String addressId);
     }
 
-    public interface OnClickDelListener {
-        void onClick(String addressId);
-    }
 
 }

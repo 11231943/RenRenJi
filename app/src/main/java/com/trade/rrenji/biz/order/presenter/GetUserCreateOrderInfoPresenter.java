@@ -2,6 +2,7 @@ package com.trade.rrenji.biz.order.presenter;
 
 import android.content.Context;
 
+import com.trade.rrenji.bean.order.ContinuePayBean;
 import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.biz.base.Presenter;
 import com.trade.rrenji.biz.order.ui.view.AccessoryInfoView;
@@ -15,5 +16,7 @@ public interface GetUserCreateOrderInfoPresenter extends Presenter<GetUserCreate
     void getUserCreateOrderInfoByUserId(Context mContext);
 
     void createOrder(Context mContext, CreateOrderBean bean);
+
+    void newContinuePay(Context mContext, ContinuePayBean continuePayBean);
 
 }

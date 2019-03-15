@@ -62,7 +62,13 @@ public class NetOrderBean {
              * restMoney : 899.01
              * createTime : 2019-03-09 20:14:51
              * accessoryList : [{"accessoryId":"1","accessoryName":"(Apple) AirPods 无线耳机","count":1,"payPrice":899}]
+             * addressDetail: 北京市 北京市 宣武区 呼家楼圣世一品,
+             * addressPhone: 17603009825,
+             * addressId: "281"
              */
+            private String addressDetail;
+            private String addressPhone;
+            private String addressId;
 
             private String orderId;
             private String goodsName;
@@ -74,6 +80,30 @@ public class NetOrderBean {
             private double restMoney;
             private String createTime;
             private List<AccessoryListBean> accessoryList;
+
+            public String getAddressDetail() {
+                return addressDetail;
+            }
+
+            public void setAddressDetail(String addressDetail) {
+                this.addressDetail = addressDetail;
+            }
+
+            public String getAddressPhone() {
+                return addressPhone;
+            }
+
+            public void setAddressPhone(String addressPhone) {
+                this.addressPhone = addressPhone;
+            }
+
+            public String getAddressId() {
+                return addressId;
+            }
+
+            public void setAddressId(String addressId) {
+                this.addressId = addressId;
+            }
 
             public double getGoodsPrice() {
                 return goodsPrice;

@@ -76,6 +76,8 @@ public class LogisticsActivity extends BaseActivity {
             logistics_more.setText("点击查看更多物流详情");
             new_status_txt.setText("快件正在从深圳发往福建的途中");
         }
+        logistics_address_name.setText(mData.getGoodsName() + "  " + mData.getAddressPhone());
+        logistics_address.setText(mData.getAddressDetail());
         mOrderStatusAdminAdapter = new OrderStatusAdminAdapter(this);
         recycler_view_layout.addItemDecoration(new LinearSpacingDecoration(25, 5));
         recycler_view_layout.setAdapter(mOrderStatusAdminAdapter);

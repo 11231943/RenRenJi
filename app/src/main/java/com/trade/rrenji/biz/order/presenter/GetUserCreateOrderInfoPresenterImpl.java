@@ -3,6 +3,7 @@ package com.trade.rrenji.biz.order.presenter;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.trade.rrenji.bean.order.ContinuePayBean;
 import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
 import com.trade.rrenji.bean.order.NetResultCreateOrderBean;
@@ -22,6 +23,40 @@ public class GetUserCreateOrderInfoPresenterImpl extends BasePresenter<GetUserCr
     public GetUserCreateOrderInfoPresenterImpl(Context context) {
         mContext = context;
         mModel = new OrderModelImpl(context);
+    }
+
+    @Override
+    public void newContinuePay(Context mContext, ContinuePayBean continuePayBean) {
+        mModel.continuePay(mContext, continuePayBean, new XUtils.ResultListener() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    if (getActivityView() != null) {
+                        getActivityView().hideLoading();
+                    }
+                    Gson gson = new Gson();
+                    final NetResultCreateOrderBean netShareBean = gson.fromJson(result, NetResultCreateOrderBean.class);
+                    if (Integer.valueOf(netShareBean.getCode()) == Contetns.STATE_OK) {
+                        if (getActivityView() != null) {
+                            getActivityView().createOrder(netShareBean);
+                        }
+                    } else {
+                        if (getActivityView() != null) {
+                            getActivityView().createOrderError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                getActivityView().createOrderError(-10000, "请求错误");
+            }
+        });
+
     }
 
     @Override
