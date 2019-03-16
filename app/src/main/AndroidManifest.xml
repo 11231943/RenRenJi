@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name=" android.permission.READ_PHONE_STATE"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MiGoApplication"
@@ -110,6 +110,11 @@
             android:name=".biz.order.ui.activity.PayConfirmOrderActivity2"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".biz.order.ui.activity.DryingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
     </application>
 
 </manifest>

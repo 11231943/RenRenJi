@@ -1,8 +1,6 @@
 package com.trade.rrenji.biz.account.ui.activity;
 
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -21,7 +19,6 @@ import com.trade.rrenji.biz.account.presenter.UpdateUserInfoActivityPresenter;
 import com.trade.rrenji.biz.account.presenter.UpdateUsrInfoActivityPresenterImpl;
 import com.trade.rrenji.biz.account.ui.view.UpdateUserInfoActivityView;
 import com.trade.rrenji.biz.address.picker.AddressPicker;
-import com.trade.rrenji.biz.address.ui.activity.UpdateAddressActivity;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.utils.AssetsUtils;
@@ -76,7 +73,7 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
 
     private void initUser() {
         user_name.setText(SettingUtils.getInstance().getUsername());
-        GlideUtils.getInstance().loadIcon1(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
+        GlideUtils.getInstance().loadImageUrl(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
         bind_sex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

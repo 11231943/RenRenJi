@@ -323,7 +323,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
             tempStr = xinjie[3];
         }
         testing_chengse.setText(tempStr);
-        GlideUtils.getInstance().loadIcon(this, resultBean.getQualityEngineer().getHeadUrl(), R.drawable.user_head_default_gray, engineer_avatar);
+        GlideUtils.getInstance().loadImageUrl(this, resultBean.getQualityEngineer().getHeadUrl(), R.drawable.user_head_default_gray, engineer_avatar);
 
         //本机描述
         if (resultBean.getSpecification().getNativeDesc() != null) {
@@ -347,32 +347,32 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
 
                 if (!TextUtils.isEmpty(bean.getUserName())) {
                     if (bean.getUserName().endsWith("0")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_0, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_0, R.drawable.user_default_icon, re_user_image);
                     } else if (bean.getUserName().endsWith("1")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_1, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_1, R.drawable.user_default_icon, re_user_image);
                     } else if (bean.getUserName().endsWith("2")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_2, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_2, R.drawable.user_default_icon, re_user_image);
 
                     } else if (bean.getUserName().endsWith("3")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_3, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_3, R.drawable.user_default_icon, re_user_image);
 
                     } else if (bean.getUserName().endsWith("4")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_4, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_4, R.drawable.user_default_icon, re_user_image);
 
                     } else if (bean.getUserName().endsWith("5")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_5, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_5, R.drawable.user_default_icon, re_user_image);
 
                     } else if (bean.getUserName().endsWith("6")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_6, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_6, R.drawable.user_default_icon, re_user_image);
 
                     } else if (bean.getUserName().endsWith("7")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_7, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_7, R.drawable.user_default_icon, re_user_image);
 
                     } else if (bean.getUserName().endsWith("8")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_8, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_8, R.drawable.user_default_icon, re_user_image);
 
                     } else if (bean.getUserName().endsWith("9")) {
-                        GlideUtils.getInstance().loadIcon1(this, R.drawable.user_default_icon_9, R.drawable.user_default_icon, re_user_image);
+                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_9, R.drawable.user_default_icon, re_user_image);
                     }
                 }
                 re_user_name.setText(bean.getUserName());
@@ -383,9 +383,9 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
                     re_photo3_layout.setVisibility(View.VISIBLE);
                     re_photo2_layout.setVisibility(View.VISIBLE);
                     re_photo1_layout.setVisibility(View.VISIBLE);
-                    GlideUtils.getInstance().loadIcon(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
-                    GlideUtils.getInstance().loadIcon(this, bean.getSharePicList().get(1).getMaxPic(), R.drawable.user_head_default_gray, re_photo2);
-                    GlideUtils.getInstance().loadIcon(this, bean.getSharePicList().get(2).getMaxPic(), R.drawable.user_head_default_gray, re_photo3);
+                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
+                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(1).getMaxPic(), R.drawable.user_head_default_gray, re_photo2);
+                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(2).getMaxPic(), R.drawable.user_head_default_gray, re_photo3);
                     re_photo1_layout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -408,8 +408,8 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
                     re_photo3_layout.setVisibility(View.INVISIBLE);
                     re_photo2_layout.setVisibility(View.VISIBLE);
                     re_photo1_layout.setVisibility(View.VISIBLE);
-                    GlideUtils.getInstance().loadIcon(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
-                    GlideUtils.getInstance().loadIcon(this, bean.getSharePicList().get(1).getMaxPic(), R.drawable.user_head_default_gray, re_photo2);
+                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
+                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(1).getMaxPic(), R.drawable.user_head_default_gray, re_photo2);
                     re_photo1_layout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -426,7 +426,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
                     re_photo3_layout.setVisibility(View.INVISIBLE);
                     re_photo2_layout.setVisibility(View.INVISIBLE);
                     re_photo1_layout.setVisibility(View.VISIBLE);
-                    GlideUtils.getInstance().loadIcon(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
+                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
                     re_photo1_layout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

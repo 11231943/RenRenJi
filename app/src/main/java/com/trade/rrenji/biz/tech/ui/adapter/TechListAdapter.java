@@ -1,7 +1,6 @@
 package com.trade.rrenji.biz.tech.ui.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,15 +11,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gelitenight.superrecyclerview.GridSpacingDecoration;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.drying.DryingOrdersBean;
 import com.trade.rrenji.bean.drying.NetShareBean;
-import com.trade.rrenji.bean.drying.SharePicturesBean;
 import com.trade.rrenji.bean.tech.NetTechBean;
 import com.trade.rrenji.biz.ad.AdActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
-import com.trade.rrenji.utils.DateFormatUtils;
 import com.trade.rrenji.utils.GlideUtils;
 
 import java.util.List;
@@ -72,7 +67,7 @@ public class TechListAdapter extends RecyclerListAdapter<NetTechBean.ResultBean.
         @Override
         public void bindData(final NetTechBean.ResultBean.CommunityListBean data, int position) {
             super.bindData(data, position);
-            GlideUtils.getInstance().loadIcon(getContext(), data.getShowUrl(), R.drawable.main_recommed_today, tect_list_image);
+            GlideUtils.getInstance().loadImageUrl(getContext(), data.getShowUrl(), R.drawable.main_recommed_today, tect_list_image);
             tect_list_name.setText(data.getTitle());
             tect_list_content1.setText(data.getReadingNum() + "");
 //            String time = DateFormatUtils.getStringToDate(data.getPublishTime());

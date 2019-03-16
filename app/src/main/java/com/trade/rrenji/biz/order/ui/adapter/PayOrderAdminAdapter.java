@@ -1,9 +1,6 @@
 package com.trade.rrenji.biz.order.ui.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
@@ -69,7 +65,7 @@ public class PayOrderAdminAdapter extends RecyclerListAdapter<LocalOrderInfoBean
         @Override
         public void bindData(final LocalOrderInfoBean data, int position) {
             super.bindData(data, position);
-            GlideUtils.getInstance().loadIcon(mContext, data.getImg(), R.drawable.ic_launcher, order_image);
+            GlideUtils.getInstance().loadImageUrl(mContext, data.getImg(), R.drawable.ic_launcher, order_image);
             order_name.setText(data.getGoodsName());
             order_price.setText("￥" + data.getPayPrice());
         }

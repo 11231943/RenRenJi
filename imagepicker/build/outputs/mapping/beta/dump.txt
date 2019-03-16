@@ -1,0 +1,119 @@
+_____________________________________________________________________
+- Program class: com/moonster/imagepicker/R
+  Superclass:    java/lang/Object
+  Major version: 0x33
+  Minor version: 0x0
+    = target 1.7
+  Access flags:  0x31
+    = public final class com.moonster.imagepicker.R extends java.lang.Object
+
+Interfaces (count = 0):
+
+Constant Pool (count = 14):
+  - Class [com/moonster/imagepicker/R]
+  - Class [com/moonster/imagepicker/R$string]
+  - Class [java/lang/Object]
+  - Methodref [java/lang/Object.<init> ()V]
+  - NameAndType [<init> ()V]
+  - Utf8 [()V]
+  - Utf8 [<init>]
+  - Utf8 [Code]
+  - Utf8 [InnerClasses]
+  - Utf8 [com/moonster/imagepicker/R]
+  - Utf8 [com/moonster/imagepicker/R$string]
+  - Utf8 [java/lang/Object]
+  - Utf8 [string]
+
+Fields (count = 0):
+
+Methods (count = 1):
+  - Method:       <init>()V
+    Access flags: 0x1
+      = public R()
+    Class member attributes (count = 1):
+    - Code attribute instructions (code length = 5, locals = 1, stack = 1):
+      [0] aload_0 v0
+      [1] invokespecial #4
+        - Methodref [java/lang/Object.<init> ()V]
+      [4] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+
+Class file attributes (count = 1):
+  - Inner classes attribute (count = 1)
+    - InnerClassesInfo:
+      Access flags:  0x19 = public static final 
+      - Class [com/moonster/imagepicker/R$string]
+      - Class [com/moonster/imagepicker/R]
+      - Utf8 [string]
+
+_____________________________________________________________________
+- Program class: com/moonster/imagepicker/R$string
+  Superclass:    java/lang/Object
+  Major version: 0x33
+  Minor version: 0x0
+    = target 1.7
+  Access flags:  0x31
+    = public final class com.moonster.imagepicker.R$string extends java.lang.Object
+
+Interfaces (count = 0):
+
+Constant Pool (count = 20):
+  - Integer [2132082689]
+  - Class [com/moonster/imagepicker/R]
+  - Class [com/moonster/imagepicker/R$string]
+  - Class [java/lang/Object]
+  - Fieldref [com/moonster/imagepicker/R$string.app_name I]
+  - Methodref [java/lang/Object.<init> ()V]
+  - NameAndType [<init> ()V]
+  - NameAndType [app_name I]
+  - Utf8 [()V]
+  - Utf8 [<clinit>]
+  - Utf8 [<init>]
+  - Utf8 [Code]
+  - Utf8 [I]
+  - Utf8 [InnerClasses]
+  - Utf8 [app_name]
+  - Utf8 [com/moonster/imagepicker/R]
+  - Utf8 [com/moonster/imagepicker/R$string]
+  - Utf8 [java/lang/Object]
+  - Utf8 [string]
+
+Fields (count = 1):
+  - Field:        app_name I
+    Access flags: 0x9
+      = public static int app_name
+
+Methods (count = 2):
+  - Method:       <init>()V
+    Access flags: 0x1
+      = public R$string()
+    Class member attributes (count = 1):
+    - Code attribute instructions (code length = 5, locals = 1, stack = 1):
+      [0] aload_0 v0
+      [1] invokespecial #6
+        - Methodref [java/lang/Object.<init> ()V]
+      [4] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+  - Method:       <clinit>()V
+    Access flags: 0x8
+      = static void <clinit>()
+    Class member attributes (count = 1):
+    - Code attribute instructions (code length = 6, locals = 0, stack = 1):
+      [0] ldc #1
+        - Integer [2132082689]
+      [2] putstatic #5
+        - Fieldref [com/moonster/imagepicker/R$string.app_name I]
+      [5] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+
+Class file attributes (count = 1):
+  - Inner classes attribute (count = 1)
+    - InnerClassesInfo:
+      Access flags:  0x19 = public static final 
+      - Class [com/moonster/imagepicker/R$string]
+      - Class [com/moonster/imagepicker/R]
+      - Utf8 [string]
+

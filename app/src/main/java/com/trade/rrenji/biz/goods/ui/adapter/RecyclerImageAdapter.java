@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.goods.GoodsDetailBean;
-import com.trade.rrenji.bean.goods.NetGoodsDetailBean;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;
 
@@ -42,7 +41,7 @@ public class RecyclerImageAdapter extends RecyclerListAdapter<GoodsDetailBean.Go
         @Override
         public void bindData(GoodsDetailBean.GoodsPicsBean data, int position) {
             super.bindData(data, position);
-            GlideUtils.getInstance().loadIcon(getContext(), data.getMaxPic(), R.drawable.main_recommed_today, tect_list_image);
+            GlideUtils.getInstance().loadImageUrl(getContext(), data.getMaxPic(), R.drawable.main_recommed_today, tect_list_image);
         }
     }
 }

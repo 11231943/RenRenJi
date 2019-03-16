@@ -2,10 +2,7 @@ package com.trade.rrenji.biz.order.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,7 +15,6 @@ import android.widget.TextView;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.goods.GoodsDetailBean;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
@@ -207,7 +203,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position) {
             LocalOrderInfoBean data = mCategoryList.get(position);
-            GlideUtils.getInstance().loadIcon(mContext, data.getImg(), R.drawable.ic_launcher, holder.order_image);
+            GlideUtils.getInstance().loadImageUrl(mContext, data.getImg(), R.drawable.ic_launcher, holder.order_image);
             holder.order_name.setText(data.getGoodsName());
             holder.order_price.setText("￥" + data.getPayPrice());
             holder.item_layout.setOnClickListener(new View.OnClickListener() {

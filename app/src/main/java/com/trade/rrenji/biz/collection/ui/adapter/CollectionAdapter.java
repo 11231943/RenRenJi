@@ -2,18 +2,15 @@ package com.trade.rrenji.biz.collection.ui.adapter;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.address.NetAddressBean.ResultBean.AddressListBean;
 import com.trade.rrenji.bean.collection.NetCollectionListBean;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
@@ -90,7 +87,7 @@ public class CollectionAdapter extends RecyclerListAdapter<NetCollectionListBean
         @Override
         public void bindData(final NetCollectionListBean.ResultBean data, int position) {
             super.bindData(data, position);
-            GlideUtils.getInstance().loadIcon(mContext, data.getGoodsImg(), R.drawable.ic_launcher, order_image);
+            GlideUtils.getInstance().loadImageUrl(mContext, data.getGoodsImg(), R.drawable.ic_launcher, order_image);
             order_name.setText(data.getGoodsName());
             order_id.setText("订单号" + data.getGoodsCode());
             order_price.setText(data.getGoodsPrice() + "");

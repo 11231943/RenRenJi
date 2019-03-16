@@ -3,9 +3,7 @@ package com.trade.rrenji.biz.category.ui.apater;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -188,7 +186,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
 //                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 //                simpleDraweeView.setLayoutParams(params);
 //                simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                GlideUtils.getInstance().loadIcon(mContext, adBean.getImgUrl(), R.drawable.ic_launcher, simpleDraweeView);
+                GlideUtils.getInstance().loadImageUrl(mContext, adBean.getImgUrl(), R.drawable.ic_launcher, simpleDraweeView);
 
 
                 simpleDraweeView.setOnClickListener(new View.OnClickListener() {
@@ -263,7 +261,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
             @Override
             public void onBindViewHolder(CategoryDataViewItemHolder holder, int position) {
                 NetCategoryBean.DataBean.ResultListBean.CategoryBrandList bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadIcon(mContext, bean.getBrandImg(), R.drawable.ic_launcher, holder.image_src);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getBrandImg(), R.drawable.ic_launcher, holder.image_src);
             }
         }
 
@@ -340,7 +338,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
             @Override
             public void onBindViewHolder(CategoryDataViewItemHolder holder, int position) {
                 NetCategoryBean.DataBean.ResultListBean.HotProductListBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadIcon(mContext, bean.getProductImg(), R.drawable.ic_launcher, holder.image_src);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getProductImg(), R.drawable.ic_launcher, holder.image_src);
                 holder.category_title.setText(bean.getProductName());
             }
         }
@@ -426,7 +424,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
             @Override
             public void onBindViewHolder(CategoryDataViewItemHolder holder, int position) {
                 NetCategoryBean.DataBean.ResultListBean.GoodsModelList bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadIcon(mContext, bean.getGoodsModelPic(), R.drawable.ic_launcher, holder.image_src);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getGoodsModelPic(), R.drawable.ic_launcher, holder.image_src);
                 holder.category_title.setText(bean.getGoodsModelName());
             }
         }

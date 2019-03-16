@@ -1,7 +1,6 @@
 package com.trade.rrenji.biz.home.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -186,9 +185,9 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
         public void bindData(HomeBean data, int position) {
             super.bindData(data, position);
 //            NetHomeBean.DataBean.EveryoneCommunityListBean beans = data.getEveryoneCommunityList().get(0);
-//            GlideUtils.getInstance().loadIcon(mContext, beans.getHeadImg(), R.drawable.ic_launcher, image_1);
-//            GlideUtils.getInstance().loadIcon(mContext, beans.getHeadImg().get(1), R.drawable.ic_launcher, image_2);
-//            GlideUtils.getInstance().loadIcon(mContext, beans.getHeadImg().get(2), R.drawable.ic_launcher, image_3);
+//            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHeadImg(), R.drawable.ic_launcher, image_1);
+//            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHeadImg().get(1), R.drawable.ic_launcher, image_2);
+//            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHeadImg().get(2), R.drawable.ic_launcher, image_3);
 //            hot_renren_text.setText(beans.getTitle());
 //            hot_renren_content.setText(beans.getContent());
         }
@@ -250,7 +249,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotOptimizationTypeViewHolder holder, int position) {
                 NetHomeBean.DataBean.EveryoneCommunityListBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadIcon(mContext, bean.getEveryoneCommunityImg(), R.drawable.ic_launcher, holder.hot_community_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getEveryoneCommunityImg(), R.drawable.ic_launcher, holder.hot_community_image);
                 holder.community_desc.setText(bean.getTitle());
                 holder.hot_community_text.setText(bean.getContent());
             }
@@ -328,7 +327,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotOptimizationTypeViewHolder holder, int position) {
                final NetHomeBean.DataBean.ThousandOptimizationBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadIcon(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
                 holder.hot_iphone_text.setText(bean.getGoodsName());
                 holder.iphone_price.setText("￥" + bean.getGoodsPrice() + "");
                 if (TextUtils.isEmpty(bean.getVersion())) {
@@ -428,7 +427,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotAndroidTypeViewHolder holder, int position) {
                 final NetHomeBean.DataBean.HotAndroidBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadIcon(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
                 holder.hot_iphone_text.setText(bean.getGoodsName());
                 holder.iphone_original_price.setText("￥" + bean.getOriginalPrice());
                 holder.iphone_save_price.setText("" + (bean.getOriginalPrice() - bean.getGoodsPrice()));
@@ -545,7 +544,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotIphoneTypeViewHolder holder, int position) {
                final NetHomeBean.DataBean.HotIphoneBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadIcon(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
                 holder.hot_iphone_text.setText(bean.getGoodsName());
                 holder.iphone_original_price.setText("￥" + bean.getOriginalPrice());
                 holder.iphone_save_price.setText("" + (bean.getOriginalPrice() - bean.getGoodsPrice()));
@@ -663,7 +662,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotDataTypeViewHolder holder, int position) {
                 NetHomeBean.DataBean.HotActivityInfoListBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadIcon(mContext, bean.getHotActivityImg(), R.drawable.ic_launcher, holder.mHotImg);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getHotActivityImg(), R.drawable.ic_launcher, holder.mHotImg);
                 holder.mHotStr.setText(bean.getContent());
 
             }
@@ -756,7 +755,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             public void onBindViewHolder(CategoryTypeViewHolder holder, int position) {
                 NetHomeBean.DataBean.CategoryListBean bean = mCategoryList.get(position);
 //                GlideUtils.getInstance().loadImage(mContext, bean.getCategoryImg(), R.drawable.ic_launcher, holder.mCateTypeImg);
-                GlideUtils.getInstance().loadImage(mContext, mRes[position], R.drawable.ic_launcher, holder.mCateTypeImg);
+                GlideUtils.getInstance().loadIcon(mContext, mRes[position], R.drawable.ic_launcher, holder.mCateTypeImg);
                 holder.mCateTypeStr.setText(bean.getCategoryName());
             }
         }
@@ -860,7 +859,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 simpleDraweeView.setLayoutParams(params);
                 simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                GlideUtils.getInstance().loadIcon(mContext, adBean.getAdImg(), R.drawable.ic_launcher, simpleDraweeView);
+                GlideUtils.getInstance().loadImageUrl(mContext, adBean.getAdImg(), R.drawable.ic_launcher, simpleDraweeView);
 
 
                 simpleDraweeView.setOnClickListener(new View.OnClickListener() {
@@ -955,7 +954,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 simpleDraweeView.setLayoutParams(params);
                 simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                GlideUtils.getInstance().loadIcon(mContext, adBean.getAdImg(), R.drawable.ic_launcher, simpleDraweeView);
+                GlideUtils.getInstance().loadImageUrl(mContext, adBean.getAdImg(), R.drawable.ic_launcher, simpleDraweeView);
 
 
                 simpleDraweeView.setOnClickListener(new View.OnClickListener() {

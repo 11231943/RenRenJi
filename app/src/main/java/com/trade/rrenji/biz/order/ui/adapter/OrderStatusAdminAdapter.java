@@ -2,7 +2,6 @@ package com.trade.rrenji.biz.order.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -149,7 +148,7 @@ public class OrderStatusAdminAdapter extends RecyclerListAdapter<ResultListBean>
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position) {
             LocalOrderInfoBean data = mCategoryList.get(position);
-            GlideUtils.getInstance().loadIcon(mContext, data.getImg(), R.drawable.ic_launcher, holder.order_image);
+            GlideUtils.getInstance().loadImageUrl(mContext, data.getImg(), R.drawable.ic_launcher, holder.order_image);
             holder.order_name.setText(data.getGoodsName());
             holder.order_price.setText("￥" + data.getPayPrice());
         }
