@@ -81,7 +81,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     }
 
     private void initData() {
-        GlideUtils.getInstance().loadIcon(this, mGoodsDetailBean.getGoodsCoverImg(), R.drawable.ic_launcher, order_image);
+        GlideUtils.getInstance().loadImageUrl(this, mGoodsDetailBean.getGoodsCoverImg(), R.drawable.ic_launcher, order_image);
         order_name.setText(mGoodsDetailBean.getTitle());
         order_price.setText("￥" + mGoodsDetailBean.getPrice());
         order_sum_price.setText("￥" + mGoodsDetailBean.getPrice());
@@ -214,7 +214,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
                         }
                     }
                 }
-                GlideUtils.getInstance().loadIcon(mContext, data.getUrl(), R.drawable.ic_launcher, accessory_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, data.getUrl(), R.drawable.ic_launcher, accessory_image);
                 accessory_text.setText(data.getAccessoryName());
                 accessory_price.setText("￥" + data.getPrice());
                 accessory_image.setOnClickListener(new View.OnClickListener() {

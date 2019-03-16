@@ -8,6 +8,8 @@ import com.trade.rrenji.utils.SettingUtils;
 
 import org.xutils.x;
 
+import java.io.File;
+
 import butterknife.ButterKnife;
 
 /**
@@ -24,6 +26,9 @@ public class MiGoApplication extends MultiDexApplication {
         return app;
     }
 
+    public static String CACHE_PATH = "/sdcard/renrenji/image/temp/";
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -32,5 +37,9 @@ public class MiGoApplication extends MultiDexApplication {
         x.Ext.setDebug(true);
         ConfigUtils.getInstance().init(this, R.raw.app_config);
         SettingUtils.getInstance().init(this);
+        File file = new File(CACHE_PATH);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
     }
 }

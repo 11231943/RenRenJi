@@ -123,6 +123,7 @@
 
 
         <LinearLayout
+            android:id="@+id/dry_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

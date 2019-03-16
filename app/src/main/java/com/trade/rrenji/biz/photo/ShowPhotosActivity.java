@@ -125,7 +125,7 @@ public class ShowPhotosActivity extends BaseActivity {
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             simpleDraweeView.setLayoutParams(params);
             simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            GlideUtils.getInstance().loadIcon(ShowPhotosActivity.this, photo, R.drawable.main_recommed_today, simpleDraweeView);
+            GlideUtils.getInstance().loadImageUrl(ShowPhotosActivity.this, photo, R.drawable.main_recommed_today, simpleDraweeView);
             container.addView(simpleDraweeView, 0);
             simpleDraweeView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -8,8 +8,6 @@ import android.widget.ImageView;
 
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.goods.GoodsDetailBean;
-import com.trade.rrenji.bean.goods.NetGoodsDetailBean;
-import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
 import com.trade.rrenji.utils.ViewUtils;
@@ -68,7 +66,7 @@ public class GoodsBannerAdapter extends PagerAdapter {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         simpleDraweeView.setLayoutParams(params);
         simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        GlideUtils.getInstance().loadIcon(mContext, adBean.getMaxPic(), R.drawable.ic_launcher, simpleDraweeView);
+        GlideUtils.getInstance().loadImageUrl(mContext, adBean.getMaxPic(), R.drawable.ic_launcher, simpleDraweeView);
 
 
         simpleDraweeView.setOnClickListener(new View.OnClickListener() {
