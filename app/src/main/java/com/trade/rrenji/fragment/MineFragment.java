@@ -116,7 +116,6 @@ public class MineFragment extends Fragment {
                     intent = new Intent(getActivity(), AccountActivity.class);
                     startActivity(intent);
                 }
-
                 break;
             case R.id.auth_layout:
                 intent = new Intent(getActivity(), AuthActivity.class);
