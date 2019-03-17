@@ -6,13 +6,43 @@
     android:background="#fff"
     android:orientation="vertical"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp">
+    android:paddingTop="10dp"
+    android:paddingRight="10dp">
+
+    <RelativeLayout
+        android:id="@+id/left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="3dp">
+
+        <TextView
+            android:id="@+id/icon_name"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/address_item_user"
+            android:gravity="center"
+            android:text="彭"
+            android:textColor="#ffffff"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/check_del"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:src="@drawable/def_address_cion"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/address_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/left_layout"
         android:textColor="#2E2E2E"
         android:textSize="14sp"
         tools:text="章程" />
@@ -32,28 +62,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/address_name"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="5.5dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toRightOf="@+id/left_layout"
         android:ellipsize="end"
         android:gravity="center_vertical|left"
         android:lineSpacingExtra="5dp"
         android:lines="2"
         android:textColor="#7D7D7D"
+        android:layout_toLeftOf="@+id/line"
         android:textSize="12sp"
         tools:text="收货地址：北京 北京市 朝阳区 乐澜宝邸1号楼2单元8号 70楼：北京 北京市 朝阳区 乐澜宝邸1号楼2单元8号 70" />
 
+    <TextView
+        android:id="@+id/edit"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="2dp"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="编辑"
+        android:textColor="#999"
+        android:textSize="12sp" />
+
     <View
         android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@+id/address"
-        android:layout_marginTop="7.5dp"
-        android:background="#979797" />
+        android:layout_toLeftOf="@+id/edit"
+        android:layout_width="0.5dp"
+        android:layout_height="23dp"
+        android:layout_marginRight="11dp"
+        android:layout_centerVertical="true"
+        android:background="#eeeeee"
+      />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/set_default_address"
@@ -66,8 +114,8 @@
                 android:id="@+id/default_img"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/check_true_address"
-                android:layout_marginRight="6dp" />
+                android:layout_marginRight="6dp"
+                android:src="@drawable/check_true_address" />
 
             <TextView
                 android:id="@+id/set_default_address_text"
@@ -124,8 +172,8 @@
                 android:id="@+id/address_del"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
                 android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
                 android:text="@string/delete"
                 android:textColor="#7D7D7D"
                 android:textSize="11sp" />

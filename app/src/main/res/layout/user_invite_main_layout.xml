@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/invite_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/invite_bg" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tip_1"
+        android:layout_marginBottom="27dp"
+        android:gravity="center"
+        android:text="每邀请一位好友您可以获得30元优惠券"
+        android:textColor="#f5541c"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tip_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/invite_layout"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:text="点击下方邀请码进行复制"
+        android:textColor="#444444"
+        android:textSize="12sp" />
+
+
+    <RelativeLayout
+        android:id="@+id/invite_layout"
+        android:layout_width="138dp"
+        android:layout_height="37dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="72dp"
+        android:background="@drawable/invite_btn_bg">
+
+        <TextView
+            android:id="@+id/invite_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableRight="@drawable/icon_copy"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="ik8912"
+            android:textColor="#000000"
+            android:textSize="17sp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -71,6 +71,8 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
         TextView address_phone;
         TextView address;
 
+        TextView icon_name;
+        ImageView check_del;
 
         LinearLayout address_edit_layout;
         LinearLayout address_del_layout;
@@ -84,6 +86,8 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
             address_edit_layout = (LinearLayout) itemView.findViewById(R.id.address_edit_layout);
             address_del_layout = (LinearLayout) itemView.findViewById(R.id.address_del_layout);
             address_name = (TextView) itemView.findViewById(R.id.address_name);
+            check_del = (ImageView) itemView.findViewById(R.id.check_del);
+            icon_name = (TextView) itemView.findViewById(R.id.icon_name);
             address_phone = (TextView) itemView.findViewById(R.id.address_phone);
             address = (TextView) itemView.findViewById(R.id.address);
             set_default_address = (LinearLayout) itemView.findViewById(R.id.set_default_address);
@@ -105,22 +109,30 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
                 }
             });
             if (data.isDefault()) {
-                default_img.setImageResource(R.drawable.check_true_address);
-                set_default_address_text.setTextColor(Color.parseColor("#FD5252"));
+                check_del.setVisibility(View.VISIBLE);
+                icon_name.setVisibility(View.GONE);
             } else {
-                default_img.setImageResource(R.drawable.check_false_address);
-                set_default_address_text.setTextColor(Color.parseColor("#7D7D7D"));
+                check_del.setVisibility(View.GONE);
+                icon_name.setVisibility(View.VISIBLE);
+                icon_name.setText(data.getConsigneeName().substring(0, 1));
             }
             address.setText(mContext.getResources().getString(R.string.address_show_detail,
                     data.getProvince(), data.getCity(), data.getDistrict(), data.getLocation()));
-            set_default_address.setOnClickListener(new View.OnClickListener() {
+            check_del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_cancel_default_address_info), ACTION_DEFAULT, 1);
+                }
+            });
+            icon_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!data.isDefault()) {
-                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_default_address_info), ACTION_DEFAULT,0);
-                    }else{
-                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_cancel_default_address_info), ACTION_DEFAULT, 1);
+                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_default_address_info), ACTION_DEFAULT, 0);
                     }
+//                    else {
+//                        setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.set_cancel_default_address_info), ACTION_DEFAULT, 1);
+//                    }
                 }
             });
             address_del_layout.setOnClickListener(new View.OnClickListener() {
