@@ -4,7 +4,6 @@
     <color name="colorPrimary">@color/white</color>
     <color name="colorPrimaryDark">@color/black</color>
     <color name="colorAccent">@color/red</color>
-
     <color name="red">#FE5252</color>
     <color name="mine_red">#f95b27</color>
     <color name="white">#ffffff</color>

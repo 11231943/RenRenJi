@@ -2,14 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="@dimen/imagepicker_actionbar_height"
-             android:background="@color/imagepicker_actionbar">
+             android:background="@drawable/actionbar_bg">
 
     <TextView
         android:id="@+id/tv_imagepicker_actionbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/imagepicker_text_white"
+        android:textColor="@color/c444"
         android:textSize="@dimen/imagepicker_title_size"/>
 
     <TextView
@@ -20,8 +20,8 @@
         android:gravity="center"
         android:paddingLeft="@dimen/imagepicker_padding"
         android:paddingRight="@dimen/imagepicker_padding"
-        android:text="@string/imagepicker_preview"
-        android:textColor="@color/actionbar_preview_colorlist"
+        android:text="预览"
+        android:textColor="#999"
         android:textSize="@dimen/imagepicker_text_size"/>
 
     <TextView
@@ -30,11 +30,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="left|center_horizontal"
         android:background="@drawable/imagepicker_actionbar_menu_selector"
-        android:drawableLeft="@drawable/ic_imagepicker_arrow_left"
+        android:drawableLeft="@drawable/back_btn"
         android:gravity="center"
         android:paddingLeft="@dimen/imagepicker_padding"
         android:paddingRight="@dimen/imagepicker_padding"
-        android:text="@string/imagepicker_back"
-        android:textColor="@color/imagepicker_text_white"
+        android:text="返回"
+        android:textColor="#444"
         android:textSize="@dimen/imagepicker_text_size"/>
 </FrameLayout>

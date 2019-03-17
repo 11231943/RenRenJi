@@ -35,10 +35,10 @@ public abstract class ImagePickerBaseActivity extends AppCompatActivity implemen
 
     protected void beforSetContentView(Bundle savedInstanceState)
     {
-        //去掉ActionBar
+//        //去掉ActionBar
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        //改变状态栏颜色
-        ImagePickerComUtils.changeStatusBarColor(this, getResources().getColor(R.color.imagepicker_statusbar));
+//        //改变状态栏颜色
+//        ImagePickerComUtils.changeStatusBarColor(this, getResources().getColor(R.color.imagepicker_statusbar));
     }
 
     /**
