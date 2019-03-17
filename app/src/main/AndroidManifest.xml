@@ -125,6 +125,11 @@
             android:name=".biz.invite.ui.activity.UserInvitePageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".biz.personal.ui.activity.PersonalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
     </application>
 
 </manifest>
