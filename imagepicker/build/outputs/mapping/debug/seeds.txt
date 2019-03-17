@@ -1,0 +1,3 @@
+com.moonster.imagepicker.R
+com.moonster.imagepicker.R$string
+com.moonster.imagepicker.R$string: int app_name

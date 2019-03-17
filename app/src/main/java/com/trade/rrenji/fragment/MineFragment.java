@@ -56,6 +56,7 @@ public class MineFragment extends Fragment {
     public TextView edit_account;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -119,10 +120,6 @@ public class MineFragment extends Fragment {
                 break;
             case R.id.auth_layout:
                 intent = new Intent(getActivity(), AuthActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.invite_layout:
-                intent = new Intent(getActivity(), UserInvitePageActivity.class);
                 startActivity(intent);
                 break;
             case R.id.coupon_layout:
