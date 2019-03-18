@@ -17,18 +17,19 @@ public class CategoryModelImpl implements CategoryModel {
     }
 
     @Override
-    public void getCategory(Context mContext, ResultListener resultListener) {
-        //{sessionKey}/{timeStamp}/{pageNum}/{token}
-        String url = ServiceHelper.buildUrl("api.v2.classify.getClassifyData");
-//        String sessionKey = "123456";
-//        long timeStamp = System.currentTimeMillis();
-//        String token = "1";
-//        url = url + sessionKey + "/" + timeStamp + "/" + pageNum + "/" + token;
+    public void getClassifyDataByType(Context mContext, String id, String type, ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.classify.getClassifyDataByType");
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
-//        paramBuilder.add("sessionKey", "1");
-//        paramBuilder.add("timeStamp", System.currentTimeMillis());
-//        paramBuilder.add("pageNum", pageNum);
-//        paramBuilder.add("token", "1");
+        paramBuilder.add("id", id);
+        paramBuilder.add("type", type);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().get(url, params, resultListener);
+    }
+
+    @Override
+    public void getCategoryLeft(Context mContext, ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.classify.getClassifyData");
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
     }

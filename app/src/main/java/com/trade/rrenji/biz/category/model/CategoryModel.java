@@ -7,6 +7,7 @@ import com.trade.rrenji.net.XUtils.ResultListener;
 
 public interface CategoryModel extends PlusBaseService {
 
-    void getCategory(Context mContext, ResultListener resultListener);
+    void getCategoryLeft(Context mContext, ResultListener resultListener);
 
+    void getClassifyDataByType(Context mContext, String id, String type, ResultListener resultListener);
 }

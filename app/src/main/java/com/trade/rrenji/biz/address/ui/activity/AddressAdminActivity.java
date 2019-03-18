@@ -40,7 +40,6 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     DelAddressActivityPresenter mDelAddressActivityPresenter;
     AddressAdminAdapter mAddressAdminAdapter = null;
 
-
     private int mIndexPage = 1;
 
     @Override

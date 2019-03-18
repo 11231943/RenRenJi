@@ -1,6 +1,7 @@
 package com.trade.rrenji.biz.category.ui.apater;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +17,12 @@ import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.category.CategoryBean;
 import com.trade.rrenji.bean.category.NetCategoryBean;
+import com.trade.rrenji.biz.category.ui.activity.CategoryListActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
 import com.trade.rrenji.utils.LoopViewPager;
+import com.trade.rrenji.utils.ViewUtils;
 import com.viewpagerindicator.LinePageIndicator;
 
 import java.util.ArrayList;
@@ -49,7 +52,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
         return getItem(position).getType();
     }
 
-    public void addAllData(List<CategoryBean> beans){
+    public void addAllData(List<CategoryBean> beans) {
         clear();
         addAll(beans);
     }
@@ -146,7 +149,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
                 mContainer = container;
                 mCircleAdBeans = circleAdBeans;
 //                width = ViewUtils.getScreenWidth(getContext());
-//
+////
 //                if (getCount() > 0) {
 //                    int height = (int) (width * 0.3);
 //                    ViewGroup.LayoutParams viewPagerParam = mContainer.getLayoutParams();
@@ -182,13 +185,11 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
                     return null;
 
                 ImageView simpleDraweeView = new ImageView(mContext);
-//                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
-//                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//                simpleDraweeView.setLayoutParams(params);
-//                simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                simpleDraweeView.setScaleType(ImageView.ScaleType.FIT_XY);
+                simpleDraweeView.setLayoutParams(params);
                 GlideUtils.getInstance().loadImageUrl(mContext, adBean.getImgUrl(), R.drawable.ic_launcher, simpleDraweeView);
-
-
                 simpleDraweeView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -375,9 +376,9 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
         @Override
         public void bindData(CategoryBean data, int position) {
             super.bindData(data, position);
-            if(data.getName().equals("安卓")){
+            if (data.getName().equals("安卓")) {
                 mAndroidLayout.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 mAndroidLayout.setVisibility(View.GONE);
             }
             if (mCategoryAdapter == null) {
@@ -423,9 +424,19 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
 
             @Override
             public void onBindViewHolder(CategoryDataViewItemHolder holder, int position) {
-                NetCategoryBean.DataBean.ResultListBean.GoodsModelList bean = mCategoryList.get(position);
+                final NetCategoryBean.DataBean.ResultListBean.GoodsModelList bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getGoodsModelPic(), R.drawable.ic_launcher, holder.image_src);
                 holder.category_title.setText(bean.getGoodsModelName());
+                holder.image_src.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, CategoryListActivity.class);
+                        intent.putExtra("id", bean.getId());
+                        intent.putExtra("type", "1");
+                        mContext.startActivity(intent);
+
+                    }
+                });
             }
         }
 

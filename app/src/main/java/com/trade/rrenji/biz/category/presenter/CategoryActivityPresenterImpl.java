@@ -22,8 +22,8 @@ public class CategoryActivityPresenterImpl extends BasePresenter<CategoryActivit
     }
 
     @Override
-    public void getCategory(Context mContext) {
-        mModel.getCategory(mContext,new XUtils.ResultListener() {
+    public void getCategoryLeft(Context mContext) {
+        mModel.getCategoryLeft(mContext, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
                 try {
@@ -38,7 +38,7 @@ public class CategoryActivityPresenterImpl extends BasePresenter<CategoryActivit
                         }
                     } else {
                         if (getActivityView() != null) {
-                            getActivityView().getCategoryCodeError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg()+"");
+                            getActivityView().getCategoryCodeError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg() + "");
                         }
                     }
                 } catch (Exception e) {

@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.account.ui.activity.AccountActivity;
 import com.trade.rrenji.biz.account.ui.activity.LoginActivity;
@@ -18,7 +16,6 @@ import com.trade.rrenji.biz.address.ui.activity.AddressAdminActivity;
 import com.trade.rrenji.biz.auth.ui.AuthActivity;
 import com.trade.rrenji.biz.collection.ui.activity.CollectionActivity;
 import com.trade.rrenji.biz.coupon.ui.activity.CouponActivity;
-import com.trade.rrenji.biz.invite.ui.activity.UserInvitePageActivity;
 import com.trade.rrenji.biz.order.ui.activity.DryingActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderAllActivity;

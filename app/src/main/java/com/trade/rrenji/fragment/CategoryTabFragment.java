@@ -97,7 +97,7 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
     }
 
     private void loadData() {
-        mCategoryActivityPresenter.getCategory(getActivity());
+        mCategoryActivityPresenter.getCategoryLeft(getActivity());
     }
 
 
