@@ -17,7 +17,9 @@ import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.category.CategoryBean;
 import com.trade.rrenji.bean.category.NetCategoryBean;
+import com.trade.rrenji.biz.category.ui.activity.CategoryClassListActivity;
 import com.trade.rrenji.biz.category.ui.activity.CategoryListActivity;
+import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
@@ -261,8 +263,17 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
 
             @Override
             public void onBindViewHolder(CategoryDataViewItemHolder holder, int position) {
-                NetCategoryBean.DataBean.ResultListBean.CategoryBrandList bean = mCategoryList.get(position);
+                final NetCategoryBean.DataBean.ResultListBean.CategoryBrandList bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getBrandImg(), R.drawable.ic_launcher, holder.image_src);
+                holder.image_src.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, CategoryClassListActivity.class);
+                        intent.putExtra("id", bean.getId());
+                        intent.putExtra("type", "1");
+                        mContext.startActivity(intent);
+                    }
+                });
             }
         }
 
@@ -338,9 +349,15 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
 
             @Override
             public void onBindViewHolder(CategoryDataViewItemHolder holder, int position) {
-                NetCategoryBean.DataBean.ResultListBean.HotProductListBean bean = mCategoryList.get(position);
+                final NetCategoryBean.DataBean.ResultListBean.HotProductListBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getProductImg(), R.drawable.ic_launcher, holder.image_src);
                 holder.category_title.setText(bean.getProductName());
+                holder.image_src.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        GoodsDetailActivity.navToMainActivity(mContext, bean.getId());
+                    }
+                });
             }
         }
 

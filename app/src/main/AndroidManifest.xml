@@ -134,6 +134,11 @@
         <activity
             android:name=".biz.category.ui.activity.CategoryListActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".biz.category.ui.activity.CategoryClassListActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
     </application>
 
