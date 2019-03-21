@@ -140,6 +140,11 @@
             android:name=".biz.category.ui.activity.CategoryClassListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
+
+        <activity android:name=".biz.data.ui.activity.DataListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
     </application>
 
 </manifest>

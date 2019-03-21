@@ -1,6 +1,7 @@
 package com.trade.rrenji.biz.home.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
+import com.trade.rrenji.biz.data.ui.activity.DataListActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.CollectionUtils;
@@ -326,7 +328,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
 
             @Override
             public void onBindViewHolder(HotOptimizationTypeViewHolder holder, int position) {
-               final NetHomeBean.DataBean.ThousandOptimizationBean bean = mCategoryList.get(position);
+                final NetHomeBean.DataBean.ThousandOptimizationBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
                 holder.hot_iphone_text.setText(bean.getGoodsName());
                 holder.iphone_price.setText("￥" + bean.getGoodsPrice() + "");
@@ -341,7 +343,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 holder.main_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsDetailActivity.navToMainActivity(mContext,bean.getGoodsCode());
+                        GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
 
@@ -443,7 +445,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 holder.main_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsDetailActivity.navToMainActivity(mContext,bean.getGoodsCode());
+                        GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
 
@@ -543,7 +545,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
 
             @Override
             public void onBindViewHolder(HotIphoneTypeViewHolder holder, int position) {
-               final NetHomeBean.DataBean.HotIphoneBean bean = mCategoryList.get(position);
+                final NetHomeBean.DataBean.HotIphoneBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
                 holder.hot_iphone_text.setText(bean.getGoodsName());
                 holder.iphone_original_price.setText("￥" + bean.getOriginalPrice());
@@ -561,7 +563,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 holder.main_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsDetailActivity.navToMainActivity(mContext,bean.getGoodsCode());
+                        GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
 
@@ -661,9 +663,17 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
 
             @Override
             public void onBindViewHolder(HotDataTypeViewHolder holder, int position) {
-                NetHomeBean.DataBean.HotActivityInfoListBean bean = mCategoryList.get(position);
+                final NetHomeBean.DataBean.HotActivityInfoListBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getHotActivityImg(), R.drawable.ic_launcher, holder.mHotImg);
                 holder.mHotStr.setText(bean.getContent());
+                holder.mHotImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, DataListActivity.class);
+                        intent.putExtra("id", bean.getId());
+                        mContext.startActivity(intent);
+                    }
+                });
 
             }
         }
@@ -684,7 +694,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
     public class CategoryViewHolder extends ViewHolder {
 
         RecyclerView mCategoryTypeView;
-        CategoryAdapter mCategoryAdapter=null;
+        CategoryAdapter mCategoryAdapter = null;
 
         private int[] mRes = new int[]{R.drawable.icon_iphone, R.drawable.icon_android, R.drawable.icon_watch, R.drawable.icon_parts, R.drawable.icon_ipad, R.drawable.icon_new, R.drawable.icon_book, R.drawable.icon_bargain};
         private String[] mType = new String[]{"IPhone", "安卓", "手表", "配件", "IPad", "新机", "笔记本", "砍价"};
@@ -700,7 +710,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
         @Override
         public void bindData(HomeBean data, int position) {
             super.bindData(data, position);
-            if(mCategoryAdapter==null){
+            if (mCategoryAdapter == null) {
                 mCategoryAdapter = new CategoryAdapter(mContext);
                 mCategoryTypeView.addItemDecoration(new LinearSpacingDecoration(20, 0));
                 mCategoryTypeView.setAdapter(mCategoryAdapter);
