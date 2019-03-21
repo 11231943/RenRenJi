@@ -953,10 +953,11 @@
            >
 
             <ImageView
+                android:id="@+id/collection_icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/goods_im" />
+                android:src="@drawable/photo_show_thumb_default" />
 
             <TextView
                 android:id="@+id/oa_crm_custom_left_reset"

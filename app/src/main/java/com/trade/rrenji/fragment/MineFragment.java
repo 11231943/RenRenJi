@@ -16,6 +16,7 @@ import com.trade.rrenji.biz.address.ui.activity.AddressAdminActivity;
 import com.trade.rrenji.biz.auth.ui.AuthActivity;
 import com.trade.rrenji.biz.collection.ui.activity.CollectionActivity;
 import com.trade.rrenji.biz.coupon.ui.activity.CouponActivity;
+import com.trade.rrenji.biz.invite.ui.activity.UserInvitePageActivity;
 import com.trade.rrenji.biz.order.ui.activity.DryingActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderAllActivity;
@@ -85,10 +86,14 @@ public class MineFragment extends Fragment {
     }
 
     @Event(value = {R.id.user_avatar,R.id.address_layout, R.id.collection_layout, R.id.user_setting, R.id.user_info_layout, R.id.auth_layout
-            , R.id.coupon_layout,  R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout})
+           , R.id.invite_layout , R.id.coupon_layout,  R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout})
     private void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
+            case R.id.invite_layout:
+                intent = new Intent(getActivity(), UserInvitePageActivity.class);
+                startActivity(intent);
+                break;
             case R.id.user_avatar:
                 intent = new Intent(getActivity(), PersonalActivity.class);
                 startActivity(intent);

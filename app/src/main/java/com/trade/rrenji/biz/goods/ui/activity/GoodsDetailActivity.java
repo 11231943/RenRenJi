@@ -77,6 +77,10 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     @ViewInject(R.id.goods_detail_detail_param_version)
     public TextView goods_detail_detail_param_version;
 
+    @ViewInject(R.id.collection_icon)
+    public ImageView collection_icon;
+
+
     //收藏
     @ViewInject(R.id.goods_detail_detail_colloect)
     LinearLayout goods_detail_detail_colloect;
@@ -172,6 +176,8 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
         context.startActivity(intent);
     }
 
+    private boolean isCollection = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -182,7 +188,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(GoOrderActivityEvent event){
+    public void onEvent(GoOrderActivityEvent event) {
         finish();
     }
 
@@ -216,7 +222,11 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     private void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.goods_detail_detail_colloect:
-                mAddCollectionPresenter.addCollection(this, mGoodsCode);
+                if (!isCollection) {
+                    mAddCollectionPresenter.addCollection(this, mGoodsCode);
+                } else {
+                    Toast.makeText(GoodsDetailActivity.this, "已添加到收藏", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.goods_detail_detail_buy:
                 mLoopViewPager.setAutoPagingEnabled(true);
@@ -240,8 +250,11 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
     @Override
     public void addCollection(NetCollectionBean netShareBean) {
         if (netShareBean.getCode().equals("0")) {
+            isCollection = true;
+            GlideUtils.getInstance().loadIcon(this, R.drawable.photo_show_thumb_hover, R.drawable.ic_launcher, collection_icon);
             Toast.makeText(this, "添加收藏成功!", Toast.LENGTH_SHORT).show();
         } else {
+            isCollection = false;
             Toast.makeText(this, "添加收藏失败!", Toast.LENGTH_SHORT).show();
 
         }

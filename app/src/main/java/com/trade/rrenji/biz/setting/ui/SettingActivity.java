@@ -2,6 +2,7 @@ package com.trade.rrenji.biz.setting.ui;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ public class SettingActivity extends BaseActivity {
     @ViewInject(R.id.login_out)
     public TextView login_out;
 
+    Handler mHandler =new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,13 @@ public class SettingActivity extends BaseActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 SettingUtils.getInstance().clear();
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                },500);
+
                             }
                         })
                         .setNegativeButton(R.string.cancel, null)
