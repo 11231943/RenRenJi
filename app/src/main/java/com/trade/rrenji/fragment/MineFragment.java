@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.account.ui.activity.AccountActivity;
 import com.trade.rrenji.biz.account.ui.activity.LoginActivity;
@@ -22,6 +23,7 @@ import com.trade.rrenji.biz.order.ui.activity.OrderActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderAllActivity;
 import com.trade.rrenji.biz.personal.ui.activity.PersonalActivity;
 import com.trade.rrenji.biz.setting.ui.SettingActivity;
+import com.trade.rrenji.utils.GlideUtils;
 import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.StatusBarUtils;
 
@@ -54,7 +56,6 @@ public class MineFragment extends Fragment {
     public TextView edit_account;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,23 +71,24 @@ public class MineFragment extends Fragment {
     }
 
     private void init() {
-        if(TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())){
+        if (TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
             login_not.setVisibility(View.VISIBLE);
             edit_account.setVisibility(View.GONE);
             user_name.setVisibility(View.GONE);
             user_phone.setVisibility(View.GONE);
-        }else{
+        } else {
             edit_account.setVisibility(View.VISIBLE);
             user_name.setVisibility(View.VISIBLE);
             user_phone.setVisibility(View.VISIBLE);
             login_not.setVisibility(View.GONE);
             user_name.setText(SettingUtils.getInstance().getUsername());
             user_phone.setText(SettingUtils.getInstance().getPhone());
+            GlideUtils.getInstance().loadCircleIcon(getActivity(), SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
         }
     }
 
-    @Event(value = {R.id.user_avatar,R.id.address_layout, R.id.collection_layout, R.id.user_setting, R.id.user_info_layout, R.id.auth_layout
-           , R.id.invite_layout , R.id.coupon_layout,  R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout})
+    @Event(value = {R.id.user_avatar, R.id.address_layout, R.id.collection_layout, R.id.user_setting, R.id.user_info_layout, R.id.auth_layout
+            , R.id.invite_layout, R.id.coupon_layout, R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout})
     private void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -111,10 +113,10 @@ public class MineFragment extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.user_info_layout:
-                if(TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())){
+                if (TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
                     intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
-                }else{
+                } else {
                     intent = new Intent(getActivity(), AccountActivity.class);
                     startActivity(intent);
                 }

@@ -120,7 +120,7 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
         mAccessoryInfoAdapter.setOnClickListener(new OnClickListener() {
             @Override
             public void OnItemClick(NetAccessoryListBean.DataBean.ResultListBean data, int type) {
-                int tempPrice = 0;
+                double tempPrice = 0;
                 for (NetAccessoryListBean.DataBean.ResultListBean bean : mAccessoryInfoAdapter.getAccessoryCheckBox()) {
                     tempPrice += bean.getPrice();
                 }

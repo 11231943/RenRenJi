@@ -1,6 +1,7 @@
 package com.trade.rrenji.biz.account.ui.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -13,14 +14,24 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.moonster.imagepicker.ImagePicker;
+import com.moonster.imagepicker.data.ImageBean;
+import com.moonster.imagepicker.data.ImagePickType;
+import com.moonster.imagepicker.utils.GlideImagePickerDisplayer;
+import com.trade.rrenji.MiGoApplication;
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.upload.NetUploadBean;
 import com.trade.rrenji.biz.account.presenter.UpdateUserInfoActivityPresenter;
 import com.trade.rrenji.biz.account.presenter.UpdateUsrInfoActivityPresenterImpl;
 import com.trade.rrenji.biz.account.ui.view.UpdateUserInfoActivityView;
 import com.trade.rrenji.biz.address.picker.AddressPicker;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.base.NetBaseResultBean;
+import com.trade.rrenji.biz.upload.model.UploadModel;
+import com.trade.rrenji.biz.upload.model.UploadModelImpl;
+import com.trade.rrenji.net.XUtils;
 import com.trade.rrenji.utils.AssetsUtils;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.Contetns;
@@ -33,6 +44,7 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @ContentView(R.layout.account_main_layout)
 public class AccountActivity extends BaseActivity implements UpdateUserInfoActivityView {
@@ -51,29 +63,54 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
     RelativeLayout bind_sex;
     @ViewInject(R.id.address_layout)
     RelativeLayout address_layout;
+    @ViewInject(R.id.user_avatar_layout)
+    RelativeLayout user_avatar_layout;
 
     UpdateUserInfoActivityPresenter mPresenter;
     private AddressPicker mAddressPicker;
     private ArrayList<AddressPicker.Province> mData;
     private Handler mHandler = new Handler();
-
     private String[] item = {"男", "女"};
-    String mSex = "0";
+    private String mSex = "0";
+    private String mProvince;
+    private String mCity;
+    private String mCounty;
 
-    String mProvince;
-    String mCity;
-    String mCounty;
+    private static int REQUEST_CODE = 10001;
+    private String mPathStr = "";
+    UploadModel mUploadModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarTitle("资料编辑");
+        mUploadModel = new UploadModelImpl(this);
         initUser();
     }
 
+    private void pick() {
+        new ImagePicker.Builder()
+                .pickType(ImagePickType.MUTIL)//设置选取类型(拍照、单选、多选)
+                .maxNum(1)//设置最大选择数量(拍照和单选都是1，修改后也无效)
+                .needCamera(true)//是否需要在界面中显示相机入口(类似微信)
+                .cachePath(MiGoApplication.CACHE_PATH)//自定义缓存路径
+                .doCrop(1, 1, 300, 300)//裁剪功能需要调用这个方法，多选模式下无效
+                .displayer(new GlideImagePickerDisplayer())//自定义图片加载器，默认是Glide实现的,可自定义图片加载器
+                .build()
+                .start(this, REQUEST_CODE, REQUEST_CODE);
+
+    }
+
+
     private void initUser() {
+        user_avatar_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pick();
+            }
+        });
         user_name.setText(SettingUtils.getInstance().getUsername());
-        GlideUtils.getInstance().loadImageUrl(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
+        GlideUtils.getInstance().loadCircleIcon(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
         bind_sex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +190,7 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
         String name = user_name.getText().toString().trim();
         String sex = text_sex.getText().toString().trim();
         String address = text_address.getText().toString().trim();
-        mPresenter.updateUserInfo(this, headImage, name, mSex, address);
+        mPresenter.updateUserInfo(this, mPathStr, name, mSex, address);
     }
 
     @Override
@@ -202,4 +239,37 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
         }
     }
 
+    //重写Activity或Fragment中OnActivityResult()
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == REQUEST_CODE && data != null) {
+            //获取选择的图片数据
+            List<ImageBean> resultList = data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
+            mPathStr = resultList.get(0).getImagePath();
+            GlideUtils.getInstance().loadCircleIcon(this, mPathStr, R.drawable.user_default_icon, user_avatar);
+            mUploadModel.upload(this, mPathStr, new XUtils.ResultListener() {
+                @Override
+                public void onResponse(String result) {
+                    try {
+                        Gson gson = new Gson();
+                        NetUploadBean uploadBean = gson.fromJson(result, NetUploadBean.class);
+                        if (uploadBean.getCode().equals(Contetns.RESPONSE_OK)) {
+                            mPathStr = uploadBean.getResult().getUrl();
+                            SettingUtils.getInstance().setUserImg(mPathStr);
+                            Toast.makeText(AccountActivity.this, "上传成功！" + result, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onError(Throwable error) {
+                    Toast.makeText(AccountActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
 }
