@@ -1,15 +1,29 @@
 package com.trade.rrenji;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.trade.rrenji.bean.check.NetCheckBean;
 import com.trade.rrenji.biz.base.BaseActivity;
+import com.trade.rrenji.biz.version.presenter.CheckPresenter;
+import com.trade.rrenji.biz.version.presenter.CheckPresenterImpl;
+import com.trade.rrenji.biz.version.ui.view.CheckActivityView;
 import com.trade.rrenji.fragment.HomeTabFragment;
 import com.trade.rrenji.fragment.CategoryTabFragment;
 import com.trade.rrenji.fragment.TechTabFragment;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.fragment.MineFragment;
+import com.trade.rrenji.service.UpdateApkService;
+import com.trade.rrenji.utils.FileDownloader;
 import com.trade.rrenji.utils.FragmentTabHost;
 import com.trade.rrenji.utils.TabLayout;
 import com.trade.rrenji.utils.ViewUtils;
@@ -17,8 +31,18 @@ import com.trade.rrenji.utils.ViewUtils;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
+import java.io.File;
+
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements CheckActivityView {
+
+    //更新策略：默认替用户下载更新，强制用户安装
+    public static final int UPDATE_STRATEGY_STRICT = 3;
+    //更新策略：默认替用户下载更新，提示用户进行安装
+    public static final int UPDATE_STRATEGY_EASY = 1;
+    //更新策略：默认替用户下载更新，但是不提示用户是否安装
+    public static final int UPDATE_STRATEGY_OPTIONAL = 2;
+
 
     public String[] tabTags = new String[]{"nearby", "live", "rainbow", "message", "mine"};
     public Class[] tabCls = new Class[]{HomeTabFragment.class, CategoryTabFragment.class,
@@ -36,9 +60,17 @@ public class MainActivity extends BaseActivity {
     public View msgCountLayout;
     private int mCurrentItem;
 
+    CheckPresenter mCheckPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy( builder.build() );
+        }
+
+        mCheckPresenter.getCheck(this);
         initEvent();
     }
 
@@ -109,12 +141,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void attachPresenter() {
-
+        mCheckPresenter = new CheckPresenterImpl(this);
+        mCheckPresenter.attachView(this);
     }
 
     @Override
     protected void detachPresenter() {
-
+        mCheckPresenter.detachView();
+        mCheckPresenter = null;
     }
 
     @Override
@@ -123,22 +157,84 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void showLoading(String msg) {
-        super.showLoading(msg);
+    public void getCheckSuccess(NetCheckBean netShareBean) {
+        final NetCheckBean.ResultBean resultBean = netShareBean.getResult();
+        resultBean.setApkUrl("https://d.douyucdn.cn/wsd-pkg-div/2019/03/25/c27cc261e0cac8daea9e9636650b5e2d_market_5.6.0_20190325125959.apk");
+        if (resultBean.isNeedUpdate()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle(R.string.update_title)
+                    .setMessage(getString(R.string.update_info, "3.0",
+                            resultBean.getMsg()));
+            if (resultBean.isForce()) {
+                builder.setCancelable(false);
+            } else {
+                builder.setNegativeButton(R.string.cancel, null);
+            }
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (resultBean.isForce()) {
+                        downloadForeground("RenRenJi" + "_v.3.0", resultBean.getApkUrl());
+                    } else {
+                        downloadBackground("RenRenJi" + "_v.3.0", resultBean.getApkUrl(), resultBean.isForce() ? UPDATE_STRATEGY_STRICT : UPDATE_STRATEGY_EASY);
+                    }
+                }
+            });
+            builder.show();
+        }
     }
 
-    @Override
-    public void hideLoading() {
-        super.hideLoading();
+    private void downloadBackground(String apkName, String downloadURL, int updateType) {
+        Intent updateIntent = new Intent(this,
+                UpdateApkService.class);
+        updateIntent.putExtra("apkName", apkName);
+        updateIntent.putExtra("apkVersion", "3.0");
+        updateIntent.putExtra("downloadURL", downloadURL);
+        updateIntent.putExtra("updateType", updateType);
+        startService(updateIntent);
     }
 
-    @Override
-    public void showError(String msg) {
-        super.showError(msg);
+
+    private void downloadForeground(String apkName, String downloadURL) {
+        final ProgressDialog pd = new ProgressDialog(this);
+        pd.setCancelable(false);
+        pd.setMessage(getString(R.string.start_download));
+        pd.show();
+        final FileDownloader fileDownloader = new FileDownloader(downloadURL, apkName);
+        fileDownloader.setOnDownloadListener(
+                new FileDownloader.OnDownloadListener() {
+                    @Override
+                    public void onDownloading(int progress) {
+                        pd.setMessage(
+                                getString(R.string.upgrade_dialog_download, progress));
+                    }
+
+                    @Override
+                    public void onDownloaded(File saveFile) {
+                        pd.dismiss();
+                        // 安装apk
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(
+                                fileDownloader.getSaveFile()),
+                                "application/vnd.android.package-archive");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailed(File saveFile) {
+                        pd.dismiss();
+                        Toast.makeText(MainActivity.this, getString(
+                                R.string.upgrade_dialog_download_failed),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+        fileDownloader.startDownload();
     }
 
+
     @Override
-    public void showEmpty(String msg) {
-        super.showEmpty(msg);
+    public void getCheckError(int code, String msg) {
+
     }
 }
