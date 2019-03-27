@@ -13,4 +13,6 @@ public interface PersonalModel extends PlusBaseService {
 
     void getUserPersonalInfo(Context mContext, String friendId, int page, int rows, ResultListener resultListener);
 
+    void getUserAdviceInfo(Context mContext,ResultListener resultListener);
+
 }

@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
             StrictMode.setVmPolicy( builder.build() );
         }
 
-        mCheckPresenter.getCheck(this);
+//        mCheckPresenter.getCheck(this);
         initEvent();
     }
 

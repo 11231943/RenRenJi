@@ -31,4 +31,13 @@ public class PersonalModelImpl implements PersonalModel {
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
     }
+
+    @Override
+    public void getUserAdviceInfo(Context mContext, XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.userInfo.getUserAdviceInfo");
+        url = url + SettingUtils.getInstance().getSessionkeyString();
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().get(url, params, resultListener);
+    }
 }
