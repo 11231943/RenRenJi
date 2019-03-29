@@ -1,6 +1,7 @@
 package com.trade.rrenji.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
+import com.trade.rrenji.MainActivity;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
@@ -24,6 +27,7 @@ import com.trade.rrenji.biz.home.presenter.HomeActivityPresenter;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenterImpl;
 import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
+import com.trade.rrenji.biz.search.ui.activity.SearchActivity;
 import com.trade.rrenji.utils.StatusBarUtil;
 import com.trade.rrenji.utils.StatusBarUtils;
 
@@ -44,6 +48,9 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
 
     @ViewInject(R.id.near_recycler_view)
     public SuperRecyclerView mSuperRecyclerView;
+
+    @ViewInject(R.id.search_layout)
+    public RelativeLayout search_layout;
 
     HomeAdapter mHomeAdapter;
 
@@ -92,6 +99,14 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
     }
 
     private void init() {
+        search_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getActivity(),SearchActivity.class);
+                getActivity().startActivity(intent);
+
+            }
+        });
         mHomeAdapter = new HomeAdapter(getActivity());
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(10, 0));
         mSuperRecyclerView.setAdapter(mHomeAdapter);

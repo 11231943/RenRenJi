@@ -150,6 +150,11 @@
             android:name=".biz.home.ui.activity.HomeCategoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".biz.search.ui.activity.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>
