@@ -21,6 +21,7 @@ import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.biz.data.ui.activity.DataListActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity;
+import com.trade.rrenji.biz.home.ui.activity.HomeCategoryActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
@@ -716,7 +717,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 mCategoryTypeView.setAdapter(mCategoryAdapter);
                 mCategoryTypeView.setLayoutManager(new GridLayoutManager(mContext, 4));
             }
-            mCategoryAdapter.addAll(categoryList);
+            mCategoryAdapter.addAll(data.getCategoryList());
         }
 
         private void bindData() {
@@ -763,10 +764,17 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
 
             @Override
             public void onBindViewHolder(CategoryTypeViewHolder holder, int position) {
-                NetHomeBean.DataBean.CategoryListBean bean = mCategoryList.get(position);
-//                GlideUtils.getInstance().loadImage(mContext, bean.getCategoryImg(), R.drawable.ic_launcher, holder.mCateTypeImg);
+               final NetHomeBean.DataBean.CategoryListBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadIcon(mContext, mRes[position], R.drawable.ic_launcher, holder.mCateTypeImg);
                 holder.mCateTypeStr.setText(bean.getCategoryName());
+                holder.mCateTypeImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, HomeCategoryActivity.class);
+                        intent.putExtra("categoryId", bean.getId());
+                        mContext.startActivity(intent);
+                    }
+                });
             }
         }
 

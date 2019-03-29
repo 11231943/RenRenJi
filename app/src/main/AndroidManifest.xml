@@ -21,7 +21,7 @@
         <activity
             android:name=".SplashActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoTitleBar.TranslucentStatus">
+            android:theme="@style/AppTheme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -139,12 +139,17 @@
         <activity
             android:name=".biz.category.ui.activity.CategoryClassListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
 
-        <activity android:name=".biz.data.ui.activity.DataListActivity"
+        <activity
+            android:name=".biz.data.ui.activity.DataListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".biz.home.ui.activity.HomeCategoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

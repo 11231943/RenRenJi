@@ -13,4 +13,6 @@ public interface HomeModel extends PlusBaseService {
 
     void getHomeList(Context mContext, int pageNum, ResultListener resultListener);
 
+    void getCategoryDetailById(Context mContext, String categoryId, int pageNum, int rows, ResultListener resultListener);
+
 }
