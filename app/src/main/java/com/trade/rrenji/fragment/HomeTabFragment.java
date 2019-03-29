@@ -1,5 +1,8 @@
 package com.trade.rrenji.fragment;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
@@ -20,6 +24,7 @@ import com.trade.rrenji.biz.home.presenter.HomeActivityPresenter;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenterImpl;
 import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
+import com.trade.rrenji.utils.StatusBarUtil;
 import com.trade.rrenji.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ContentView;
@@ -50,10 +55,25 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = x.view().inject(this, inflater, container);
+//        setTransparentForWindow(getActivity());
+//        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
-
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            getActivity().getWindow().getDecorView().setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+//        }
         return rootView;
     }
+
+    public static void setTransparentForWindow(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            activity.getWindow()
+                    .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

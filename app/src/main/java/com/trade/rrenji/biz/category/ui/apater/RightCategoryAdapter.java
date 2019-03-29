@@ -355,7 +355,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
                 holder.image_src.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsDetailActivity.navToMainActivity(mContext, bean.getId());
+                        GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
             }

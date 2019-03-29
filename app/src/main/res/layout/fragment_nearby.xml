@@ -1,12 +1,14 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_group"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/content_bg_color">
 
     <android.support.v7.widget.Toolbar
+        android:visibility="visible"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarSize"
