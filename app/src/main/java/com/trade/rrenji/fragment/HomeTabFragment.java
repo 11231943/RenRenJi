@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,24 +17,17 @@ import android.widget.RelativeLayout;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
-import com.trade.rrenji.MainActivity;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
-
-
 import com.trade.rrenji.biz.base.BaseFragment;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenter;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenterImpl;
 import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
 import com.trade.rrenji.biz.search.ui.activity.SearchActivity;
-import com.trade.rrenji.utils.StatusBarUtil;
-import com.trade.rrenji.utils.StatusBarUtils;
 
-import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +35,7 @@ import java.util.List;
 /**
  * Created by monster on 23/3/18.
  */
-@ContentView(R.layout.fragment_nearby)
+//@ContentView(R.layout.fragment_nearby)
 public class HomeTabFragment extends BaseFragment implements HomeActivityView {
 
     private static String TAG = HomeTabFragment.class.getSimpleName();
@@ -59,17 +53,48 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
     HomeActivityPresenter mHomeActivityPresenter = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = x.view().inject(this, inflater, container);
-//        setTransparentForWindow(getActivity());
-//        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            getActivity().getWindow().getDecorView().setSystemUiVisibility(
-//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-//        }
-        return rootView;
+    protected void initView() {
+        Log.e(TAG, "initView");
+        mSuperRecyclerView = rootView.findViewById(R.id.near_recycler_view);
+        search_layout = rootView.findViewById(R.id.search_layout);
+        init();
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_nearby;
+    }
+
+    //    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        super.onCreateView(inflater,container,savedInstanceState);
+//        Log.e(TAG, "onCreateView");
+//        View rootView = x.view().inject(this, inflater, container);
+//        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
+////        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+////            getActivity().getWindow().getDecorView().setSystemUiVisibility(
+////                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+////        }
+//        return rootView;
+//    }
+//
+//    @Override
+//    protected void onFragmentVisibleChange(boolean isVisible) {
+//        Log.e(TAG, "onFragmentVisibleChange" + isVisible);
+//        super.onFragmentVisibleChange(isVisible);
+//        init();
+//    }
+
+    //
+//
+//    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate");
+        mHomeActivityPresenter = new HomeActivityPresenterImpl(getActivity());
+        mHomeActivityPresenter.attachView(this);
+        mHomeAdapter = new HomeAdapter(getActivity());
     }
 
     public static void setTransparentForWindow(Activity activity) {
@@ -82,10 +107,12 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
     }
 
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        Log.e(TAG, "onActivityCreated");
+//    }
+
 
     private void loadData() {
         mHomeActivityPresenter.getHomeList(getActivity(), mIndexPage);
@@ -93,21 +120,18 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
 
     @Override
     protected void attachPresenter() {
-        mHomeActivityPresenter = new HomeActivityPresenterImpl(getActivity());
-        mHomeActivityPresenter.attachView(this);
-        init();
+
     }
 
     private void init() {
         search_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(getActivity(),SearchActivity.class);
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
                 getActivity().startActivity(intent);
 
             }
         });
-        mHomeAdapter = new HomeAdapter(getActivity());
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(10, 0));
         mSuperRecyclerView.setAdapter(mHomeAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity()) {
@@ -119,11 +143,11 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
         };
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mSuperRecyclerView.setLayoutManager(layoutManager);
-
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
             @Override
             public void onRefresh() {
                 mIndexPage = 1;
+                isFirst = false;
                 loadData();
             }
 
@@ -133,28 +157,37 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
                 loadData();
             }
         });
-        mSuperRecyclerView.startRefreshing(true, true);
+        if (!isFirst) {
+            mSuperRecyclerView.startRefreshing(true, true);
+        }
     }
 
     @Override
     protected void detachPresenter() {
-        mHomeActivityPresenter.detachView();
-        mHomeActivityPresenter = null;
+
     }
 
     @Override
     public void getHomeList(NetHomeBean mNetHomeBean) {
-        if (mIndexPage == 1) {
-            if (mHomeAdapter != null) {
-                mHomeAdapter.clear();
+        if (!isFirst) {
+            isFirst = true;
+            if (mIndexPage == 1) {
+                if (mHomeAdapter != null) {
+                    mHomeAdapter.clear();
+                }
             }
+            NetHomeBean.DataBean ordersBeans = mNetHomeBean.getData();
+            mSuperRecyclerView.finishRefreshing();
+            mSuperRecyclerView.setHasMoreData(false);
+            mSuperRecyclerView.finishMore(false);
+            build(ordersBeans);
+        } else {
+            NetHomeBean.DataBean ordersBeans = mNetHomeBean.getData();
+            mSuperRecyclerView.finishRefreshing();
+            mSuperRecyclerView.setHasMoreData(false);
+            mSuperRecyclerView.finishMore(false);
+            build(ordersBeans);
         }
-        NetHomeBean.DataBean ordersBeans = mNetHomeBean.getData();
-        mSuperRecyclerView.finishRefreshing();
-        mSuperRecyclerView.setHasMoreData(false);
-        mSuperRecyclerView.finishMore(false);
-        build(mNetHomeBean.getData());
-
     }
 
     private void build(NetHomeBean.DataBean resultBean) {
@@ -215,6 +248,19 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
 
     @Override
     public void getHomeListError(int code, String msg) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHomeActivityPresenter.detachView();
+        mHomeActivityPresenter = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
 
     }
 }

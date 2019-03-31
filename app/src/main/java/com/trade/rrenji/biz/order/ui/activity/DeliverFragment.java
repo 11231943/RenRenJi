@@ -29,6 +29,11 @@ import java.util.List;
 @ContentView(R.layout.base_activity_super_recyclerview)
 public class DeliverFragment extends BaseFragment implements OrderActivityView {
 
+    @Override
+    protected int getLayoutResource() {
+        return 0;
+    }
+
 
     @ViewInject(R.id.base_activity_recycler_view)
     public SuperRecyclerView mSuperRecyclerView;
@@ -42,7 +47,9 @@ public class DeliverFragment extends BaseFragment implements OrderActivityView {
         fragment.setArguments(args);
         return fragment;
     }
+    protected void initView() {
 
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

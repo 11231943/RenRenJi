@@ -37,6 +37,15 @@ public class AllOrderFragment extends BaseFragment implements OrderActivityView 
 
     private int mIndexPage = 1;
 
+    protected void initView() {
+
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return 0;
+    }
+
     public static AllOrderFragment newInstance() {
         Bundle args = new Bundle();
         AllOrderFragment fragment = new AllOrderFragment();

@@ -23,6 +23,17 @@ public class DryingFragment extends BaseFragment {
         return fragment;
     }
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return 0;
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = x.view().inject(this, inflater, container);

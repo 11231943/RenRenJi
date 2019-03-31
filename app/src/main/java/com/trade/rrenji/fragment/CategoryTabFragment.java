@@ -1,6 +1,7 @@
 package com.trade.rrenji.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by monster on 23/3/18.
  */
-@ContentView(R.layout.fragment_live)
+//@ContentView(R.layout.fragment_live)
 public class CategoryTabFragment extends BaseFragment implements CategoryActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
@@ -51,24 +52,41 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
     List<NetCategoryBean.DataBean.ResultListBean> mListBeans;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = x.view().inject(this, inflater, container);
-        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
-        return rootView;
-    }
-
-    @Override
-    protected void attachPresenter() {
-        mCategoryActivityPresenter = new CategoryActivityPresenterImpl(getActivity());
-        mCategoryActivityPresenter.attachView(this);
+    protected void initView() {
+        left_list = rootView.findViewById(R.id.left_list);
+        right_recycler_view = rootView.findViewById(R.id.right_recycler_view);
         init();
     }
 
     @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_live;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCategoryActivityPresenter = new CategoryActivityPresenterImpl(getActivity());
+        mCategoryActivityPresenter.attachView(this);
+    }
+
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+////        View rootView = x.view().inject(this, inflater, container);
+//        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
+//        return rootView;
+//    }
+
+    @Override
+    protected void attachPresenter() {
+
+
+    }
+
+    @Override
     protected void detachPresenter() {
-        mCategoryActivityPresenter.detachView();
-        mCategoryActivityPresenter = null;
+
     }
 
     private void init() {
@@ -169,6 +187,19 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
 
     @Override
     public void getCategoryCodeError(int code, String msg) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mCategoryActivityPresenter.detachView();
+        mCategoryActivityPresenter = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
 
     }
 }

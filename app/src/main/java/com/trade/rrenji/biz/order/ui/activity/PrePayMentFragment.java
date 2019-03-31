@@ -24,6 +24,16 @@ public class PrePayMentFragment extends BaseFragment {
         return rootView;
     }
     @Override
+    protected void initView() {
+
+    }
+    @Override
+    protected int getLayoutResource() {
+        return 0;
+    }
+
+
+    @Override
     protected void attachPresenter() {
 
     }

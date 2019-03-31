@@ -42,6 +42,16 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
     DryActivityPresenter mDryActivityPresenter = null;
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return 0;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = x.view().inject(this, inflater, container);

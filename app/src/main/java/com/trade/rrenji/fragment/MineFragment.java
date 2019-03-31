@@ -138,8 +138,13 @@ public class MineFragment extends Fragment {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.invite_layout:
-                intent = new Intent(getActivity(), UserInvitePageActivity.class);
-                startActivity(intent);
+                if (TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getActivity(), UserInvitePageActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.user_avatar:
                 if (TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {

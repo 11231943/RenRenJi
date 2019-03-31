@@ -1,6 +1,7 @@
 package com.trade.rrenji.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ import java.util.List;
  * Created by monster on 23/3/18.
  */
 
-@ContentView(R.layout.fragment_goods)
+//@ContentView(R.layout.fragment_goods)
 public class TechTabFragment extends BaseFragment implements TechActivityView {
 
     @ViewInject(R.id.order_recycler_view)
@@ -41,21 +42,37 @@ public class TechTabFragment extends BaseFragment implements TechActivityView {
 
     TechActivityPresenter mTechActivityPresenter = null;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = x.view().inject(this, inflater, container);
-        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
-        return rootView;
+    protected void initView() {
+        mSuperRecyclerView = rootView.findViewById(R.id.order_recycler_view);
+        init();
     }
 
-    private void init() {
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_goods;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mTechActivityPresenter = new TechActivityPresenterImpl(getActivity());
+        mTechActivityPresenter.attachView(this);
         mTechListAdapter = new TechListAdapter(getActivity());
+    }
+
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        View rootView = x.view().inject(this, inflater, container);
+//        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
+//        return rootView;
+//    }
+
+    private void init() {
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(0, 0));
         mSuperRecyclerView.setAdapter(mTechListAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
             @Override
             public void onRefresh() {
@@ -69,7 +86,9 @@ public class TechTabFragment extends BaseFragment implements TechActivityView {
                 loadData();
             }
         });
-        mSuperRecyclerView.startRefreshing(true, true);
+        if (!isFirst) {
+            mSuperRecyclerView.startRefreshing(true, true);
+        }
     }
 
 
@@ -79,33 +98,48 @@ public class TechTabFragment extends BaseFragment implements TechActivityView {
 
     @Override
     protected void attachPresenter() {
-        mTechActivityPresenter = new TechActivityPresenterImpl(getActivity());
-        mTechActivityPresenter.attachView(this);
-        init();
+
     }
 
     @Override
     protected void detachPresenter() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         mTechActivityPresenter.detachView();
         mTechActivityPresenter = null;
     }
 
     @Override
     public void getTechSuccess(NetTechBean netShareBean) {
-        if (mIndexPage == 1) {
-            if (mTechListAdapter != null) {
-                mTechListAdapter.clear();
+        if (!isFirst) {
+            isFirst = true;
+            if (mIndexPage == 1) {
+                if (mTechListAdapter != null) {
+                    mTechListAdapter.clear();
+                }
             }
+            List<NetTechBean.ResultBean.CommunityListBean> ordersBeans = netShareBean.getResult().getCommunityList();
+            mSuperRecyclerView.finishRefreshing();
+            mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
+            mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
+            mTechListAdapter.addAll(ordersBeans);
+        } else {
+            List<NetTechBean.ResultBean.CommunityListBean> ordersBeans = netShareBean.getResult().getCommunityList();
+            mSuperRecyclerView.finishRefreshing();
+            mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
+            mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
+            mTechListAdapter.addAll(ordersBeans);
         }
-        List<NetTechBean.ResultBean.CommunityListBean> ordersBeans = netShareBean.getResult().getCommunityList();
-        mSuperRecyclerView.finishRefreshing();
-        mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
-        mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
-        mTechListAdapter.addAll(ordersBeans);
     }
 
     @Override
     public void getTechError(int code, String msg) {
         Log.e("getDryingCodeError", "code = " + code + " msg = " + msg);
     }
+
+
 }

@@ -34,8 +34,6 @@ public class ReceivedFragment extends BaseFragment  implements OrderActivityView
 
     OrderActivityPresenter mPresenter;
     OrderAdminAdapter mOrderAdminAdapter = null;
-
-
     private int mIndexPage = 1;
 
     public static ReceivedFragment newInstance() {
@@ -43,6 +41,15 @@ public class ReceivedFragment extends BaseFragment  implements OrderActivityView
         ReceivedFragment fragment = new ReceivedFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    protected void initView() {
+
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return 0;
     }
 
     @Override
