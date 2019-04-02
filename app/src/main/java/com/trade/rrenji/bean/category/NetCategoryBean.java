@@ -222,10 +222,19 @@ public class NetCategoryBean implements Serializable {
                 private String goodsCode;
                 private String productImg;
                 private String productName;
+                private String modelName;
                 private int originalPrice;
                 private double productPrice;
                 private double savePrice;
                 private int type;
+
+                public String getModelName() {
+                    return modelName;
+                }
+
+                public void setModelName(String modelName) {
+                    this.modelName = modelName;
+                }
 
                 public String getGoodsCode() {
                     return goodsCode;

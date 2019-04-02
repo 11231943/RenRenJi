@@ -28,18 +28,18 @@ public class SettingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarTitle("设置");
-        if (!TextUtils.isEmpty(SettingUtils.getInstance().getSessionkey())) {
-            login_out.setVisibility(View.VISIBLE);
-        } else {
-            login_out.setVisibility(View.GONE);
-        }
+//        if (!TextUtils.isEmpty(SettingUtils.getInstance().getSessionkey())) {
+//            login_out.setVisibility(View.VISIBLE);
+//        } else {
+//            login_out.setVisibility(View.GONE);
+//        }
     }
 
     @Event(value = {R.id.login_out})
     private void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_out:
-                if (!TextUtils.isEmpty(SettingUtils.getInstance().getSessionkey())) {
+                if (!TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
                     new AlertDialog.Builder(this)
                             .setMessage("是否退出人人机？")
                             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

@@ -54,6 +54,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
     private static final int AGAIN_PERMISSION_REQUEST = 126;
     private int thirdPlatformType = -1;
     private int thirdPlatformGender = 0;
+
+    private int mType = 0;
     private CountDownTimer timerDown = new CountDownTimer(60000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -72,6 +74,7 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarTitle("登陆");
+        mType = getIntent().getIntExtra("type", -1);
         init();
     }
 
@@ -194,10 +197,14 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
     public void loginSuccess(LoginJsonBean jsonBean) {
         Log.d("loginSuccess", jsonBean.toString());
 //        Toast.makeText(LoginActivity.this, "loginSuccess : " + jsonBean.getData().toString(), Toast.LENGTH_SHORT).show();
-
         if (jsonBean.getCode().equals("0")) {
             SettingUtils.getInstance().saveMineInfo(jsonBean.getData());
+            if (mType == 1) {
+                setResult(10000);
+            }
             finish();
+        } else {
+            Toast.makeText(LoginActivity.this, "登陆失败!", Toast.LENGTH_SHORT).show();
         }
     }
 

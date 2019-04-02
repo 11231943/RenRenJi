@@ -31,6 +31,7 @@ import com.trade.rrenji.bean.order.CreateOrderBean.*;
 import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.bean.pay.AuthResult;
 import com.trade.rrenji.bean.pay.PayResult;
+import com.trade.rrenji.biz.account.ui.activity.LoginActivity;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.order.presenter.GetUserCreateOrderInfoPresenter;
 import com.trade.rrenji.biz.order.presenter.GetUserCreateOrderInfoPresenterImpl;
@@ -121,6 +122,9 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     private static final int SDK_AUTH_FLAG = 2;
     String mAppId = "JDJR110932122001";
     String mMerchant = "110932122002";
+
+    private boolean isLogin = false;
+    private int mRequestCode = 10000;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -238,6 +242,8 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         if (Constants.PAY_RESPONSE_CODE == resultCode) {//返回信息接收
             String result = data.getStringExtra(JDPayAuthor.JDPAY_RESULT);
             Log.e("onActivityResult", result);
+        } else if (requestCode == mRequestCode && resultCode == 10000) {
+            mPresenter.getUserCreateOrderInfoByUserId(this);
         }
     }
 
@@ -296,7 +302,13 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 changeCheckbox(R.id.checkbox_zh);
                 break;
             case R.id.goods_detail_detail_buy:
-                onPayOrder();
+                if (isLogin) {
+                    onPayOrder();
+                } else {
+                    Intent intent = new Intent(PayConfirmOrderActivity.this, LoginActivity.class);
+                    intent.putExtra("type",1);
+                    startActivityForResult(intent, mRequestCode);
+                }
                 break;
         }
     }
@@ -369,17 +381,19 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     public void getUserCreateOrderInfoByUserIdSuccess(NetGetUserCreateOrderBean netGetUserCreateOrderBean) {
         if (netGetUserCreateOrderBean.getCode().equals(Contetns.RESPONSE_OK)) {
             hit_text.setVisibility(View.GONE);
+            isLogin = true;
             NetGetUserCreateOrderBean.DataBean.AddressBean addressBean = netGetUserCreateOrderBean.getData().getAddress();
             address_name.setText(addressBean.getConsigneeName());
             address_phone.setText(addressBean.getConsigneeTel());
             address.setText(getResources().getString(R.string.address_show_detail,
                     addressBean.getProvince(), addressBean.getCity(), addressBean.getDistrict(), addressBean.getLocation()));
             mAddressId = addressBean.getAddressId();
-        }else if(netGetUserCreateOrderBean.getCode().equals("666")){
+        } else if (netGetUserCreateOrderBean.getCode().equals("666")) {
             address_name.setText("");
             address_phone.setText("");
             address.setText("");
             hit_text.setVisibility(View.VISIBLE);
+            isLogin = false;
         }
     }
 

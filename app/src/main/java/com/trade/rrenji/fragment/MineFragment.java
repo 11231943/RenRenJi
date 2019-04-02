@@ -89,7 +89,6 @@ public class MineFragment extends Fragment {
             user_name.setVisibility(View.GONE);
             user_phone.setVisibility(View.GONE);
             GlideUtils.getInstance().loadIcon(getActivity(), R.drawable.user_default_icon, R.drawable.user_default_icon, user_avatar);
-
         } else {
             edit_account.setVisibility(View.VISIBLE);
             user_name.setVisibility(View.VISIBLE);
@@ -110,7 +109,7 @@ public class MineFragment extends Fragment {
                 try {
                     Gson gson = GsonUtils.getGson();
                     NetMineBean netMineBean = gson.fromJson(result, NetMineBean.class);
-                    Log.e("Mine", netMineBean.getData().toString());
+//                    Log.e("Mine", netMineBean.getData().toString());
                     if (netMineBean.getCode().equals(Contetns.RESPONSE_OK)) {
                         NetMineBean.DataBean bean = netMineBean.getData();
                         SettingUtils.getInstance().setCurrentUid(bean.getUserId());

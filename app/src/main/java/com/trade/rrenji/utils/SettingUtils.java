@@ -176,7 +176,6 @@ public class SettingUtils {
 
     public void saveMineInfo(LoginJsonBean.DataBean dataBean) {
         setCurrentUid(dataBean.getUserId());
-
         setBaichuanAccount(dataBean.getBaichuanAccount());
         setBaichuanPassword(dataBean.getBaichuanPassWord());
         setMessage(dataBean.getMessage());

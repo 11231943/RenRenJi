@@ -70,7 +70,9 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
 
 
     private void init() {
-        mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(20, 20));
+        if (!isFirst) {
+            mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(20, 20));
+        }
         mSuperRecyclerView.setAdapter(mDryListAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {

@@ -351,7 +351,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
             public void onBindViewHolder(CategoryDataViewItemHolder holder, int position) {
                 final NetCategoryBean.DataBean.ResultListBean.HotProductListBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getProductImg(), R.drawable.ic_launcher, holder.image_src);
-                holder.category_title.setText(bean.getProductName());
+                holder.category_title.setText(bean.getModelName());
                 holder.image_src.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
