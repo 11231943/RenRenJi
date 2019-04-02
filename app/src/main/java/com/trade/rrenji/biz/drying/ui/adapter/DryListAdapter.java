@@ -116,7 +116,7 @@ public class DryListAdapter extends RecyclerListAdapter<NetShareBean.ResultBean.
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
             final NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean maleBean = mCategoryBeans.get(position);
-            GlideUtils.getInstance().loadRFeIamge(mContext, maleBean.getLargePic(), R.drawable.ic_launcher, viewHolder.mImageView);
+            GlideUtils.getInstance().loadRFeIamge(mContext, maleBean.getMinPic(), R.drawable.ic_launcher, viewHolder.mImageView);
             viewHolder.mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

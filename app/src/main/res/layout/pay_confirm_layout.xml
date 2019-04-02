@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/address_img"
-                    android:text="彭浩"
+                    android:text=""
                     android:textColor="#2E2E2E"
                     android:textSize="14sp" />
 
@@ -47,7 +47,7 @@
                     android:layout_marginLeft="14dp"
                     android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/address_name"
-                    android:text="17603009825"
+                    android:text=""
                     android:textColor="#2E2E2E"
                     android:textSize="14sp" />
 
@@ -65,9 +65,20 @@
                     android:gravity="center_vertical|left"
                     android:lineSpacingExtra="5dp"
                     android:maxLines="2"
-                    android:text="收货地址：福建省泉州市石狮市南洋路1151号"
+                    android:text=""
                     android:textColor="#7D7D7D"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/hit_text"
+                    android:text="请选择收货地址"
+                    android:textColor="#7D7D7D"
+                    android:textSize="12sp"
+                    android:layout_toLeftOf="@+id/go_address"
+                    android:layout_toRightOf="@+id/address_img"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/go_address"
@@ -252,6 +263,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/wx_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

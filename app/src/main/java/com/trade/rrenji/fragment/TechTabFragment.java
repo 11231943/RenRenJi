@@ -76,6 +76,7 @@ public class TechTabFragment extends BaseFragment implements TechActivityView {
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
             @Override
             public void onRefresh() {
+                isFirst = false;
                 mIndexPage = 1;
                 loadData();
             }

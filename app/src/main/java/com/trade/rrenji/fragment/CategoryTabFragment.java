@@ -68,15 +68,16 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
         super.onCreate(savedInstanceState);
         mCategoryActivityPresenter = new CategoryActivityPresenterImpl(getActivity());
         mCategoryActivityPresenter.attachView(this);
+        mLeftCategoryAdapter = new LeftCategoryAdapter(getActivity());
+        mRightCategoryAdapter = new RightCategoryAdapter(getActivity());
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-////        View rootView = x.view().inject(this, inflater, container);
-//        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
-//        return rootView;
-//    }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
+    }
+
 
     @Override
     protected void attachPresenter() {
@@ -90,8 +91,9 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
     }
 
     private void init() {
-        loadData();
-        mLeftCategoryAdapter = new LeftCategoryAdapter(getActivity());
+        if (!isFirst) {
+            loadData();
+        }
         left_list.setAdapter(mLeftCategoryAdapter);
         mLeftCategoryAdapter.setOnCheckedChangeListener(new LeftCategoryAdapter.OnCheckedTypeChangeListener() {
             @Override
@@ -100,18 +102,22 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
                 mLeftCategoryAdapter.setPosition(position);
             }
         });
-
-        mRightCategoryAdapter = new RightCategoryAdapter(getActivity());
         right_recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         right_recycler_view.setAdapter(mRightCategoryAdapter);
-
     }
 
     @Override
     public void getCategorySuccess(NetCategoryBean netShareBean) {
-        mListBeans = netShareBean.getData().getResultList();
-        initData(netShareBean.getData().getResultList());
-        selectRightData("热卖");
+        if (!isFirst) {
+            isFirst = true;
+            mListBeans = netShareBean.getData().getResultList();
+            initData(netShareBean.getData().getResultList());
+            selectRightData("热卖");
+        } else {
+            mListBeans = netShareBean.getData().getResultList();
+            initData(netShareBean.getData().getResultList());
+            selectRightData("热卖");
+        }
     }
 
     private void loadData() {
@@ -193,6 +199,7 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
     @Override
     public void onDestroy() {
         super.onDestroy();
+        isFirst = false;
         mCategoryActivityPresenter.detachView();
         mCategoryActivityPresenter = null;
     }

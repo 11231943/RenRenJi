@@ -26,6 +26,7 @@ import com.trade.rrenji.biz.home.presenter.HomeActivityPresenterImpl;
 import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
 import com.trade.rrenji.biz.search.ui.activity.SearchActivity;
+import com.trade.rrenji.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ViewInject;
 
@@ -58,6 +59,12 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
         mSuperRecyclerView = rootView.findViewById(R.id.near_recycler_view);
         search_layout = rootView.findViewById(R.id.search_layout);
         init();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
     }
 
     @Override

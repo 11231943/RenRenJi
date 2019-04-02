@@ -47,7 +47,6 @@ public class OrderModelImpl implements OrderModel {
     @Override
     public void getAccessoryInfo(Context mContext, String goodsCode, ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.order.getAccessoryInfoByGoodsCode");
-        url = url + SettingUtils.getInstance().getSessionkeyString();
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         Map<String, String> params = paramBuilder.build();
         params.put("goodsCode", goodsCode);

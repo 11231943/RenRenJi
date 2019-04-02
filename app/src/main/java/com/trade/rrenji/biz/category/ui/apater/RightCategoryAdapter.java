@@ -308,7 +308,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
             super.bindData(data, position);
             if (mCategoryAdapter == null) {
                 mCategoryAdapter = new CategoryDataAdapter(mContext);
-//                mHotDataTypeView.addItemDecoration(new LinearSpacingDecoration(20, 0));
+                mHotDataTypeView.addItemDecoration(new LinearSpacingDecoration(20, 0));
                 mHotDataTypeView.setAdapter(mCategoryAdapter);
                 mHotDataTypeView.setLayoutManager(new GridLayoutManager(mContext, 3));
             }
@@ -358,6 +358,8 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
                         GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
+                holder.price.setVisibility(View.VISIBLE);
+                holder.price.setText(bean.getProductPrice() + "");
             }
         }
 
@@ -365,11 +367,13 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
 
             private ImageView image_src;
             private TextView category_title;
+            private TextView price;
 
             public CategoryDataViewItemHolder(View itemView) {
                 super(itemView);
                 image_src = (ImageView) itemView.findViewById(R.id.image_pic);
                 category_title = (TextView) itemView.findViewById(R.id.category_title);
+                price = (TextView) itemView.findViewById(R.id.price);
             }
         }
 

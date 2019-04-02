@@ -22,19 +22,24 @@ public class SettingActivity extends BaseActivity {
     @ViewInject(R.id.login_out)
     public TextView login_out;
 
-    Handler mHandler =new Handler();
+    Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarTitle("设置");
+        if (!TextUtils.isEmpty(SettingUtils.getInstance().getSessionkey())) {
+            login_out.setVisibility(View.VISIBLE);
+        } else {
+            login_out.setVisibility(View.GONE);
+        }
     }
 
     @Event(value = {R.id.login_out})
     private void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_out:
-                if(!TextUtils.isEmpty(SettingUtils.getInstance().getSessionkeyString())){
+                if (!TextUtils.isEmpty(SettingUtils.getInstance().getSessionkey())) {
                     new AlertDialog.Builder(this)
                             .setMessage("是否退出人人机？")
                             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -46,7 +51,7 @@ public class SettingActivity extends BaseActivity {
                                         public void run() {
                                             finish();
                                         }
-                                    },500);
+                                    }, 500);
 
                                 }
                             })

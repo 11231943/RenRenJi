@@ -1,11 +1,13 @@
 package com.trade.rrenji.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.trade.rrenji.biz.base.BaseFragment;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
@@ -27,7 +29,7 @@ import java.util.List;
 /**
  * Created by monster on 23/3/18.
  */
-@ContentView(R.layout.fragment_message)
+//@ContentView(R.layout.fragment_message)
 public class DryingTabFragment extends BaseFragment implements DryActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
@@ -43,31 +45,38 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
 
     @Override
     protected void initView() {
+        mSuperRecyclerView = rootView.findViewById(R.id.order_recycler_view);
+        init();
+    }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mDryActivityPresenter = new DryActivityPresenterImpl(getActivity());
+        mDryActivityPresenter.attachView(this);
+        mDryListAdapter = new DryListAdapter(getActivity());
     }
 
     @Override
     protected int getLayoutResource() {
-        return 0;
+        return R.layout.fragment_message;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = x.view().inject(this, inflater, container);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
-        return rootView;
     }
 
+
     private void init() {
-        mDryListAdapter = new DryListAdapter(getActivity());
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(20, 20));
         mSuperRecyclerView.setAdapter(mDryListAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
             @Override
             public void onRefresh() {
+                isFirst = false;
                 mIndexPage = 1;
                 loadData();
             }
@@ -78,7 +87,9 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
                 loadData();
             }
         });
-        mSuperRecyclerView.startRefreshing(true, true);
+        if (!isFirst) {
+            mSuperRecyclerView.startRefreshing(true, true);
+        }
     }
 
 
@@ -89,29 +100,34 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
 
     @Override
     protected void attachPresenter() {
-        mDryActivityPresenter = new DryActivityPresenterImpl(getActivity());
-        mDryActivityPresenter.attachView(this);
-        init();
     }
 
     @Override
     protected void detachPresenter() {
-        mDryActivityPresenter.detachView();
-        mDryActivityPresenter = null;
+
     }
 
     @Override
     public void getDryingSuccess(NetShareBean netShareBean) {
-        if (mIndexPage == 1) {
-            if (mDryListAdapter != null) {
-                mDryListAdapter.clear();
+        if (!isFirst) {
+            isFirst = true;
+            if (mIndexPage == 1) {
+                if (mDryListAdapter != null) {
+                    mDryListAdapter.clear();
+                }
             }
+            List<NetShareBean.ResultBean.ShareOrdersBean> ordersBeans = netShareBean.getResult().getShareOrders();
+            mSuperRecyclerView.finishRefreshing();
+            mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
+            mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
+            mDryListAdapter.addAll(ordersBeans);
+        } else {
+            List<NetShareBean.ResultBean.ShareOrdersBean> ordersBeans = netShareBean.getResult().getShareOrders();
+            mSuperRecyclerView.finishRefreshing();
+            mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
+            mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
+            mDryListAdapter.addAll(ordersBeans);
         }
-        List<NetShareBean.ResultBean.ShareOrdersBean> ordersBeans = netShareBean.getResult().getShareOrders();
-        mSuperRecyclerView.finishRefreshing();
-        mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
-        mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
-        mDryListAdapter.addAll(ordersBeans);
     }
 
     @Override
@@ -119,5 +135,10 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
         Log.e("getDryingCodeError", "code = " + code + " msg = " + msg);
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDryActivityPresenter.detachView();
+        mDryActivityPresenter = null;
+    }
 }

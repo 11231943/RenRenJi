@@ -1,26 +1,51 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="85dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/image_layout"
+        android:layout_width="57dp"
+        android:layout_height="57dp">
 
         <ImageView
-            android:layout_gravity="center"
             android:id="@+id/image_pic"
             android:layout_width="57dp"
             android:layout_height="57dp"
+            android:layout_centerHorizontal="true"
             android:scaleType="fitXY"
             android:src="@drawable/sale_server" />
 
         <TextView
-            android:id="@+id/category_title"
-            android:layout_width="57dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/price"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:maxLines="1"
+            android:singleLine="true"
             android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:text="小米8"
-            android:layout_gravity="center"
-            android:textColor="#000000"
-            android:textSize="11sp"
-             />
+            android:background="@drawable/category_price_bg"
+            android:text="2399"
+            android:textSize="9sp"
+            android:visibility="gone"
+            android:textColor="#fff" />
 
-</LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/category_title"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="小米小米8小米88"
+        android:textColor="#000000"
+        android:textSize="11sp" />
+
+</RelativeLayout>

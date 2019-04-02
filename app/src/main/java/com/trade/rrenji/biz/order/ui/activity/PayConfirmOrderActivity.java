@@ -70,6 +70,8 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     TextView address_phone;
     @ViewInject(R.id.address)
     TextView address;
+    @ViewInject(R.id.hit_text)
+    TextView hit_text;
 
     @ViewInject(R.id.pay_sum_price2)
     TextView pay_sum_price2;
@@ -366,13 +368,18 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     @Override
     public void getUserCreateOrderInfoByUserIdSuccess(NetGetUserCreateOrderBean netGetUserCreateOrderBean) {
         if (netGetUserCreateOrderBean.getCode().equals(Contetns.RESPONSE_OK)) {
+            hit_text.setVisibility(View.GONE);
             NetGetUserCreateOrderBean.DataBean.AddressBean addressBean = netGetUserCreateOrderBean.getData().getAddress();
             address_name.setText(addressBean.getConsigneeName());
             address_phone.setText(addressBean.getConsigneeTel());
             address.setText(getResources().getString(R.string.address_show_detail,
                     addressBean.getProvince(), addressBean.getCity(), addressBean.getDistrict(), addressBean.getLocation()));
             mAddressId = addressBean.getAddressId();
-
+        }else if(netGetUserCreateOrderBean.getCode().equals("666")){
+            address_name.setText("");
+            address_phone.setText("");
+            address.setText("");
+            hit_text.setVisibility(View.VISIBLE);
         }
     }
 
