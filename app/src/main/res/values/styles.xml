@@ -117,6 +117,9 @@
     <!--<style name="MyCheck_Box" parent="@android:style/Widget.CompoundButton.CheckBox">-->
     <!--<item name="android:button">@drawable/checkbox_style</item>-->
     <!--</style>-->
-
+    <style name="animTranslate">
+        <item name="android:windowEnterAnimation">@anim/translate_in</item>
+        <item name="android:windowExitAnimation">@anim/translate_out</item>
+    </style>
 
 </resources>

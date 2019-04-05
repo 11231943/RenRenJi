@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RRenJi</string>
+    <string name="app_name">人人机</string>
 
     <string name="action_settings">Settings</string>
     <string name="part_json_error">JSON 解析错误</string>

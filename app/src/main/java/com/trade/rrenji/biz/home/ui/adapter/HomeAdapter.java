@@ -21,6 +21,7 @@ import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.biz.data.ui.activity.DataListActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity;
+import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.biz.home.ui.activity.HomeCategoryActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.CollectionUtils;
@@ -344,7 +345,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 holder.main_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
+                        GoodsDetailActivity2.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
 
@@ -446,7 +447,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 holder.main_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
+                        GoodsDetailActivity2.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
 
@@ -564,7 +565,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 holder.main_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
+                        GoodsDetailActivity2.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
 

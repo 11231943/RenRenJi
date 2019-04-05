@@ -24,10 +24,12 @@ public class CollectionModelImpl implements CollectionModel {
     public void getCollectionList(Context mContext, int currentPage, XUtils.ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.product.favorite.list");
         long timeStamp = System.currentTimeMillis();
-        int rows = 10;
-        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + currentPage + "/" + rows;
+        int rows = 20;
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         Map<String, String> params = paramBuilder.build();
+        params.put("page", currentPage + "");
+        params.put("rows", rows + "");
         XUtils.getInstance().get(url, params, resultListener);
     }
 

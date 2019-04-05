@@ -28,7 +28,7 @@ public class GoodsBannerAdapter extends PagerAdapter {
         width = ViewUtils.getScreenWidth(mContext);
 
         if (getCount() > 0) {
-            int height = (int) (width * 0.6);
+            int height = (int) (width * 0.75);
             ViewGroup.LayoutParams viewPagerParam = mContainer.getLayoutParams();
             viewPagerParam.width = width;
             viewPagerParam.height = height;

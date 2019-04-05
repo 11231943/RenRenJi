@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="280dp">
+    <com.trade.rrenji.utils.LoopViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.viewpagerindicator.CirclePageIndicator xmlns:indicator="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:padding="5dp"
+        indicator:radius="3dp"
+        indicator:fillColor="#FFF"
+        indicator:gapWidth="5dp"
+        indicator:pageColor="#80ffffff"
+        indicator:selectedColor="#FFF"
+        indicator:strokeWidth="0dp" />
+</RelativeLayout>

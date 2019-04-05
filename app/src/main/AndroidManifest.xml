@@ -96,7 +96,10 @@
             android:name=".biz.goods.ui.activity.GoodsDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
+        <activity
+            android:name=".biz.goods.ui.activity.GoodsDetailActivity2"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".biz.address.ui.activity.UpdateAddressActivity"
             android:screenOrientation="portrait"
