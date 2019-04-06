@@ -73,6 +73,8 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     TextView address_phone;
     @ViewInject(R.id.address)
     TextView address;
+    @ViewInject(R.id.hit_text)
+    TextView hit_text;
 
     @ViewInject(R.id.pay_sum_price2)
     TextView pay_sum_price2;
@@ -237,6 +239,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     }
 
     private void initData() {
+        hit_text.setVisibility(View.GONE);
         mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
         mSumCount = getIntent().getIntExtra("mSumCount", -0);
         mGoodsDetailBean = (ResultListBean) getIntent().getSerializableExtra("GoodsDetailBean");

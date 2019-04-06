@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.trade.rrenji.R;
@@ -80,9 +81,11 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
         ImageView default_img;
         TextView set_default_address_text;
         LinearLayout set_default_address;
+        RelativeLayout main_layout;
 
         public AddressViewHolder(View itemView) {
             super(itemView);
+            main_layout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
             address_edit_layout = (LinearLayout) itemView.findViewById(R.id.address_edit_layout);
             address_del_layout = (LinearLayout) itemView.findViewById(R.id.address_del_layout);
             address_name = (TextView) itemView.findViewById(R.id.address_name);
@@ -100,12 +103,11 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
             super.bindData(data, position);
             address_name.setText(data.getConsigneeName());
             address_phone.setText(data.getConsigneeTel());
-            setOnItemClickListener(new OnItemClickListener<AddressListBean>() {
+            main_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onItemClick(View v, AddressListBean data) {
+                public void onClick(View v) {
                     if (onClickListener == null) return;
                     onClickListener.onClick(data);
-//
                 }
             });
             if (data.isDefault()) {

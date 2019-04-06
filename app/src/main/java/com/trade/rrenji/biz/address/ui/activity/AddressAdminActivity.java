@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
@@ -22,6 +23,7 @@ import com.trade.rrenji.biz.base.BaseActivity;
 
 import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.fragment.DryingTabFragment;
+import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.Contetns;
 
 import org.xutils.view.annotation.ContentView;
@@ -41,11 +43,13 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     AddressAdminAdapter mAddressAdminAdapter = null;
 
     private int mIndexPage = 1;
+    private int mType = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+        mType = getIntent().getIntExtra("type", -1);
     }
 
     @Override
@@ -69,6 +73,18 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     private void init() {
         setActionBarTitle("地址管理");
         mAddressAdminAdapter = new AddressAdminAdapter(this);
+        mAddressAdminAdapter.setOnClickListener(new AddressAdminAdapter.onClickListener() {
+            @Override
+            public void onClick(NetAddressBean.ResultBean.AddressListBean data) {
+                if (mType == 1) {
+                    Intent intent = new Intent();
+                    intent.putExtra("data", data);
+                    setResult(10002, intent);
+                    finish();
+                }
+            }
+        });
+
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(5, 5));
         mSuperRecyclerView.setAdapter(mAddressAdminAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -97,7 +113,7 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
             public void onClick(String addressId, int type) {
                 if (type == 1) {
                     mDelAddressActivityPresenter.isNotUpAddress(AddressAdminActivity.this, addressId);
-                }else{
+                } else {
                     mDelAddressActivityPresenter.isUpAddress(AddressAdminActivity.this, addressId);
                 }
             }

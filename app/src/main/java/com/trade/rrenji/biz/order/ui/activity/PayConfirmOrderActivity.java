@@ -21,6 +21,7 @@ import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.jdpaysdk.author.Constants;
 import com.jdpaysdk.author.JDPayAuthor;
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.coupon.NetCouponBean;
 import com.trade.rrenji.bean.goods.GoodsDetailBean;
 import com.trade.rrenji.bean.goods.NetAccessoryListBean;
@@ -33,6 +34,7 @@ import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.bean.pay.AuthResult;
 import com.trade.rrenji.bean.pay.PayResult;
 import com.trade.rrenji.biz.account.ui.activity.LoginActivity;
+import com.trade.rrenji.biz.address.ui.activity.AddressAdminActivity;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.coupon.ui.activity.CouponActivity;
 import com.trade.rrenji.biz.order.presenter.GetUserCreateOrderInfoPresenter;
@@ -175,6 +177,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     private boolean isLogin = false;
     private int mRequestLoginCode = 10000;//登陆
     private int mRequestCouponCode = 10001;//优惠券
+    private int mRequestAddressCode = 10002;//优惠券
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -309,6 +312,13 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 order_sum_coupon_txt.setVisibility(View.GONE);
                 order_sum_coupon_price.setVisibility(View.GONE);
             }
+        } else if (requestCode == mRequestAddressCode && resultCode == 10002) {
+            NetAddressBean.ResultBean.AddressListBean bean = (NetAddressBean.ResultBean.AddressListBean) data.getSerializableExtra("data");
+            address_name.setText(bean.getConsigneeName());
+            address_phone.setText(bean.getConsigneeTel());
+            address.setText(getResources().getString(R.string.address_show_detail,
+                    bean.getProvince(), bean.getCity(), bean.getDistrict(), bean.getLocation()));
+            mAddressId = bean.getAddressId();
         }
     }
 
@@ -352,9 +362,21 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
 
     @Event(value = {R.id.zfb_layout, R.id.wx_layout, R.id.jd_layout, R.id.zh_layout,
             R.id.huabei_layout, R.id.goods_detail_detail_buy, R.id.three_plan_price_layout
-            , R.id.six_plan_price_layout, R.id.t_plan_price_layout, R.id.coupon_layout})
+            , R.id.six_plan_price_layout, R.id.t_plan_price_layout, R.id.coupon_layout, R.id.address_layout})
     private void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.address_layout:
+                if (isLogin) {
+                    Intent intent = new Intent(PayConfirmOrderActivity.this, AddressAdminActivity.class);
+                    intent.putExtra("type", 1);
+                    startActivityForResult(intent, mRequestAddressCode);
+                } else {
+                    Intent intent = new Intent(PayConfirmOrderActivity.this, LoginActivity.class);
+                    intent.putExtra("type", 1);
+                    startActivityForResult(intent, mRequestLoginCode);
+                }
+
+                break;
             case R.id.three_plan_price_layout:
                 changeCheckbox(R.id.checkbox_huabei);
                 onChangeColor(R.id.three_plan_price_layout);

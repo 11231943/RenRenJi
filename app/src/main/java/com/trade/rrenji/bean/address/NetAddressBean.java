@@ -1,5 +1,6 @@
 package com.trade.rrenji.bean.address;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class NetAddressBean {
@@ -109,7 +110,7 @@ public class NetAddressBean {
             }
         }
 
-        public static class AddressListBean {
+        public static class AddressListBean implements Serializable {
             /**
              * addressId : 369
              * consigneeName : 命名
