@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.trade.rrenji.bean.order.ContinuePayBean;
 import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
+import com.trade.rrenji.bean.order.NetPayPlanInfoBean;
 import com.trade.rrenji.bean.order.NetResultCreateOrderBean;
 import com.trade.rrenji.biz.base.BasePresenter;
 import com.trade.rrenji.biz.order.model.OrderModel;
@@ -23,6 +24,40 @@ public class GetUserCreateOrderInfoPresenterImpl extends BasePresenter<GetUserCr
     public GetUserCreateOrderInfoPresenterImpl(Context context) {
         mContext = context;
         mModel = new OrderModelImpl(context);
+    }
+
+    @Override
+    public void getPayPlanInfoList(Context mContext, double total, String goodsId) {
+        mModel.getPayPlanInfoList(mContext, total, goodsId, new XUtils.ResultListener() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    if (getActivityView() != null) {
+                        getActivityView().hideLoading();
+                    }
+                    Gson gson = new Gson();
+                    final NetPayPlanInfoBean netShareBean = gson.fromJson(result, NetPayPlanInfoBean.class);
+                    if (Integer.valueOf(netShareBean.getCode()) == Contetns.STATE_OK) {
+                        if (getActivityView() != null) {
+                            getActivityView().getPayPlanInfoListSuccess(netShareBean);
+                        }
+                    } else {
+                        if (getActivityView() != null) {
+                            getActivityView().getPayPlanInfoListError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                getActivityView().createOrderError(-10000, "请求错误");
+            }
+        });
+
     }
 
     @Override

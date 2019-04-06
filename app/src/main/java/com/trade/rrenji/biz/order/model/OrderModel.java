@@ -13,9 +13,11 @@ public interface OrderModel extends PlusBaseService {
 
     void getAccessoryInfo(Context mContext, String goodsCode, ResultListener resultListener);
 
-    void getUserCreateOrderInfoByUserId(Context mContext,ResultListener resultListener);
+    void getUserCreateOrderInfoByUserId(Context mContext, ResultListener resultListener);
 
     void createOrder(Context mContext, CreateOrderBean bean, ResultListener resultListener);
 
     void continuePay(Context mContext, ContinuePayBean bean, ResultListener resultListener);
+
+    void getPayPlanInfoList(Context mContext, double total, String goodsId, ResultListener resultListener);
 }

@@ -51,17 +51,12 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     TextView order_mun;
     @ViewInject(R.id.pre_order_sum)
     TextView pre_order_sum;
-
     @ViewInject(R.id.pay_sum_price2)
     TextView pay_sum_price2;
-
-
     @ViewInject(R.id.order_sum_price)
     TextView order_sum_price;
-
     @ViewInject(R.id.confirm_btn)
     TextView confirm_btn;
-
     @ViewInject(R.id.recycler_view)
     RecyclerView recyclerView;
 

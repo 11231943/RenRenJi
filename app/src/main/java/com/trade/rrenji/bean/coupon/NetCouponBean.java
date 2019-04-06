@@ -1,5 +1,6 @@
 package com.trade.rrenji.bean.coupon;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class NetCouponBean {
@@ -49,7 +50,7 @@ public class NetCouponBean {
             this.couponList = couponList;
         }
 
-        public static class CouponListBean {
+        public static class CouponListBean implements Serializable {
             /**
              * couponId : 8
              * couponValue : 1

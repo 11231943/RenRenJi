@@ -1,5 +1,6 @@
 package com.trade.rrenji.biz.coupon.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -34,17 +35,30 @@ public class CouponActivity extends BaseActivity implements CouponActivityView {
 
 
     private int mIndexPage = 1;
+    private int mType = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+        mType = getIntent().getIntExtra("type", -1);
     }
 
     private void init() {
         setActionBarTitle("优惠券");
         mCouponAdapter = new CouponAdapter(this);
-        mSuperRecyclerView.setRecyclerPadding(0,10,0,0);
+        mCouponAdapter.setOnClickListener(new CouponAdapter.onClickListener() {
+            @Override
+            public void onClick(NetCouponBean.ResultBean.CouponListBean data) {
+                if (mType == 1) {
+                    Intent intent = new Intent();
+                    intent.putExtra("data", data);
+                    setResult(10001, intent);
+                }
+                finish();
+            }
+        });
+        mSuperRecyclerView.setRecyclerPadding(0, 10, 0, 0);
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(20, 20));
         mSuperRecyclerView.setAdapter(mCouponAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(this));

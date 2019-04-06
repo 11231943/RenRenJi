@@ -45,6 +45,19 @@ public class OrderModelImpl implements OrderModel {
     }
 
     @Override
+    public void getPayPlanInfoList(Context mContext, double total, String goodsId, ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.newOrder.getPayPlanInfoList");
+        long timeStamp = System.currentTimeMillis();
+        String token = "1";
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + token;
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        params.put("total", total + "");
+        params.put("goodsId", goodsId);
+        XUtils.getInstance().get(url, params, resultListener);
+    }
+
+    @Override
     public void getAccessoryInfo(Context mContext, String goodsCode, ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.order.getAccessoryInfoByGoodsCode");
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);

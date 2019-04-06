@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.trade.rrenji.R;
@@ -59,6 +61,7 @@ public class CouponAdapter extends RecyclerListAdapter<CouponListBean> {
         TextView limit_pay_value;
         TextView limit_pay_fw;
         TextView limit_pay_time;
+        RelativeLayout main_layout;
 
         public CouponViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +69,7 @@ public class CouponAdapter extends RecyclerListAdapter<CouponListBean> {
             limit_pay_value = (TextView) itemView.findViewById(R.id.limit_pay_value);
             limit_pay_fw = (TextView) itemView.findViewById(R.id.limit_pay_fw);
             limit_pay_time = (TextView) itemView.findViewById(R.id.limit_pay_time);
+            main_layout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
         }
 
         @Override
@@ -73,8 +77,16 @@ public class CouponAdapter extends RecyclerListAdapter<CouponListBean> {
             super.bindData(data, position);
             coupon_value.setText("¥" + data.getCouponValue());
             limit_pay_value.setText("满" + data.getLimitPayValue() + "使用");
-            limit_pay_fw.setText("适用范围："+data.getCouponRuleList().get(0));
-            limit_pay_time.setText("有效期至："+data.getCouponRuleList().get(2).substring(data.getCouponRuleList().get(2).indexOf("至") + 1));
+            limit_pay_fw.setText("适用范围：" + data.getCouponRuleList().get(0));
+            limit_pay_time.setText("有效期至：" + data.getCouponRuleList().get(2).substring(data.getCouponRuleList().get(2).indexOf("至") + 1));
+            main_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(data);
+                    }
+                }
+            });
         }
     }
 

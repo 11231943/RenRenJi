@@ -19,4 +19,6 @@ public interface GetUserCreateOrderInfoPresenter extends Presenter<GetUserCreate
 
     void newContinuePay(Context mContext, ContinuePayBean continuePayBean);
 
+    void getPayPlanInfoList(Context mContext,double total,String goodsId);
+
 }

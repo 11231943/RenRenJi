@@ -30,6 +30,7 @@ import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
 import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
+import com.trade.rrenji.bean.order.NetPayPlanInfoBean;
 import com.trade.rrenji.bean.order.NetResultCreateOrderBean;
 import com.trade.rrenji.bean.pay.AuthResult;
 import com.trade.rrenji.bean.pay.PayResult;
@@ -370,6 +371,16 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     public void createOrderError(int code, String msg) {
         Log.d("createOrderError", "msg : " + msg);
         Toast.makeText(PayConfirmOrderActivity2.this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getPayPlanInfoListError(int code, String msg) {
+
+    }
+
+    @Override
+    public void getPayPlanInfoListSuccess(NetPayPlanInfoBean netPayPlanInfoBean) {
+
     }
 
     @Override
