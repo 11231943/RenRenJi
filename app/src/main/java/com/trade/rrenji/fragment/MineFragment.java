@@ -115,6 +115,8 @@ public class MineFragment extends Fragment {
                         SettingUtils.getInstance().setCurrentUid(bean.getUserId());
                         SettingUtils.getInstance().setUsername(bean.getUserName());
                         SettingUtils.getInstance().setUserImg(bean.getUserImg());
+                        SettingUtils.getInstance().setUserSex(bean.getSex());
+                        SettingUtils.getInstance().setUserAddress(bean.getAddress());
                         user_name.setText(SettingUtils.getInstance().getUsername());
                         user_phone.setText(SettingUtils.getInstance().getPhone());
                         GlideUtils.getInstance().loadCircleIcon(getActivity(), SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
@@ -151,6 +153,8 @@ public class MineFragment extends Fragment {
                     startActivity(intent);
                 } else {
                     intent = new Intent(getActivity(), PersonalActivity.class);
+                    intent.putExtra("type", 1);
+                    intent.putExtra("id",SettingUtils.getInstance().getCurrentUid());
                     startActivity(intent);
                 }
                 break;

@@ -53,7 +53,7 @@
     <string name="error_imagepicker_parsefail">无法读取图片</string>
     <string name="error_imagepicker_scanfail">无法扫描本地图片数据</string>
     <string name="error_no_sdcard">SD卡不存在！</string>
-    <string name="fileprovider_authorities">image_picker_file_provider</string>
+    <string name="fileprovider_authorities">com.renrenji.fileprovider</string>
     <string name="imagepicker_all_image_floder">全部图片</string>
     <string name="imagepicker_back">返回</string>
     <string name="imagepicker_crop_cancel">取消</string>
@@ -92,13 +92,13 @@
         <item name="actionBarSize">48dp</item>
         <item name="android:actionBarSize" ns1:targetApi="11">48dp</item>
 
-        <!-- Set homeAsUpIndicator to transparent with a width -->
+        
         <item name="homeAsUpIndicator">@drawable/back_btn</item>
         <item name="android:homeAsUpIndicator" ns1:targetApi="11">
             @drawable/back_btn
         </item>
 
-        <!-- Don't do background highlight when click actionbar items-->
+        
         <item name="actionBarItemBackground">@android:color/transparent</item>
         <item name="android:actionBarItemBackground" ns1:targetApi="14">
             @android:color/transparent
@@ -109,10 +109,10 @@
             @drawable/common_title_btn_splitter
         </item>
 
-        <!-- Remove shadow below action bar Android < 5.0 -->
+        
         <item name="android:windowContentOverlay">@null</item>
 
-        <!-- Color of action buttons -->
+        
         <item name="actionMenuTextColor">@color/action_bar_item_color</item>
         <item name="android:actionMenuTextColor" ns1:targetApi="11">@color/action_bar_item_color
         </item>
@@ -153,7 +153,7 @@
         <item name="android:background" ns1:targetApi="11">@drawable/actionbar_bg</item>
         <item name="backgroundSplit">@color/actionbar_bg</item>
         <item name="android:backgroundSplit" ns1:targetApi="14">@color/actionbar_bg</item>
-        <!--<item name="icon">@android:color/transparent</item>-->
+        
         <item name="android:icon" ns1:targetApi="11">@android:color/transparent</item>
         <item name="titleTextStyle">@style/Widget.ActionBar.TitleTextStyle</item>
         <item name="android:titleTextStyle" ns1:targetApi="11">
@@ -161,7 +161,7 @@
         </item>
         <item name="android:textAllCaps" ns1:targetApi="14">false</item>
         <item name="textAllCaps">false</item>
-        <!-- remove shadow below action bar Android > 5.0 -->
+        
         <item name="android:elevation" ns1:targetApi="21">0dp</item>
         <item name="elevation">0dp</item>
     </style>

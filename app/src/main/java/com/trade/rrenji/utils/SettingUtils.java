@@ -33,6 +33,8 @@ public class SettingUtils {
     public static final String WECHAT_AUTH_STATE = "weChatAuthState";
 
     public static final String KEY_CURRENT_UID = "current_uid";
+    public static final String KEY_CURRENT_SEX = "current_sex";
+    public static final String KEY_CURRENT_ADDRESS= "current_address";
     public static final String NAME_USER_SETTING_PREFIX = "cookie_";
     public static final String NAME_APP_SETTING = "cookie";
 
@@ -98,6 +100,27 @@ public class SettingUtils {
 
     public String getBaichuanPassword() {
         return getCurrentUserSetting().getString(BAICHUAN_PASSWORD, "");
+    }
+
+
+
+
+
+    public void setUserSex(String userImg) {
+        getCurrentUserSetting().edit().putString(KEY_CURRENT_SEX, userImg).apply();
+    }
+
+    public void setUserAddress(String userImg) {
+        getCurrentUserSetting().edit().putString(KEY_CURRENT_ADDRESS, userImg).apply();
+    }
+
+    public String getUserAddress() {
+        return getCurrentUserSetting().getString(KEY_CURRENT_ADDRESS, "");
+    }
+
+
+    public String getUserSex() {
+        return getCurrentUserSetting().getString(KEY_CURRENT_SEX, "");
     }
 
     public void setUserImg(String userImg) {

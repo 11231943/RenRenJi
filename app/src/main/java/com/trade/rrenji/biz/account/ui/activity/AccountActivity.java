@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -103,14 +104,22 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
 
 
     private void initUser() {
+        text_sex.setText(SettingUtils.getInstance().getUserSex().equals("0") ? "男" : "女");
         user_avatar_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pick();
             }
         });
+        text_address.setText(SettingUtils.getInstance().getUserAddress());
         user_name.setText(SettingUtils.getInstance().getUsername());
-        GlideUtils.getInstance().loadCircleIcon(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
+
+        if (TextUtils.isEmpty(SettingUtils.getInstance().getUserImg())) {
+            GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon, R.drawable.user_default_icon, user_avatar);
+
+        } else {
+            GlideUtils.getInstance().loadCircleIcon(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
+        }
         bind_sex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,11 +195,13 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
     }
 
     void update() {
-        String headImage = "http://qiniu.rrenji.com/FkBWf3d7MMnDdH7cDQhmIp_RDE4i";
-        String name = user_name.getText().toString().trim();
+        if (TextUtils.isEmpty(mPathStr)) {
+            mPathStr = SettingUtils.getInstance().getUserImg();
+        }
+        String mUserName = user_name.getText().toString().trim();
         String sex = text_sex.getText().toString().trim();
-        String address = text_address.getText().toString().trim();
-        mPresenter.updateUserInfo(this, mPathStr, name, mSex, address);
+        String mAddress = text_address.getText().toString().trim();
+        mPresenter.updateUserInfo(this, mPathStr, mUserName, mSex, mAddress);
     }
 
     @Override
@@ -208,6 +219,7 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
     @Override
     public void updateUserInfoSuccess(NetBaseResultBean netBaseResultBean) {
         if (netBaseResultBean.getCode().equals(Contetns.RESPONSE_OK)) {
+            SettingUtils.getInstance().setUserImg(mPathStr);
             Toast.makeText(this, "修改资料成功！", Toast.LENGTH_SHORT).show();
             mHandler.postDelayed(new Runnable() {
                 @Override
@@ -256,8 +268,7 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
                         NetUploadBean uploadBean = gson.fromJson(result, NetUploadBean.class);
                         if (uploadBean.getCode().equals(Contetns.RESPONSE_OK)) {
                             mPathStr = uploadBean.getResult().getUrl();
-                            SettingUtils.getInstance().setUserImg(mPathStr);
-                            Toast.makeText(AccountActivity.this, "上传成功！" + result, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(AccountActivity.this, "上传图片成功！", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

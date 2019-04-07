@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.category.NetCategoryListBean.DataBean.ResultListBean;
-import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;

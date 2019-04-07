@@ -20,7 +20,6 @@ import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.biz.data.ui.activity.DataListActivity;
-import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.biz.home.ui.activity.HomeCategoryActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;

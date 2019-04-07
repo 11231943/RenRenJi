@@ -69,7 +69,6 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy( builder.build() );
         }
-
 //        mCheckPresenter.getCheck(this);
         initEvent();
     }

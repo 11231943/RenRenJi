@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.NetHotDataBean.DataBean.ResultListBean;
-import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity;
+import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;
 
@@ -78,7 +78,7 @@ public class DataListAdapter extends RecyclerListAdapter<ResultListBean> {
             main_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GoodsDetailActivity.navToMainActivity(mContext, data.getGoodsCode());
+                    GoodsDetailActivity2.navToMainActivity(mContext, data.getGoodsCode());
                 }
             });
 

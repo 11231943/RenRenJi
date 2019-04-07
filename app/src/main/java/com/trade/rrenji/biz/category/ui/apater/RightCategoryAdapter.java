@@ -19,12 +19,11 @@ import com.trade.rrenji.bean.category.CategoryBean;
 import com.trade.rrenji.bean.category.NetCategoryBean;
 import com.trade.rrenji.biz.category.ui.activity.CategoryClassListActivity;
 import com.trade.rrenji.biz.category.ui.activity.CategoryListActivity;
-import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity;
+import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
 import com.trade.rrenji.utils.LoopViewPager;
-import com.trade.rrenji.utils.ViewUtils;
 import com.viewpagerindicator.LinePageIndicator;
 
 import java.util.ArrayList;
@@ -355,7 +354,7 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
                 holder.image_src.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsDetailActivity.navToMainActivity(mContext, bean.getGoodsCode());
+                        GoodsDetailActivity2.navToMainActivity(mContext, bean.getGoodsCode());
                     }
                 });
                 holder.price.setVisibility(View.VISIBLE);

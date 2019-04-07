@@ -98,7 +98,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
                 order_states.setText("待发货");
             } else if (data.getPayStatus().equals("3")) {
                 del_btn.setVisibility(View.GONE);
-                dry_btn.setText("查看订单");
+                dry_btn.setText("确定收货");
                 order_states.setText("已发货");
             }
             main_layout.setOnClickListener(new View.OnClickListener() {

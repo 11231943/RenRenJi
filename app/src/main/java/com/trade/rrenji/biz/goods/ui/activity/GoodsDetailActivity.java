@@ -173,11 +173,11 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
             "有明显使用痕迹或明显磕碰位置（不多于三处），屏幕显示正常，功能正常，电池损耗正常。",
             "有明显使用痕迹或明显磕碰位置（多于三处），屏幕显示正常，功能正常，电池损耗正常。"};
 
-    public static void navToMainActivity(Context context, String goodsId) {
-        Intent intent = new Intent(context, GoodsDetailActivity.class);
-        intent.putExtra("goodsCode", goodsId);
-        context.startActivity(intent);
-    }
+//    public static void navToMainActivity(Context context, String goodsId) {
+//        Intent intent = new Intent(context, GoodsDetailActivity.class);
+//        intent.putExtra("goodsCode", goodsId);
+//        context.startActivity(intent);
+//    }
 
     private boolean isCollection = false;
 
@@ -232,7 +232,7 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
                     if (!isCollection) {
                         mAddCollectionPresenter.addCollection(this, mGoodsCode);
                     } else {
-                        Toast.makeText(GoodsDetailActivity.this, "已添加到收藏", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(GoodsDetailActivity.this, "已添加到收藏", Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
