@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
@@ -23,6 +28,8 @@ import com.trade.rrenji.biz.order.ui.view.AccessoryInfoView;
 import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;
+import com.trade.rrenji.utils.ViewUtils;
+import com.trade.rrenji.view.CommonPopupWindow;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -59,6 +66,8 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     TextView confirm_btn;
     @ViewInject(R.id.recycler_view)
     RecyclerView recyclerView;
+    @ViewInject(R.id.main_layout)
+    RelativeLayout main_layout;
 
     AccessoryInfoPresenter mPresenter;
     GoodsDetailBean mGoodsDetailBean;
@@ -66,13 +75,19 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     double mSumPrice = 0;
     int mSumCount = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarTitle("确认订单");
         mGoodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("mNetGoodsDetailBean");
+        initPayWindow();
         initData();
         EventBus.getDefault().register(this);
+    }
+
+    private void initPayWindow() {
+        // create popup window
     }
 
     private void initData() {
@@ -99,9 +114,10 @@ public class PreConfirmOrderActivity extends BaseActivity implements AccessoryIn
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(GoOrderActivityEvent event){
+    public void onEvent(GoOrderActivityEvent event) {
         finish();
     }
+
     @Override
     public void getAccessoryInfoSuccess(NetAccessoryListBean netAccessoryListBean) {
         mAccessoryInfoAdapter = new AccessoryInfoAdapter(this);

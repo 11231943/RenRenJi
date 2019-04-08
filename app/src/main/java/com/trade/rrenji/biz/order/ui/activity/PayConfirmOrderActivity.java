@@ -8,10 +8,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +51,8 @@ import com.trade.rrenji.biz.order.ui.adapter.PayOrderAdminAdapter;
 import com.trade.rrenji.biz.order.ui.view.GetUserCreateOrderInfoView;
 import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.utils.Contetns;
+import com.trade.rrenji.utils.ViewUtils;
+import com.trade.rrenji.view.CommonPopupWindow;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -141,6 +151,9 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     TextView order_sum_coupon_price;
     @ViewInject(R.id.order_sum_coupon_txt)
     TextView order_sum_coupon_txt;
+    @ViewInject(R.id.main_layout)
+    RelativeLayout main_layout;
+
 
     /**
      * 1-微信；
@@ -178,6 +191,20 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     private int mRequestLoginCode = 10000;//登陆
     private int mRequestCouponCode = 10001;//优惠券
     private int mRequestAddressCode = 10002;//优惠券
+
+    private CommonPopupWindow mPayWindow;
+    private TextView zh_sum_price;//金额
+    private TextView price_tip_value;//需要支付金额
+    private EditText zfb_price;//需要支付金额
+
+    private LinearLayout zh_fenqi_layout;//分期页面
+    private RelativeLayout zh_zfb_layout;//支付宝页面
+
+    private EditText hb_price;//花呗需要支付金额
+    private EditText jd_price;//京东需要支付金额
+    private TextView zh_buy;//支付按钮
+    private int mZhStatus = 0;
+    private double mZhFrist = 0;//第一次金额
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -339,6 +366,164 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recycler_view.setLayoutManager(layoutManager);
         mPayOrderAdminAdapter.addAll(buildData(mGoodsDetailBean, mListBeans));
+        mPayWindow = new CommonPopupWindow(this, R.layout.pay_zh_layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewUtils.dip2px(this, 240)) {
+            @Override
+            protected void initView() {
+                View view = getContentView();
+                zh_sum_price = view.findViewById(R.id.zh_sum_price);//金额
+                price_tip_value = view.findViewById(R.id.price_tip_value);
+                zfb_price = view.findViewById(R.id.zh_zfb_price);
+                zh_fenqi_layout = view.findViewById(R.id.zh_fenqi_layout);
+                zh_zfb_layout = view.findViewById(R.id.zh_zfb_layout);
+                hb_price = view.findViewById(R.id.hb_price);
+                jd_price = view.findViewById(R.id.jd_price);
+                zh_buy = view.findViewById(R.id.zh_buy);
+                mZhStatus = 0;
+                zh_zfb_layout.setVisibility(View.VISIBLE);
+                zh_fenqi_layout.setVisibility(View.GONE);
+                price_tip_value.setText("￥" + mSumPrice);
+            }
+
+            @Override
+            protected void initEvent() {
+                price_tip_value.setText("￥" + mPaySumPrice);
+                jd_price.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        hb_price.setEnabled(false);
+                        hb_price.setText("");
+                    }
+                });
+                hb_price.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        jd_price.setEnabled(false);
+                        jd_price.setText("");
+                    }
+                });
+                jd_price.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String zfbPrice = jd_price.getText().toString();
+                        if (!TextUtils.isEmpty(zfbPrice)) {
+                            if (mZhFrist - Double.valueOf(zfbPrice) < 0) {
+                                price_tip_value.setText("￥0");
+                                jd_price.setText(String.valueOf(mZhFrist));
+                                jd_price.setSelection(jd_price.getText().length());
+                            } else {
+                                price_tip_value.setText("￥" + (mZhFrist - Double.valueOf(zfbPrice)));
+                            }
+                        } else {
+                            price_tip_value.setText("￥" + mZhFrist);
+                        }
+                    }
+                });
+                hb_price.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String zfbPrice = hb_price.getText().toString();
+                        if (!TextUtils.isEmpty(zfbPrice)) {
+                            if (mZhFrist - Double.valueOf(zfbPrice) < 0) {
+                                price_tip_value.setText("￥0");
+                                hb_price.setText(String.valueOf(mZhFrist));
+                                hb_price.setSelection(hb_price.getText().toString().length());
+                            } else {
+                                price_tip_value.setText("￥" + (mZhFrist - Double.valueOf(zfbPrice)));
+                            }
+                        } else {
+                            price_tip_value.setText("￥" + mZhFrist);
+                        }
+                    }
+                });
+                zfb_price.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        String zfbPrice = zfb_price.getText().toString();
+                        if (!TextUtils.isEmpty(zfbPrice)) {
+                            price_tip_value.setText("￥" + (mSumPrice - Double.valueOf(zfbPrice)));
+                            mZhFrist = mSumPrice - Double.valueOf(zfbPrice);
+                        } else {
+                            price_tip_value.setText("￥" + mSumPrice);
+                            mZhFrist = 0;
+                        }
+                    }
+                });
+                main_layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mPayWindow.getPopupWindow().dismiss();
+                    }
+                });
+                zh_sum_price.setText("￥" + mSumPrice);
+                if (mZhStatus == 0) {
+                    zh_buy.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            zh_zfb_layout.setVisibility(View.GONE);
+                            zh_fenqi_layout.setVisibility(View.VISIBLE);
+                            zh_buy.setText("确定支付");
+                            mZhStatus = 1;
+                        }
+                    });
+                } else if (mZhStatus == 1) {
+
+                }
+            }
+
+            @Override
+            protected void initWindow() {
+                super.initWindow();
+                PopupWindow instance = getPopupWindow();
+                instance.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        WindowManager.LayoutParams lp = getWindow().getAttributes();
+                        lp.alpha = 1.0f;
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        getWindow().setAttributes(lp);
+                        mZhStatus = 0;
+                        mZhFrist = 0;
+                        zh_buy.setText("下一步");
+                        price_tip_value.setText("￥" + mPaySumPrice);
+                        zfb_price.setText("");
+                        hb_price.setText("");
+                        jd_price.setText("");
+                        zh_zfb_layout.setVisibility(View.VISIBLE);
+                        zh_fenqi_layout.setVisibility(View.GONE);
+                    }
+                });
+            }
+        };
     }
 
     private List<LocalOrderInfoBean> buildData(GoodsDetailBean data, List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans) {
@@ -449,6 +634,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
             case R.id.zh_layout:
                 resetColor();
                 mPlan = 0;
+                mType = 6;
                 changeCheckbox(R.id.checkbox_zh);
                 mPaySumPrice = mSumPrice;
                 pay_sum_price2.setText("￥" + mPaySumPrice);
@@ -456,7 +642,18 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 break;
             case R.id.goods_detail_detail_buy:
                 if (isLogin) {
-                    onPayOrder();
+                    if (mType == 6) {
+                        PopupWindow win = mPayWindow.getPopupWindow();
+                        win.setAnimationStyle(R.style.animTranslate);
+                        mPayWindow.showAtLocation(main_layout, Gravity.BOTTOM, 0, 0);
+                        WindowManager.LayoutParams lp = getWindow().getAttributes();
+                        lp.alpha = 0.3f;
+                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        getWindow().setAttributes(lp);
+                        price_tip_value.setText("￥" + mSumPrice);
+                    } else {
+                        onPayOrder();
+                    }
                 } else {
                     Intent intent = new Intent(PayConfirmOrderActivity.this, LoginActivity.class);
                     intent.putExtra("type", 1);

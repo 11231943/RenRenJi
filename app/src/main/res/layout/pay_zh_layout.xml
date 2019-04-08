@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#f1f1f1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="请选择组合支付方式"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+                android:layout_toLeftOf="@+id/zh_sum_price"
+                android:gravity="center_vertical"
+                android:text="订单总额"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/zh_sum_price"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center_vertical"
+                android:text="￥1999"
+                android:textColor="#fd5252"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/title_layout"
+            android:id="@+id/price_tip"
+            android:background="#ffffce"
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+
+            <TextView
+                android:id="@+id/price_tip_text"
+                android:layout_width="wrap_content"
+                android:textSize="10sp"
+                android:text="您还需要支付"
+                android:gravity="center_vertical"
+                android:textColor="#d26900"
+                android:layout_marginLeft="15dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/price_tip_value"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:textColor="#d26900"
+                android:textSize="10sp"
+                android:text=""
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/zh_zfb_layout"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/price_tip"
+            android:background="#fff"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/zfb_txt"
+                android:layout_width="120dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+                android:drawableLeft="@drawable/zfb_icon"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:text="支付宝现金"
+                android:textSize="12sp" />
+
+            <View
+                android:id="@+id/line3"
+                android:layout_toRightOf="@+id/zfb_txt"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#f1f1f1" />
+
+            <EditText
+                android:layout_toRightOf="@+id/line3"
+                android:id="@+id/zh_zfb_price"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="输入金额"
+                android:inputType="number"
+                android:textSize="12sp" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f1f1f1" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/zh_fenqi_layout"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price_tip"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/huabei_layout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#fff"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/icon_huabei"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="花呗支付"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#f1f1f1" />
+
+                <EditText
+                    android:id="@+id/hb_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="输入金额"
+                    android:inputType="number"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f1f1f1" />
+
+            <LinearLayout
+                android:id="@+id/zh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#fff"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/pay_jd"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:text="白条支付"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#f1f1f1" />
+
+                <EditText
+                    android:id="@+id/jd_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:hint="输入金额"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f1f1f1" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/zh_buy"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="#fd5252"
+        android:gravity="center"
+        android:text="下一步"
+        android:textColor="#fff"
+        android:textSize="13sp" />
+</RelativeLayout>
+
