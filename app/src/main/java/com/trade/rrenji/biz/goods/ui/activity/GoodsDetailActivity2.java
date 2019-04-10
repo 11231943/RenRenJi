@@ -424,7 +424,11 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
     }
 
     private void initBase(GoodsDetailBean resultBean) {
-
+        if(resultBean.isIsCollection()){
+           GlideUtils.getInstance().loadIcon(this,R.drawable.photo_show_thumb_hover,R.drawable.photo_show_thumb_default,collection_icon);
+        }else{
+            GlideUtils.getInstance().loadIcon(this,R.drawable.photo_show_thumb_default,R.drawable.photo_show_thumb_default,collection_icon);
+        }
         testing_desc.setText(resultBean.getGoodsDesc());
         //标题
         goods_detail_detail_param_name.setText(resultBean.getTitle());
