@@ -1,5 +1,6 @@
 package com.trade.rrenji.biz.account.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -80,6 +81,9 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
     private static int REQUEST_CODE = 10001;
     private String mPathStr = "";
     UploadModel mUploadModel;
+
+    AlertDialog.Builder mBuilder;
+    ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -260,15 +264,19 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
             List<ImageBean> resultList = data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
             mPathStr = resultList.get(0).getImagePath();
             GlideUtils.getInstance().loadCircleIcon(this, mPathStr, R.drawable.user_default_icon, user_avatar);
+            showUploadDialog();
             mUploadModel.upload(this, mPathStr, new XUtils.ResultListener() {
                 @Override
                 public void onResponse(String result) {
                     try {
+                        if (mProgressDialog != null) {
+                            mProgressDialog.dismiss();
+                        }
                         Gson gson = new Gson();
                         NetUploadBean uploadBean = gson.fromJson(result, NetUploadBean.class);
                         if (uploadBean.getCode().equals(Contetns.RESPONSE_OK)) {
                             mPathStr = uploadBean.getResult().getUrl();
-//                            Toast.makeText(AccountActivity.this, "上传图片成功！", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AccountActivity.this, "上传图片成功！", Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -279,8 +287,20 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
                 @Override
                 public void onError(Throwable error) {
                     Toast.makeText(AccountActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
+                    if (mProgressDialog != null) {
+                        mProgressDialog.dismiss();
+                    }
                 }
             });
         }
+    }
+
+    private void showUploadDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("上传图像");
+        mProgressDialog.setMessage("上传中...");
+        mProgressDialog.setIndeterminate(true);// 是否形成一个加载动画  true表示不明确加载进度形成转圈动画  false 表示明确加载进度
+        mProgressDialog.setCancelable(false);//点击返回键或者dialog四周是否关闭dialog  true表示可以关闭 false表示不可关闭
+        mProgressDialog.show();
     }
 }
