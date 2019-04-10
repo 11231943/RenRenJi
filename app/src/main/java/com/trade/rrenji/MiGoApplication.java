@@ -1,6 +1,8 @@
 package com.trade.rrenji;
 
 import android.app.Application;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.trade.rrenji.utils.ConfigUtils;
@@ -22,12 +24,13 @@ public class MiGoApplication extends MultiDexApplication {
 
     public static String mHostKey;
 
-    public static Application getApp() {
+    public static MiGoApplication getApp() {
         return app;
     }
 
     public static String CACHE_PATH = "/sdcard/renrenji/image/temp/";
 
+    private boolean isExiting;
 
     @Override
     public void onCreate() {
@@ -40,6 +43,16 @@ public class MiGoApplication extends MultiDexApplication {
         File file = new File(CACHE_PATH);
         if (!file.exists()) {
             file.mkdirs();
+        }
+    }
+    public void exit(boolean killApplication, boolean killNotification) {
+        isExiting = true;
+        NotificationManager nm = (NotificationManager) getSystemService(
+                Context.NOTIFICATION_SERVICE);
+        nm.cancelAll();
+
+        if (killApplication) {
+            System.exit(-1);
         }
     }
 }

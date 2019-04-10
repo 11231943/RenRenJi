@@ -58,4 +58,6 @@
     <string name="add_address_btn">添加</string>
     <string name="add_dry">发表晒单</string>
 
+    <string name="once_again_to_exit">再按一次退出程序</string>
+
 </resources>

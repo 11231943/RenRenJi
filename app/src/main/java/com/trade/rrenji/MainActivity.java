@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,8 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
     public static final int UPDATE_STRATEGY_EASY = 1;
     //更新策略：默认替用户下载更新，但是不提示用户是否安装
     public static final int UPDATE_STRATEGY_OPTIONAL = 2;
+
+    private long mExitTime;
 
 
     public String[] tabTags = new String[]{"nearby", "live", "rainbow", "message", "mine"};
@@ -236,4 +239,25 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
     public void getCheckError(int code, String msg) {
 
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // 询问是否退出app
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 4000) {
+                Toast.makeText(this,
+                        getResources().getString(R.string.once_again_to_exit),
+                        Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                MiGoApplication.getApp().exit(false,true);
+                finish();
+            }
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+
 }
