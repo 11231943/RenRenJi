@@ -408,10 +408,14 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                                 zh_jd_price.setText(String.valueOf(mZhFrist));
                                 zh_jd_price.setSelection(hb_price.getText().toString().length());
                             } else {
-                                price_tip_value.setText("￥" + (mZhFrist - Double.valueOf(jdPrice)));
+                                java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                                String str = myformat.format((mZhFrist - Double.valueOf(jdPrice)));
+                                price_tip_value.setText("￥" + str);
                             }
                         } else {
-                            price_tip_value.setText("￥" + mZhFrist);
+                            java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                            String str = myformat.format(mZhFrist);
+                            price_tip_value.setText("￥" + str);
                         }
                     }
                 });
@@ -436,10 +440,14 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                                 hb_price.setText(String.valueOf(mZhFrist));
                                 hb_price.setSelection(hb_price.getText().toString().length());
                             } else {
-                                price_tip_value.setText("￥" + (mZhFrist - Double.valueOf(zfbPrice)));
+                                java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                                String str = myformat.format((mZhFrist - Double.valueOf(zfbPrice)));
+                                price_tip_value.setText("￥" + str);
                             }
                         } else {
-                            price_tip_value.setText("￥" + mZhFrist);
+                            java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                            String str = myformat.format(mZhFrist);
+                            price_tip_value.setText("￥" + str);
                         }
                     }
                 });
@@ -458,7 +466,9 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                     public void afterTextChanged(Editable s) {
                         String zfbPrice = zfb_price.getText().toString();
                         if (!TextUtils.isEmpty(zfbPrice)) {
-                            price_tip_value.setText("￥" + (mSumPrice - Double.valueOf(zfbPrice)));
+                            java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                            String str = myformat.format((mSumPrice - Double.valueOf(zfbPrice)));
+                            price_tip_value.setText("￥" + str);
                             mZhFrist = mSumPrice - Double.valueOf(zfbPrice);
                         } else {
                             price_tip_value.setText("￥" + mSumPrice);

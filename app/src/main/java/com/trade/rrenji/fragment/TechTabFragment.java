@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
+import com.google.gson.reflect.TypeToken;
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.drying.NetShareBean;
 import com.trade.rrenji.bean.tech.NetTechBean;
 import com.trade.rrenji.biz.base.BaseFragment;
 import com.trade.rrenji.biz.tech.presenter.TechActivityPresenter;
@@ -19,11 +21,14 @@ import com.trade.rrenji.biz.tech.ui.adapter.TechListAdapter;
 import com.trade.rrenji.biz.tech.ui.view.TechActivityView;
 import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.StatusBarUtils;
+import com.trade.rrenji.utils.reservoir.Reservoir;
+import com.trade.rrenji.utils.reservoir.ReservoirCallback;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -32,7 +37,8 @@ import java.util.List;
 
 //@ContentView(R.layout.fragment_goods)
 public class TechTabFragment extends BaseFragment implements TechActivityView {
-
+    private static String TAG = TechTabFragment.class.getSimpleName();
+    public static final String CACHE_KEY = "tech";
     @ViewInject(R.id.order_recycler_view)
     public SuperRecyclerView mSuperRecyclerView;
 
@@ -61,14 +67,6 @@ public class TechTabFragment extends BaseFragment implements TechActivityView {
         mTechListAdapter = new TechListAdapter(getActivity());
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        View rootView = x.view().inject(this, inflater, container);
-//        StatusBarUtils.setWindowStatusBarColor(getActivity(), R.color.actionbar_bg);
-//        return rootView;
-//    }
-
     private void init() {
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(0, 0));
         mSuperRecyclerView.setAdapter(mTechListAdapter);
@@ -88,8 +86,38 @@ public class TechTabFragment extends BaseFragment implements TechActivityView {
             }
         });
         if (!isFirst) {
+            Type resultType = new TypeToken<NetTechBean>() {
+            }.getType();
+            Reservoir.getAsync(CACHE_KEY, resultType, new ReservoirCallback<NetTechBean>() {
+                @Override
+                public void onSuccess(NetTechBean data) {
+                    Log.d(TAG, "onSuccess: load tech cache succeed");
+                    initHomeBean(data);
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.d(TAG, "onFailure: load tech cache onFailure");
+                }
+            });
             mSuperRecyclerView.startRefreshing(true, true);
         }
+    }
+
+    private void initHomeBean(NetTechBean netShareBean) {
+        if (mIndexPage == 1) {
+            if (mTechListAdapter != null) {
+                mTechListAdapter.clear();
+            }
+        }
+        if (!isFirst) {
+            isFirst = true;
+        }
+        List<NetTechBean.ResultBean.CommunityListBean> ordersBeans = netShareBean.getResult().getCommunityList();
+        mSuperRecyclerView.finishRefreshing();
+        mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
+        mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
+        mTechListAdapter.addAll(ordersBeans);
     }
 
 
@@ -116,25 +144,25 @@ public class TechTabFragment extends BaseFragment implements TechActivityView {
 
     @Override
     public void getTechSuccess(NetTechBean netShareBean) {
-        if (!isFirst) {
-            isFirst = true;
-            if (mIndexPage == 1) {
-                if (mTechListAdapter != null) {
-                    mTechListAdapter.clear();
+        if (mIndexPage == 1) {
+            Reservoir.putAsync(CACHE_KEY, netShareBean, new ReservoirCallback<Void>() {
+                @Override
+                public void onSuccess(Void data) {
+                    Log.d(TAG, "save nearby cache succeed");
+                    try {
+                        Log.d(TAG, "used bytes: " + Reservoir.bytesUsed());
+                    } catch (Exception e) {
+                        // ignore
+                    }
                 }
-            }
-            List<NetTechBean.ResultBean.CommunityListBean> ordersBeans = netShareBean.getResult().getCommunityList();
-            mSuperRecyclerView.finishRefreshing();
-            mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
-            mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
-            mTechListAdapter.addAll(ordersBeans);
-        } else {
-            List<NetTechBean.ResultBean.CommunityListBean> ordersBeans = netShareBean.getResult().getCommunityList();
-            mSuperRecyclerView.finishRefreshing();
-            mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
-            mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
-            mTechListAdapter.addAll(ordersBeans);
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.e(TAG, "save nearby cache failed", e);
+                }
+            });
         }
+        initHomeBean(netShareBean);
     }
 
     @Override

@@ -82,9 +82,9 @@ public class SettingUtils {
 
     public String getCurrentUid() {
         if (mAppSetting != null) {
-            return mAppSetting.getString(KEY_CURRENT_UID, "0");
+            return mAppSetting.getString(KEY_CURRENT_UID, "");
         } else {
-            return "0";
+            return "";
         }
     }
 

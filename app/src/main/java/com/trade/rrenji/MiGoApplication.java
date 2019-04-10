@@ -1,24 +1,17 @@
 package com.trade.rrenji;
 
-import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
-import android.os.Build;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
-
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.Bugly;
 import com.trade.rrenji.utils.ConfigUtils;
 import com.trade.rrenji.utils.GsonUtils;
 import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.reservoir.Reservoir;
-
 import org.xutils.x;
-
 import java.io.File;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by monster on 8/4/18.

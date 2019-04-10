@@ -4,14 +4,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.google.gson.reflect.TypeToken;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.category.CategoryBean;
 import com.trade.rrenji.bean.category.NetCategoryBean;
+import com.trade.rrenji.bean.tech.NetTechBean;
 import com.trade.rrenji.biz.base.BaseFragment;
 import com.trade.rrenji.biz.category.presenter.CategoryActivityPresenter;
 import com.trade.rrenji.biz.category.presenter.CategoryActivityPresenterImpl;
@@ -19,11 +22,14 @@ import com.trade.rrenji.biz.category.ui.apater.LeftCategoryAdapter;
 import com.trade.rrenji.biz.category.ui.apater.RightCategoryAdapter;
 import com.trade.rrenji.biz.category.ui.view.CategoryActivityView;
 import com.trade.rrenji.utils.StatusBarUtils;
+import com.trade.rrenji.utils.reservoir.Reservoir;
+import com.trade.rrenji.utils.reservoir.ReservoirCallback;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +39,8 @@ import java.util.List;
 //@ContentView(R.layout.fragment_live)
 public class CategoryTabFragment extends BaseFragment implements CategoryActivityView {
 
-    private static String TAG = DryingTabFragment.class.getSimpleName();
+    private static String TAG = CategoryTabFragment.class.getSimpleName();
+    public static final String CACHE_KEY = "category";
 
     @ViewInject(R.id.left_list)
     public ListView left_list;
@@ -92,6 +99,20 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
 
     private void init() {
         if (!isFirst) {
+            Type resultType = new TypeToken<NetCategoryBean>() {
+            }.getType();
+            Reservoir.getAsync(CACHE_KEY, resultType, new ReservoirCallback<NetCategoryBean>() {
+                @Override
+                public void onSuccess(NetCategoryBean data) {
+                    Log.d(TAG, "onSuccess: load category cache succeed");
+                    initHomeBean(data);
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.d(TAG, "onFailure: load category cache onFailure");
+                }
+            });
             loadData();
         }
         left_list.setAdapter(mLeftCategoryAdapter);
@@ -106,18 +127,40 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
         right_recycler_view.setAdapter(mRightCategoryAdapter);
     }
 
-    @Override
-    public void getCategorySuccess(NetCategoryBean netShareBean) {
+    private void initHomeBean(NetCategoryBean netShareBean) {
         if (!isFirst) {
             isFirst = true;
             mListBeans = netShareBean.getData().getResultList();
             initData(netShareBean.getData().getResultList());
             selectRightData("热卖");
-        } else {
-            mListBeans = netShareBean.getData().getResultList();
-            initData(netShareBean.getData().getResultList());
-            selectRightData("热卖");
         }
+    }
+
+    @Override
+    public void getCategorySuccess(NetCategoryBean netShareBean) {
+        if (!isFirst) {
+            isFirst = true;
+            Reservoir.putAsync(CACHE_KEY, netShareBean, new ReservoirCallback<Void>() {
+                @Override
+                public void onSuccess(Void data) {
+                    Log.d(TAG, "save category cache succeed");
+                    try {
+                        Log.d(TAG, "used bytes: " + Reservoir.bytesUsed());
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.e(TAG, "save category cache failed", e);
+                }
+            });
+
+        }
+        mListBeans = netShareBean.getData().getResultList();
+        initData(netShareBean.getData().getResultList());
+        selectRightData("热卖");
     }
 
     private void loadData() {
@@ -174,22 +217,6 @@ public class CategoryTabFragment extends BaseFragment implements CategoryActivit
 
     }
 
-//    private void bindRightData(List<NetCategoryBean.DataBean.ResultListBean> listBeans) {
-//        List<CategoryBean> beans = new ArrayList<CategoryBean>();
-//        for (NetCategoryBean.DataBean.ResultListBean listBean : listBeans) {
-//            if (listBean.getName().equals("热卖")) {
-//                CategoryBean categoryBean = new CategoryBean();
-//                categoryBean.setType(RightCategoryAdapter.BANNER_ITEM);
-//                categoryBean.setAdvertisementList(listBean.getAdvertisementList());
-//                beans.add(categoryBean);
-//                CategoryBean categoryBean1 = new CategoryBean();
-//                categoryBean1.setType(RightCategoryAdapter.HOT_DATE_ITEM);
-//                categoryBean1.setHotProductList(listBean.getHotProductList());
-//                beans.add(categoryBean1);
-//            }
-//        }
-//        mRightCategoryAdapter.addAll(beans);
-//    }
 
     @Override
     public void getCategoryCodeError(int code, String msg) {

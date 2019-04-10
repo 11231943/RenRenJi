@@ -78,6 +78,7 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
         if (!isFirst) {
             mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(20, 20));
         }
+        mSuperRecyclerView.setRecyclerPadding(0, 0, 0, 0);
         mSuperRecyclerView.setAdapter(mDryListAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
@@ -129,19 +130,20 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
     }
 
     private void initHomeBean(NetShareBean netShareBean) {
+        if (mIndexPage == 1) {
+            if (mDryListAdapter != null) {
+                mDryListAdapter.clear();
+            }
+        }
         if (!isFirst) {
             isFirst = true;
-            if (mIndexPage == 1) {
-                if (mDryListAdapter != null) {
-                    mDryListAdapter.clear();
-                }
-            }
-            List<NetShareBean.ResultBean.ShareOrdersBean> ordersBeans = netShareBean.getResult().getShareOrders();
-            mSuperRecyclerView.finishRefreshing();
-            mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
-            mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
-            mDryListAdapter.addAll(ordersBeans);
         }
+        List<NetShareBean.ResultBean.ShareOrdersBean> ordersBeans = netShareBean.getResult().getShareOrders();
+        mSuperRecyclerView.finishRefreshing();
+        mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
+        mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
+        mDryListAdapter.addAll(ordersBeans);
+
     }
 
     @Override

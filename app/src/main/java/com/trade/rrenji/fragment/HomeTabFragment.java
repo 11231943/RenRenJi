@@ -193,19 +193,20 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
     }
 
     private void initHomeBean(NetHomeBean mNetHomeBean) {
+        if (mIndexPage == 1) {
+            if (mHomeAdapter != null) {
+                mHomeAdapter.clear();
+            }
+        }
         if (!isFirst) {
             isFirst = true;
-            if (mIndexPage == 1) {
-                if (mHomeAdapter != null) {
-                    mHomeAdapter.clear();
-                }
-            }
-            NetHomeBean.DataBean ordersBeans = mNetHomeBean.getData();
-            mSuperRecyclerView.finishRefreshing();
-            mSuperRecyclerView.setHasMoreData(false);
-            mSuperRecyclerView.finishMore(false);
-            build(ordersBeans);
         }
+        NetHomeBean.DataBean ordersBeans = mNetHomeBean.getData();
+        mSuperRecyclerView.finishRefreshing();
+        mSuperRecyclerView.setHasMoreData(false);
+        mSuperRecyclerView.finishMore(false);
+        build(ordersBeans);
+
     }
 
     @Override

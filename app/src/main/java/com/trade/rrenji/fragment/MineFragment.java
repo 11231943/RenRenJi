@@ -47,6 +47,10 @@ import org.xutils.x;
 @ContentView(R.layout.fragment_mine)
 public class MineFragment extends Fragment {
 
+    private static String TAG = MineFragment.class.getSimpleName();
+    public static final String CACHE_KEY = "mine";
+
+
     @ViewInject(R.id.user_avatar)
     public ImageView user_avatar;
 
@@ -62,8 +66,10 @@ public class MineFragment extends Fragment {
 
     @ViewInject(R.id.edit_account)
     public TextView edit_account;
-
     PersonalModel mPersonalModel;
+
+    //是否是第一次开启网络加载
+    public boolean isLogin = false;
 
 
     @Override
@@ -78,8 +84,8 @@ public class MineFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mPersonalModel = new PersonalModelImpl(getActivity());
-        getUserAdviceInfo();
         init();
+        getUserAdviceInfo();
     }
 
     private void init() {
@@ -109,8 +115,8 @@ public class MineFragment extends Fragment {
                 try {
                     Gson gson = GsonUtils.getGson();
                     NetMineBean netMineBean = gson.fromJson(result, NetMineBean.class);
-//                    Log.e("Mine", netMineBean.getData().toString());
                     if (netMineBean.getCode().equals(Contetns.RESPONSE_OK)) {
+                        isLogin = true;
                         NetMineBean.DataBean bean = netMineBean.getData();
                         SettingUtils.getInstance().setCurrentUid(bean.getUserId());
                         SettingUtils.getInstance().setUsername(bean.getUserName());
@@ -120,6 +126,8 @@ public class MineFragment extends Fragment {
                         user_name.setText(SettingUtils.getInstance().getUsername());
                         user_phone.setText(SettingUtils.getInstance().getPhone());
                         GlideUtils.getInstance().loadCircleIcon(getActivity(), SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
+                    } else if (netMineBean.getCode().equals("666")) {
+                        isLogin = false;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -128,7 +136,7 @@ public class MineFragment extends Fragment {
 
             @Override
             public void onError(Throwable error) {
-
+                init();
             }
         });
     }
@@ -137,6 +145,7 @@ public class MineFragment extends Fragment {
             , R.id.invite_layout, R.id.coupon_layout, R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout})
     private void onViewClicked(View view) {
         Intent intent = null;
+        Log.e(TAG, "CurrentUid : " + SettingUtils.getInstance().getCurrentUid());
         switch (view.getId()) {
             case R.id.invite_layout:
                 if (TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
@@ -154,7 +163,7 @@ public class MineFragment extends Fragment {
                 } else {
                     intent = new Intent(getActivity(), PersonalActivity.class);
                     intent.putExtra("type", 1);
-                    intent.putExtra("id",SettingUtils.getInstance().getCurrentUid());
+                    intent.putExtra("id", SettingUtils.getInstance().getCurrentUid());
                     startActivity(intent);
                 }
                 break;
