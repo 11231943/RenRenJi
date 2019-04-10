@@ -201,7 +201,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     private RelativeLayout zh_zfb_layout;//支付宝页面
 
     private EditText hb_price;//花呗需要支付金额
-    private EditText jd_price;//京东需要支付金额
+    private EditText zh_jd_price;//京东需要支付金额
     private TextView zh_buy;//支付按钮
     private int mZhStatus = 0;
     private double mZhFrist = 0;//第一次金额
@@ -376,7 +376,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 zh_fenqi_layout = view.findViewById(R.id.zh_fenqi_layout);
                 zh_zfb_layout = view.findViewById(R.id.zh_zfb_layout);
                 hb_price = view.findViewById(R.id.hb_price);
-                jd_price = view.findViewById(R.id.jd_price);
+                zh_jd_price = view.findViewById(R.id.zh_jd_price);
                 zh_buy = view.findViewById(R.id.zh_buy);
                 mZhStatus = 0;
                 zh_zfb_layout.setVisibility(View.VISIBLE);
@@ -387,21 +387,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
             @Override
             protected void initEvent() {
                 price_tip_value.setText("￥" + mPaySumPrice);
-                jd_price.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        hb_price.setEnabled(false);
-                        hb_price.setText("");
-                    }
-                });
-                hb_price.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        jd_price.setEnabled(false);
-                        jd_price.setText("");
-                    }
-                });
-                jd_price.addTextChangedListener(new TextWatcher() {
+                zh_jd_price.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -414,14 +400,15 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
 
                     @Override
                     public void afterTextChanged(Editable s) {
-                        String zfbPrice = jd_price.getText().toString();
-                        if (!TextUtils.isEmpty(zfbPrice)) {
-                            if (mZhFrist - Double.valueOf(zfbPrice) < 0) {
+                        String jdPrice = zh_jd_price.getText().toString();
+                        if (!TextUtils.isEmpty(jdPrice)) {
+                            hb_price.setText("");
+                            if (mZhFrist - Double.valueOf(jdPrice) < 0) {
                                 price_tip_value.setText("￥0");
-                                jd_price.setText(String.valueOf(mZhFrist));
-                                jd_price.setSelection(jd_price.getText().length());
+                                zh_jd_price.setText(String.valueOf(mZhFrist));
+                                zh_jd_price.setSelection(hb_price.getText().toString().length());
                             } else {
-                                price_tip_value.setText("￥" + (mZhFrist - Double.valueOf(zfbPrice)));
+                                price_tip_value.setText("￥" + (mZhFrist - Double.valueOf(jdPrice)));
                             }
                         } else {
                             price_tip_value.setText("￥" + mZhFrist);
@@ -443,6 +430,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                     public void afterTextChanged(Editable s) {
                         String zfbPrice = hb_price.getText().toString();
                         if (!TextUtils.isEmpty(zfbPrice)) {
+                            zh_jd_price.setText("");
                             if (mZhFrist - Double.valueOf(zfbPrice) < 0) {
                                 price_tip_value.setText("￥0");
                                 hb_price.setText(String.valueOf(mZhFrist));
@@ -517,7 +505,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                         price_tip_value.setText("￥" + mPaySumPrice);
                         zfb_price.setText("");
                         hb_price.setText("");
-                        jd_price.setText("");
+                        zh_jd_price.setText("");
                         zh_zfb_layout.setVisibility(View.VISIBLE);
                         zh_fenqi_layout.setVisibility(View.GONE);
                     }
