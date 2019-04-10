@@ -168,7 +168,7 @@ public class NetHomeBean {
 
             private String id;
             private String title;
-            private Object homeImg;
+            private String homeImg;
             private String content;
             private String isUp;
             private String url;
@@ -192,11 +192,11 @@ public class NetHomeBean {
                 this.title = title;
             }
 
-            public Object getHomeImg() {
+            public String getHomeImg() {
                 return homeImg;
             }
 
-            public void setHomeImg(Object homeImg) {
+            public void setHomeImg(String homeImg) {
                 this.homeImg = homeImg;
             }
 
@@ -269,7 +269,7 @@ public class NetHomeBean {
             private String goodsCode;
             private String discoverImg;
             private double goodsPrice;
-            private int originalPrice;
+            private double originalPrice;
             private String goodsName;
             private int conditionId;
             private String version;
@@ -310,11 +310,11 @@ public class NetHomeBean {
                 this.goodsPrice = goodsPrice;
             }
 
-            public int getOriginalPrice() {
+            public double getOriginalPrice() {
                 return originalPrice;
             }
 
-            public void setOriginalPrice(int originalPrice) {
+            public void setOriginalPrice(double originalPrice) {
                 this.originalPrice = originalPrice;
             }
 
@@ -503,10 +503,10 @@ public class NetHomeBean {
 
             private String id;
             private String categoryName;
-            private Object categoryImg;
-            private Object categoryNameOne;
-            private Object createTime;
-            private Object state;
+            private int categoryImg;
+            private String categoryNameOne;
+            private String createTime;
+            private String state;
 
             public String getId() {
                 return id;
@@ -524,35 +524,35 @@ public class NetHomeBean {
                 this.categoryName = categoryName;
             }
 
-            public Object getCategoryImg() {
+            public int getCategoryImg() {
                 return categoryImg;
             }
 
-            public void setCategoryImg(Object categoryImg) {
+            public void setCategoryImg(int categoryImg) {
                 this.categoryImg = categoryImg;
             }
 
-            public Object getCategoryNameOne() {
+            public String getCategoryNameOne() {
                 return categoryNameOne;
             }
 
-            public void setCategoryNameOne(Object categoryNameOne) {
+            public void setCategoryNameOne(String categoryNameOne) {
                 this.categoryNameOne = categoryNameOne;
             }
 
-            public Object getCreateTime() {
+            public String getCreateTime() {
                 return createTime;
             }
 
-            public void setCreateTime(Object createTime) {
+            public void setCreateTime(String createTime) {
                 this.createTime = createTime;
             }
 
-            public Object getState() {
+            public String getState() {
                 return state;
             }
 
-            public void setState(Object state) {
+            public void setState(String state) {
                 this.state = state;
             }
         }
@@ -603,7 +603,7 @@ public class NetHomeBean {
             private String goodsCode;
             private String discoverImg;
             private double goodsPrice;
-            private int originalPrice;
+            private double originalPrice;
             private String goodsName;
             private int conditionId;
             private String version;
@@ -644,11 +644,11 @@ public class NetHomeBean {
                 this.goodsPrice = goodsPrice;
             }
 
-            public int getOriginalPrice() {
+            public double getOriginalPrice() {
                 return originalPrice;
             }
 
-            public void setOriginalPrice(int originalPrice) {
+            public void setOriginalPrice(double originalPrice) {
                 this.originalPrice = originalPrice;
             }
 
@@ -841,7 +841,7 @@ public class NetHomeBean {
             private String goodsCode;
             private String discoverImg;
             private double goodsPrice;
-            private int originalPrice;
+            private double originalPrice;
             private String goodsName;
             private int conditionId;
             private String version;
@@ -882,11 +882,11 @@ public class NetHomeBean {
                 this.goodsPrice = goodsPrice;
             }
 
-            public int getOriginalPrice() {
+            public double getOriginalPrice() {
                 return originalPrice;
             }
 
-            public void setOriginalPrice(int originalPrice) {
+            public void setOriginalPrice(double originalPrice) {
                 this.originalPrice = originalPrice;
             }
 

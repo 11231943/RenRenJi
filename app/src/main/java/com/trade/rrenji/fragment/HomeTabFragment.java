@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
+import com.google.gson.reflect.TypeToken;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
@@ -27,9 +28,12 @@ import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
 import com.trade.rrenji.biz.search.ui.activity.SearchActivity;
 import com.trade.rrenji.utils.StatusBarUtils;
+import com.trade.rrenji.utils.reservoir.Reservoir;
+import com.trade.rrenji.utils.reservoir.ReservoirCallback;
 
 import org.xutils.view.annotation.ViewInject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +42,7 @@ import java.util.List;
  */
 //@ContentView(R.layout.fragment_nearby)
 public class HomeTabFragment extends BaseFragment implements HomeActivityView {
-
+    public static final String CACHE_KEY = "home";
     private static String TAG = HomeTabFragment.class.getSimpleName();
 
     @ViewInject(R.id.near_recycler_view)
@@ -165,6 +169,20 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
             }
         });
         if (!isFirst) {
+            Type resultType = new TypeToken<NetHomeBean>() {
+            }.getType();
+            Reservoir.getAsync(CACHE_KEY, resultType, new ReservoirCallback<NetHomeBean>() {
+                @Override
+                public void onSuccess(NetHomeBean data) {
+                    Log.d(TAG, "onSuccess: load nearby cache succeed");
+                    initHomeBean(data);
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.d(TAG, "onFailure: load nearby cache onFailure");
+                }
+            });
             mSuperRecyclerView.startRefreshing(true, true);
         }
     }
@@ -174,8 +192,7 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
 
     }
 
-    @Override
-    public void getHomeList(NetHomeBean mNetHomeBean) {
+    private void initHomeBean(NetHomeBean mNetHomeBean) {
         if (!isFirst) {
             isFirst = true;
             if (mIndexPage == 1) {
@@ -188,13 +205,30 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
             mSuperRecyclerView.setHasMoreData(false);
             mSuperRecyclerView.finishMore(false);
             build(ordersBeans);
-        } else {
-            NetHomeBean.DataBean ordersBeans = mNetHomeBean.getData();
-            mSuperRecyclerView.finishRefreshing();
-            mSuperRecyclerView.setHasMoreData(false);
-            mSuperRecyclerView.finishMore(false);
-            build(ordersBeans);
         }
+    }
+
+    @Override
+    public void getHomeList(NetHomeBean mNetHomeBean) {
+        if (mIndexPage == 1) {
+            Reservoir.putAsync(CACHE_KEY, mNetHomeBean, new ReservoirCallback<Void>() {
+                @Override
+                public void onSuccess(Void data) {
+                    Log.d(TAG, "save nearby cache succeed");
+                    try {
+                        Log.d(TAG, "used bytes: " + Reservoir.bytesUsed());
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.e(TAG, "save nearby cache failed", e);
+                }
+            });
+        }
+        initHomeBean(mNetHomeBean);
     }
 
     private void build(NetHomeBean.DataBean resultBean) {

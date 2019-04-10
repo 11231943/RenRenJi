@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.reflect.TypeToken;
+import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.biz.base.BaseFragment;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
@@ -19,11 +21,14 @@ import com.trade.rrenji.biz.drying.ui.adapter.DryListAdapter;
 import com.trade.rrenji.biz.drying.ui.view.DryActivityView;
 import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.StatusBarUtils;
+import com.trade.rrenji.utils.reservoir.Reservoir;
+import com.trade.rrenji.utils.reservoir.ReservoirCallback;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -31,7 +36,7 @@ import java.util.List;
  */
 //@ContentView(R.layout.fragment_message)
 public class DryingTabFragment extends BaseFragment implements DryActivityView {
-
+    public static final String CACHE_KEY = "drying";
     private static String TAG = DryingTabFragment.class.getSimpleName();
 
     @ViewInject(R.id.order_recycler_view)
@@ -90,6 +95,20 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
             }
         });
         if (!isFirst) {
+            Type resultType = new TypeToken<NetShareBean>() {
+            }.getType();
+            Reservoir.getAsync(CACHE_KEY, resultType, new ReservoirCallback<NetShareBean>() {
+                @Override
+                public void onSuccess(NetShareBean data) {
+                    Log.d(TAG, "onSuccess: load drying cache succeed");
+                    initHomeBean(data);
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.d(TAG, "onFailure: load nearby cache onFailure");
+                }
+            });
             mSuperRecyclerView.startRefreshing(true, true);
         }
     }
@@ -109,8 +128,7 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
 
     }
 
-    @Override
-    public void getDryingSuccess(NetShareBean netShareBean) {
+    private void initHomeBean(NetShareBean netShareBean) {
         if (!isFirst) {
             isFirst = true;
             if (mIndexPage == 1) {
@@ -123,13 +141,31 @@ public class DryingTabFragment extends BaseFragment implements DryActivityView {
             mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
             mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
             mDryListAdapter.addAll(ordersBeans);
-        } else {
-            List<NetShareBean.ResultBean.ShareOrdersBean> ordersBeans = netShareBean.getResult().getShareOrders();
-            mSuperRecyclerView.finishRefreshing();
-            mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(ordersBeans.size()));
-            mSuperRecyclerView.finishMore(!Contetns.hasMoreData(ordersBeans.size()));
-            mDryListAdapter.addAll(ordersBeans);
         }
+    }
+
+    @Override
+    public void getDryingSuccess(NetShareBean netShareBean) {
+        if (mIndexPage == 1) {
+            Reservoir.putAsync(CACHE_KEY, netShareBean, new ReservoirCallback<Void>() {
+                @Override
+                public void onSuccess(Void data) {
+                    Log.d(TAG, "save nearby cache succeed");
+                    try {
+                        Log.d(TAG, "used bytes: " + Reservoir.bytesUsed());
+                    } catch (Exception e) {
+                        // ignore
+                    }
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.e(TAG, "save nearby cache failed", e);
+                }
+            });
+        }
+
+        initHomeBean(netShareBean);
     }
 
     @Override
