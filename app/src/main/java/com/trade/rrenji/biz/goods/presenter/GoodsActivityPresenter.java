@@ -12,4 +12,5 @@ public interface GoodsActivityPresenter extends Presenter<GoodsActivityView> {
 
     void getGoodsDetail(Context mContext, String goodsCode);
 
+
 }

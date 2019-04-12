@@ -158,6 +158,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".biz.goods.ui.activity.GoodsReplyCommentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.renrenji.fileprovider"

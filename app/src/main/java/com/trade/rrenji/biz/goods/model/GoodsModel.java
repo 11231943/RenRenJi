@@ -13,4 +13,6 @@ public interface GoodsModel extends PlusBaseService {
 
     void getGoodsDetail(Context mContext, String goodsCode, ResultListener resultListener);
 
+    void getReplyComment(Context mContext,String goodsCode,int currentPage,ResultListener resultListener);
+
 }

@@ -280,6 +280,10 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Toast.makeText(AccountActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
+                        if (mProgressDialog != null) {
+                            mProgressDialog.dismiss();
+                        }
                     }
 
                 }

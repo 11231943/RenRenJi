@@ -330,14 +330,17 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
             coupon_txt.setText("使用优惠劵" + bean.getCouponValue() + "元");
             mCouponValue = bean.getCouponValue();
             if (mSumPrice - Double.valueOf(mCouponValue) > 0) {
-                pay_sum_price2.setText("￥" + (mSumPrice - Double.valueOf(mCouponValue)));
+                java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                String str = myformat.format((mSumPrice - Double.valueOf(mCouponValue)));
+                pay_sum_price2.setText("￥" + str);
                 order_sum_coupon_txt.setVisibility(View.VISIBLE);
                 order_sum_coupon_price.setVisibility(View.VISIBLE);
                 order_sum_coupon_price.setText("￥" + mCouponValue);
             } else {
                 pay_sum_price2.setText("￥0");
-                order_sum_coupon_txt.setVisibility(View.GONE);
-                order_sum_coupon_price.setVisibility(View.GONE);
+                order_sum_coupon_txt.setVisibility(View.VISIBLE);
+                order_sum_coupon_price.setVisibility(View.VISIBLE);
+                order_sum_coupon_price.setText("￥" + mCouponValue);
             }
         } else if (requestCode == mRequestAddressCode && resultCode == 10002) {
             NetAddressBean.ResultBean.AddressListBean bean = (NetAddressBean.ResultBean.AddressListBean) data.getSerializableExtra("data");

@@ -312,12 +312,19 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
         mAddCollectionPresenter = null;
     }
 
-    @Event(value = {R.id.goods_detail_detail_colloect, R.id.goods_detail_detail_buy, R.id.goods_detail_detail_param})
+    @Event(value = {R.id.goods_detail_detail_colloect, R.id.goods_detail_detail_buy, R.id.goods_detail_detail_param
+            , R.id.more_replay_layout})
     private void onViewClicked(View view) {
+        Intent intent = null;
         switch (view.getId()) {
+            case R.id.more_replay_layout:
+                intent = new Intent(this, GoodsReplyCommentActivity.class);
+                intent.putExtra("goodsCode", mGoodsCode);
+                startActivity(intent);
+                break;
             case R.id.goods_detail_detail_colloect:
                 if (TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
-                    Intent intent = new Intent(this, LoginActivity.class);
+                    intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                 } else {
                     if (!isCollection) {
@@ -329,7 +336,7 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
                 break;
             case R.id.goods_detail_detail_buy:
                 mLoopViewPager.setAutoPagingEnabled(true);
-                Intent intent = new Intent(this, PreConfirmOrderActivity.class);
+                intent = new Intent(this, PreConfirmOrderActivity.class);
                 intent.putExtra("mNetGoodsDetailBean", mNetGoodsDetailBean.getResult());
 //                intent.putExtra("goodsId", mNetGoodsDetailBean.getResult().getGoodsCode());
 //                intent.putExtra("title", mNetGoodsDetailBean.getResult().getTitle());
@@ -424,10 +431,10 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
     }
 
     private void initBase(GoodsDetailBean resultBean) {
-        if(resultBean.isIsCollection()){
-           GlideUtils.getInstance().loadIcon(this,R.drawable.photo_show_thumb_hover,R.drawable.photo_show_thumb_default,collection_icon);
-        }else{
-            GlideUtils.getInstance().loadIcon(this,R.drawable.photo_show_thumb_default,R.drawable.photo_show_thumb_default,collection_icon);
+        if (resultBean.isIsCollection()) {
+            GlideUtils.getInstance().loadIcon(this, R.drawable.photo_show_thumb_hover, R.drawable.photo_show_thumb_default, collection_icon);
+        } else {
+            GlideUtils.getInstance().loadIcon(this, R.drawable.photo_show_thumb_default, R.drawable.photo_show_thumb_default, collection_icon);
         }
         testing_desc.setText(resultBean.getGoodsDesc());
         //标题

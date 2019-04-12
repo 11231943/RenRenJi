@@ -32,4 +32,14 @@ public class GoodsModelImpl implements GoodsModel {
         XUtils.getInstance().get(url, params, resultListener);
     }
 
+    @Override
+    public void getReplyComment(Context mContext, String goodsCode, int currentPage, XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.product.evaluate");
+        long timeStamp = System.currentTimeMillis();
+        String token = "1";
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + goodsCode + "/" + currentPage+"/"+token;
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().get(url, params, resultListener);
+    }
 }
