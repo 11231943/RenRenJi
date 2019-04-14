@@ -282,6 +282,14 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                                     msg.what = SDK_PAY_FLAG;
                                     msg.obj = result;
                                     mHandler.sendMessage(msg);
+                                } else if (mType == 4) {
+                                    PayTask alipay = new PayTask(PayConfirmOrderActivity.this);
+                                    Map<String, String> result = alipay.payV2(orderBean.getResult().getSign(), true);
+                                    Log.i("msp", result.toString());
+                                    Message msg = new Message();
+                                    msg.what = SDK_PAY_FLAG;
+                                    msg.obj = result;
+                                    mHandler.sendMessage(msg);
                                 } else if (mType == 3) {
                                     JDPayAuthor jdPayAuthor = new JDPayAuthor();
                                     String orderId = orderBean.getResult().getOrderId();
@@ -330,7 +338,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
             coupon_txt.setText("使用优惠劵" + bean.getCouponValue() + "元");
             mCouponValue = bean.getCouponValue();
             if (mSumPrice - Double.valueOf(mCouponValue) > 0) {
-                java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
                 String str = myformat.format((mSumPrice - Double.valueOf(mCouponValue)));
                 pay_sum_price2.setText("￥" + str);
                 order_sum_coupon_txt.setVisibility(View.VISIBLE);
@@ -411,12 +419,12 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                                 zh_jd_price.setText(String.valueOf(mZhFrist));
                                 zh_jd_price.setSelection(hb_price.getText().toString().length());
                             } else {
-                                java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                                java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
                                 String str = myformat.format((mZhFrist - Double.valueOf(jdPrice)));
                                 price_tip_value.setText("￥" + str);
                             }
                         } else {
-                            java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                            java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
                             String str = myformat.format(mZhFrist);
                             price_tip_value.setText("￥" + str);
                         }
@@ -443,12 +451,12 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                                 hb_price.setText(String.valueOf(mZhFrist));
                                 hb_price.setSelection(hb_price.getText().toString().length());
                             } else {
-                                java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                                java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
                                 String str = myformat.format((mZhFrist - Double.valueOf(zfbPrice)));
                                 price_tip_value.setText("￥" + str);
                             }
                         } else {
-                            java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                            java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
                             String str = myformat.format(mZhFrist);
                             price_tip_value.setText("￥" + str);
                         }
@@ -469,7 +477,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                     public void afterTextChanged(Editable s) {
                         String zfbPrice = zfb_price.getText().toString();
                         if (!TextUtils.isEmpty(zfbPrice)) {
-                            java.text.DecimalFormat myformat=new java.text.DecimalFormat("0.00");
+                            java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
                             String str = myformat.format((mSumPrice - Double.valueOf(zfbPrice)));
                             price_tip_value.setText("￥" + str);
                             mZhFrist = mSumPrice - Double.valueOf(zfbPrice);

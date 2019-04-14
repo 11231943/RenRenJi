@@ -151,31 +151,6 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
     RelativeLayout reply_no_main_layout;
     @ViewInject(R.id.show_changjianwenti_btn)
     TextView show_changjianwenti_btn;
-    //评论
-    @ViewInject(R.id.re_user_image)
-    ImageView re_user_image;
-    @ViewInject(R.id.re_user_name)
-    TextView re_user_name;
-    @ViewInject(R.id.re_content)
-    TextView re_content;
-    @ViewInject(R.id.re_tag)
-    TextView re_tag;
-    @ViewInject(R.id.re_photo1_layout)
-    RelativeLayout re_photo1_layout;
-    @ViewInject(R.id.re_photo2_layout)
-    RelativeLayout re_photo2_layout;
-    @ViewInject(R.id.re_photo3_layout)
-    RelativeLayout re_photo3_layout;
-    @ViewInject(R.id.re_image_layout)
-    LinearLayout re_image_layout;
-    @ViewInject(R.id.re_photo1)
-    ImageView re_photo1;
-    @ViewInject(R.id.re_photo2)
-    ImageView re_photo2;
-    @ViewInject(R.id.re_photo3)
-    ImageView re_photo3;
-    @ViewInject(R.id.chengse)
-    View chengse;
     @ViewInject(R.id.id_recyclerview)
     RecyclerView id_recyclerview;
     RecyclerImageAdapter mRecyclerImageAdapter;

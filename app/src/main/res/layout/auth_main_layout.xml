@@ -7,7 +7,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/bind_wchat"
+        android:id="@+id/bind_wechat"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_below="@+id/user_rule"
