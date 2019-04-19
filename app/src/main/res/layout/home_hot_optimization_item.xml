@@ -1,18 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_layout"
-    android:layout_width="115dp"
+    android:layout_width="135dp"
     android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/hot_data_image"
         android:layout_width="115dp"
+        android:layout_centerHorizontal="true"
         android:layout_height="115dp"
         android:scaleType="fitXY"
         android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/hot_iphone_text"
+        android:layout_centerHorizontal="true"
         android:layout_width="113dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/hot_data_image"
@@ -74,6 +76,7 @@
     <TextView
         android:id="@+id/iphone_price"
         android:layout_width="113dp"
+        android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_below="@+id/phone_size"
         android:layout_marginTop="9dp"
@@ -88,6 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iphone_price"
         android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="horizontal">
 

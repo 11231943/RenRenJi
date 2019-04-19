@@ -22,6 +22,7 @@ import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.biz.data.ui.activity.DataListActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.biz.home.ui.activity.HomeCategoryActivity;
+import com.trade.rrenji.biz.home.ui.activity.HomeRecommendActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
@@ -277,15 +278,25 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
     public class OptimizationViewHolder extends ViewHolder {
 
         RecyclerView mHotDataTypeView;
+        TextView mMoreOptimzation;
 
         public OptimizationViewHolder(View itemView) {
             super(itemView);
             mHotDataTypeView = itemView.findViewById(R.id.hot_optimzation_recycler_view);
+            mMoreOptimzation = itemView.findViewById(R.id.more_optimzation);
         }
 
         @Override
         public void bindData(HomeBean data, int position) {
             super.bindData(data, position);
+            mMoreOptimzation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, HomeRecommendActivity.class);
+                    intent.putExtra("type", 4);
+                    mContext.startActivity(intent);
+                }
+            });
             HotOptimizationAdapter categoryAdapter = new HotOptimizationAdapter(mContext);
             mHotDataTypeView.addItemDecoration(new LinearSpacingDecoration(20, 0));
             mHotDataTypeView.setAdapter(categoryAdapter);
@@ -379,15 +390,25 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
     public class HotAndroidViewHolder extends ViewHolder {
 
         RecyclerView mHotDataTypeView;
+        TextView mMoreAndroid;
 
         public HotAndroidViewHolder(View itemView) {
             super(itemView);
             mHotDataTypeView = itemView.findViewById(R.id.hot_android_recycler_view);
+            mMoreAndroid = itemView.findViewById(R.id.more_android);
         }
 
         @Override
         public void bindData(HomeBean data, int position) {
             super.bindData(data, position);
+            mMoreAndroid.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, HomeRecommendActivity.class);
+                    intent.putExtra("type", 3);
+                    mContext.startActivity(intent);
+                }
+            });
             HotAndroidAdapter categoryAdapter = new HotAndroidAdapter(mContext);
             mHotDataTypeView.addItemDecoration(new LinearSpacingDecoration(20, 0));
             mHotDataTypeView.setAdapter(categoryAdapter);
@@ -496,15 +517,25 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
     public class HotIphoneViewHolder extends ViewHolder {
 
         RecyclerView mHotDataTypeView;
+        TextView mMoreIphone;
 
         public HotIphoneViewHolder(View itemView) {
             super(itemView);
             mHotDataTypeView = itemView.findViewById(R.id.hot_iphone_recycler_view);
+            mMoreIphone = itemView.findViewById(R.id.more_iphone);
         }
 
         @Override
         public void bindData(HomeBean data, int position) {
             super.bindData(data, position);
+            mMoreIphone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, HomeRecommendActivity.class);
+                    intent.putExtra("type", 2);
+                    mContext.startActivity(intent);
+                }
+            });
             HotIphoneAdapter categoryAdapter = new HotIphoneAdapter(mContext);
             mHotDataTypeView.addItemDecoration(new LinearSpacingDecoration(20, 0));
             mHotDataTypeView.setAdapter(categoryAdapter);
@@ -764,7 +795,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
 
             @Override
             public void onBindViewHolder(CategoryTypeViewHolder holder, int position) {
-               final NetHomeBean.DataBean.CategoryListBean bean = mCategoryList.get(position);
+                final NetHomeBean.DataBean.CategoryListBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadIcon(mContext, mRes[position], R.drawable.ic_launcher, holder.mCateTypeImg);
                 holder.mCateTypeStr.setText(bean.getCategoryName());
                 holder.mCateTypeImg.setOnClickListener(new View.OnClickListener() {
