@@ -16,20 +16,13 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_launcher" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="30dp"
-        android:scaleType="centerInside"
-        android:text="人人机-让人人买得起的好手机" />
+
 
     <ImageView
         android:id="@+id/splash_ad_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="fitXY"
         android:visibility="gone"
        />
 
@@ -47,8 +40,8 @@
 
         <TextView
             android:id="@+id/show_duration"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_marginRight="5dp"
             android:background="@drawable/splash_left"
             android:gravity="center"
@@ -68,6 +61,14 @@
             android:paddingTop="5dp"
             android:textColor="#fff" />
     </LinearLayout>
-
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="30dp"
+        android:scaleType="centerInside"
+        android:text="人人机-让人人买得起的好手机" />
 
 </RelativeLayout>

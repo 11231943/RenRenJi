@@ -166,6 +166,7 @@
             />
         <!-- alipay sdk begin -->
         <activity
+            tools:replace="android:configChanges"
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
@@ -173,6 +174,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
+            tools:replace="android:configChanges"
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
