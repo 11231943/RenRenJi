@@ -7,6 +7,8 @@ import android.widget.Toast;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.category.NetCategoryListBean;
+import com.trade.rrenji.bean.category.NetScreenBean;
+import com.trade.rrenji.bean.category.NetScreenListBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.category.presenter.CategoryActivityListPresenter;
 import com.trade.rrenji.biz.category.presenter.CategoryActivityListPresenterImpl;
@@ -94,5 +96,25 @@ public class CategoryClassListActivity extends BaseActivity implements CategoryA
     @Override
     public void getCategoryCodeListError(int code, String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getModelAttrSuccess(NetScreenBean netShareBean) {
+
+    }
+
+    @Override
+    public void getModelAttrError(int code, String msg) {
+
+    }
+
+    @Override
+    public void getAttributeProductListError(int code, String msg) {
+
+    }
+
+    @Override
+    public void getAttributeProductListSuccess(NetScreenListBean netShareBean) {
+
     }
 }

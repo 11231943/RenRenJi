@@ -123,7 +123,7 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
             splash_ad_image.setVisibility(View.VISIBLE);
             show_duration_layout.setVisibility(View.VISIBLE);
             mCountDown = Integer.valueOf(netShareBean.getData().getCountDown());
-            GlideUtils.getInstance().loadImageUrl(this, url, R.drawable.ic_launcher, splash_ad_image);
+            GlideUtils.getInstance().loadImageUrl(this, url, 0, splash_ad_image);
             mHandler.sendEmptyMessage(GO_TO_DURATION);
         } else {
             splash_ad_image.setVisibility(View.GONE);

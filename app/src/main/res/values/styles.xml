@@ -122,4 +122,13 @@
         <item name="android:windowExitAnimation">@anim/translate_out</item>
     </style>
 
+    <style name="animTranslate_right">
+        <item name="android:windowEnterAnimation">@anim/translate_left</item>
+        <item name="android:windowExitAnimation">@anim/translate_right</item>
+        <item name="android:windowActionBar" tools:targetApi="11">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+
+    </style>
 </resources>

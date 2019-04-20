@@ -160,28 +160,18 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
             "细微使用痕迹或细小划痕，屏幕显示正常，功能正常，电池损耗正常。",
             "有明显使用痕迹或明显磕碰位置（不多于三处），屏幕显示正常，功能正常，电池损耗正常。",
             "有明显使用痕迹或明显磕碰位置（多于三处），屏幕显示正常，功能正常，电池损耗正常。"};
+
     private CommonPopupWindow mWindow;
-    @ViewInject(R.id.frequency)
     TextView frequency;
-    @ViewInject(R.id.cpu)
     TextView cpu;
-    @ViewInject(R.id.post)
     TextView post;
-    @ViewInject(R.id.front)
     TextView front;
-    @ViewInject(R.id.resolvingPower)
     TextView resolvingPower;
-    @ViewInject(R.id.size)
     TextView size;
-    @ViewInject(R.id.version)
     TextView base_version;
-    @ViewInject(R.id.network)
     TextView network;
-    @ViewInject(R.id.color)
     TextView color;
-    @ViewInject(R.id.memory)
     TextView memory;
-    @ViewInject(R.id.model)
     TextView model;
 
     private Handler mHandler = new Handler();

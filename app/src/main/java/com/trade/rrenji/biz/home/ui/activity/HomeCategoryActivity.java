@@ -2,6 +2,7 @@ package com.trade.rrenji.biz.home.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
@@ -24,12 +25,17 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+@ContentView(R.layout.home_activity_category_super_recyclerview)
 public class HomeCategoryActivity extends BaseActivity implements HomeCategoryActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
     @ViewInject(R.id.base_activity_recycler_view)
     public SuperRecyclerView mSuperRecyclerView;
+
+    @ViewInject(R.id.price_select_layout)
+    public RelativeLayout price_select_layout;
+    @ViewInject(R.id.price_sort_layout)
+    public RelativeLayout price_sort_layout;
 
     HomeCategoryActivityPresenter mPresenter = null;
     HomeCategoryAdapter mCategoryListAdapter;
