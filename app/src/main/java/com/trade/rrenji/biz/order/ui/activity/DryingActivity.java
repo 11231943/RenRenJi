@@ -42,25 +42,24 @@ import java.util.List;
 @ContentView(R.layout.drying_main_layout)
 public class DryingActivity extends BaseActivity {
 
-
     @ViewInject(R.id.recycler_view_photo)
     public RecyclerView mPhotos;
-
 
     private static int REQUEST_CODE = 10001;
     PhotoAdapter mPhotoAdapter;
     List<ImageBean> mPhotoPath = new ArrayList<ImageBean>();
+    private String mOrderId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarTitle("发表晒单");
+        mOrderId =getIntent().getStringExtra("orderId");
         init();
     }
 
     private void init() {
-
         mPhotos.setLayoutManager(new GridLayoutManager(this, 3));
         mPhotos.addItemDecoration(new GridSpacingDecoration(
                 ViewUtils.dip2px(this, 12), ViewUtils.dip2px(this, 4)));

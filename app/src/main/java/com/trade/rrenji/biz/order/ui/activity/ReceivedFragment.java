@@ -5,15 +5,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.biz.base.BaseFragment;
+import com.trade.rrenji.biz.base.NetBaseResultBean;
+import com.trade.rrenji.biz.order.presenter.ConfirmOrderActivityPresenter;
+import com.trade.rrenji.biz.order.presenter.ConfirmOrderActivityPresenterImpl;
 import com.trade.rrenji.biz.order.presenter.OrderActivityPresenter;
 import com.trade.rrenji.biz.order.presenter.OrderActivityPresenterImpl;
 import com.trade.rrenji.biz.order.ui.adapter.OrderAdminAdapter;
+import com.trade.rrenji.biz.order.ui.view.ConfirmActivityView;
 import com.trade.rrenji.biz.order.ui.view.OrderActivityView;
 import com.trade.rrenji.utils.Contetns;
 
@@ -27,12 +32,13 @@ import java.util.List;
  * 待收货
  */
 @ContentView(R.layout.base_activity_super_recyclerview)
-public class ReceivedFragment extends BaseFragment  implements OrderActivityView {
+public class ReceivedFragment extends BaseFragment implements OrderActivityView, ConfirmActivityView {
 
     @ViewInject(R.id.base_activity_recycler_view)
     public SuperRecyclerView mSuperRecyclerView;
 
     OrderActivityPresenter mPresenter;
+    ConfirmOrderActivityPresenter mConfirmOrder;
     OrderAdminAdapter mOrderAdminAdapter = null;
     private int mIndexPage = 1;
 
@@ -62,6 +68,7 @@ public class ReceivedFragment extends BaseFragment  implements OrderActivityView
     private void init() {
         mSuperRecyclerView.setRecyclerPadding(0, 20, 0, 0);
         mOrderAdminAdapter = new OrderAdminAdapter(getActivity());
+        mOrderAdminAdapter.setType(3);
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(25, 5));
         mSuperRecyclerView.setAdapter(mOrderAdminAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -79,6 +86,12 @@ public class ReceivedFragment extends BaseFragment  implements OrderActivityView
             }
         });
         mSuperRecyclerView.startRefreshing(true);
+        mOrderAdminAdapter.setOnClickConfirmOrderListener(new OrderAdminAdapter.OnClickConfirmOrderListener() {
+            @Override
+            public void onClick(String orderId) {
+                mConfirmOrder.confirmOrder(getActivity(), 1, orderId);
+            }
+        });
     }
 
     private void loadData() {
@@ -90,6 +103,8 @@ public class ReceivedFragment extends BaseFragment  implements OrderActivityView
     protected void attachPresenter() {
         mPresenter = new OrderActivityPresenterImpl(getActivity());
         mPresenter.attachView(this);
+        mConfirmOrder = new ConfirmOrderActivityPresenterImpl(getActivity());
+        mConfirmOrder.attachView(this);
         init();
     }
 
@@ -97,6 +112,8 @@ public class ReceivedFragment extends BaseFragment  implements OrderActivityView
     protected void detachPresenter() {
         mPresenter.detachView();
         mPresenter = null;
+        mConfirmOrder.detachView();
+        mConfirmOrder = null;
     }
 
     @Override
@@ -116,5 +133,19 @@ public class ReceivedFragment extends BaseFragment  implements OrderActivityView
         mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(listBeans.size()));
         mSuperRecyclerView.finishMore(!Contetns.hasMoreData(listBeans.size()));
         mOrderAdminAdapter.addAll(listBeans);
+    }
+
+    @Override
+    public void getConfirmOrderSuccess(NetBaseResultBean netOrderBean) {
+        if (netOrderBean.getCode().equals(Contetns.RESPONSE_OK)) {
+            Toast.makeText(getActivity(), "收货成功！", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "收货失败！", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void getConfirmOrderError(int code, String msg) {
+
     }
 }

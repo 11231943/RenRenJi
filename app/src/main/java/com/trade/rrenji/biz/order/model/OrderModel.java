@@ -20,4 +20,7 @@ public interface OrderModel extends PlusBaseService {
     void continuePay(Context mContext, ContinuePayBean bean, ResultListener resultListener);
 
     void getPayPlanInfoList(Context mContext, double total, String goodsId, ResultListener resultListener);
+
+    void confirmOrder(Context mContext, int type, String goodsId, ResultListener resultListener);
+
 }

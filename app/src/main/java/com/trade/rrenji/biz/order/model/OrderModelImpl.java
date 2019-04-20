@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.trade.rrenji.bean.account.ValidateCodeBean;
+import com.trade.rrenji.bean.order.ConfirmOrderBean;
 import com.trade.rrenji.bean.order.ContinuePayBean;
 import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.net.ServiceHelper;
@@ -58,6 +59,40 @@ public class OrderModelImpl implements OrderModel {
     }
 
     @Override
+    public void confirmOrder(Context mContext, int type, String goodsId, final ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.newOrder.confirmOrder");
+        url = url + SettingUtils.getInstance().getSessionkeyString();
+        ConfirmOrderBean orderBean = new ConfirmOrderBean();
+        orderBean.setOrderId(goodsId);
+        orderBean.setOrderType(String.valueOf(type));
+        RequestParams requestParams = new RequestParams(url);
+        requestParams.setAsJsonContent(true);
+        requestParams.setBodyContent(GsonUtils.getGson().toJson(orderBean));
+        Log.e("createOrder", "url :" + url + " bean = " + GsonUtils.getGson().toJson(orderBean));
+        x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                resultListener.onResponse(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                resultListener.onError(ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    @Override
     public void getAccessoryInfo(Context mContext, String goodsCode, ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.order.getAccessoryInfoByGoodsCode");
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
@@ -76,7 +111,7 @@ public class OrderModelImpl implements OrderModel {
     }
 
     @Override
-    public void continuePay(Context mContext, ContinuePayBean bean,final ResultListener resultListener) {
+    public void continuePay(Context mContext, ContinuePayBean bean, final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.order.newContinuePay");
         long timeStamp = System.currentTimeMillis();
         url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + "abc";

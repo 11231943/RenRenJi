@@ -41,6 +41,18 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
 
     private onClickListener onClickListener;
 
+    private OnClickConfirmOrderListener onClickConfirmOrderListener;
+
+    public void setOnClickConfirmOrderListener(OnClickConfirmOrderListener onClickConfirmOrderListener) {
+        this.onClickConfirmOrderListener = onClickConfirmOrderListener;
+    }
+
+    private int mType = -1;
+
+    public void setType(int mType) {
+        this.mType = mType;
+    }
+
     public void setOnClickListener(OrderAdminAdapter.onClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
@@ -100,11 +112,23 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
                 del_btn.setVisibility(View.GONE);
                 dry_btn.setText("确定收货");
                 order_states.setText("已发货");
+            }else if (data.getPayStatus().equals("4")) {
+                del_btn.setVisibility(View.GONE);
+                dry_btn.setText("晒单");
+                order_states.setText("已收货");
             }
             main_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     OrderViewHolder.this.onClick(data);
+                }
+            });
+            dry_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(onClickConfirmOrderListener!=null){
+                        onClickConfirmOrderListener.onClick(data.getOrderId());
+                    }
                 }
             });
             ItemAdapter itemAdapter = new ItemAdapter(mContext);
@@ -247,9 +271,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
         void onClick(ResultListBean data);
     }
 
-    public interface OnClickSetDefaultListener {
-        void onClick(String addressId);
+    public interface OnClickConfirmOrderListener {
+        void onClick(String orderId);
     }
-
-
 }
