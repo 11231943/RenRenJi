@@ -465,13 +465,20 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
             reply_recycler_view.setLayoutManager(new LinearLayoutManager(this));
             List<NetShareBean.ResultBean.ShareOrdersBean> beans = new ArrayList<NetShareBean.ResultBean.ShareOrdersBean>();
             NetShareBean.ResultBean.ShareOrdersBean shareOrdersBean = new NetShareBean.ResultBean.ShareOrdersBean();
+
             shareOrdersBean.setUserName(listBeans.get(0).getUserName());
-            shareOrdersBean.setComment(listBeans.get(0).getEvaluateDesc());
+            shareOrdersBean.setLocation(listBeans.get(0).getLocation());
+            shareOrdersBean.setComment(listBeans.get(0).getComment());
+            shareOrdersBean.setPhoneDesc(listBeans.get(0).getPhoneDesc());
+            shareOrdersBean.setShareTime(listBeans.get(0).getShareTime());
+            shareOrdersBean.setUserId(listBeans.get(0).getUserId());
+            shareOrdersBean.setUserImg(listBeans.get(0).getUserImg());
+
             List<NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean> sharePictures = new ArrayList<NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean>();
-            for (int i = 0; i < listBeans.get(0).getSharePicList().size(); i++) {
+            for (int i = 0; i < listBeans.get(0).getSharePictures().size(); i++) {
                 NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean bean = new NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean();
-                bean.setLargePic(listBeans.get(0).getSharePicList().get(i).getMaxPic());
-                bean.setMinPic(listBeans.get(0).getSharePicList().get(i).getMinPic());
+                bean.setLargePic(listBeans.get(0).getSharePictures().get(i).getLargePic());
+                bean.setMinPic(listBeans.get(0).getSharePictures().get(i).getMinPic());
                 sharePictures.add(bean);
             }
             shareOrdersBean.setSharePictures(sharePictures);

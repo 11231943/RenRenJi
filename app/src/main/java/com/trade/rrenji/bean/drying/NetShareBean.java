@@ -118,13 +118,30 @@ public class NetShareBean {
              * phoneDesc : 95新 iPhone 6s 16G粉
              * sharePictures : [{"largePic":"http://qiniu.rrenji.com/Fmk6iuhcM5LeGVtquPA3_pgWp2ql","minPic":"http://qiniu.rrenji.com/Fmk6iuhcM5LeGVtquPA3_pgWp2ql?imageMogr2/thumbnail/!300x300r"},{"largePic":"http://qiniu.rrenji.com/FmWf3We6OfqAcWKb1aE6zd1twMcu","minPic":"http://qiniu.rrenji.com/FmWf3We6OfqAcWKb1aE6zd1twMcu?imageMogr2/thumbnail/!300x300r"}]
              */
-
+            private String userImg;
+            private int userId;
             private String shareTime;
             private String location;
             private String comment;
             private String userName;
             private String phoneDesc;
             private List<SharePicturesBean> sharePictures;
+
+            public String getUserImg() {
+                return userImg;
+            }
+
+            public void setUserImg(String userImg) {
+                this.userImg = userImg;
+            }
+
+            public int getUserId() {
+                return userId;
+            }
+
+            public void setUserId(int userId) {
+                this.userId = userId;
+            }
 
             public String getShareTime() {
                 return shareTime;

@@ -359,109 +359,109 @@ public class GoodsDetailActivity extends BaseActivity implements GoodsActivityVi
 
 
         //基友评论
-        if (resultBean.getEvaluateList().size() > 0) {
-            reply_no_main_layout.setVisibility(View.GONE);
-            reply_main_layout.setVisibility(View.VISIBLE);
-            final List<GoodsDetailBean.EvaluateListBean> listBeans = resultBean.getEvaluateList();
-            if (listBeans != null && listBeans.size() > 0) {
-                final GoodsDetailBean.EvaluateListBean bean = listBeans.get(0);
-
-                if (!TextUtils.isEmpty(bean.getUserName())) {
-                    if (bean.getUserName().endsWith("0")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_0, R.drawable.user_default_icon, re_user_image);
-                    } else if (bean.getUserName().endsWith("1")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_1, R.drawable.user_default_icon, re_user_image);
-                    } else if (bean.getUserName().endsWith("2")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_2, R.drawable.user_default_icon, re_user_image);
-
-                    } else if (bean.getUserName().endsWith("3")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_3, R.drawable.user_default_icon, re_user_image);
-
-                    } else if (bean.getUserName().endsWith("4")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_4, R.drawable.user_default_icon, re_user_image);
-
-                    } else if (bean.getUserName().endsWith("5")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_5, R.drawable.user_default_icon, re_user_image);
-
-                    } else if (bean.getUserName().endsWith("6")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_6, R.drawable.user_default_icon, re_user_image);
-
-                    } else if (bean.getUserName().endsWith("7")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_7, R.drawable.user_default_icon, re_user_image);
-
-                    } else if (bean.getUserName().endsWith("8")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_8, R.drawable.user_default_icon, re_user_image);
-
-                    } else if (bean.getUserName().endsWith("9")) {
-                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_9, R.drawable.user_default_icon, re_user_image);
-                    }
-                }
-                re_user_name.setText(bean.getUserName());
-                re_content.setText(bean.getGoodsDesc());
-                re_tag.setText(bean.getGoodsDesc());
-                re_image_layout.setVisibility(View.VISIBLE);
-                if (bean.getSharePicList().size() >= 3) {
-                    re_photo3_layout.setVisibility(View.VISIBLE);
-                    re_photo2_layout.setVisibility(View.VISIBLE);
-                    re_photo1_layout.setVisibility(View.VISIBLE);
-                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
-                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(1).getMaxPic(), R.drawable.user_head_default_gray, re_photo2);
-                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(2).getMaxPic(), R.drawable.user_head_default_gray, re_photo3);
-                    re_photo1_layout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-//                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(0).maxPic);
-                        }
-                    });
-                    re_photo2_layout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-//                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(1).maxPic);
-                        }
-                    });
-                    re_photo3_layout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-//                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(2).maxPic);
-                        }
-                    });
-                } else if (bean.getSharePicList().size() == 2) {
-                    re_photo3_layout.setVisibility(View.INVISIBLE);
-                    re_photo2_layout.setVisibility(View.VISIBLE);
-                    re_photo1_layout.setVisibility(View.VISIBLE);
-                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
-                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(1).getMaxPic(), R.drawable.user_head_default_gray, re_photo2);
-                    re_photo1_layout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-//                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(0).maxPic);
-                        }
-                    });
-                    re_photo2_layout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-//                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(1).maxPic);
-                        }
-                    });
-                } else if (bean.getSharePicList().size() == 1) {
-                    re_photo3_layout.setVisibility(View.INVISIBLE);
-                    re_photo2_layout.setVisibility(View.INVISIBLE);
-                    re_photo1_layout.setVisibility(View.VISIBLE);
-                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
-                    re_photo1_layout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-//                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(0).maxPic);
-                        }
-                    });
-                } else {
-                    re_image_layout.setVisibility(View.GONE);
-                }
-            }
-        } else {
-            reply_no_main_layout.setVisibility(View.VISIBLE);
-            reply_main_layout.setVisibility(View.GONE);
-        }
+//        if (resultBean.getEvaluateList().size() > 0) {
+//            reply_no_main_layout.setVisibility(View.GONE);
+//            reply_main_layout.setVisibility(View.VISIBLE);
+//            final List<GoodsDetailBean.EvaluateListBean> listBeans = resultBean.getEvaluateList();
+//            if (listBeans != null && listBeans.size() > 0) {
+//                final GoodsDetailBean.EvaluateListBean bean = listBeans.get(0);
+//
+//                if (!TextUtils.isEmpty(bean.getUserName())) {
+//                    if (bean.getUserName().endsWith("0")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_0, R.drawable.user_default_icon, re_user_image);
+//                    } else if (bean.getUserName().endsWith("1")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_1, R.drawable.user_default_icon, re_user_image);
+//                    } else if (bean.getUserName().endsWith("2")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_2, R.drawable.user_default_icon, re_user_image);
+//
+//                    } else if (bean.getUserName().endsWith("3")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_3, R.drawable.user_default_icon, re_user_image);
+//
+//                    } else if (bean.getUserName().endsWith("4")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_4, R.drawable.user_default_icon, re_user_image);
+//
+//                    } else if (bean.getUserName().endsWith("5")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_5, R.drawable.user_default_icon, re_user_image);
+//
+//                    } else if (bean.getUserName().endsWith("6")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_6, R.drawable.user_default_icon, re_user_image);
+//
+//                    } else if (bean.getUserName().endsWith("7")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_7, R.drawable.user_default_icon, re_user_image);
+//
+//                    } else if (bean.getUserName().endsWith("8")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_8, R.drawable.user_default_icon, re_user_image);
+//
+//                    } else if (bean.getUserName().endsWith("9")) {
+//                        GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon_9, R.drawable.user_default_icon, re_user_image);
+//                    }
+//                }
+//                re_user_name.setText(bean.getUserName());
+//                re_content.setText(bean.getGoodsDesc());
+//                re_tag.setText(bean.getGoodsDesc());
+//                re_image_layout.setVisibility(View.VISIBLE);
+//                if (bean.getSharePicList().size() >= 3) {
+//                    re_photo3_layout.setVisibility(View.VISIBLE);
+//                    re_photo2_layout.setVisibility(View.VISIBLE);
+//                    re_photo1_layout.setVisibility(View.VISIBLE);
+//                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
+//                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(1).getMaxPic(), R.drawable.user_head_default_gray, re_photo2);
+//                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(2).getMaxPic(), R.drawable.user_head_default_gray, re_photo3);
+//                    re_photo1_layout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+////                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(0).maxPic);
+//                        }
+//                    });
+//                    re_photo2_layout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+////                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(1).maxPic);
+//                        }
+//                    });
+//                    re_photo3_layout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+////                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(2).maxPic);
+//                        }
+//                    });
+//                } else if (bean.getSharePicList().size() == 2) {
+//                    re_photo3_layout.setVisibility(View.INVISIBLE);
+//                    re_photo2_layout.setVisibility(View.VISIBLE);
+//                    re_photo1_layout.setVisibility(View.VISIBLE);
+//                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
+//                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(1).getMaxPic(), R.drawable.user_head_default_gray, re_photo2);
+//                    re_photo1_layout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+////                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(0).maxPic);
+//                        }
+//                    });
+//                    re_photo2_layout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+////                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(1).maxPic);
+//                        }
+//                    });
+//                } else if (bean.getSharePicList().size() == 1) {
+//                    re_photo3_layout.setVisibility(View.INVISIBLE);
+//                    re_photo2_layout.setVisibility(View.INVISIBLE);
+//                    re_photo1_layout.setVisibility(View.VISIBLE);
+//                    GlideUtils.getInstance().loadImageUrl(this, bean.getSharePicList().get(0).getMaxPic(), R.drawable.user_head_default_gray, re_photo1);
+//                    re_photo1_layout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+////                            showImageActivity(GoodsDetailsActivity.this, bean.sharePicList.get(0).maxPic);
+//                        }
+//                    });
+//                } else {
+//                    re_image_layout.setVisibility(View.GONE);
+//                }
+//            }
+//        } else {
+//            reply_no_main_layout.setVisibility(View.VISIBLE);
+//            reply_main_layout.setVisibility(View.GONE);
+//        }
     }
 
     private void initViewPage(List<GoodsDetailBean.GoodsPicsBean> beans) {

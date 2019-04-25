@@ -647,24 +647,59 @@ public class GoodsDetailBean implements Serializable {
     }
 
     public static class EvaluateListBean implements Serializable {
+
         /**
-         * evaluateDesc : 手机很好，又是新的我感觉很好，我很喜欢
-         * sharePicList : [{"minPic":"http://qiniu.rrenji.com/d98c6b85-e2d9-4895-a1bf-7e95492a204a_jpeg?imageMogr2/thumbnail/!300x300r","maxPic":"http://qiniu.rrenji.com/d98c6b85-e2d9-4895-a1bf-7e95492a204a_jpeg"},{"minPic":"http://qiniu.rrenji.com/b8e7c043-fd32-4f84-aa95-5444b08cb0ea_jpeg?imageMogr2/thumbnail/!300x300r","maxPic":"http://qiniu.rrenji.com/b8e7c043-fd32-4f84-aa95-5444b08cb0ea_jpeg"},{"minPic":"http://qiniu.rrenji.com/4f8af06c-aab2-4542-a189-ff5e04c707ba_jpeg?imageMogr2/thumbnail/!300x300r","maxPic":"http://qiniu.rrenji.com/4f8af06c-aab2-4542-a189-ff5e04c707ba_jpeg"}]
-         * userName : 155****7909
-         * goodsDesc : 全新小米8、未开封6+128G
+         * userImg : http://qiniu.rrenji.com/Flq26P2E6lHdUg_50Q4QLn13ilRU
+         * shareTime : 2018-06-27T21:46:36.000+08:00
+         * location : 深圳市
+         * comment : 阿施
+         * userName : 151****8876
+         * phoneDesc :  iPhone 7 Plus 128G磨砂黑
+         * reply :
+         * sharePictures : [{"largePic":"http://qiniu.rrenji.com/ad43ac5f-1f0b-4ac1-8666-c861be421aa8_jpeg","minPic":"http://qiniu.rrenji.com/ad43ac5f-1f0b-4ac1-8666-c861be421aa8_jpeg?imageMogr2/thumbnail/!300x300r"},{"largePic":"http://qiniu.rrenji.com/48c04bcc-5980-4806-80b7-611cd5a7fb25_jpeg","minPic":"http://qiniu.rrenji.com/48c04bcc-5980-4806-80b7-611cd5a7fb25_jpeg?imageMogr2/thumbnail/!300x300r"}]
+         * userId : 32
          */
 
-        private String evaluateDesc;
+        private String userImg;
+        private String shareTime;
+        private String location;
+        private String comment;
         private String userName;
-        private String goodsDesc;
-        private List<SharePicListBean> sharePicList;
+        private String phoneDesc;
+        private String reply;
+        private int userId;
+        private List<SharePicturesBean> sharePictures;
 
-        public String getEvaluateDesc() {
-            return evaluateDesc;
+        public String getUserImg() {
+            return userImg;
         }
 
-        public void setEvaluateDesc(String evaluateDesc) {
-            this.evaluateDesc = evaluateDesc;
+        public void setUserImg(String userImg) {
+            this.userImg = userImg;
+        }
+
+        public String getShareTime() {
+            return shareTime;
+        }
+
+        public void setShareTime(String shareTime) {
+            this.shareTime = shareTime;
+        }
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
         }
 
         public String getUserName() {
@@ -675,30 +710,54 @@ public class GoodsDetailBean implements Serializable {
             this.userName = userName;
         }
 
-        public String getGoodsDesc() {
-            return goodsDesc;
+        public String getPhoneDesc() {
+            return phoneDesc;
         }
 
-        public void setGoodsDesc(String goodsDesc) {
-            this.goodsDesc = goodsDesc;
+        public void setPhoneDesc(String phoneDesc) {
+            this.phoneDesc = phoneDesc;
         }
 
-        public List<SharePicListBean> getSharePicList() {
-            return sharePicList;
+        public String getReply() {
+            return reply;
         }
 
-        public void setSharePicList(List<SharePicListBean> sharePicList) {
-            this.sharePicList = sharePicList;
+        public void setReply(String reply) {
+            this.reply = reply;
         }
 
-        public static class SharePicListBean implements Serializable {
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public List<SharePicturesBean> getSharePictures() {
+            return sharePictures;
+        }
+
+        public void setSharePictures(List<SharePicturesBean> sharePictures) {
+            this.sharePictures = sharePictures;
+        }
+
+        public static class SharePicturesBean {
             /**
-             * minPic : http://qiniu.rrenji.com/d98c6b85-e2d9-4895-a1bf-7e95492a204a_jpeg?imageMogr2/thumbnail/!300x300r
-             * maxPic : http://qiniu.rrenji.com/d98c6b85-e2d9-4895-a1bf-7e95492a204a_jpeg
+             * largePic : http://qiniu.rrenji.com/ad43ac5f-1f0b-4ac1-8666-c861be421aa8_jpeg
+             * minPic : http://qiniu.rrenji.com/ad43ac5f-1f0b-4ac1-8666-c861be421aa8_jpeg?imageMogr2/thumbnail/!300x300r
              */
 
+            private String largePic;
             private String minPic;
-            private String maxPic;
+
+            public String getLargePic() {
+                return largePic;
+            }
+
+            public void setLargePic(String largePic) {
+                this.largePic = largePic;
+            }
 
             public String getMinPic() {
                 return minPic;
@@ -706,14 +765,6 @@ public class GoodsDetailBean implements Serializable {
 
             public void setMinPic(String minPic) {
                 this.minPic = minPic;
-            }
-
-            public String getMaxPic() {
-                return maxPic;
-            }
-
-            public void setMaxPic(String maxPic) {
-                this.maxPic = maxPic;
             }
         }
     }

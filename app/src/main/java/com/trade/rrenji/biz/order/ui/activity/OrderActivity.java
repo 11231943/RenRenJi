@@ -30,9 +30,7 @@ public class OrderActivity extends BaseActivity implements OrderActivityView {
     OrderActivityPresenter mPresenter;
     OrderAdminAdapter mOrderAdminAdapter = null;
 
-
     private int mIndexPage = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
