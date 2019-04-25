@@ -90,8 +90,8 @@ public class CategoryActivityListPresenterImpl extends BasePresenter<CategoryAct
     }
 
     @Override
-    public void getClassifyDataByType(final Context mContext, final String id, final String type) {
-        mModel.getClassifyDataByType(mContext, id, type, new XUtils.ResultListener() {
+    public void getClassifyDataByType(final Context mContext, final String id, final String type, int page, int rows) {
+        mModel.getClassifyDataByType(mContext, id, type, page, rows, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
 

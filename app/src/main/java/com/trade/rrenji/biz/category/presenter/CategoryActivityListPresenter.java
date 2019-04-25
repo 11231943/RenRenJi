@@ -11,7 +11,7 @@ import com.trade.rrenji.biz.category.ui.view.CategoryActivityView;
  */
 public interface CategoryActivityListPresenter extends Presenter<CategoryActivityListView> {
 
-    void getClassifyDataByType(Context mContext, String id, String type);
+    void getClassifyDataByType(Context mContext, String id, String type,int page,int rows);
 
     void getModelAttr(Context mContext, String id);
 

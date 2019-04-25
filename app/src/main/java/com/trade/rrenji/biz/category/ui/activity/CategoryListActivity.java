@@ -72,6 +72,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     private String mDefaultCondition = "";
     private String mDefaultVersion = "";
     private int mPage = 1;
+    private int mRows = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +159,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     }
 
     private void loadData() {
-        mPresenter.getClassifyDataByType(this, mId, mType);
+        mPresenter.getClassifyDataByType(this, mId, mType, mPage, mRows);
     }
 
     private void lodDataScreen() {

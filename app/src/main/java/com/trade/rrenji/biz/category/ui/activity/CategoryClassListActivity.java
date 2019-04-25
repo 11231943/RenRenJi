@@ -35,6 +35,8 @@ public class CategoryClassListActivity extends BaseActivity implements CategoryA
 
     private String mId;
     private String mType;
+    private int mPage = 1;
+    private int mRows = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +55,13 @@ public class CategoryClassListActivity extends BaseActivity implements CategoryA
         mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
             @Override
             public void onRefresh() {
+                mPage = 1;
                 loadData();
             }
 
             @Override
             public void onMore() {
+                mPage++;
                 loadData();
             }
         });
@@ -65,7 +69,7 @@ public class CategoryClassListActivity extends BaseActivity implements CategoryA
     }
 
     private void loadData() {
-        mPresenter.getClassifyDataByType(this, mId, mType);
+        mPresenter.getClassifyDataByType(this, mId, mType, mPage, mRows);
     }
 
 
@@ -83,7 +87,7 @@ public class CategoryClassListActivity extends BaseActivity implements CategoryA
 
     @Override
     public void getCategoryListSuccess(NetCategoryListBean netShareBean) {
-        if (mCategoryListAdapter != null) {
+        if (mPage == 1 && mCategoryListAdapter != null) {
             mCategoryListAdapter.clear();
         }
         List<NetCategoryListBean.DataBean.ResultListBean> listBeans = netShareBean.getData().getResultList();
