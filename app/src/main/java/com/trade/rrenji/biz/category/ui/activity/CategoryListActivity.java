@@ -163,7 +163,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     }
 
     private void lodDataScreen() {
-        mPresenter.getAttributeProductList(this, mPage, "22", "", "", "2", "");
+        mPresenter.getAttributeProductList(this, mPage, mId, "22", "", "", "2", "");
     }
 
     @Override

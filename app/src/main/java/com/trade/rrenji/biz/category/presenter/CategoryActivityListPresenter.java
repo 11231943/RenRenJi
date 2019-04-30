@@ -15,5 +15,5 @@ public interface CategoryActivityListPresenter extends Presenter<CategoryActivit
 
     void getModelAttr(Context mContext, String id);
 
-    void getAttributeProductList(Context mContext, int page, String memory, String color, String network, String condition, String version);
+    void getAttributeProductList(Context mContext, int page,String model,  String memory, String color, String network, String condition, String version);
 }

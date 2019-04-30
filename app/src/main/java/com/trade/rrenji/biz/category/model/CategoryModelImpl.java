@@ -46,13 +46,14 @@ public class CategoryModelImpl implements CategoryModel {
     }
 
     @Override
-    public void getAttributeProductList(Context mContext, int page, String memory, String color, String network, String condition, String version, final ResultListener resultListener) {
+    public void getAttributeProductList(Context mContext, int page, String model,  String memory, String color, String network, String condition, String version, final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.product.getAttributeProductList");
         ScreenBean screenBean =new ScreenBean();
         screenBean.setColor(color);
         screenBean.setCondition(condition);
         screenBean.setMemory(memory);
         screenBean.setNetwork(network);
+        screenBean.setModel(model);
         screenBean.setVersion(version);
         RequestParams requestParams = new RequestParams(url + "/" + page);
         requestParams.setAsJsonContent(true);

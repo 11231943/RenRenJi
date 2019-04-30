@@ -11,6 +11,15 @@ public class ScreenBean implements Serializable {
     private String network;
     private String condition;
     private String version;
+    private String model;
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
 
     public String getMemory() {
         return memory;
