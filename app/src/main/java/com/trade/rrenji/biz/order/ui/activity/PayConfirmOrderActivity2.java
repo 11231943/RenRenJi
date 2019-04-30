@@ -54,7 +54,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@ContentView(R.layout.pay_confirm_layout)
+@ContentView(R.layout.pay_confirm_layout2)
 public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCreateOrderInfoView {
 
     /**
@@ -243,11 +243,11 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
         mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
         mSumCount = getIntent().getIntExtra("mSumCount", -0);
         mGoodsDetailBean = (ResultListBean) getIntent().getSerializableExtra("GoodsDetailBean");
-//        mListBeans = (List<NetAccessoryListBean.DataBean.ResultListBean>) getIntent().getSerializableExtra("accessoryList");
         pay_sum_price2.setText("￥" + mSumPrice);
         pre_order_sum.setText(getString(R.string.order_mun, mSumCount));
         order_sum_price.setText("￥" + mSumPrice);
         mPresenter.getUserCreateOrderInfoByUserId(this);
+        mPresenter.getPayPlanInfoList(this, mSumPrice, mGoodsDetailBean.getOrderId());
         mPayOrderAdminAdapter = new PayOrderAdminAdapter(this);
         recycler_view.addItemDecoration(new LinearSpacingDecoration(20, 0));
         recycler_view.setAdapter(mPayOrderAdminAdapter);
@@ -262,6 +262,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
         localOrderInfoBean.setOrderId(data.getOrderId());
         localOrderInfoBean.setGoodsName(data.getGoodsName());
         localOrderInfoBean.setImg(data.getGoodsImg());
+        localOrderInfoBean.setGoodsPrice(data.getGoodsPrice());
         localOrderInfoBean.setPayPrice(data.getOrderSum());
         mList.add(localOrderInfoBean);
         for (ResultListBean.AccessoryListBean bean : data.getAccessoryList()) {

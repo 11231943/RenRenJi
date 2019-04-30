@@ -7,6 +7,15 @@ public class LocalOrderInfoBean {
     private String goodsName;
     private double payPrice;
     private String createTime;
+    private double goodsPrice;
+
+    public double getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(double goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
 
     public String getImg() {
         return img;

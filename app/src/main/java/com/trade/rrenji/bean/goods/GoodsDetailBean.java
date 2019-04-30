@@ -742,7 +742,7 @@ public class GoodsDetailBean implements Serializable {
             this.sharePictures = sharePictures;
         }
 
-        public static class SharePicturesBean {
+        public static class SharePicturesBean implements Serializable {
             /**
              * largePic : http://qiniu.rrenji.com/ad43ac5f-1f0b-4ac1-8666-c861be421aa8_jpeg
              * minPic : http://qiniu.rrenji.com/ad43ac5f-1f0b-4ac1-8666-c861be421aa8_jpeg?imageMogr2/thumbnail/!300x300r

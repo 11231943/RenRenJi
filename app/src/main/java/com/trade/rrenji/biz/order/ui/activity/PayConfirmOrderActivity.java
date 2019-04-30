@@ -169,16 +169,17 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     List<NetPayPlanInfoBean.DataBean.AliPayListBean> mPayPlanInfoList;
     private String mAddressId = "0";
     private int mCouponCount = 0;
-    private String mCouponId = "";
-    private String mCouponValue = "0";
 
 
     GetUserCreateOrderInfoPresenter mPresenter;
     GoodsDetailBean mGoodsDetailBean;
     private List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans;
     PayOrderAdminAdapter mPayOrderAdminAdapter;
-    private double mSumPrice;
-    private double mPaySumPrice;
+    private double mSumPrice;//商品原价，
+    private double mPaySumPrice;//显示优惠，分期，价格
+    private boolean isUseCoupon;//是否使用优惠券
+    private String mCouponId = "";
+    private String mCouponPrice = "0";//优惠券金额
     private int mSumCount;
 
     //---------------------------------------------------------------------------
@@ -333,22 +334,26 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         } else if (requestCode == mRequestLoginCode && resultCode == 10000) {
             mPresenter.getUserCreateOrderInfoByUserId(this);
         } else if (requestCode == mRequestCouponCode && resultCode == 10001) {
+            isUseCoupon = true;
             NetCouponBean.ResultBean.CouponListBean bean = (NetCouponBean.ResultBean.CouponListBean) data.getSerializableExtra("data");
             mCouponId = String.valueOf(bean.getCouponId());
             coupon_txt.setText("使用优惠劵" + bean.getCouponValue() + "元");
-            mCouponValue = bean.getCouponValue();
-            if (mSumPrice - Double.valueOf(mCouponValue) > 0) {
+            mCouponPrice = bean.getCouponValue();
+            if (mSumPrice - Double.valueOf(mCouponPrice) > 0) {
                 java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
-                String str = myformat.format((mSumPrice - Double.valueOf(mCouponValue)));
+                String str = myformat.format((mSumPrice - Double.valueOf(mCouponPrice)));
                 pay_sum_price2.setText("￥" + str);
                 order_sum_coupon_txt.setVisibility(View.VISIBLE);
                 order_sum_coupon_price.setVisibility(View.VISIBLE);
-                order_sum_coupon_price.setText("￥" + mCouponValue);
+                order_sum_coupon_price.setText("￥" + mCouponPrice);
+                mSumPrice = mSumPrice - Double.valueOf(mCouponPrice);
+                resetColor();
+                mPresenter.getPayPlanInfoList(this, mSumPrice, mGoodsDetailBean.getGoodsCode());
             } else {
                 pay_sum_price2.setText("￥0");
                 order_sum_coupon_txt.setVisibility(View.VISIBLE);
                 order_sum_coupon_price.setVisibility(View.VISIBLE);
-                order_sum_coupon_price.setText("￥" + mCouponValue);
+                order_sum_coupon_price.setText("￥" + mCouponPrice);
             }
         } else if (requestCode == mRequestAddressCode && resultCode == 10002) {
             NetAddressBean.ResultBean.AddressListBean bean = (NetAddressBean.ResultBean.AddressListBean) data.getSerializableExtra("data");
@@ -377,7 +382,8 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recycler_view.setLayoutManager(layoutManager);
         mPayOrderAdminAdapter.addAll(buildData(mGoodsDetailBean, mListBeans));
-        mPayWindow = new CommonPopupWindow(this, R.layout.pay_zh_layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewUtils.dip2px(this, 240)) {
+        mPayWindow = new CommonPopupWindow(this, R.layout.pay_zh_layout, Integer.valueOf((ViewUtils.getScreenWidth(this)) + "")
+                , ViewUtils.dip2px(this, 240)) {
             @Override
             protected void initView() {
                 View view = getContentView();
@@ -579,7 +585,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 if (mPayPlanInfoList != null) {
                     mPaySumPrice = Double.parseDouble(mPayPlanInfoList.get(0).getTotal());
                     pay_sum_price2.setText("￥" + mPaySumPrice);
-                    order_sum_price.setText("￥" + mPaySumPrice);
+//                    order_sum_price.setText("￥" + mPaySumPrice);
                 }
                 break;
             case R.id.six_plan_price_layout:
@@ -590,7 +596,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 if (mPayPlanInfoList != null) {
                     mPaySumPrice = Double.parseDouble(mPayPlanInfoList.get(1).getTotal());
                     pay_sum_price2.setText("￥" + mPaySumPrice);
-                    order_sum_price.setText("￥" + mPaySumPrice);
+//                    order_sum_price.setText("￥" + mPaySumPrice);
                 }
                 break;
             case R.id.t_plan_price_layout:
@@ -601,7 +607,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 if (mPayPlanInfoList != null) {
                     mPaySumPrice = Double.parseDouble(mPayPlanInfoList.get(2).getTotal());
                     pay_sum_price2.setText("￥" + mPaySumPrice);
-                    order_sum_price.setText("￥" + mPaySumPrice);
+//                    order_sum_price.setText("￥" + mPaySumPrice);
                 }
                 break;
             case R.id.huabei_layout:
@@ -612,7 +618,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 if (mPayPlanInfoList != null) {
                     mPaySumPrice = Double.parseDouble(mPayPlanInfoList.get(1).getTotal());
                     pay_sum_price2.setText("￥" + mPaySumPrice);
-                    order_sum_price.setText("￥" + mPaySumPrice);
+//                    order_sum_price.setText("￥" + mPaySumPrice);
                 }
                 break;
             case R.id.zfb_layout:
@@ -622,7 +628,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 mPlan = 0;
                 mPaySumPrice = mSumPrice;
                 pay_sum_price2.setText("￥" + mPaySumPrice);
-                order_sum_price.setText("￥" + mPaySumPrice);
+//                order_sum_price.setText("￥" + mPaySumPrice);
                 break;
             case R.id.wx_layout:
                 changeCheckbox(R.id.checkbox_wx);
@@ -630,7 +636,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 mPlan = 0;
                 mPaySumPrice = mSumPrice;
                 pay_sum_price2.setText("￥" + mPaySumPrice);
-                order_sum_price.setText("￥" + mPaySumPrice);
+//                order_sum_price.setText("￥" + mPaySumPrice);
                 break;
             case R.id.jd_layout:
                 resetColor();
@@ -638,7 +644,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 mType = 3;
                 mPaySumPrice = mSumPrice;
                 pay_sum_price2.setText("￥" + mPaySumPrice);
-                order_sum_price.setText("￥" + mPaySumPrice);
+//                order_sum_price.setText("￥" + mPaySumPrice);
                 break;
             case R.id.zh_layout:
                 resetColor();
@@ -647,14 +653,14 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
                 changeCheckbox(R.id.checkbox_zh);
                 mPaySumPrice = mSumPrice;
                 pay_sum_price2.setText("￥" + mPaySumPrice);
-                order_sum_price.setText("￥" + mPaySumPrice);
+//                order_sum_price.setText("￥" + mPaySumPrice);
                 break;
             case R.id.goods_detail_detail_buy:
                 if (isLogin) {
                     if (mType == 6) {
                         PopupWindow win = mPayWindow.getPopupWindow();
                         win.setAnimationStyle(R.style.animTranslate);
-                        mPayWindow.showAtLocation(main_layout, Gravity.BOTTOM, 0, 0);
+                        mPayWindow.showAtLocation(main_layout, Gravity.CENTER, 0, -100);
                         WindowManager.LayoutParams lp = getWindow().getAttributes();
                         lp.alpha = 0.3f;
                         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);

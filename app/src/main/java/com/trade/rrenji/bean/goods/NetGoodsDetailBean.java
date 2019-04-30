@@ -1,6 +1,8 @@
 package com.trade.rrenji.bean.goods;
 
-public class NetGoodsDetailBean {
+import java.io.Serializable;
+
+public class NetGoodsDetailBean implements Serializable {
 
     /**
      * code : 0

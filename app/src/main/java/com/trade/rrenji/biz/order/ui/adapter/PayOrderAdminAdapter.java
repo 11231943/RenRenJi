@@ -67,7 +67,7 @@ public class PayOrderAdminAdapter extends RecyclerListAdapter<LocalOrderInfoBean
             super.bindData(data, position);
             GlideUtils.getInstance().loadImageUrl(mContext, data.getImg(), R.drawable.ic_launcher, order_image);
             order_name.setText(data.getGoodsName());
-            order_price.setText("￥" + data.getPayPrice());
+            order_price.setText("￥" + data.getGoodsPrice());
         }
     }
 
