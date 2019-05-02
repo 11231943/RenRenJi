@@ -18,6 +18,7 @@ import com.trade.rrenji.R;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
+import com.trade.rrenji.biz.order.ui.activity.DryingActivity;
 import com.trade.rrenji.biz.order.ui.activity.LogisticsActivity;
 import com.trade.rrenji.biz.order.ui.activity.PayConfirmOrderActivity2;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
@@ -112,7 +113,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
                 del_btn.setVisibility(View.GONE);
                 dry_btn.setText("确定收货");
                 order_states.setText("已发货");
-            }else if (data.getPayStatus().equals("4")) {
+            } else if (data.getPayStatus().equals("4")) {
                 del_btn.setVisibility(View.GONE);
                 dry_btn.setText("晒单");
                 order_states.setText("已收货");
@@ -126,7 +127,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
             dry_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(onClickConfirmOrderListener!=null){
+                    if (onClickConfirmOrderListener != null) {
                         onClickConfirmOrderListener.onClick(data.getOrderId());
                     }
                 }
@@ -162,6 +163,10 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
                 Intent intent = new Intent(mContext, LogisticsActivity.class);
                 intent.putExtra("data", (Serializable) data);
                 intent.putExtra("mType", data.getPayStatus());
+                mContext.startActivity(intent);
+            } else if (data.getPayStatus().equals("4")) {
+                Intent intent = new Intent(mContext, DryingActivity.class);
+                intent.putExtra("orderId", data.getOrderId());
                 mContext.startActivity(intent);
             }
         }

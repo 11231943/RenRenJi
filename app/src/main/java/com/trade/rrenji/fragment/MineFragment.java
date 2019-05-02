@@ -24,6 +24,7 @@ import com.trade.rrenji.biz.invite.ui.activity.UserInvitePageActivity;
 import com.trade.rrenji.biz.order.ui.activity.DryingActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderAllActivity;
+import com.trade.rrenji.biz.order.ui.activity.OrderListActivity;
 import com.trade.rrenji.biz.personal.model.PersonalModel;
 import com.trade.rrenji.biz.personal.model.PersonalModelImpl;
 import com.trade.rrenji.biz.personal.ui.activity.PersonalActivity;
@@ -239,7 +240,7 @@ public class MineFragment extends Fragment {
                     intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    intent = new Intent(getActivity(), DryingActivity.class);
+                    intent = new Intent(getActivity(), OrderListActivity.class);
                     startActivity(intent);
                 }
                 break;

@@ -93,6 +93,13 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
     private void initAd() {
         Log.d(TAG, "initAd- sql--- start" + System.currentTimeMillis());
         mPresenter.getFirstAppPicList(this);
+        show_duration_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.removeMessages(GO_TO_DURATION);
+                mHandler.sendEmptyMessage(GO_TO_MAIN);
+            }
+        });
     }
 
     @Override
