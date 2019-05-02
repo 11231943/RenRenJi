@@ -94,25 +94,22 @@ public class CategoryActivityListPresenterImpl extends BasePresenter<CategoryAct
         mModel.getClassifyDataByType(mContext, id, type, page, rows, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
-
                 try {
                     if (getActivityView() != null) {
                         getActivityView().hideLoading();
                     }
                     Gson gson = new Gson();
-
-                    if (type.equals("1")) {
-                        final NetCategoryListBean netShareBean = gson.fromJson(result, NetCategoryListBean.class);
-                        if (Integer.valueOf(netShareBean.getCode()) == 0) {
-                            if (getActivityView() != null) {
-                                getActivityView().getCategoryListSuccess(netShareBean);
-                            }
-                        } else {
-                            if (getActivityView() != null) {
-                                getActivityView().getCategoryCodeListError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg() + "");
-                            }
+                    final NetCategoryListBean netShareBean = gson.fromJson(result, NetCategoryListBean.class);
+                    if (Integer.valueOf(netShareBean.getCode()) == 0) {
+                        if (getActivityView() != null) {
+                            getActivityView().getCategoryListSuccess(netShareBean);
+                        }
+                    } else {
+                        if (getActivityView() != null) {
+                            getActivityView().getCategoryCodeListError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg() + "");
                         }
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

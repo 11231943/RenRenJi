@@ -450,11 +450,17 @@ public class RightCategoryAdapter extends RecyclerListAdapter<CategoryBean> {
                 holder.image_src.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(mContext, CategoryListActivity.class);
-                        intent.putExtra("id", bean.getId());
-                        intent.putExtra("type", "1");
-                        mContext.startActivity(intent);
-
+                        if(bean.getType()==1){
+                            Intent intent = new Intent(mContext, CategoryListActivity.class);
+                            intent.putExtra("id", bean.getId());
+                            intent.putExtra("type", String.valueOf(bean.getType()));
+                            mContext.startActivity(intent);
+                        }else{
+                            Intent intent = new Intent(mContext, CategoryClassListActivity.class);
+                            intent.putExtra("id", bean.getId());
+                            intent.putExtra("type", String.valueOf(bean.getType()));
+                            mContext.startActivity(intent);
+                        }
                     }
                 });
             }

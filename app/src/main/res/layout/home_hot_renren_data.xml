@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/main_layout"
     android:layout_height="wrap_content">
 
     <TextView
@@ -35,48 +36,12 @@
         android:textColor="#000"
         android:textSize="11sp" />
 
-    <LinearLayout
-        android:id="@+id/renren_image_layout"
+    <ImageView
+        android:id="@+id/renren_iamge"
         android:layout_width="match_parent"
-        android:weightSum="1"
-        android:layout_below="@+id/hot_iphone_desc"
         android:layout_marginTop="27dp"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/image_1"
-            android:layout_width="0dp"
-            android:layout_weight="0.65"
-            android:gravity="center"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher"
-            android:layout_height="157dp" />
-
-        <LinearLayout
-            android:layout_weight="0.35"
-            android:layout_width="0dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/image_2"
-                android:layout_width="113dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher"
-                android:layout_height="73dp" />
-            <ImageView
-                android:layout_marginTop="10dp"
-                android:id="@+id/image_3"
-                android:layout_toRightOf="@+id/image_1"
-                android:layout_width="113dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher"
-                android:layout_height="73dp" />
-        </LinearLayout>
-
-    </LinearLayout>
+        android:layout_below="@+id/hot_iphone_desc"
+        android:layout_height="157dp" />
 
     <TextView
         android:layout_marginLeft="14dp"
@@ -84,23 +49,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:layout_below="@+id/renren_image_layout"
+        android:layout_below="@+id/renren_iamge"
         android:text="深圳福田区人人之家旗舰店"
         android:textColor="#000000"
         android:textSize="13sp"
         android:textStyle="bold" />
 
     <TextView
-        android:layout_marginLeft="14dp"
         android:id="@+id/hot_renren_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
         android:layout_below="@+id/hot_renren_text"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="13dp"
         android:text="这是小米上市港交所之前公开募股时，雷军发表的公开信中所阐述的小
 米硬件产品的愿景，或者说是小米自己努力的方向。"
         android:textColor="#999999"
-        android:textSize="11sp"
-        />
+        android:textSize="11sp" />
 
 </RelativeLayout>

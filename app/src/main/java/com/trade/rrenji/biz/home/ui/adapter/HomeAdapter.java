@@ -14,11 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
+import com.trade.rrenji.biz.ad.AdActivity;
 import com.trade.rrenji.biz.data.ui.activity.DataListActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.biz.home.ui.activity.HomeCategoryActivity;
@@ -172,28 +174,34 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
 
         private TextView hot_renren_text;
         private TextView hot_renren_content;
-        private ImageView image_1;
-        private ImageView image_2;
-        private ImageView image_3;
+        private ImageView renren_iamge;
+        private RelativeLayout main_layout;
 
         public RenRenViewHolder(View itemView) {
             super(itemView);
             hot_renren_text = (TextView) itemView.findViewById(R.id.hot_renren_text);
             hot_renren_content = (TextView) itemView.findViewById(R.id.hot_renren_content);
-            image_1 = (ImageView) itemView.findViewById(R.id.image_1);
-            image_2 = (ImageView) itemView.findViewById(R.id.image_2);
-            image_3 = (ImageView) itemView.findViewById(R.id.image_3);
+            renren_iamge = (ImageView) itemView.findViewById(R.id.renren_iamge);
+            main_layout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
         }
 
         @Override
         public void bindData(HomeBean data, int position) {
             super.bindData(data, position);
-//            NetHomeBean.DataBean.EveryoneCommunityListBean beans = data.getEveryoneCommunityList().get(0);
-//            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHeadImg(), R.drawable.ic_launcher, image_1);
-//            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHeadImg().get(1), R.drawable.ic_launcher, image_2);
-//            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHeadImg().get(2), R.drawable.ic_launcher, image_3);
-//            hot_renren_text.setText(beans.getTitle());
-//            hot_renren_content.setText(beans.getContent());
+           final NetHomeBean.DataBean.EveryoneHomeBean beans = data.getEveryoneHome();
+            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHomeImg(), R.drawable.ic_launcher, renren_iamge);
+            hot_renren_text.setText(beans.getTitle());
+            hot_renren_content.setText(beans.getContent());
+            main_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!TextUtils.isEmpty(beans.getUrl())) {
+                        AdActivity.start(mContext, beans.getUrl());
+                    } else {
+                        Toast.makeText(mContext, "无效的连接", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
@@ -252,10 +260,20 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
 
             @Override
             public void onBindViewHolder(HotOptimizationTypeViewHolder holder, int position) {
-                NetHomeBean.DataBean.EveryoneCommunityListBean bean = mCategoryList.get(position);
+                final NetHomeBean.DataBean.EveryoneCommunityListBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getEveryoneCommunityImg(), R.drawable.ic_launcher, holder.hot_community_image);
                 holder.community_desc.setText(bean.getTitle());
                 holder.hot_community_text.setText(bean.getContent());
+                holder.main_layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!TextUtils.isEmpty(bean.getUrl())) {
+                            AdActivity.start(mContext, bean.getUrl());
+                        } else {
+                            Toast.makeText(mContext, "无效的连接", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         }
 
@@ -263,9 +281,11 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             private TextView community_desc;
             private TextView hot_community_text;
             private ImageView hot_community_image;
+            private RelativeLayout main_layout;
 
             public HotOptimizationTypeViewHolder(View itemView) {
                 super(itemView);
+                main_layout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
                 community_desc = (TextView) itemView.findViewById(R.id.community_desc);
                 hot_community_text = (TextView) itemView.findViewById(R.id.hot_community_text);
                 hot_community_image = (ImageView) itemView.findViewById(R.id.hot_community_image);
@@ -914,7 +934,11 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 simpleDraweeView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if (!TextUtils.isEmpty(adBean.getAdUrl())) {
+                            AdActivity.start(mContext, adBean.getAdUrl());
+                        } else {
+                            Toast.makeText(mContext, "连接地址出错！", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 container.addView(simpleDraweeView, 0);
@@ -1009,7 +1033,11 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 simpleDraweeView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if (!TextUtils.isEmpty(adBean.getAdUrl())) {
+                            AdActivity.start(mContext, adBean.getAdUrl());
+                        } else {
+                            Toast.makeText(mContext, "连接地址出错！", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 container.addView(simpleDraweeView, 0);
