@@ -14,8 +14,10 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.personal.NetMineBean;
+import com.trade.rrenji.bean.personal.NetSystemDataBean;
 import com.trade.rrenji.biz.account.ui.activity.AccountActivity;
 import com.trade.rrenji.biz.account.ui.activity.LoginActivity;
+import com.trade.rrenji.biz.ad.AdActivity;
 import com.trade.rrenji.biz.address.ui.activity.AddressAdminActivity;
 import com.trade.rrenji.biz.auth.ui.AuthActivity;
 import com.trade.rrenji.biz.collection.ui.activity.CollectionActivity;
@@ -87,6 +89,37 @@ public class MineFragment extends Fragment {
         mPersonalModel = new PersonalModelImpl(getActivity());
         init();
         getUserAdviceInfo();
+        getSystemData();
+    }
+
+    private void getSystemData(){
+        mPersonalModel.getSystemData(getActivity(), new XUtils.ResultListener() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    Gson gson = GsonUtils.getGson();
+                    NetSystemDataBean netMineBean = gson.fromJson(result, NetSystemDataBean.class);
+                    if (netMineBean.getCode().equals(Contetns.RESPONSE_OK)) {
+                        isLogin = true;
+                        NetSystemDataBean.DataBean dataBean = netMineBean.getData();
+                        SettingUtils.getInstance().setWechat(dataBean.getKefu_wechat());
+                        SettingUtils.getInstance().setJiaoLiuQun(dataBean.getRrj_jiaoliuqun());
+                        SettingUtils.getInstance().setPingTaiGuiZe(dataBean.getRrj_pingtaiguize());
+                        SettingUtils.getInstance().setQQ(dataBean.getKefu_QQ());
+                        SettingUtils.getInstance().setRenRenZhaoShang(dataBean.getRrj_zhaoshang());
+                        SettingUtils.getInstance().setSystemEmail(dataBean.getKefu_email());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
     }
 
     private void init() {
@@ -110,6 +143,7 @@ public class MineFragment extends Fragment {
     }
 
     private void getUserAdviceInfo() {
+
         mPersonalModel.getUserAdviceInfo(getActivity(), new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
@@ -143,7 +177,8 @@ public class MineFragment extends Fragment {
     }
 
     @Event(value = {R.id.user_avatar, R.id.address_layout, R.id.collection_layout, R.id.user_setting, R.id.user_info_layout, R.id.auth_layout
-            , R.id.invite_layout, R.id.coupon_layout, R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout})
+            , R.id.invite_layout, R.id.coupon_layout, R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout
+    ,R.id.user_chat,R.id.user_server,R.id.user_rule,R.id.renren_zhaoshang})
     private void onViewClicked(View view) {
         Intent intent = null;
         Log.e(TAG, "CurrentUid : " + SettingUtils.getInstance().getCurrentUid());
@@ -243,6 +278,18 @@ public class MineFragment extends Fragment {
                     intent = new Intent(getActivity(), OrderListActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.user_chat:
+                AdActivity.start(getActivity(),SettingUtils.getInstance().getJiaoLiuQun());
+                break;
+            case R.id.user_server:
+                AdActivity.start(getActivity(),SettingUtils.getInstance().getWechat());
+                break;
+            case R.id.user_rule:
+                AdActivity.start(getActivity(),SettingUtils.getInstance().getPingTaiGuiZe());
+                break;
+            case R.id.renren_zhaoshang:
+                AdActivity.start(getActivity(),SettingUtils.getInstance().getRenRenZhaoShang());
                 break;
         }
     }

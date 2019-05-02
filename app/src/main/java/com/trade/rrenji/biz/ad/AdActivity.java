@@ -30,6 +30,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.base.BaseActivity;
 
@@ -155,6 +156,7 @@ public class AdActivity extends BaseActivity {
      */
     protected void initEvent() {
         url = getIntent().getStringExtra("url");
+        Log.e("AdActivity", "url = " + url);
 
         close_view.setOnClickListener(new OnClickListener() {
             @Override

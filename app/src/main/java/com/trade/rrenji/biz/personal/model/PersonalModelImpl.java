@@ -40,4 +40,12 @@ public class PersonalModelImpl implements PersonalModel {
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
     }
+
+    @Override
+    public void getSystemData(Context mContext, XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.system.getSystemData");
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().get(url, params, resultListener);
+    }
 }

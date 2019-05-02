@@ -15,4 +15,6 @@ public interface PersonalModel extends PlusBaseService {
 
     void getUserAdviceInfo(Context mContext,ResultListener resultListener);
 
+    void getSystemData(Context mContext, ResultListener resultListener);
+
 }
