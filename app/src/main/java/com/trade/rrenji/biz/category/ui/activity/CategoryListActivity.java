@@ -93,7 +93,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
         int widthPixels = metrics.widthPixels;
 
         // create popup window
-        mWindow = new CommonPopupWindow(this, R.layout.category_item_popop_layout, (int) (widthPixels * 0.7), screenHeight + 150) {
+        mWindow = new CommonPopupWindow(this, R.layout.category_item_popop_layout, (int) (widthPixels * 0.7), screenHeight + 100) {
             @Override
             protected void initView() {
                 View view = getContentView();

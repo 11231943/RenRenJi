@@ -178,6 +178,6 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
 
     @Override
     public void getProductListByGoodsNameError(int code, String msg) {
-
+        Toast.makeText(SearchActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }
