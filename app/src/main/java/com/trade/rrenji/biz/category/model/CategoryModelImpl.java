@@ -25,7 +25,7 @@ public class CategoryModelImpl implements CategoryModel {
     }
 
     @Override
-    public void getClassifyDataByType(Context mContext, String id, String type,int page,int rows, ResultListener resultListener) {
+    public void getClassifyDataByType(Context mContext, String id, String type, int page, int rows, ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.classify.getClassifyDataByType");
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         paramBuilder.add("id", id);
@@ -46,20 +46,21 @@ public class CategoryModelImpl implements CategoryModel {
     }
 
     @Override
-    public void getAttributeProductList(Context mContext, int page, String model,  String memory, String color, String network, String condition, String version, final ResultListener resultListener) {
+    public void getAttributeProductList(Context mContext, int priceSort, int page, String model, String memory, String color, String network, String condition, String version, final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.product.getAttributeProductList");
-        ScreenBean screenBean =new ScreenBean();
+        url = url + "/" + page + "/" + priceSort;
+        ScreenBean screenBean = new ScreenBean();
         screenBean.setColor(color);
         screenBean.setCondition(condition);
         screenBean.setMemory(memory);
         screenBean.setNetwork(network);
         screenBean.setModel(model);
         screenBean.setVersion(version);
-        RequestParams requestParams = new RequestParams(url + "/" + page);
+        RequestParams requestParams = new RequestParams(url);
         requestParams.setAsJsonContent(true);
         requestParams.setBodyContent(GsonUtils.getGson().toJson(screenBean));
 
-        x.http().request(HttpMethod.GET, requestParams, new Callback.CommonCallback<String>() {
+        x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 resultListener.onResponse(result);

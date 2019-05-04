@@ -5,6 +5,7 @@ import java.util.List;
 
 public class HomeBean {
     private int type;
+    private String rrjEnsureDetailUrl;
     private List<NetHomeBean.DataBean.ThousandOptimizationBean> thousandOptimization;
     private List<NetHomeBean.DataBean.EveryoneCommunityListBean> everyoneCommunityList;
     private List<NetHomeBean.DataBean.CategoryListBean> categoryList;
@@ -14,6 +15,14 @@ public class HomeBean {
     private List<NetHomeBean.DataBean.TopBannerListBean> topBannerList;
     private List<NetHomeBean.DataBean.HotIphoneBean> hotIphone;
     private NetHomeBean.DataBean.EveryoneHomeBean everyoneHome;
+
+    public String getRrjEnsureDetailUrl() {
+        return rrjEnsureDetailUrl;
+    }
+
+    public void setRrjEnsureDetailUrl(String rrjEnsureDetailUrl) {
+        this.rrjEnsureDetailUrl = rrjEnsureDetailUrl;
+    }
 
     public NetHomeBean.DataBean.EveryoneHomeBean getEveryoneHome() {
         return everyoneHome;

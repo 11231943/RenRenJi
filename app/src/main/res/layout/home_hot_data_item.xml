@@ -32,6 +32,7 @@
         android:src="@drawable/icon_hot" />
 
     <TextView
+        android:id="@+id/hot_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/hot_data_text"

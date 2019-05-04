@@ -11,6 +11,8 @@ import com.trade.rrenji.net.XUtils.ResultListener;
 
 public interface SearchModel extends PlusBaseService {
 
-    void getCollectionList(Context mContext, int pageNum, ResultListener resultListener);
+    void getHotSearchGoodsNameList(Context mContext, ResultListener resultListener);
+
+    void getProductListByGoodsName(Context mContext, int page, int rows, int priceSort, String goodsName, ResultListener resultListener);
 
 }

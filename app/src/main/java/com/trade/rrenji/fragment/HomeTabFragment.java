@@ -273,7 +273,7 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
 
         HomeBean adBean9 = new HomeBean();
         adBean9.setType(9);
-        adBean9.setEveryoneHome(resultBean.getEveryoneHome());
+        adBean9.setRrjEnsureDetailUrl(resultBean.getRrjEnsureDetailUrl());
 
         homeBeanList.add(adBean);
         homeBeanList.add(adBean1);

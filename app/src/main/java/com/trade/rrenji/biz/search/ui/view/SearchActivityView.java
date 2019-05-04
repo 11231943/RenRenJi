@@ -1,6 +1,7 @@
 package com.trade.rrenji.biz.search.ui.view;
 
-import com.trade.rrenji.bean.address.NetAddressBean;
+import com.trade.rrenji.bean.search.NetSearchBean;
+import com.trade.rrenji.bean.search.NetSearchValueBean;
 import com.trade.rrenji.biz.base.BaseView;
 
 /**
@@ -9,7 +10,12 @@ import com.trade.rrenji.biz.base.BaseView;
 
 public interface SearchActivityView extends BaseView {
 
-    void getCollectionList(NetAddressBean netShareBean);
+    void getHotSearchGoodsNameList(NetSearchBean netShareBean);
 
-    void getCollectionListError(int code, String msg);
+    void getHotSearchGoodsNameListError(int code, String msg);
+
+    void getProductListByGoodsName(NetSearchValueBean netShareBean);
+
+    void getProductListByGoodsNameError(int code, String msg);
+
 }

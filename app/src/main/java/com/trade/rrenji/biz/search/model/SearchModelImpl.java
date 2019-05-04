@@ -21,18 +21,22 @@ public class SearchModelImpl implements SearchModel {
     }
 
     @Override
-    public void getCollectionList(Context mContext, int pageNum, XUtils.ResultListener resultListener) {
-        String url = ServiceHelper.buildUrl("api.v2.address.list");
-        long timeStamp = System.currentTimeMillis();
-        String token = "1";
-        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + pageNum + "/" + token;
+    public void getHotSearchGoodsNameList(Context mContext, XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.getHotSearchGoodsNameList");
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
-//        paramBuilder.add("sessionKey", "1");
-//        paramBuilder.add("timeStamp", System.currentTimeMillis());
-//        paramBuilder.add("pageNum", pageNum);
-//        paramBuilder.add("token", "1");
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
     }
 
+    @Override
+    public void getProductListByGoodsName(Context mContext, int page, int rows, int priceSort, String goodsName, XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.product.getProductListByGoodsName");
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        params.put("page", page + "");
+        params.put("rows", rows + "");
+        params.put("priceSort", priceSort + "");
+        params.put("goodsName", goodsName);
+        XUtils.getInstance().get(url, params, resultListener);
+    }
 }

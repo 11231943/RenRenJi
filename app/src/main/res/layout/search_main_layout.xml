@@ -2,9 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical">
 
     <RelativeLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarSize"
         android:background="@drawable/actionbar_bg">
@@ -36,6 +39,7 @@
                 android:layout_weight="0.8">
 
                 <EditText
+                    android:id="@+id/search_value"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:layout_centerVertical="true"
@@ -55,13 +59,15 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_marginRight="5dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1">
 
                 <TextView
-                    android:layout_width="48dp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_search"
+                    android:layout_width="50dp"
+                    android:layout_height="48dp"
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:text="搜索"
@@ -83,35 +89,34 @@
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_top"
         android:layout_width="match_parent"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="17dp"
-        android:minHeight="100dp"
         android:layout_marginBottom="17dp"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
 
     <TextView
+        android:id="@+id/hot_search"
         android:layout_width="wrap_content"
         android:textSize="18sp"
-        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:text="热卖推荐"
         android:layout_marginLeft="12dp"
         android:textColor="#000"
         android:layout_height="wrap_content" />
 
-    <android.support.v7.widget.RecyclerView
+    <com.gelitenight.superrecyclerview.SuperRecyclerView
+        android:id="@+id/super_recycler_view"
         android:layout_width="match_parent"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_marginTop="17dp"
         android:layout_marginBottom="17dp"
         android:layout_height="wrap_content">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.gelitenight.superrecyclerview.SuperRecyclerView>
 
 
 </LinearLayout>

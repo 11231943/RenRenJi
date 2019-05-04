@@ -158,14 +158,24 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
 
     public class AboutViewHolder extends ViewHolder {
 
+        TextView more_home;
+
         public AboutViewHolder(View itemView) {
             super(itemView);
-
+            more_home = (TextView) itemView.findViewById(R.id.more_home);
         }
 
         @Override
-        public void bindData(HomeBean data, int position) {
+        public void bindData(final HomeBean data, int position) {
             super.bindData(data, position);
+            more_home.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!TextUtils.isEmpty(data.getRrjEnsureDetailUrl())){
+                        AdActivity.start(mContext,data.getRrjEnsureDetailUrl());
+                    }
+                }
+            });
         }
     }
 
@@ -717,7 +727,8 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             public void onBindViewHolder(HotDataTypeViewHolder holder, int position) {
                 final NetHomeBean.DataBean.HotActivityInfoListBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getHotActivityImg(), R.drawable.ic_launcher, holder.mHotImg);
-                holder.mHotStr.setText(bean.getContent());
+                holder.mHotStr.setText(bean.getTitle());
+                holder.mHotContent.setText(bean.getContent());
                 holder.mHotImg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -733,11 +744,13 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
         public class HotDataTypeViewHolder extends RecyclerView.ViewHolder {
             private TextView mHotStr;
             private ImageView mHotImg;
+            private TextView mHotContent;
 
             public HotDataTypeViewHolder(View itemView) {
                 super(itemView);
                 mHotStr = (TextView) itemView.findViewById(R.id.hot_data_text);
                 mHotImg = (ImageView) itemView.findViewById(R.id.hot_data_image);
+                mHotContent = (TextView) itemView.findViewById(R.id.hot_content);
             }
         }
 

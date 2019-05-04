@@ -24,8 +24,8 @@ public class CategoryActivityListPresenterImpl extends BasePresenter<CategoryAct
     }
 
     @Override
-    public void getAttributeProductList(Context mContext, int page, String model, String memory, String color, String network, String condition, String version) {
-        mModel.getAttributeProductList(mContext, page, model, memory, color, network, condition, version, new XUtils.ResultListener() {
+    public void getAttributeProductList(Context mContext, int priceSort, int page, String model, String memory, String color, String network, String condition, String version) {
+        mModel.getAttributeProductList(mContext, priceSort, page, model, memory, color, network, condition, version, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
                 try {

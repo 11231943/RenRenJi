@@ -73,6 +73,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     private String mDefaultVersion = "";
     private int mPage = 1;
     private int mRows = 20;
+    private int mPriceSort = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +164,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     }
 
     private void lodDataScreen() {
-        mPresenter.getAttributeProductList(this, mPage, mId, "22", "", "", "2", "");
+        mPresenter.getAttributeProductList(this, mPriceSort, mPage, mId, mDefaultMemory, mDefaultColor, mDefaultNetwork, mDefaultCondition, mDefaultVersion);
     }
 
     @Override

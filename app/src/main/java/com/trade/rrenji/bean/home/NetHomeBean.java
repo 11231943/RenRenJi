@@ -52,7 +52,7 @@ public class NetHomeBean {
          * topBannerList : [{"adImg":"http://qiniu.rrenji.com/FgtZsNYFGVmZVx0VvxvDspAmelh8","adUrl":"https://www.baidu.com/"},{"adImg":"http://qiniu.rrenji.com/Fuii_16rY0uLjgLYr6JHhTDT2zsR","adUrl":"我的胡歌"},{"adImg":"http://qiniu.rrenji.com/FtWzvQ034e6nmfL181dC5YhlcrNJ","adUrl":"https://workyun.com/app/issue/project/2066657"},{"adImg":"http://qiniu.rrenji.com/FjypWl2vJrCH6VPBKeInwgsjmxAk","adUrl":""},{"adImg":"http://qiniu.rrenji.com/Fp6eTCVin4wmt-7C-mgOIV5EY6eh","adUrl":""},{"adImg":"http://qiniu.rrenji.com/FnR1wemgN6AIccQA_FvuIdRyy6o5","adUrl":""},{"adImg":"http://qiniu.rrenji.com/FvR-Xez918lvs-D4nmy9EILfxqsv","adUrl":""}]
          * hotIphone : [{"goodsId":"153","goodsCode":"1521435825157","discoverImg":"http://qiniu.rrenji.com/FsTt4G_xpjIWS-tLO4v5ZbOY7onL","goodsPrice":0.01,"originalPrice":6388,"goodsName":"iPhone8 256G 白色","subtitleList":["最新"],"conditionId":1,"version":"其他","memory":"256G","color":"白色","newLog":2},{"goodsId":"155","goodsCode":"1521436303088","discoverImg":"http://qiniu.rrenji.com/Fq-XHbi1ckENwyewRf3kTNiega5g","goodsPrice":0.01,"originalPrice":5888,"goodsName":"iPhone8 64G金色","subtitleList":["最新","最热"],"conditionId":1,"version":"其他","memory":"64G","color":"金色","newLog":3},{"goodsId":"29","goodsCode":"1510819249063","discoverImg":"http://qiniu.rrenji.com/FrX-gBL9bKJ5DJDLAkoqv09BS1SZ","goodsPrice":0.01,"originalPrice":6388,"goodsName":" iPhone 7 Plus 32G磨砂黑","subtitleList":["上新"],"conditionId":2,"version":"其他","memory":"32G","color":"黑色","newLog":2},{"goodsId":"67","goodsCode":"1516348991814","discoverImg":"http://qiniu.rrenji.com/Fg7CZUoZ0dzBjvu9wVn0aBELf6TZ","goodsPrice":0.01,"originalPrice":4888,"goodsName":" iPhone 7 32G黑色","subtitleList":["热卖"],"conditionId":2,"version":"其他","memory":"32GB","color":"黑色","newLog":3},{"goodsId":"156","goodsCode":"1521604930034","discoverImg":"http://qiniu.rrenji.com/FnH9R8VK4Tq4s6DZQVtfrl_ElYW9","goodsPrice":0.01,"originalPrice":4588,"goodsName":" iPhone 7 32G金色","subtitleList":["热卖"],"conditionId":3,"version":"其他","memory":"32GB","color":"金色","newLog":2}]
          */
-
+        private String rrjEnsureDetailUrl;
         private int systemMessageCount;
         private EveryoneHomeBean everyoneHome;
         private String state;
@@ -64,6 +64,14 @@ public class NetHomeBean {
         private List<HotActivityInfoListBean> hotActivityInfoList;
         private List<TopBannerListBean> topBannerList;
         private List<HotIphoneBean> hotIphone;
+
+        public String getRrjEnsureDetailUrl() {
+            return rrjEnsureDetailUrl;
+        }
+
+        public void setRrjEnsureDetailUrl(String rrjEnsureDetailUrl) {
+            this.rrjEnsureDetailUrl = rrjEnsureDetailUrl;
+        }
 
         public int getSystemMessageCount() {
             return systemMessageCount;

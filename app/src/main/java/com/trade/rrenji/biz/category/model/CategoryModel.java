@@ -13,7 +13,6 @@ public interface CategoryModel extends PlusBaseService {
 
     void getModelAttr(Context mContext, String id, ResultListener resultListener);
 
-    void getAttributeProductList(Context mContext, int page, String model, String memory, String color, String network, String condition, String version, ResultListener resultListener);
-
+    void getAttributeProductList(Context mContext,int priceSort, int page, String model, String memory, String color, String network, String condition, String version, ResultListener resultListener);
 
 }
