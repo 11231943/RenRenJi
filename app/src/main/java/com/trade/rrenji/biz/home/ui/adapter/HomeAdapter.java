@@ -371,7 +371,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotOptimizationTypeViewHolder holder, int position) {
                 final NetHomeBean.DataBean.ThousandOptimizationBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.goods_zw, holder.hot_data_image);
                 holder.hot_iphone_text.setText(bean.getGoodsName());
                 holder.iphone_price.setText("￥" + bean.getGoodsPrice() + "");
                 if (TextUtils.isEmpty(bean.getVersion())) {
@@ -481,7 +481,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotAndroidTypeViewHolder holder, int position) {
                 final NetHomeBean.DataBean.HotAndroidBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.goods_zw, holder.hot_data_image);
                 holder.hot_iphone_text.setText(bean.getGoodsName());
                 holder.iphone_original_price.setText("￥" + bean.getOriginalPrice());
                 holder.iphone_save_price.setText("" + (bean.getOriginalPrice() - bean.getGoodsPrice()));
@@ -608,7 +608,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotIphoneTypeViewHolder holder, int position) {
                 final NetHomeBean.DataBean.HotIphoneBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.ic_launcher, holder.hot_data_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getDiscoverImg(), R.drawable.goods_zw, holder.hot_data_image);
                 holder.hot_iphone_text.setText(bean.getGoodsName());
                 holder.iphone_original_price.setText("￥" + bean.getOriginalPrice());
                 holder.iphone_save_price.setText("" + (bean.getOriginalPrice() - bean.getGoodsPrice()));

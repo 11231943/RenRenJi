@@ -62,7 +62,7 @@ public class CategoryListAdapter extends RecyclerListAdapter<ResultListBean> {
         @Override
         public void bindData(final ResultListBean data, int position) {
             super.bindData(data, position);
-            GlideUtils.getInstance().loadImageUrl(mContext, data.getDiscoverImg(), R.drawable.ic_launcher, hot_data_image);
+            GlideUtils.getInstance().loadImageUrl(mContext, data.getDiscoverImg(), R.drawable.goods_zw, hot_data_image);
             hot_iphone_text.setText(data.getGoodsName());
             iphone_original_price.setText("￥" + data.getOriginalPrice());
             iphone_save_price.setText("" + (data.getOriginalPrice() - data.getGoodsPrice()));
