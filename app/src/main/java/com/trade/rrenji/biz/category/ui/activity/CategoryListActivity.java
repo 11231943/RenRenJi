@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -54,18 +55,22 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     public RelativeLayout price_sort_layout;
     @ViewInject(R.id.view_group)
     public LinearLayout view_group;
-
+    @ViewInject(R.id.goods_type_select_txt)
+    public TextView goods_type_select_txt;
+    @ViewInject(R.id.select_sort)
+    public ImageView select_sort;
     CategoryActivityListPresenter mPresenter = null;
     CategoryListAdapter mCategoryListAdapter;
     private CommonPopupWindow mWindow;
     private RecyclerView mPopupRecyclerView;
+
+    private TextView cancel_btn;
     PopupAdapter mPopupAdapter;
     NetScreenBean mNetShareBean;
+
     private String mId;
     private String mType;
-
     private boolean isScreen = false;
-
     private String mDefaultColor = "";
     private String mDefaultMemory = "";
     private String mDefaultNetwork = "";
@@ -74,6 +79,8 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     private int mPage = 1;
     private int mRows = 20;
     private int mPriceSort = 0;
+
+    private boolean isPopup = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,15 +105,25 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
             protected void initView() {
                 View view = getContentView();
                 mPopupRecyclerView = view.findViewById(R.id.recycler_view);
+                cancel_btn = view.findViewById(R.id.cancel_btn);
             }
 
             @Override
             protected void initEvent() {
-
                 view_group.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mWindow.getPopupWindow().dismiss();
+                    }
+                });
+                cancel_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        isPopup = false;
+                        mWindow.getPopupWindow().dismiss();
+                        isScreen = false;
+                        mPage = 1;
+                        loadData();
                     }
                 });
             }
@@ -179,7 +196,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
         mPresenter = null;
     }
 
-    @Event(value = {R.id.price_select_layout})
+    @Event(value = {R.id.price_select_layout,R.id.price_sort_layout})
     private void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.price_select_layout:
@@ -190,6 +207,23 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
                 lp.alpha = 0.3f;
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                 getWindow().setAttributes(lp);
+                break;
+            case R.id.price_sort_layout:
+                if (mPriceSort == 0) {
+                    mPriceSort = 1;
+                    select_sort.setImageResource(R.drawable.goods_type_select_sort_up);
+                } else if (mPriceSort == 1) {
+                    mPriceSort = 2;
+                    select_sort.setImageResource(R.drawable.goods_type_select_sort_down);
+                } else if (mPriceSort == 2) {
+                    mPriceSort = 0;
+                    select_sort.setImageResource(R.drawable.goods_type_select_sort);
+                }
+                if (isPopup) {
+                    lodDataScreen();
+                } else {
+                    loadData();
+                }
                 break;
         }
 
@@ -235,6 +269,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
                     } else if (data.getType() == 4) {
                         mDefaultNetwork = data.getId();
                     }
+                    isPopup = true;
                     lodDataScreen();
                 }
             });

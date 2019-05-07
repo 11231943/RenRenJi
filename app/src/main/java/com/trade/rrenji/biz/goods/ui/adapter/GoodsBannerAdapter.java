@@ -1,13 +1,16 @@
 package com.trade.rrenji.biz.goods.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.drying.NetShareBean;
 import com.trade.rrenji.bean.goods.GoodsDetailBean;
+import com.trade.rrenji.biz.photo.ShowPhotosActivity;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
 import com.trade.rrenji.utils.ViewUtils;
@@ -18,7 +21,7 @@ public class GoodsBannerAdapter extends PagerAdapter {
     private List<GoodsDetailBean.GoodsPicsBean> mCircleAdBeans;
     private int width;
     private ViewGroup mContainer;
-
+    private String[] mPhoto = null;
     private Context mContext;
 
     public GoodsBannerAdapter(Context context, ViewGroup container, List<GoodsDetailBean.GoodsPicsBean> circleAdBeans) {
@@ -26,7 +29,7 @@ public class GoodsBannerAdapter extends PagerAdapter {
         mCircleAdBeans = circleAdBeans;
         mContext = context;
         width = ViewUtils.getScreenWidth(mContext);
-
+        initPhotos(mCircleAdBeans);
         if (getCount() > 0) {
             int height = (int) (width * 0.75);
             ViewGroup.LayoutParams viewPagerParam = mContainer.getLayoutParams();
@@ -72,10 +75,20 @@ public class GoodsBannerAdapter extends PagerAdapter {
         simpleDraweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(mContext, ShowPhotosActivity.class);
+                intent.putExtra("photo", mPhoto);
+                intent.putExtra("mPostion", position);
+                mContext.startActivity(intent);
             }
         });
         container.addView(simpleDraweeView, 0);
         return simpleDraweeView;
+    }
+
+    private void initPhotos(List<GoodsDetailBean.GoodsPicsBean> maleBeans) {
+        mPhoto = new String[maleBeans.size()];
+        for (int i = 0; i < maleBeans.size(); i++) {
+            mPhoto[i] = maleBeans.get(i).getMaxPic();
+        }
     }
 }

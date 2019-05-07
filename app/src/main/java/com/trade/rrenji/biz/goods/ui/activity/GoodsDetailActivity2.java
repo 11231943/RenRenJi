@@ -43,6 +43,7 @@ import com.trade.rrenji.biz.goods.ui.adapter.GoodsBannerAdapter;
 import com.trade.rrenji.biz.goods.ui.adapter.RecyclerImageAdapter;
 import com.trade.rrenji.biz.goods.ui.view.GoodsActivityView;
 import com.trade.rrenji.biz.order.ui.activity.PreConfirmOrderActivity;
+import com.trade.rrenji.biz.photo.ShowPhotosActivity;
 import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.CollectionUtils;
@@ -101,7 +102,6 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
 
     @ViewInject(R.id.nested_scroll_view)
     public NestedScrollView mNestedScrollView;
-
 
     //收藏
     @ViewInject(R.id.goods_detail_detail_colloect)
@@ -173,7 +173,7 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
     TextView color;
     TextView memory;
     TextView model;
-
+    private String[] mPhoto = null;
     private Handler mHandler = new Handler();
 
     public static void navToMainActivity(Context context, String goodsId) {
@@ -378,6 +378,7 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
     }
 
     private void initRecycler(List<GoodsDetailBean.GoodsPicsBean> beans) {
+        initPhotos(beans);
         mRecyclerImageAdapter = new RecyclerImageAdapter(this);
         id_recyclerview.addItemDecoration(new LinearSpacingDecoration(20, 20));
         id_recyclerview.setLayoutManager(new LinearLayoutManager(this) {
@@ -388,7 +389,24 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
         });
         id_recyclerview.setAdapter(mRecyclerImageAdapter);
         mRecyclerImageAdapter.addAll(beans);
+        mRecyclerImageAdapter.setOnClickListener(new RecyclerImageAdapter.OnClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(GoodsDetailActivity2.this, ShowPhotosActivity.class);
+                intent.putExtra("photo", mPhoto);
+                intent.putExtra("mPostion", position);
+                startActivity(intent);
+            }
+        });
     }
+
+    private void initPhotos(List<GoodsDetailBean.GoodsPicsBean> maleBeans) {
+        mPhoto = new String[maleBeans.size()];
+        for (int i = 0; i < maleBeans.size(); i++) {
+            mPhoto[i] = maleBeans.get(i).getMaxPic();
+        }
+    }
+
 
     @Override
     public void getGoodsDetailError(int code, String msg) {

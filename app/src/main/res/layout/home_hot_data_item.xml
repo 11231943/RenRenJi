@@ -5,6 +5,8 @@
 
     <ImageView
         android:id="@+id/hot_data_image"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:layout_width="match_parent"
         android:layout_height="164dp"
         android:scaleType="fitXY"

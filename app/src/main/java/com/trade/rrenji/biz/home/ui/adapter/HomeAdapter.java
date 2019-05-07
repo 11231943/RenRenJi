@@ -171,8 +171,8 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             more_home.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!TextUtils.isEmpty(data.getRrjEnsureDetailUrl())){
-                        AdActivity.start(mContext,data.getRrjEnsureDetailUrl());
+                    if (!TextUtils.isEmpty(data.getRrjEnsureDetailUrl())) {
+                        AdActivity.start(mContext, data.getRrjEnsureDetailUrl());
                     }
                 }
             });
@@ -198,8 +198,8 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
         @Override
         public void bindData(HomeBean data, int position) {
             super.bindData(data, position);
-           final NetHomeBean.DataBean.EveryoneHomeBean beans = data.getEveryoneHome();
-            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHomeImg(), R.drawable.ic_launcher, renren_iamge);
+            final NetHomeBean.DataBean.EveryoneHomeBean beans = data.getEveryoneHome();
+            GlideUtils.getInstance().loadImageUrl(mContext, beans.getHomeImg(), R.drawable.huodong_zwt, renren_iamge);
             hot_renren_text.setText(beans.getTitle());
             hot_renren_content.setText(beans.getContent());
             main_layout.setOnClickListener(new View.OnClickListener() {
@@ -726,7 +726,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotDataTypeViewHolder holder, int position) {
                 final NetHomeBean.DataBean.HotActivityInfoListBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadImageUrl(mContext, bean.getHotActivityImg(), R.drawable.ic_launcher, holder.mHotImg);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getHotActivityImg(), R.drawable.huodong_zw, holder.mHotImg);
                 holder.mHotStr.setText(bean.getTitle());
                 holder.mHotContent.setText(bean.getContent());
                 holder.mHotImg.setOnClickListener(new View.OnClickListener() {
@@ -941,7 +941,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 simpleDraweeView.setLayoutParams(params);
                 simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                GlideUtils.getInstance().loadImageUrl(mContext, adBean.getAdImg(), R.drawable.ic_launcher, simpleDraweeView);
+                GlideUtils.getInstance().loadImageUrl(mContext, adBean.getAdImg(), R.drawable.shoiye_zw, simpleDraweeView);
 
 
                 simpleDraweeView.setOnClickListener(new View.OnClickListener() {
@@ -1004,7 +1004,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 if (getCount() > 0) {
                     int height = (int) (width * 0.33);
                     ViewGroup.LayoutParams viewPagerParam = mContainer.getLayoutParams();
-                    viewPagerParam.width = width;
+                    viewPagerParam.width = width - 40;
                     viewPagerParam.height = height;
                     mContainer.setLayoutParams(viewPagerParam);
                 }
@@ -1039,9 +1039,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                 ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 simpleDraweeView.setLayoutParams(params);
-                simpleDraweeView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                GlideUtils.getInstance().loadImageUrl(mContext, adBean.getAdImg(), R.drawable.ic_launcher, simpleDraweeView);
-
+                GlideUtils.getInstance().loadImageUrl(mContext, adBean.getAdImg(), R.drawable.fenlei_zw, simpleDraweeView);
 
                 simpleDraweeView.setOnClickListener(new View.OnClickListener() {
                     @Override

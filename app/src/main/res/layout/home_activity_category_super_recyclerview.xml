@@ -19,11 +19,20 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5">
 
+            <ImageView
+                android:id="@+id/select_sort"
+                android:layout_toLeftOf="@+id/goods_type_select_txt"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/goods_type_select_sort"
+                android:layout_height="wrap_content" />
+
             <TextView
+                android:id="@+id/goods_type_select_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:drawableLeft="@drawable/goods_type_select_sort"
                 android:drawablePadding="5dp"
                 android:gravity="center"
                 android:text="价格" />

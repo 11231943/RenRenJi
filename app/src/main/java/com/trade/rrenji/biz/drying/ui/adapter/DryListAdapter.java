@@ -70,7 +70,7 @@ public class DryListAdapter extends RecyclerListAdapter<NetShareBean.ResultBean.
         @Override
         public void bindData(NetShareBean.ResultBean.ShareOrdersBean data, int position) {
             super.bindData(data, position);
-            GlideUtils.getInstance().loadCircleIcon(mContext, data.getUserImg(), R.drawable.icon_round, user_avatar);
+            GlideUtils.getInstance().loadCircleIcon(mContext, data.getUserImg(), R.drawable.default_icon, user_avatar);
             user_name.setText(data.getUserName());
             device_tag.setText(data.getPhoneDesc());
             dry_address.setText(data.getLocation());
@@ -116,7 +116,7 @@ public class DryListAdapter extends RecyclerListAdapter<NetShareBean.ResultBean.
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
             final NetShareBean.ResultBean.ShareOrdersBean.SharePicturesBean maleBean = mCategoryBeans.get(position);
-            GlideUtils.getInstance().loadRFeIamge(mContext, maleBean.getMinPic(), R.drawable.ic_launcher, viewHolder.mImageView);
+            GlideUtils.getInstance().loadRFeIamge(mContext, maleBean.getMinPic(), R.drawable.dry_zw, viewHolder.mImageView);
             viewHolder.mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

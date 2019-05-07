@@ -11,12 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="128dp"
         android:src="@drawable/ic_launcher" />
 
     <TextView
         android:id="@+id/wechat_text"
         android:layout_width="273dp"
+        android:visibility="gone"
         android:layout_height="37dp"
         android:layout_below="@+id/ic_launcher"
         android:layout_centerHorizontal="true"
@@ -29,6 +30,7 @@
 
     <TextView
         android:id="@+id/huo"
+        android:visibility="gone"
         android:layout_width="273dp"
         android:layout_height="37dp"
         android:layout_below="@+id/wechat_text"
@@ -42,8 +44,8 @@
         android:id="@+id/login_phone_layout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@+id/huo"
-        android:layout_marginTop="1dp"
+        android:layout_below="@+id/ic_launcher"
+        android:layout_marginTop="55dp"
         android:paddingLeft="57dp"
         android:paddingRight="57dp">
 

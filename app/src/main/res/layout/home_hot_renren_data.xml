@@ -38,8 +38,11 @@
 
     <ImageView
         android:id="@+id/renren_iamge"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
         android:layout_marginTop="27dp"
+        android:scaleType="fitXY"
         android:layout_below="@+id/hot_iphone_desc"
         android:layout_height="157dp" />
 
@@ -62,6 +65,8 @@
         android:layout_below="@+id/hot_renren_text"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="13dp"
+        android:maxLines="4"
+        android:ellipsize="end"
         android:text="这是小米上市港交所之前公开募股时，雷军发表的公开信中所阐述的小
 米硬件产品的愿景，或者说是小米自己努力的方向。"
         android:textColor="#999999"
