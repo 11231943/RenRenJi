@@ -85,10 +85,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".biz.order.ui.activity.OrderListActivity"
+        <activity
+            android:name=".biz.order.ui.activity.OrderListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".biz.photo.ShowPhotosActivity"
@@ -127,6 +127,11 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name=".biz.community.ui.activity.CommunityListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".biz.order.ui.activity.DryingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -159,46 +164,43 @@
         <activity
             android:name=".biz.home.ui.activity.HomeCategoryActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".biz.home.ui.activity.HomeRecommendActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
 
 
         <activity
             android:name=".biz.search.ui.activity.SearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".biz.goods.ui.activity.GoodsReplyCommentActivity"
+        <activity
+            android:name=".biz.goods.ui.activity.GoodsReplyCommentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
         <!-- alipay sdk begin -->
         <activity
-            tools:replace="android:configChanges"
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            tools:replace="android:configChanges"></activity>
         <activity
-            tools:replace="android:configChanges"
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            tools:replace="android:configChanges"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.renrenji.fileprovider"
-            android:grantUriPermissions="true"
             android:exported="false"
-            >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />

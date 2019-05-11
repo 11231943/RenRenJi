@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/main_layout"
+    android:background="#fff"
     android:padding="10dp"
     android:layout_height="wrap_content">
 
@@ -23,6 +24,7 @@
         android:layout_marginLeft="3dp"
         android:layout_marginTop="3dp"
         android:layout_marginRight="13dp"
+        android:maxLines="2"
         android:text="5 年损失数十亿美元：苹果与 “骗保”团伙的攻防战"
         android:textColor="#000000"
         android:textSize="13sp" />
@@ -42,14 +44,8 @@
         android:text="苹果在过去的数年里，一直在应对国内
 专业的骗保团队。而在顶峰时期，有
 多达 60% 的iPhone 保修期内维修都…"
+        android:maxLines="4"
         android:textColor="#999999"
         android:textSize="11sp" />
-
-    <View
-        android:layout_below="@+id/hot_community_image"
-        android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_height="1dp"
-         />
 
 </RelativeLayout>

@@ -5,16 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.google.gson.reflect.TypeToken;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.category.CategoryBean;
 import com.trade.rrenji.bean.category.NetCategoryBean;
-import com.trade.rrenji.bean.tech.NetTechBean;
 import com.trade.rrenji.biz.base.BaseFragment;
 import com.trade.rrenji.biz.category.presenter.CategoryActivityPresenter;
 import com.trade.rrenji.biz.category.presenter.CategoryActivityPresenterImpl;
@@ -25,9 +22,7 @@ import com.trade.rrenji.utils.StatusBarUtils;
 import com.trade.rrenji.utils.reservoir.Reservoir;
 import com.trade.rrenji.utils.reservoir.ReservoirCallback;
 
-import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

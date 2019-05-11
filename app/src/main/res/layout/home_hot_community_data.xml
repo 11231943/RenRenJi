@@ -24,6 +24,7 @@
         android:textSize="10sp" />
 
     <TextView
+        android:id="@+id/more_txt"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_below="@+id/hot_iphone_text"

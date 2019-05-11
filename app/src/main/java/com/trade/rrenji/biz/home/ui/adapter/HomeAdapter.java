@@ -21,6 +21,7 @@ import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
 import com.trade.rrenji.biz.ad.AdActivity;
+import com.trade.rrenji.biz.community.ui.activity.CommunityListActivity;
 import com.trade.rrenji.biz.data.ui.activity.DataListActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.biz.home.ui.activity.HomeCategoryActivity;
@@ -219,10 +220,12 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
     public class CommunityViewHolder extends ViewHolder {
 
         RecyclerView mHotDataTypeView;
+        TextView mMoreTxt;
 
         public CommunityViewHolder(View itemView) {
             super(itemView);
             mHotDataTypeView = itemView.findViewById(R.id.hot_optimzation_recycler_view);
+            mMoreTxt = itemView.findViewById(R.id.more_txt);
         }
 
         @Override
@@ -234,6 +237,13 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
             mHotDataTypeView.setLayoutManager(layoutManager);
             categoryAdapter.addAll(data.getEveryoneCommunityList());
+            mMoreTxt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, CommunityListActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         private class HotCommunityAdapter extends RecyclerView.Adapter<HotOptimizationTypeViewHolder> {
@@ -272,8 +282,8 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             public void onBindViewHolder(HotOptimizationTypeViewHolder holder, int position) {
                 final NetHomeBean.DataBean.EveryoneCommunityListBean bean = mCategoryList.get(position);
                 GlideUtils.getInstance().loadImageUrl(mContext, bean.getEveryoneCommunityImg(), R.drawable.ic_launcher, holder.hot_community_image);
-                holder.community_desc.setText(bean.getTitle());
-                holder.hot_community_text.setText(bean.getContent());
+                holder.community_desc.setText(bean.getContent());
+                holder.hot_community_text.setText(bean.getTitle());
                 holder.main_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
