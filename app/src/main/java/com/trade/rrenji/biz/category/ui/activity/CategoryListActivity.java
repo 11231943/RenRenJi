@@ -1,23 +1,20 @@
 package com.trade.rrenji.biz.category.ui.activity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.category.BaseBean;
@@ -39,7 +36,6 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +59,9 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     CategoryListAdapter mCategoryListAdapter;
     private CommonPopupWindow mWindow;
     private RecyclerView mPopupRecyclerView;
-
     private TextView cancel_btn;
     PopupAdapter mPopupAdapter;
     NetScreenBean mNetShareBean;
-
     private String mId;
     private String mType;
     private boolean isScreen = false;
@@ -79,7 +73,6 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     private int mPage = 1;
     private int mRows = 20;
     private int mPriceSort = 0;
-
     private boolean isPopup = false;
 
     @Override
@@ -120,6 +113,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
                     @Override
                     public void onClick(View v) {
                         isPopup = false;
+                        mPopupAdapter.resetColor();
                         mWindow.getPopupWindow().dismiss();
                         isScreen = false;
                         mPage = 1;
@@ -177,7 +171,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     }
 
     private void loadData() {
-        mPresenter.getClassifyDataByType(this, mId, mType, mPage, mRows);
+        mPresenter.getClassifyDataByType(this, mId, mType, mPage, mRows, mPriceSort);
     }
 
     private void lodDataScreen() {
@@ -196,7 +190,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
         mPresenter = null;
     }
 
-    @Event(value = {R.id.price_select_layout,R.id.price_sort_layout})
+    @Event(value = {R.id.price_select_layout, R.id.price_sort_layout})
     private void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.price_select_layout:
@@ -271,6 +265,30 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
                     }
                     isPopup = true;
                     lodDataScreen();
+                }
+
+                @Override
+                public void onCancelClick(BaseBean data) {
+                    isScreen = true;
+                    if (data.getType() == 0) {
+                        mDefaultCondition = "";
+                    } else if (data.getType() == 1) {
+                        mDefaultMemory = "";
+                    } else if (data.getType() == 2) {
+                        mDefaultColor = "";
+                    } else if (data.getType() == 3) {
+                        mDefaultNetwork = "";
+                    } else if (data.getType() == 4) {
+                        mDefaultNetwork = "";
+                    }
+                    isPopup = true;
+                    if (TextUtils.isEmpty(mDefaultCondition) && TextUtils.isEmpty(mDefaultMemory)
+                            && TextUtils.isEmpty(mDefaultColor) && TextUtils.isEmpty(mDefaultNetwork)) {
+                        loadData();
+                    } else {
+                        lodDataScreen();
+                    }
+
                 }
             });
             mPopupRecyclerView.setAdapter(mPopupAdapter);

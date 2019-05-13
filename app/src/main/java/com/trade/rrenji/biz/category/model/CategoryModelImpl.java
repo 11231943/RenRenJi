@@ -25,13 +25,14 @@ public class CategoryModelImpl implements CategoryModel {
     }
 
     @Override
-    public void getClassifyDataByType(Context mContext, String id, String type, int page, int rows, ResultListener resultListener) {
+    public void getClassifyDataByType(Context mContext, String id, String type, int page, int rows, int priceSort, ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.classify.getClassifyDataByType");
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         paramBuilder.add("id", id);
         paramBuilder.add("type", type);
         paramBuilder.add("page", page);
         paramBuilder.add("rows", rows);
+        paramBuilder.add("priceSort", priceSort);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
     }

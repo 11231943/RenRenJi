@@ -23,6 +23,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.trade.rrenji.R;
+
 /**
  * Date: 13-1-6
  *
@@ -191,5 +193,24 @@ public class ViewUtils {
 
     public static boolean skipUpdateView(Fragment fragment) {
         return fragment.getActivity() == null || !fragment.isAdded();
+    }
+
+    /**
+     * 返回新旧标识
+     */
+    public static int getConditionId(int conditionId){
+        switch (conditionId){
+            case 0:
+                return R.drawable.new_four;
+            case 1:
+                return R.drawable.new_three;
+            case 2:
+                return R.drawable.new_two;
+            case 3:
+                return R.drawable.new_one;
+            case 4:
+                return R.drawable.new_four;
+        }
+        return R.drawable.new_four;
     }
 }

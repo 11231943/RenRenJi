@@ -90,35 +90,36 @@ public class CategoryActivityListPresenterImpl extends BasePresenter<CategoryAct
     }
 
     @Override
-    public void getClassifyDataByType(final Context mContext, final String id, final String type, int page, int rows) {
-        mModel.getClassifyDataByType(mContext, id, type, page, rows, new XUtils.ResultListener() {
-            @Override
-            public void onResponse(String result) {
-                try {
-                    if (getActivityView() != null) {
-                        getActivityView().hideLoading();
-                    }
-                    Gson gson = new Gson();
-                    final NetCategoryListBean netShareBean = gson.fromJson(result, NetCategoryListBean.class);
-                    if (Integer.valueOf(netShareBean.getCode()) == 0) {
-                        if (getActivityView() != null) {
-                            getActivityView().getCategoryListSuccess(netShareBean);
-                        }
-                    } else {
-                        if (getActivityView() != null) {
-                            getActivityView().getCategoryCodeListError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg() + "");
+    public void getClassifyDataByType(final Context mContext, final String id, final String type, int page, int rows, int priceSort) {
+        mModel.getClassifyDataByType(mContext, id, type, page, rows, priceSort,
+                new XUtils.ResultListener() {
+                    @Override
+                    public void onResponse(String result) {
+                        try {
+                            if (getActivityView() != null) {
+                                getActivityView().hideLoading();
+                            }
+                            Gson gson = new Gson();
+                            final NetCategoryListBean netShareBean = gson.fromJson(result, NetCategoryListBean.class);
+                            if (Integer.valueOf(netShareBean.getCode()) == 0) {
+                                if (getActivityView() != null) {
+                                    getActivityView().getCategoryListSuccess(netShareBean);
+                                }
+                            } else {
+                                if (getActivityView() != null) {
+                                    getActivityView().getCategoryCodeListError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg() + "");
+                                }
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(Throwable error) {
-                getActivityView().getCategoryCodeListError(-10000, "请求错误");
-            }
-        });
+                    @Override
+                    public void onError(Throwable error) {
+                        getActivityView().getCategoryCodeListError(-10000, "请求错误");
+                    }
+                });
     }
 }

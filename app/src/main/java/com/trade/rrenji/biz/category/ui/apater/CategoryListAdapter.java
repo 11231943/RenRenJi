@@ -14,6 +14,7 @@ import com.trade.rrenji.bean.category.NetCategoryListBean.DataBean.ResultListBea
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;
+import com.trade.rrenji.utils.ViewUtils;
 
 import java.util.List;
 
@@ -63,6 +64,7 @@ public class CategoryListAdapter extends RecyclerListAdapter<ResultListBean> {
         public void bindData(final ResultListBean data, int position) {
             super.bindData(data, position);
             GlideUtils.getInstance().loadImageUrl(mContext, data.getDiscoverImg(), R.drawable.goods_zw, hot_data_image);
+            GlideUtils.getInstance().loadIcon(mContext, ViewUtils.getConditionId(data.getConditionId()), R.drawable.goods_zw, hot_iphone_image);
             hot_iphone_text.setText(data.getGoodsName());
             iphone_original_price.setText("￥" + data.getOriginalPrice());
             iphone_save_price.setText("" + (data.getOriginalPrice() - data.getGoodsPrice()));
@@ -73,8 +75,8 @@ public class CategoryListAdapter extends RecyclerListAdapter<ResultListBean> {
                 iphone_net.setVisibility(View.VISIBLE);
                 iphone_net.setText(data.getVersion());
             }
-            iphone_color.setText(data.getColor());
-            phone_size.setText(data.getMemory());
+            iphone_color.setText(data.getColor().trim());
+            phone_size.setText(data.getMemory().trim());
             main_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

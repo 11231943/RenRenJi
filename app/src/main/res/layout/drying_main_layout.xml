@@ -42,12 +42,13 @@
             app:starSize="20dp" />
 
         <TextView
+            android:id="@+id/starBarTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="14dp"
-            android:text="非常好"
+            android:text="非常满意"
             android:textColor="#333333"
             android:textSize="12sp" />
 

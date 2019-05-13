@@ -33,12 +33,21 @@ public class PopupAdapter extends RecyclerListAdapter<PopupCategoryBean> {
 
     BaseDataViewHolder.CategoryDataAdapter mCategoryAdapter;
 
-    List<PopupCategoryBean> mDatas;
-
     onClickListener mOnClickListener;
 
+    private List<List<BaseBean>> mAllList = new ArrayList<List<BaseBean>>();
 
-
+    public void resetColor() {
+        if (mAllList != null) {
+            for (int i = 0; i < mAllList.size(); i++) {
+                for (int j = 0; j < mAllList.get(i).size(); j++) {
+                    mAllList.get(i).get(j).setSelected(false);
+                }
+            }
+        }
+        mCategoryAdapter.setCurrent(-1);
+        notifyDataSetChanged();
+    }
 
     public void setOnClickListener(onClickListener mOnClickListener) {
         this.mOnClickListener = mOnClickListener;
@@ -128,26 +137,31 @@ public class PopupAdapter extends RecyclerListAdapter<PopupCategoryBean> {
             mCategoryAdapter.addAll(data.getBaseBeans());
         }
 
+
         private class CategoryDataAdapter extends RecyclerView.Adapter<CategoryDataViewItemHolder> {
+
 
             Context mContext;
             List<BaseBean> mCategoryList;
 
             private int mCurrent = -1;
 
+            public void setCurrent(int mCurrent) {
+                this.mCurrent = mCurrent;
+            }
+
             public CategoryDataAdapter(Context context) {
                 mContext = context;
             }
 
             public void addAll(List<BaseBean> categoryList) {
-
                 if (mCategoryList == null) {
                     mCategoryList = new ArrayList<BaseBean>();
                 } else {
                     mCategoryList.clear();
                 }
                 mCategoryList.addAll(categoryList);
-
+                mAllList.add(mCategoryList);
                 notifyDataSetChanged();
             }
 
@@ -182,9 +196,16 @@ public class PopupAdapter extends RecyclerListAdapter<PopupCategoryBean> {
                             if (mOnClickListener != null) {
                                 mOnClickListener.onClick(bean);
                             }
+                            mCurrent = position;
+                            notifyDataSetChanged();
+                        } else {
+                            mCurrent = -1;
+                            mCategoryList.get(position).setSelected(false);
+                            if (mOnClickListener != null) {
+                                mOnClickListener.onCancelClick(bean);
+                            }
                             notifyDataSetChanged();
                         }
-                        mCurrent = position;
                     }
                 });
                 holder.item_text.setText(bean.getName().trim());
@@ -204,6 +225,8 @@ public class PopupAdapter extends RecyclerListAdapter<PopupCategoryBean> {
 
     public interface onClickListener {
         void onClick(BaseBean data);
+
+        void onCancelClick(BaseBean data);
     }
 
 

@@ -51,6 +51,10 @@ public class NetCategoryListBean {
         }
 
         public static class ResultListBean {
+
+            /**
+             *  //注释：成色：0-无数据；1-99新；2-95新；3-9新；4-85新
+             */
             /**
              * goodsId : 25
              * goodsCode : 1510818476191

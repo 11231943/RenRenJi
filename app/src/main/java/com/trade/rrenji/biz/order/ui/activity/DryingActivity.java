@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gelitenight.superrecyclerview.GridSpacingDecoration;
@@ -25,6 +26,9 @@ import com.trade.rrenji.MiGoApplication;
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.address.ui.activity.UpdateAddressActivity;
 import com.trade.rrenji.biz.base.BaseActivity;
+import com.trade.rrenji.biz.order.ui.view.StarBar;
+import com.trade.rrenji.biz.upload.model.UploadModel;
+import com.trade.rrenji.biz.upload.model.UploadModelImpl;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.GlideUtils;
 import com.trade.rrenji.utils.ViewUtils;
@@ -45,21 +49,51 @@ public class DryingActivity extends BaseActivity {
     @ViewInject(R.id.recycler_view_photo)
     public RecyclerView mPhotos;
 
+    @ViewInject(R.id.starBar)
+    public StarBar mStarBar;
+    @ViewInject(R.id.starBarTxt)
+    public TextView mStarBarTxt;
+    @ViewInject(R.id.goods_image)
+    public ImageView mGoodsImage;
+    UploadModel mUploadModel;
+
     private static int REQUEST_CODE = 10001;
     PhotoAdapter mPhotoAdapter;
     List<ImageBean> mPhotoPath = new ArrayList<ImageBean>();
     private String mOrderId;
+    private String mGoodsImg;
 
+    private List<String> mUplodPath = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarTitle("发表晒单");
-        mOrderId =getIntent().getStringExtra("orderId");
+        mOrderId = getIntent().getStringExtra("orderId");
+        mGoodsImg = getIntent().getStringExtra("goodsImg");
+        mUploadModel = new UploadModelImpl(this);
         init();
     }
 
     private void init() {
+        GlideUtils.getInstance().loadImageUrl(this, mGoodsImg, R.drawable.shoiye_zw, mGoodsImage);
+        mStarBar.setStarMark(5);
+        mStarBar.setOnStarChangeListener(new StarBar.OnStarChangeListener() {
+            @Override
+            public void onStarChange(float mark) {
+                if (mark <= 1) {
+                    mStarBarTxt.setText("非常不好");
+                } else if (mark > 1 && mark <= 2) {
+                    mStarBarTxt.setText("不好");
+                } else if (mark > 2 && mark <= 3) {
+                    mStarBarTxt.setText("一般");
+                } else if (mark > 3 && mark <= 4) {
+                    mStarBarTxt.setText("满意");
+                } else if (mark > 4 && mark <= 5) {
+                    mStarBarTxt.setText("非常满意");
+                }
+            }
+        });
         mPhotos.setLayoutManager(new GridLayoutManager(this, 3));
         mPhotos.addItemDecoration(new GridSpacingDecoration(
                 ViewUtils.dip2px(this, 12), ViewUtils.dip2px(this, 4)));
@@ -108,6 +142,13 @@ public class DryingActivity extends BaseActivity {
             mPhotoPath.addAll(resultList);
             mPhotoAdapter.clear();
             mPhotoAdapter.addAll(resultList);
+            buildPhoto(resultList);
+        }
+    }
+
+    private void buildPhoto(List<ImageBean> resultList) {
+        for (ImageBean bean : resultList) {
+            mUplodPath.add(bean.getImagePath());
         }
     }
 
@@ -121,6 +162,7 @@ public class DryingActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_dry:
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

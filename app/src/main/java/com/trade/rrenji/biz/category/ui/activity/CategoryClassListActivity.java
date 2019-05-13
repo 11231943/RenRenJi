@@ -37,6 +37,7 @@ public class CategoryClassListActivity extends BaseActivity implements CategoryA
     private String mType;
     private int mPage = 1;
     private int mRows = 20;
+    private int mPriceSort = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,7 @@ public class CategoryClassListActivity extends BaseActivity implements CategoryA
     }
 
     private void loadData() {
-        mPresenter.getClassifyDataByType(this, mId, mType, mPage, mRows);
+        mPresenter.getClassifyDataByType(this, mId, mType, mPage, mRows, mPriceSort);
     }
 
 

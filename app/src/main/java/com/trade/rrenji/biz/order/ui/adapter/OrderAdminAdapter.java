@@ -124,14 +124,14 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
                     OrderViewHolder.this.onClick(data);
                 }
             });
-            dry_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onClickConfirmOrderListener != null) {
-                        onClickConfirmOrderListener.onClick(data.getOrderId());
-                    }
-                }
-            });
+//            dry_btn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (onClickConfirmOrderListener != null) {
+//                        onClickConfirmOrderListener.onClick(data.getOrderId());
+//                    }
+//                }
+//            });
             ItemAdapter itemAdapter = new ItemAdapter(mContext);
             order_total.setText("￥" + data.getOrderSum());
             order_id.setText("订单号: " + data.getOrderId());
@@ -167,6 +167,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
             } else if (data.getPayStatus().equals("4")) {
                 Intent intent = new Intent(mContext, DryingActivity.class);
                 intent.putExtra("orderId", data.getOrderId());
+                intent.putExtra("goodsImg", data.getGoodsImg());
                 mContext.startActivity(intent);
             }
         }
