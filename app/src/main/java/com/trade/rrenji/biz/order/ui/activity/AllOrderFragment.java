@@ -11,6 +11,7 @@ import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.biz.base.BaseFragment;
+import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.biz.order.presenter.OrderActivityPresenter;
 import com.trade.rrenji.biz.order.presenter.OrderActivityPresenterImpl;
 import com.trade.rrenji.biz.order.ui.adapter.OrderAdminAdapter;
@@ -117,5 +118,15 @@ public class AllOrderFragment extends BaseFragment implements OrderActivityView 
         mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(listBeans.size()));
         mSuperRecyclerView.finishMore(!Contetns.hasMoreData(listBeans.size()));
         mOrderAdminAdapter.addAll(listBeans);
+    }
+
+    @Override
+    public void delOrderSuccess(NetBaseResultBean netBaseResultBean) {
+
+    }
+
+    @Override
+    public void delOrderError(int code, String msg) {
+
     }
 }

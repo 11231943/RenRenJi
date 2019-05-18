@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fff"
@@ -38,69 +38,71 @@
             android:visibility="gone" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/address_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/main_layout"
         android:layout_marginLeft="12dp"
         android:layout_toRightOf="@+id/left_layout"
-        android:textColor="#2E2E2E"
-        android:textSize="14sp"
-        tools:text="章程" />
-
-    <TextView
-        android:id="@+id/address_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/address_name"
-        android:textColor="#2E2E2E"
-        android:textSize="14sp"
-        tools:text="185****1492" />
-
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/address_name"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="5.5dp"
-        android:layout_marginBottom="8dp"
-        android:layout_toRightOf="@+id/left_layout"
-        android:ellipsize="end"
-        android:gravity="center_vertical|left"
-        android:lineSpacingExtra="5dp"
-        android:lines="2"
-        android:textColor="#7D7D7D"
         android:layout_toLeftOf="@+id/line"
-        android:textSize="12sp"
-        tools:text="收货地址：北京 北京市 朝阳区 乐澜宝邸1号楼2单元8号 70楼：北京 北京市 朝阳区 乐澜宝邸1号楼2单元8号 70" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/address_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#2E2E2E"
+            android:textSize="14sp"
+            tools:text="章程" />
+
+        <TextView
+            android:id="@+id/address_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/address_name"
+            android:textColor="#2E2E2E"
+            android:textSize="14sp"
+            tools:text="185****1492" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address_name"
+            android:layout_marginTop="5.5dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical|left"
+            android:lineSpacingExtra="5dp"
+            android:lines="2"
+            android:textColor="#7D7D7D"
+            android:textSize="12sp"
+            tools:text="收货地址：北京 北京市 朝阳区 乐澜宝邸1号楼2单元8号 70楼：北京 北京市 朝阳区 乐澜宝邸1号楼2单元8号 70" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/edit"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="2dp"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:gravity="center"
+        android:layout_height="50dp"
         android:text="编辑"
         android:textColor="#999"
         android:textSize="12sp" />
-
     <View
         android:id="@+id/line"
         android:layout_toLeftOf="@+id/edit"
         android:layout_width="0.5dp"
         android:layout_height="23dp"
-        android:layout_marginRight="11dp"
         android:layout_centerVertical="true"
         android:background="#eeeeee"
-      />
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line"
+        android:layout_below="@+id/main_layout"
         android:orientation="horizontal"
         android:visibility="gone">
 

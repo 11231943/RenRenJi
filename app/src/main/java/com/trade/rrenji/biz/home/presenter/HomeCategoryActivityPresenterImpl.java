@@ -22,8 +22,8 @@ public class HomeCategoryActivityPresenterImpl extends BasePresenter<HomeCategor
     }
 
     @Override
-    public void getCategoryDetailById(Context mContext, String categoryId, int pageNum, int rows) {
-        mModel.getCategoryDetailById(mContext, categoryId, pageNum, rows, new XUtils.ResultListener() {
+    public void getCategoryDetailById(Context mContext, String categoryId, int pageNum, int rows, int priceSort) {
+        mModel.getCategoryDetailById(mContext, categoryId, pageNum, rows, priceSort, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
                 try {

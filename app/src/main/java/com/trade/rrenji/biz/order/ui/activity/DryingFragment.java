@@ -151,5 +151,13 @@ public class DryingFragment extends BaseFragment implements OrderActivityView, C
     public void getConfirmOrderError(int code, String msg) {
 
     }
+    @Override
+    public void delOrderSuccess(NetBaseResultBean netBaseResultBean) {
 
+    }
+
+    @Override
+    public void delOrderError(int code, String msg) {
+
+    }
 }

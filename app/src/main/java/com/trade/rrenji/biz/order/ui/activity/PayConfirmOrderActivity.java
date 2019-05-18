@@ -548,6 +548,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         localOrderInfoBean.setGoodsName(data.getTitle());
         localOrderInfoBean.setImg(data.getGoodsCoverImg());
         localOrderInfoBean.setPayPrice(data.getPrice());
+        localOrderInfoBean.setGoodsPrice(data.getPrice());
         mList.add(localOrderInfoBean);
         for (NetAccessoryListBean.DataBean.ResultListBean bean : mListBeans) {
             LocalOrderInfoBean orderInfoBean = new LocalOrderInfoBean();
@@ -555,6 +556,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
             orderInfoBean.setGoodsName(bean.getAccessoryName());
             orderInfoBean.setImg(bean.getUrl());
             orderInfoBean.setPayPrice(Double.valueOf(bean.getPrice()));
+            orderInfoBean.setGoodsPrice(Double.valueOf(bean.getPrice()));
             mList.add(orderInfoBean);
         }
         return mList;

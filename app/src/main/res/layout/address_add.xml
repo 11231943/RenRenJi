@@ -92,7 +92,7 @@
                     android:layout_toLeftOf="@+id/address_phone_icon_go"
                     android:background="@null"
                     android:gravity="center_vertical|right"
-                    android:hint="17603009825"
+                    android:hint="收件人电话"
                     android:inputType="phone"
                     android:paddingLeft="11dp"
                     android:paddingRight="11dp"

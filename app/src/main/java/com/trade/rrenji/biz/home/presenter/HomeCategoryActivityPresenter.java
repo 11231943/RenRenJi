@@ -10,6 +10,6 @@ import com.trade.rrenji.biz.home.ui.view.HomeCategoryActivityView;
  */
 public interface HomeCategoryActivityPresenter extends Presenter<HomeCategoryActivityView> {
 
-    void getCategoryDetailById(Context mContext, String categoryId, int pageNum, int rows);
+    void getCategoryDetailById(Context mContext, String categoryId, int pageNum, int rows, int priceSort);
 
 }

@@ -241,12 +241,13 @@ public class HomeModelImpl implements HomeModel {
     }
 
     @Override
-    public void getCategoryDetailById(Context mContext, String categoryId, int page, int rows, XUtils.ResultListener resultListener) {
+    public void getCategoryDetailById(Context mContext, String categoryId, int page, int rows,int priceSort, XUtils.ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.home.getCategoryDetailById");
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
         paramBuilder.add("categoryId", categoryId);
         paramBuilder.add("rows", rows);
         paramBuilder.add("page", page);
+        paramBuilder.add("priceSort", priceSort);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
     }

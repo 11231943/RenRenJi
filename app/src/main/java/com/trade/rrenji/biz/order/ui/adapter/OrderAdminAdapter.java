@@ -44,6 +44,12 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
 
     private OnClickConfirmOrderListener onClickConfirmOrderListener;
 
+    private onClickDelListener onClickDelListener;
+
+    public void setOnClickDelListener(OrderAdminAdapter.onClickDelListener onClickDelListener) {
+        this.onClickDelListener = onClickDelListener;
+    }
+
     public void setOnClickConfirmOrderListener(OnClickConfirmOrderListener onClickConfirmOrderListener) {
         this.onClickConfirmOrderListener = onClickConfirmOrderListener;
     }
@@ -118,6 +124,14 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
                 dry_btn.setText("晒单");
                 order_states.setText("已收货");
             }
+            del_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickDelListener != null) {
+                        onClickDelListener.onClick(data);
+                    }
+                }
+            });
             main_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -274,6 +288,10 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
     }
 
     public interface onClickListener {
+        void onClick(ResultListBean data);
+    }
+
+    public interface onClickDelListener {
         void onClick(ResultListBean data);
     }
 

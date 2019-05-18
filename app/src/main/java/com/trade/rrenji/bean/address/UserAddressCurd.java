@@ -11,6 +11,15 @@ public class UserAddressCurd implements Serializable {
     public String city;
     public String district;
     public String location;
+    public int isDefault;
+
+    public int getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(int isDefault) {
+        this.isDefault = isDefault;
+    }
 
     public String getAddressId() {
         return addressId;

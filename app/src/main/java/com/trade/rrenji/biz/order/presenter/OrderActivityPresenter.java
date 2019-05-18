@@ -18,4 +18,6 @@ public interface OrderActivityPresenter extends Presenter<OrderActivityView> {
      */
     void getOrderList(Context mContext, int pageNum, String status);
 
+    void delOrder(Context mContext, String orderId);
+
 }

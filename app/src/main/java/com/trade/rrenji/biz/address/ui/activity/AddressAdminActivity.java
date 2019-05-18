@@ -22,10 +22,15 @@ import com.trade.rrenji.biz.address.ui.view.DelAddressActivityView;
 import com.trade.rrenji.biz.base.BaseActivity;
 
 import com.trade.rrenji.biz.base.NetBaseResultBean;
+import com.trade.rrenji.event.address.GoAddressActivityEvent;
+import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.Contetns;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
@@ -48,6 +53,7 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         init();
         mType = getIntent().getIntExtra("type", -1);
     }
@@ -58,11 +64,17 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
         return true;
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GoAddressActivityEvent event) {
+        mSuperRecyclerView.startRefreshing(true);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_address_btn:
                 Intent intent = new Intent(this, UpdateAddressActivity.class);
+                intent.putExtra("type", 0);
                 startActivity(intent);
                 return true;
             default:
@@ -84,7 +96,15 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
                 }
             }
         });
-
+        mAddressAdminAdapter.setOnClickUpdateListener(new AddressAdminAdapter.OnClickUpdateListener() {
+            @Override
+            public void onClick(NetAddressBean.ResultBean.AddressListBean data, int type) {
+                Intent intent = new Intent(AddressAdminActivity.this, UpdateAddressActivity.class);
+                intent.putExtra("type", 1);
+                intent.putExtra("address", data);
+                startActivity(intent);
+            }
+        });
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(5, 5));
         mSuperRecyclerView.setAdapter(mAddressAdminAdapter);
         mSuperRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -143,6 +163,7 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

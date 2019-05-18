@@ -42,6 +42,7 @@ public class HomeCategoryActivity extends BaseActivity implements HomeCategoryAc
 
     private String mCategoryId;
     private int mPageIndex = 1;
+    private int priceSort = 0;//排序
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class HomeCategoryActivity extends BaseActivity implements HomeCategoryAc
     }
 
     private void loadData() {
-        mPresenter.getCategoryDetailById(this, mCategoryId, mPageIndex, 20);
+        mPresenter.getCategoryDetailById(this, mCategoryId, mPageIndex, 20, priceSort);
     }
 
 

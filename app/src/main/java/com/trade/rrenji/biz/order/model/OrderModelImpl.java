@@ -59,6 +59,37 @@ public class OrderModelImpl implements OrderModel {
     }
 
     @Override
+    public void delOrder(Context mContext, String orderId, final ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.order.delete");
+        long timeStamp = System.currentTimeMillis();
+        String token = "1";
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + orderId + "/" + token;
+        RequestParams requestParams = new RequestParams(url);
+        x.http().request(HttpMethod.DELETE, requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                resultListener.onResponse(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                resultListener.onError(ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+    }
+
+    @Override
     public void confirmOrder(Context mContext, int type, String goodsId, final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.newOrder.confirmOrder");
         url = url + SettingUtils.getInstance().getSessionkeyString();

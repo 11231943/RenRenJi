@@ -23,4 +23,6 @@ public interface OrderModel extends PlusBaseService {
 
     void confirmOrder(Context mContext, int type, String goodsId, ResultListener resultListener);
 
+    void delOrder(Context mContext, String orderId, ResultListener resultListener);
+
 }

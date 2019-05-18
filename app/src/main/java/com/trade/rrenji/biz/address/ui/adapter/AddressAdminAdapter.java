@@ -39,6 +39,12 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
 
     private onClickListener onClickListener;
 
+    private OnClickUpdateListener onClickUpdateListener;
+
+    public void setOnClickUpdateListener(OnClickUpdateListener onClickUpdateListener) {
+        this.onClickUpdateListener = onClickUpdateListener;
+    }
+
     public void setOnClickListener(AddressAdminAdapter.onClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
@@ -74,6 +80,7 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
 
         TextView icon_name;
         ImageView check_del;
+        TextView edit;
 
         LinearLayout address_edit_layout;
         LinearLayout address_del_layout;
@@ -86,7 +93,7 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
         public AddressViewHolder(View itemView) {
             super(itemView);
             main_layout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
-            address_edit_layout = (LinearLayout) itemView.findViewById(R.id.address_edit_layout);
+            edit = (TextView) itemView.findViewById(R.id.edit);
             address_del_layout = (LinearLayout) itemView.findViewById(R.id.address_del_layout);
             address_name = (TextView) itemView.findViewById(R.id.address_name);
             check_del = (ImageView) itemView.findViewById(R.id.check_del);
@@ -103,6 +110,14 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
             super.bindData(data, position);
             address_name.setText(data.getConsigneeName());
             address_phone.setText(data.getConsigneeTel());
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onClickUpdateListener != null) {
+                        onClickUpdateListener.onClick(data, 1);
+                    }
+                }
+            });
             main_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -143,15 +158,15 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
                     setAddressTip(data.getAddressId(), mContext.getResources().getString(R.string.del_address_info), ACTION_DEL, -1);
                 }
             });
-            address_edit_layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Intent intent = new Intent(mContext, UpdateAddressActivity.class);
-//                    intent.putExtra("type", UpdateAddressActivity.TYPE_UPDATE);
-//                    intent.putExtra("address", data);
-//                    mContext.startActivity(intent);
-                }
-            });
+//            address_edit_layout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+////                    Intent intent = new Intent(mContext, UpdateAddressActivity.class);
+////                    intent.putExtra("type", UpdateAddressActivity.TYPE_UPDATE);
+////                    intent.putExtra("address", data);
+////                    mContext.startActivity(intent);
+//                }
+//            });
         }
     }
 
@@ -187,6 +202,10 @@ public class AddressAdminAdapter extends RecyclerListAdapter<NetAddressBean.Resu
 
     public interface OnClickSetDefaultListener {
         void onClick(String addressId, int type);
+    }
+
+    public interface OnClickUpdateListener {
+        void onClick(AddressListBean data, int type);
     }
 
     public interface OnClickDelListener {

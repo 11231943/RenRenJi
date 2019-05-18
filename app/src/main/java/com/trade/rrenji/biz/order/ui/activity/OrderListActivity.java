@@ -9,6 +9,7 @@ import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.biz.base.BaseActivity;
+import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.biz.order.presenter.OrderActivityPresenter;
 import com.trade.rrenji.biz.order.presenter.OrderActivityPresenterImpl;
 import com.trade.rrenji.biz.order.ui.adapter.OrderAdminAdapter;
@@ -32,6 +33,7 @@ public class OrderListActivity extends BaseActivity implements OrderActivityView
     OrderAdminAdapter mOrderAdminAdapter = null;
 
     private int mIndexPage = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +42,7 @@ public class OrderListActivity extends BaseActivity implements OrderActivityView
 
     private void init() {
         setActionBarTitle("晒单");
-        mSuperRecyclerView.setRecyclerPadding(0,20,0,0);
+        mSuperRecyclerView.setRecyclerPadding(0, 20, 0, 0);
         mOrderAdminAdapter = new OrderAdminAdapter(this);
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(25, 5));
         mSuperRecyclerView.setAdapter(mOrderAdminAdapter);
@@ -115,5 +117,15 @@ public class OrderListActivity extends BaseActivity implements OrderActivityView
         mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(listBeans.size()));
         mSuperRecyclerView.finishMore(!Contetns.hasMoreData(listBeans.size()));
         mOrderAdminAdapter.addAll(listBeans);
+    }
+
+    @Override
+    public void delOrderSuccess(NetBaseResultBean netBaseResultBean) {
+
+    }
+
+    @Override
+    public void delOrderError(int code, String msg) {
+
     }
 }

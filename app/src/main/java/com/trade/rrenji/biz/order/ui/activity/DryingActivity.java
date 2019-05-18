@@ -24,7 +24,6 @@ import com.moonster.imagepicker.data.ImagePickType;
 import com.moonster.imagepicker.utils.GlideImagePickerDisplayer;
 import com.trade.rrenji.MiGoApplication;
 import com.trade.rrenji.R;
-import com.trade.rrenji.biz.address.ui.activity.UpdateAddressActivity;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.order.ui.view.StarBar;
 import com.trade.rrenji.biz.upload.model.UploadModel;

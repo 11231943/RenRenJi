@@ -42,7 +42,7 @@ public class AddressModelImpl implements AddressModel {
         long timeStamp = System.currentTimeMillis();
         url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
-        paramBuilder.add("addressId",addressId);
+        paramBuilder.add("addressId", addressId);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().post(url, params, resultListener);
     }
@@ -53,19 +53,19 @@ public class AddressModelImpl implements AddressModel {
         long timeStamp = System.currentTimeMillis();
         url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
-        paramBuilder.add("addressId",addressId);
+        paramBuilder.add("addressId", addressId);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().post(url, params, resultListener);
     }
 
     @Override
-    public void delAddress(Context mContext, String addressId,final ResultListener resultListener) {
+    public void delAddress(Context mContext, String addressId, final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.address.del");
         long timeStamp = System.currentTimeMillis();
         String token = "1";
-        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp+ "/" + addressId + "/" + token;
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + addressId + "/" + token;
         RequestParams requestParams = new RequestParams(url);
-        x.http().request(HttpMethod.DELETE,requestParams, new Callback.CommonCallback<String>() {
+        x.http().request(HttpMethod.DELETE, requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 resultListener.onResponse(result);
@@ -89,51 +89,62 @@ public class AddressModelImpl implements AddressModel {
     }
 
     @Override
-    public void updateAddress(Context mContext, int type, UserAddressCurd addressCurd,final ResultListener resultListener) {
+    public void updateAddress(Context mContext, int type, UserAddressCurd addressCurd, final ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.address.operate");
 
         long timeStamp = System.currentTimeMillis();
         String token = "1";
         url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + token;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
-//        paramBuilder.add("addressId", addressCurd.getAddressId())
-//                .add("city", addressCurd.getCity())
-//                .add("consigneeName", addressCurd.getConsigneeName())
-//                .add("district", addressCurd.getDistrict())
-//                .add("location", addressCurd.getLocation())
-//                .add("province", addressCurd.getProvince())
-//                .add("consigneeTel", addressCurd.getConsigneeTel());
-            Map<String, String> params = paramBuilder.build();
-//        if (type == 0) {
-//            XUtils.getInstance().put(url, params, resultListener);
-//        } else if (type == 1) {
-//            XUtils.getInstance().post(url, params, resultListener);
-//        }
         RequestParams requestParams = new RequestParams(url);
         requestParams.setAsJsonContent(true);
         requestParams.setBodyContent(GsonUtils.getGson().toJson(addressCurd));
-//        requestParams.setBodyEntity(new StringEntity(gson.toJson(要转成json的对象),"UTF-8"));
-//        requestParams.setContentType("application/json");
-        x.http().request(HttpMethod.PUT, requestParams, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                resultListener.onResponse(result);
-            }
+        if (type == 0) {
+            x.http().request(HttpMethod.PUT, requestParams, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    resultListener.onResponse(result);
+                }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                resultListener.onError(ex);
-            }
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    resultListener.onError(ex);
+                }
 
-            @Override
-            public void onCancelled(CancelledException cex) {
+                @Override
+                public void onCancelled(CancelledException cex) {
 
-            }
+                }
 
-            @Override
-            public void onFinished() {
+                @Override
+                public void onFinished() {
 
-            }
-        });
+                }
+            });
+
+        } else if (type == 1) {
+            x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    resultListener.onResponse(result);
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    resultListener.onError(ex);
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+
+        }
     }
 }

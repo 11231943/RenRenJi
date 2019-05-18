@@ -10,4 +10,6 @@ public interface UpdateAddressActivityPresenter extends Presenter<UpdateActivity
 
     void updateAddress(Context mContext, int type, UserAddressCurd addressCurd);
 
+    void delAddressList(Context mContext, String addressId);
+
 }
