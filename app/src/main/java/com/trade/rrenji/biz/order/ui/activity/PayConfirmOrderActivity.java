@@ -51,6 +51,7 @@ import com.trade.rrenji.biz.order.ui.adapter.PayOrderAdminAdapter;
 import com.trade.rrenji.biz.order.ui.view.GetUserCreateOrderInfoView;
 import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.utils.Contetns;
+import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.ViewUtils;
 import com.trade.rrenji.view.CommonPopupWindow;
 
@@ -188,7 +189,6 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     String mAppId = "JDJR110932122001";
     String mMerchant = "110932122002";
 
-    private boolean isLogin = false;
     private int mRequestLoginCode = 10000;//登陆
     private int mRequestCouponCode = 10001;//优惠券
     private int mRequestAddressCode = 10002;//优惠券
@@ -568,7 +568,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     private void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.address_layout:
-                if (isLogin) {
+                if (!TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
                     Intent intent = new Intent(PayConfirmOrderActivity.this, AddressAdminActivity.class);
                     intent.putExtra("type", 1);
                     startActivityForResult(intent, mRequestAddressCode);
@@ -658,7 +658,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
 //                order_sum_price.setText("￥" + mPaySumPrice);
                 break;
             case R.id.goods_detail_detail_buy:
-                if (isLogin) {
+                if (!TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
                     if (mType == 6) {
                         PopupWindow win = mPayWindow.getPopupWindow();
                         win.setAnimationStyle(R.style.animTranslate);
@@ -813,7 +813,6 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     public void getUserCreateOrderInfoByUserIdSuccess(NetGetUserCreateOrderBean netGetUserCreateOrderBean) {
         if (netGetUserCreateOrderBean.getCode().equals(Contetns.RESPONSE_OK)) {
             hit_text.setVisibility(View.GONE);
-            isLogin = true;
             NetGetUserCreateOrderBean.DataBean.AddressBean addressBean = netGetUserCreateOrderBean.getData().getAddress();
             address_name.setText(addressBean.getConsigneeName());
             address_phone.setText(addressBean.getConsigneeTel());
@@ -835,7 +834,6 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
             coupon_txt.setText("暂无优惠券");
             coupon_txt.setTextColor(Color.parseColor("#000000"));
             hit_text.setVisibility(View.VISIBLE);
-            isLogin = false;
         }
     }
 

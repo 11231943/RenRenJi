@@ -203,8 +203,17 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
             mPathStr = SettingUtils.getInstance().getUserImg();
         }
         String mUserName = user_name.getText().toString().trim();
+
+        if (null == mUserName || "".equals(mUserName)) {
+            Toast.makeText(this, "请填写昵称!", Toast.LENGTH_SHORT).show();
+            return ;
+        }
         String sex = text_sex.getText().toString().trim();
         String mAddress = text_address.getText().toString().trim();
+        if (null == mAddress || "".equals(mAddress)) {
+            Toast.makeText(this, "请填写地址!", Toast.LENGTH_SHORT).show();
+            return ;
+        }
         mPresenter.updateUserInfo(this, mPathStr, mUserName, mSex, mAddress);
     }
 

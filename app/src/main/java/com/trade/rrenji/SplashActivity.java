@@ -125,12 +125,12 @@ public class SplashActivity extends BaseActivity implements SplashActivityView {
     @Override
     public void getFirstAppPicList(NetSplashBean netShareBean) {
         if (netShareBean.getCode().equals(Contetns.RESPONSE_OK)) {
-            String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555669148424&di=9356ed54dd38d19912eb9047619a007e&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201510%2F09%2F20151009204016_ayXwU.thumb.700_0.png";
+//            String url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555669148424&di=9356ed54dd38d19912eb9047619a007e&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201510%2F09%2F20151009204016_ayXwU.thumb.700_0.png";
             logo.setVisibility(View.GONE);
             splash_ad_image.setVisibility(View.VISIBLE);
             show_duration_layout.setVisibility(View.VISIBLE);
             mCountDown = Integer.valueOf(netShareBean.getData().getCountDown());
-            GlideUtils.getInstance().loadImageUrl(this, url, 0, splash_ad_image);
+            GlideUtils.getInstance().loadImageUrl(this, netShareBean.getData().getImgUrl(), 0, splash_ad_image);
             mHandler.sendEmptyMessage(GO_TO_DURATION);
         } else {
             splash_ad_image.setVisibility(View.GONE);

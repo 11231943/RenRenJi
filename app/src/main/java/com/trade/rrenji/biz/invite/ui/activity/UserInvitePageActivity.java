@@ -1,7 +1,12 @@
 package com.trade.rrenji.biz.invite.ui.activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.invite.NetInviteBean;
@@ -24,11 +29,38 @@ public class UserInvitePageActivity extends BaseActivity implements InviteActivi
     @ViewInject(R.id.invite_code)
     public TextView invite_code;
 
+    private ClipboardManager mClipboard = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setActionBarTitle("邀请好友");
+        invite_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                copyFromEditText1();
+            }
+        });
     }
+
+    private void copyFromEditText1() {
+
+        // Gets a handle to the clipboard service.
+        if (null == mClipboard) {
+            mClipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+        }
+
+        // Creates a new text clip to put on the clipboard
+        ClipData clip = ClipData.newPlainText("simple text",
+                invite_code.getText());
+
+        // Set the clipboard's primary clip.
+        mClipboard.setPrimaryClip(clip);
+        Toast.makeText(this, "复制成功！", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void init() {
         mPresenter.getInviteCode(this);

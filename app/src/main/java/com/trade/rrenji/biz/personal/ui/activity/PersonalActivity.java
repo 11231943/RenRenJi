@@ -24,6 +24,8 @@ import com.trade.rrenji.biz.sale.ui.adapter.SaleAdapter;
 import com.trade.rrenji.biz.sale.ui.view.SaleActivityView;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.Contetns;
+import com.trade.rrenji.utils.GlideUtils;
+import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.StatusBarUtils;
 
 import org.xutils.view.annotation.ContentView;
@@ -47,6 +49,9 @@ public class PersonalActivity extends BaseActivity implements PersonalActivityVi
 
     @ViewInject(R.id.back_icon)
     public ImageView back_icon;
+
+    @ViewInject(R.id.user_avatar)
+    public ImageView user_avatar;
 
 
     PersonalActivityPresenter mPresenter;
@@ -83,7 +88,9 @@ public class PersonalActivity extends BaseActivity implements PersonalActivityVi
 //        if(mType==1){
 //            mPresenter.getUserPersonalInfo(this, "270", mIndexPage, 20);
 //        }
-        mPresenter.getUserPersonalInfo(this, "270", mIndexPage, 20);
+        GlideUtils.getInstance().loadCircleIcon(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
+
+        mPresenter.getUserPersonalInfo(this, mId, mIndexPage, 20);
     }
 
     @Override
