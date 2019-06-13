@@ -1,1 +1,1 @@
-include ':app',':SuperRecyclerView', ':imagepicker'
+include ':app',':SuperRecyclerView', ':imagepicker', ':cropper'
