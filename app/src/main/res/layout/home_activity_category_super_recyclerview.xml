@@ -37,7 +37,28 @@
                 android:gravity="center"
                 android:text="价格" />
         </RelativeLayout>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:background="#dfdfdf" />
 
+        <RelativeLayout
+            android:id="@+id/model_select_layout"
+            android:layout_width="0dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/icon_model1"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="机型" />
+        </RelativeLayout>
         <View
             android:layout_width="0.5dp"
             android:layout_height="20dp"

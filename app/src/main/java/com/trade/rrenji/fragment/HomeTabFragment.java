@@ -1,6 +1,9 @@
 package com.trade.rrenji.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -51,6 +54,9 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
     @ViewInject(R.id.search_layout)
     public RelativeLayout search_layout;
 
+    @ViewInject(R.id.more)
+    public RelativeLayout more;
+
     HomeAdapter mHomeAdapter;
 
     private int mIndexPage = 1;
@@ -62,6 +68,7 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
         Log.e(TAG, "initView");
         mSuperRecyclerView = rootView.findViewById(R.id.near_recycler_view);
         search_layout = rootView.findViewById(R.id.search_layout);
+        more = rootView.findViewById(R.id.more);
         init();
     }
 
@@ -134,6 +141,30 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
 
     }
 
+    private void showNormalDialog() {
+
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(getActivity());
+        normalDialog.setTitle("提醒");
+        normalDialog.setMessage("该功能增在完善中...?");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        normalDialog.show();
+    }
+
     private void init() {
         search_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +172,12 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 getActivity().startActivity(intent);
 
+            }
+        });
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNormalDialog();
             }
         });
         mSuperRecyclerView.addItemDecoration(new LinearSpacingDecoration(10, 0));

@@ -26,6 +26,7 @@ import com.trade.rrenji.biz.data.ui.activity.DataListActivity;
 import com.trade.rrenji.biz.goods.ui.activity.GoodsDetailActivity2;
 import com.trade.rrenji.biz.home.ui.activity.HomeCategoryActivity;
 import com.trade.rrenji.biz.home.ui.activity.HomeRecommendActivity;
+import com.trade.rrenji.biz.renren.ui.activity.RenRenListActivity;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.GlideUtils;
@@ -184,6 +185,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
     public class RenRenViewHolder extends ViewHolder {
 
         private TextView hot_renren_text;
+        private TextView more_txt;
         private TextView hot_renren_content;
         private ImageView renren_iamge;
         private RelativeLayout main_layout;
@@ -191,6 +193,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
         public RenRenViewHolder(View itemView) {
             super(itemView);
             hot_renren_text = (TextView) itemView.findViewById(R.id.hot_renren_text);
+            more_txt = (TextView) itemView.findViewById(R.id.more_txt);
             hot_renren_content = (TextView) itemView.findViewById(R.id.hot_renren_content);
             renren_iamge = (ImageView) itemView.findViewById(R.id.renren_iamge);
             main_layout = (RelativeLayout) itemView.findViewById(R.id.main_layout);
@@ -211,6 +214,13 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
                     } else {
                         Toast.makeText(mContext, "无效的连接", Toast.LENGTH_SHORT).show();
                     }
+                }
+            });
+            more_txt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, RenRenListActivity.class);
+                    mContext.startActivity(intent);
                 }
             });
         }
@@ -281,7 +291,7 @@ public class HomeAdapter extends RecyclerListAdapter<HomeBean> {
             @Override
             public void onBindViewHolder(HotOptimizationTypeViewHolder holder, int position) {
                 final NetHomeBean.DataBean.EveryoneCommunityListBean bean = mCategoryList.get(position);
-                GlideUtils.getInstance().loadImageUrl(mContext, bean.getEveryoneCommunityImg(), R.drawable.ic_launcher, holder.hot_community_image);
+                GlideUtils.getInstance().loadImageUrl(mContext, bean.getEveryoneCommunityImg(), R.drawable.goods_zw, holder.hot_community_image);
                 holder.community_desc.setText(bean.getContent());
                 holder.hot_community_text.setText(bean.getTitle());
                 holder.main_layout.setOnClickListener(new View.OnClickListener() {

@@ -161,13 +161,13 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
             mSearchValueAdapter.clear();
         }
         List<NetSearchValueBean.ResultBean.GoodsListBean> listBeans = netShareBean.getResult().getGoodsList();
-        if(listBeans.size()==0){
+        if (listBeans != null && listBeans.size() == 0) {
             mSuperRecyclerView.finishRefreshing();
             mSuperRecyclerView.setHasMoreData(false);
             mSuperRecyclerView.finishMore(true);
             Toast.makeText(SearchActivity.this, "搜索无数据!", Toast.LENGTH_SHORT).show();
 
-        }else{
+        } else {
             mSuperRecyclerView.finishRefreshing();
             mSuperRecyclerView.setHasMoreData(Contetns.hasMoreData(listBeans.size()));
             mSuperRecyclerView.finishMore(!Contetns.hasMoreData(listBeans.size()));

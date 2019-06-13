@@ -40,14 +40,14 @@ public class NetSearchValueBean {
     }
 
     public static class ResultBean {
-        private List<GoodsListBean> goodsList;
+        private List<GoodsListBean> hotSearchGoodsList;
 
         public List<GoodsListBean> getGoodsList() {
-            return goodsList;
+            return hotSearchGoodsList;
         }
 
-        public void setGoodsList(List<GoodsListBean> goodsList) {
-            this.goodsList = goodsList;
+        public void setGoodsList(List<GoodsListBean> hotSearchGoodsList) {
+            this.hotSearchGoodsList = hotSearchGoodsList;
         }
 
         public static class GoodsListBean {

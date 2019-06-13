@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.trade.rrenji.biz.account.ui.view.UpdateUserInfoActivityView;
 import com.trade.rrenji.biz.address.picker.AddressPicker;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.base.NetBaseResultBean;
+//import com.trade.rrenji.biz.photo.ImageEditActivity;
 import com.trade.rrenji.biz.upload.model.UploadModel;
 import com.trade.rrenji.biz.upload.model.UploadModelImpl;
 import com.trade.rrenji.net.XUtils;
@@ -45,12 +47,16 @@ import com.trade.rrenji.utils.ThreadPoolManager;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @ContentView(R.layout.account_main_layout)
 public class AccountActivity extends BaseActivity implements UpdateUserInfoActivityView {
-
+    public static final int CROP_IMAGE = 7;
+    public static final int CROP_OPTIONS_SQUARE_ONLY = 1;
+    private int cropOptions = CROP_OPTIONS_SQUARE_ONLY;
     @ViewInject(R.id.user_phone)
     TextView user_phone;
     @ViewInject(R.id.user_name)
@@ -77,6 +83,8 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
     private String mProvince;
     private String mCity;
     private String mCounty;
+    public String avatarPath = "";
+
 
     private static int REQUEST_CODE = 10001;
     private String mPathStr = "";
@@ -206,13 +214,13 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
 
         if (null == mUserName || "".equals(mUserName)) {
             Toast.makeText(this, "请填写昵称!", Toast.LENGTH_SHORT).show();
-            return ;
+            return;
         }
         String sex = text_sex.getText().toString().trim();
         String mAddress = text_address.getText().toString().trim();
         if (null == mAddress || "".equals(mAddress)) {
             Toast.makeText(this, "请填写地址!", Toast.LENGTH_SHORT).show();
-            return ;
+            return;
         }
         mPresenter.updateUserInfo(this, mPathStr, mUserName, mSex, mAddress);
     }
@@ -268,44 +276,82 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == REQUEST_CODE && data != null) {
-            //获取选择的图片数据
-            List<ImageBean> resultList = data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
-            mPathStr = resultList.get(0).getImagePath();
-            GlideUtils.getInstance().loadCircleIcon(this, mPathStr, R.drawable.user_default_icon, user_avatar);
-            showUploadDialog();
-            mUploadModel.upload(this, mPathStr, new XUtils.ResultListener() {
-                @Override
-                public void onResponse(String result) {
-                    try {
-                        if (mProgressDialog != null) {
-                            mProgressDialog.dismiss();
+        if (requestCode == CROP_IMAGE) {
+            if (data != null && data.getStringExtra("dest_file") != null) {
+                avatarPath = data.getStringExtra("dest_file");
+                GlideUtils.getInstance().loadCircleIcon(this, avatarPath, R.drawable.user_default_icon, user_avatar);
+                showUploadDialog();
+                mUploadModel.upload(this, mPathStr, new XUtils.ResultListener() {
+                    @Override
+                    public void onResponse(String result) {
+                        try {
+                            if (mProgressDialog != null) {
+                                mProgressDialog.dismiss();
+                            }
+                            Gson gson = new Gson();
+                            NetUploadBean uploadBean = gson.fromJson(result, NetUploadBean.class);
+                            if (uploadBean.getCode().equals(Contetns.RESPONSE_OK)) {
+                                mPathStr = uploadBean.getResult().getUrl();
+                                Toast.makeText(AccountActivity.this, "上传图片成功！", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(AccountActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
+                            if (mProgressDialog != null) {
+                                mProgressDialog.dismiss();
+                            }
                         }
-                        Gson gson = new Gson();
-                        NetUploadBean uploadBean = gson.fromJson(result, NetUploadBean.class);
-                        if (uploadBean.getCode().equals(Contetns.RESPONSE_OK)) {
-                            mPathStr = uploadBean.getResult().getUrl();
-                            Toast.makeText(AccountActivity.this, "上传图片成功！", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
                         Toast.makeText(AccountActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
                         if (mProgressDialog != null) {
                             mProgressDialog.dismiss();
                         }
                     }
-
-                }
-
-                @Override
-                public void onError(Throwable error) {
-                    Toast.makeText(AccountActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
-                    if (mProgressDialog != null) {
-                        mProgressDialog.dismiss();
-                    }
-                }
-            });
+                });
+            }
+        } else if (requestCode == REQUEST_CODE && resultCode == REQUEST_CODE && data != null) {
+            //获取选择的图片数据
+            List<ImageBean> resultList = data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
+            mPathStr = resultList.get(0).getImagePath();
+            cropPhoto(mPathStr);
+//            GlideUtils.getInstance().loadCircleIcon(this, mPathStr, R.drawable.user_default_icon, user_avatar);
+//
         }
+    }
+
+    /**
+     * 剪切图片方法
+     */
+    public void cropPhoto(String srcPhotoPath) {
+        File editedPhoto;
+        try {
+            editedPhoto = createTempFile(System.currentTimeMillis() + "edited.jpg");
+            Log.d("editedPhoto", editedPhoto.getAbsolutePath());
+        } catch (IOException e) {
+            Toast.makeText(this, R.string.error_create_temp_file, Toast.LENGTH_LONG).show();
+            Log.e("Failed to edit a photo!", e.getMessage());
+            return;
+        }
+
+//        Intent intent = new Intent(this, ImageEditActivity.class);
+//        intent.putExtra(ImageEditActivity.SRC_FILE_KEY, srcPhotoPath);
+//        intent.putExtra(ImageEditActivity.DEST_FILE_KEY, editedPhoto.getAbsolutePath());
+//        intent.putExtra(ImageEditActivity.CROP_OPTION_KEY, cropOptions);
+//        startActivityForResult(intent, CROP_IMAGE);
+    }
+
+    private File createTempFile(String name) throws IOException {
+        File storageDir = getFilesDir();
+        File photo = new File(storageDir, name);
+        if (photo.exists()) {
+            photo.delete();
+        }
+        photo.createNewFile();
+        return photo;
     }
 
     private void showUploadDialog() {

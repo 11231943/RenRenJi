@@ -11,9 +11,10 @@
     <RelativeLayout
         android:id="@+id/left_layout"
         android:layout_width="80dp"
-        android:background="#f76a31"
+        android:background="@drawable/coupon_left"
         android:layout_height="80dp">
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
@@ -50,7 +51,7 @@
     <RelativeLayout
         android:id="@+id/right_layout"
         android:layout_width="match_parent"
-        android:background="#fff"
+        android:background="@drawable/coupon_right"
         android:paddingLeft="12dp"
         android:layout_toRightOf="@+id/left_layout"
         android:layout_height="80dp">

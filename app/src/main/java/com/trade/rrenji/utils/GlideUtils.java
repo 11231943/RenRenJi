@@ -2,6 +2,7 @@ package com.trade.rrenji.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -17,6 +18,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.trade.rrenji.R;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
@@ -28,6 +36,8 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * @describe
  */
 public class GlideUtils {
+
+    public static final int CROP_OPTIONS_SQUARE_ONLY = 1;
 
     private static GlideUtils glideUtils;
 
@@ -89,5 +99,82 @@ public class GlideUtils {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .fitCenter();
         Glide.with(context).load(string).apply(options.circleCrop()).into(ivIcon);
+    }
+
+    public static Bitmap getBitmap(Context context, int r) {
+        InputStream is = null;
+        try {
+            is = context.getResources().openRawResource(r);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = false;
+            options.inSampleSize = 2;   //缩放比例
+            Bitmap btp = BitmapFactory.decodeStream(is, null, options);
+            return btp;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public static Bitmap getScaledRotatedBitmap(Context context, String filePath,
+                                                int maxSize, int minSize) {
+        int screenWidth = ViewUtils.getScreenWidth(context);
+        int screenHeight = ViewUtils.getScreenHeight(context);
+        if (screenHeight > maxSize) screenHeight = maxSize;
+        if (screenWidth > maxSize) screenWidth = maxSize;
+        if (screenHeight < minSize) screenHeight = minSize;
+        if (screenWidth < minSize) screenWidth = minSize;
+        int minSideLength = screenWidth <= screenHeight ? screenWidth : screenHeight;
+        Bitmap bitmap = ImageHelper.getImage(filePath, minSideLength,
+                screenWidth * screenHeight);
+        if (bitmap != null)
+            bitmap = ImageHelper.rotate(bitmap, ImageHelper.getExifOrientation(filePath));
+        return bitmap;
+    }
+    public static File compressAndSaveToFile(Bitmap bitmap, String filePath,
+                                             int maxSize, int maxQuality)
+            throws IOException {
+        File file = new File(filePath);
+        int quality = maxQuality;
+        double size;
+        int height = bitmap.getHeight();
+        int width = bitmap.getWidth();
+        FileOutputStream stream = null;
+        try {
+            do {
+                stream = new FileOutputStream(file);
+                BufferedOutputStream bos = new BufferedOutputStream(stream);
+                if (quality != maxQuality)
+                    bitmap = Bitmap.createScaledBitmap(bitmap, width, height, true);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
+                bos.flush();
+                bos.close();
+                size = file.length() / 1024.0;
+                quality -= 5;
+                height *= 0.8;
+                width *= 0.8;
+            } while (size > maxSize);
+        } finally {
+            closeOutputStream(stream);
+        }
+
+        return file;
+    }
+    public static void closeOutputStream(OutputStream ous) {
+        if (ous == null)
+            return;
+
+        try {
+            ous.flush();
+            ous.close();
+        } catch (IOException e) {
+            Log.e("GlideUtils", "closeOutputStream " + e);
+        }
     }
 }

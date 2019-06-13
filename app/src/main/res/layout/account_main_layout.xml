@@ -69,12 +69,13 @@
 
         <EditText
             android:id="@+id/user_name"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:layout_marginRight="17dp"
             android:background="@null"
+            android:maxLines="1"
             android:layout_toLeftOf="@+id/user_name_go"
-            android:gravity="center"
+            android:gravity="center|right"
             android:textSize="11sp"
             android:textColor="#999999"
             android:text="雷锋" />

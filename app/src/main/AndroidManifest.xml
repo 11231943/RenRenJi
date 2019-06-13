@@ -80,6 +80,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
+        <!--<activity-->
+            <!--android:name=".biz.photo.ImageEditActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/AppTheme" />-->
+
         <activity
             android:name=".biz.order.ui.activity.LogisticsActivity"
             android:screenOrientation="portrait"
@@ -116,6 +121,10 @@
             android:name=".biz.order.ui.activity.PreConfirmOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".biz.renren.ui.activity.RenRenListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
 
         <activity
             android:name=".biz.order.ui.activity.PayConfirmOrderActivity"
