@@ -7,6 +7,8 @@ import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.biz.base.PlusBaseService;
 import com.trade.rrenji.net.XUtils.ResultListener;
 
+import java.util.List;
+
 public interface OrderModel extends PlusBaseService {
 
     void getOrderList(Context mContext, int pageNum, String status, ResultListener resultListener);
@@ -24,5 +26,7 @@ public interface OrderModel extends PlusBaseService {
     void confirmOrder(Context mContext, int type, String goodsId, ResultListener resultListener);
 
     void delOrder(Context mContext, String orderId, ResultListener resultListener);
+
+    void share(Context mContext, String orderId, String comment, List<String> urls, String location, ResultListener resultListener);
 
 }

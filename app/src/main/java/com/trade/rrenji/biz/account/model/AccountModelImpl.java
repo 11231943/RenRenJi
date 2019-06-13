@@ -35,9 +35,6 @@ public class AccountModelImpl implements AccountModel {
     public void getVerifyCode(Context mContext, String phone, final XUtils.ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.action.sendCode");
         long timeStamp = System.currentTimeMillis();
-//        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
-//        paramBuilder.add("phone", phone);
-//        Map<String, String> params = paramBuilder.build();
         ValidateCodeBean validateCodeBean = new ValidateCodeBean();
         validateCodeBean.setPhone(phone);
         RequestParams requestParams = new RequestParams(url + "/" + timeStamp);

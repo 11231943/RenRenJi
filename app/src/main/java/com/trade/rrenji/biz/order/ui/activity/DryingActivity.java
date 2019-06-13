@@ -1,8 +1,10 @@
 package com.trade.rrenji.biz.order.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -12,24 +14,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gelitenight.superrecyclerview.GridSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
+import com.google.gson.Gson;
 import com.moonster.imagepicker.ImagePicker;
 import com.moonster.imagepicker.data.ImageBean;
 import com.moonster.imagepicker.data.ImagePickType;
 import com.moonster.imagepicker.utils.GlideImagePickerDisplayer;
 import com.trade.rrenji.MiGoApplication;
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.goods.NetAccessoryListBean;
+import com.trade.rrenji.bean.upload.NetUploadBean;
+import com.trade.rrenji.biz.account.ui.activity.AccountActivity;
 import com.trade.rrenji.biz.base.BaseActivity;
+import com.trade.rrenji.biz.base.NetBaseResultBean;
+import com.trade.rrenji.biz.order.model.OrderModel;
+import com.trade.rrenji.biz.order.model.OrderModelImpl;
 import com.trade.rrenji.biz.order.ui.view.StarBar;
 import com.trade.rrenji.biz.upload.model.UploadModel;
 import com.trade.rrenji.biz.upload.model.UploadModelImpl;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
+import com.trade.rrenji.net.XUtils;
+import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.GlideUtils;
+import com.trade.rrenji.utils.ThreadPoolManager;
 import com.trade.rrenji.utils.ViewUtils;
 
 import org.xutils.view.annotation.ContentView;
@@ -54,15 +68,22 @@ public class DryingActivity extends BaseActivity {
     public TextView mStarBarTxt;
     @ViewInject(R.id.goods_image)
     public ImageView mGoodsImage;
+
+    @ViewInject(R.id.comment)
+    public EditText mComment;
+
     UploadModel mUploadModel;
+    OrderModel mOrderModel;
 
     private static int REQUEST_CODE = 10001;
     PhotoAdapter mPhotoAdapter;
     List<ImageBean> mPhotoPath = new ArrayList<ImageBean>();
     private String mOrderId;
     private String mGoodsImg;
-
+    ProgressDialog mProgressDialog;
     private List<String> mUplodPath = new ArrayList<String>();
+    List<ImageBean> mResultList;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +92,7 @@ public class DryingActivity extends BaseActivity {
         mOrderId = getIntent().getStringExtra("orderId");
         mGoodsImg = getIntent().getStringExtra("goodsImg");
         mUploadModel = new UploadModelImpl(this);
+        mOrderModel = new OrderModelImpl(this);
         init();
     }
 
@@ -136,20 +158,76 @@ public class DryingActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && resultCode == REQUEST_CODE && data != null) {
             //获取选择的图片数据
-            List<ImageBean> resultList = data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
+            mResultList = data.getParcelableArrayListExtra(ImagePicker.INTENT_RESULT_DATA);
             mPhotoPath.clear();
-            mPhotoPath.addAll(resultList);
+            mPhotoPath.addAll(mResultList);
             mPhotoAdapter.clear();
-            mPhotoAdapter.addAll(resultList);
-            buildPhoto(resultList);
+            mPhotoAdapter.addAll(mResultList);
+            buildPhoto(mResultList);
         }
     }
 
+    private int upSize = 0;
+
     private void buildPhoto(List<ImageBean> resultList) {
+        upSize = resultList.size();
         for (ImageBean bean : resultList) {
-            mUplodPath.add(bean.getImagePath());
+            ThreadPoolManager.getInstance().addTask(new MyRunnable(bean));
+        }
+        showUploadDialog();
+    }
+
+    private void showUploadDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("上传图像");
+        mProgressDialog.setMessage("上传中...");
+        mProgressDialog.setIndeterminate(true);// 是否形成一个加载动画  true表示不明确加载进度形成转圈动画  false 表示明确加载进度
+        mProgressDialog.setCancelable(false);//点击返回键或者dialog四周是否关闭dialog  true表示可以关闭 false表示不可关闭
+        mProgressDialog.show();
+    }
+
+    private class MyRunnable implements Runnable {
+        ImageBean mBean;
+
+        MyRunnable(ImageBean bean) {
+            mBean = bean;
+        }
+
+        @Override
+        public void run() {
+            Log.d("MyRunnable", "upload  = " + mBean.getImagePath());
+            mUploadModel.upload(DryingActivity.this, mBean.getImagePath(), new XUtils.ResultListener() {
+                @Override
+                public void onResponse(String result) {
+                    try {
+                        upSize--;
+                        if (mProgressDialog != null && upSize <= 0) {
+                            mProgressDialog.dismiss();
+                        }
+                        Gson gson = new Gson();
+                        NetUploadBean uploadBean = gson.fromJson(result, NetUploadBean.class);
+                        if (uploadBean.getCode().equals(Contetns.RESPONSE_OK)) {
+                            String mPathStr = uploadBean.getResult().getUrl();
+                            mUplodPath.add(mPathStr);
+                            Toast.makeText(DryingActivity.this, "上传图片成功！", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (Exception e) {
+                        upSize--;
+                        e.printStackTrace();
+                        Toast.makeText(DryingActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable error) {
+                    upSize--;
+                    Toast.makeText(DryingActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,11 +239,50 @@ public class DryingActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_dry:
-
+                if (upSize <= 0) {
+                    share();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void share() {
+        if (TextUtils.isEmpty(mComment.getText().toString().trim())) {
+            Toast.makeText(DryingActivity.this, "辛苦您给我们留下珍贵的评论吧！", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mOrderModel.share(DryingActivity.this, mOrderId, mComment.getText().toString(), mUplodPath, "深圳", new XUtils.ResultListener() {
+            @Override
+            public void onResponse(String result) {
+                try {
+
+                    Gson gson = new Gson();
+                    final NetBaseResultBean netShareBean = gson.fromJson(result, NetBaseResultBean.class);
+                    if (Integer.valueOf(netShareBean.getCode()) == Contetns.STATE_OK) {
+                        Toast.makeText(DryingActivity.this, "评论成功", Toast.LENGTH_SHORT).show();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 1000);
+                    } else {
+                        Toast.makeText(DryingActivity.this, "评论失败", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(DryingActivity.this, "评论失败", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                Toast.makeText(DryingActivity.this, "评论失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

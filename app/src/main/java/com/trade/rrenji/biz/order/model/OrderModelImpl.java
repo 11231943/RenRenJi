@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.trade.rrenji.bean.account.ValidateCodeBean;
+import com.trade.rrenji.bean.drying.UploadDryBean;
 import com.trade.rrenji.bean.order.ConfirmOrderBean;
 import com.trade.rrenji.bean.order.ContinuePayBean;
 import com.trade.rrenji.bean.order.CreateOrderBean;
@@ -19,6 +20,9 @@ import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OrderModelImpl implements OrderModel {
@@ -56,6 +60,46 @@ public class OrderModelImpl implements OrderModel {
         params.put("total", total + "");
         params.put("goodsId", goodsId);
         XUtils.getInstance().get(url, params, resultListener);
+    }
+
+    @Override
+    public void share(Context mContext, String orderId, String comment, List<String> urls, String location,final ResultListener resultListener) {
+
+        String url = ServiceHelper.buildUrl("api.v2.order.share");
+        long timeStamp = System.currentTimeMillis();
+        String token = "1";
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + token;
+
+        UploadDryBean uploadDryBean = new UploadDryBean();
+        uploadDryBean.setOrderId(orderId);
+        uploadDryBean.setComment(comment);
+        uploadDryBean.setLocation(location);
+        uploadDryBean.setUrls(urls);
+        RequestParams requestParams = new RequestParams(url);
+        requestParams.setAsJsonContent(true);
+        requestParams.setBodyContent(GsonUtils.getGson().toJson(uploadDryBean));
+        x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                resultListener.onResponse(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                resultListener.onError(ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
     }
 
     @Override
