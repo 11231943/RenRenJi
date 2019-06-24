@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/baixiuka_use"
+    android:orientation="vertical"
+    android:padding="14dp">
+
+    <ImageView
+        android:id="@+id/order_image"
+        android:layout_marginLeft="30dp"
+        android:layout_width="67dp"
+        android:layout_height="67dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/order_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_toRightOf="@+id/order_image"
+        android:text="iPhone XS Max 99新"
+        android:textColor="#000000"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/order_id"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_name"
+        android:layout_marginLeft="11dp"
+        android:layout_toRightOf="@+id/order_image"
+        android:text="ps1234567789"
+        android:textColor="#000000"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/order_time"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_id"
+        android:layout_marginLeft="11dp"
+        android:layout_toRightOf="@+id/order_image"
+        android:text="ps1234567789"
+        android:textColor="#000000"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/order_price"
+        android:layout_marginTop="13dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/order_image"
+        android:background="@drawable/after_sale"
+        android:layout_marginLeft="30dp"
+        android:text="申请售后"
+        android:textColor="#333333"
+        android:textSize="12sp" />
+
+
+
+    <TextView
+        android:id="@+id/collection_tip"
+        android:layout_marginTop="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/used_time"
+        android:layout_below="@+id/order_image"
+        android:text="保修还剩：365天"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>

@@ -185,6 +185,7 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
                 Intent intent = new Intent(mContext, DryingActivity.class);
                 intent.putExtra("orderId", data.getOrderId());
                 intent.putExtra("goodsImg", data.getGoodsImg());
+                intent.putExtra("mAddressDetail", data.getAddressDetail().substring(0, 3));
                 mContext.startActivity(intent);
             }
         }

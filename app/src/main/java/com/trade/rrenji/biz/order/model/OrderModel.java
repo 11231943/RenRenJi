@@ -29,5 +29,7 @@ public interface OrderModel extends PlusBaseService {
 
     void share(Context mContext, String orderId, String comment, List<String> urls, String location, ResultListener resultListener);
 
-    void getOrderExpress(Context mContext, String orderId,int orderType, ResultListener resultListener);
+    void getOrderExpress(Context mContext, String orderId, int orderType, ResultListener resultListener);
+
+    void getAfterSaleOrderList(Context mContext, int page, ResultListener resultListener);
 }

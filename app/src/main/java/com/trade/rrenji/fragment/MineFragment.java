@@ -27,6 +27,7 @@ import com.trade.rrenji.biz.order.ui.activity.DryingActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderAllActivity;
 import com.trade.rrenji.biz.order.ui.activity.OrderListActivity;
+import com.trade.rrenji.biz.order.ui.activity.ServiceActivity;
 import com.trade.rrenji.biz.personal.model.PersonalModel;
 import com.trade.rrenji.biz.personal.model.PersonalModelImpl;
 import com.trade.rrenji.biz.personal.ui.activity.PersonalActivity;
@@ -178,7 +179,7 @@ public class MineFragment extends Fragment {
 
     @Event(value = {R.id.user_avatar, R.id.address_layout, R.id.collection_layout, R.id.user_setting, R.id.user_info_layout, R.id.auth_layout
             , R.id.invite_layout, R.id.coupon_layout, R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout
-    ,R.id.user_chat,R.id.user_server,R.id.user_rule,R.id.renren_zhaoshang})
+    ,R.id.user_chat,R.id.user_server,R.id.user_rule,R.id.renren_zhaoshang,R.id.after_sale})
     private void onViewClicked(View view) {
         Intent intent = null;
         Log.e(TAG, "CurrentUid : " + SettingUtils.getInstance().getCurrentUid());
@@ -231,6 +232,15 @@ public class MineFragment extends Fragment {
                     startActivity(intent);
                 } else {
                     intent = new Intent(getActivity(), AccountActivity.class);
+                    startActivity(intent);
+                }
+                break;
+            case R.id.after_sale:
+                if (TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getActivity(), ServiceActivity.class);
                     startActivity(intent);
                 }
                 break;

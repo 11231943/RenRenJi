@@ -80,6 +80,7 @@ public class DryingActivity extends BaseActivity {
     List<ImageBean> mPhotoPath = new ArrayList<ImageBean>();
     private String mOrderId;
     private String mGoodsImg;
+    private String mAddressDetail;
     ProgressDialog mProgressDialog;
     private List<String> mUplodPath = new ArrayList<String>();
     List<ImageBean> mResultList;
@@ -91,6 +92,7 @@ public class DryingActivity extends BaseActivity {
         setActionBarTitle("发表晒单");
         mOrderId = getIntent().getStringExtra("orderId");
         mGoodsImg = getIntent().getStringExtra("goodsImg");
+        mAddressDetail = getIntent().getStringExtra("mAddressDetail");
         mUploadModel = new UploadModelImpl(this);
         mOrderModel = new OrderModelImpl(this);
         init();
@@ -253,7 +255,7 @@ public class DryingActivity extends BaseActivity {
             Toast.makeText(DryingActivity.this, "辛苦您给我们留下珍贵的评论吧！", Toast.LENGTH_SHORT).show();
             return;
         }
-        mOrderModel.share(DryingActivity.this, mOrderId, mComment.getText().toString(), mUplodPath, "深圳", new XUtils.ResultListener() {
+        mOrderModel.share(DryingActivity.this, mOrderId, mComment.getText().toString(), mUplodPath, mAddressDetail, new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
                 try {

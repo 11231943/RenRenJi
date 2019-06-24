@@ -66,10 +66,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".biz.order.ui.activity.TraceActivity"
+        <activity
+            android:name=".biz.order.ui.activity.TraceActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            />
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".biz.order.ui.activity.ServiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".biz.coupon.ui.activity.CouponActivity"
             android:screenOrientation="portrait"
@@ -86,9 +90,9 @@
             android:theme="@style/AppTheme" />
 
         <!--<activity-->
-            <!--android:name=".biz.photo.ImageEditActivity"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/AppTheme" />-->
+        <!--android:name=".biz.photo.ImageEditActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:theme="@style/AppTheme" />-->
 
         <activity
             android:name=".biz.order.ui.activity.LogisticsActivity"
@@ -127,9 +131,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".biz.renren.ui.activity.RenRenListActivity"
+        <activity
+            android:name=".biz.renren.ui.activity.RenRenListActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".biz.order.ui.activity.PayConfirmOrderActivity"

@@ -92,6 +92,7 @@ public class DryingFragment extends BaseFragment implements OrderActivityView, C
             public void onClick(String orderId) {
                 Intent intent = new Intent(getActivity(), DryingActivity.class);
                 intent.putExtra("orderId", orderId);
+                intent.putExtra("mAddressDetail", orderId);
                 startActivity(intent);
             }
         });
