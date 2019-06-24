@@ -275,9 +275,7 @@ public class DryingActivity extends BaseActivity {
                     e.printStackTrace();
                     Toast.makeText(DryingActivity.this, "评论失败", Toast.LENGTH_SHORT).show();
                 }
-
             }
-
             @Override
             public void onError(Throwable error) {
                 Toast.makeText(DryingActivity.this, "评论失败", Toast.LENGTH_SHORT).show();

@@ -63,7 +63,18 @@ public class OrderModelImpl implements OrderModel {
     }
 
     @Override
-    public void share(Context mContext, String orderId, String comment, List<String> urls, String location,final ResultListener resultListener) {
+    public void getOrderExpress(Context mContext, String orderId, int orderType, ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.order.getOrderExpress");
+        url = url + SettingUtils.getInstance().getSessionkeyString();
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        params.put("orderId", orderId);
+        params.put("orderType", orderType + "");
+        XUtils.getInstance().get(url, params, resultListener);
+    }
+
+    @Override
+    public void share(Context mContext, String orderId, String comment, List<String> urls, String location, final ResultListener resultListener) {
 
         String url = ServiceHelper.buildUrl("api.v2.order.share");
         long timeStamp = System.currentTimeMillis();

@@ -12,4 +12,8 @@ public interface HomeCategoryActivityPresenter extends Presenter<HomeCategoryAct
 
     void getCategoryDetailById(Context mContext, String categoryId, int pageNum, int rows, int priceSort);
 
+    void getModelAttr(Context mContext, String id);
+
+    void getAttributeProductList(Context mContext,  int priceSort,int page, String model, String memory, String color, String network, String condition, String version);
+
 }

@@ -5,9 +5,16 @@ import android.content.res.Resources;
 import android.widget.Toast;
 
 import com.trade.rrenji.R;
+import com.trade.rrenji.bean.category.ScreenBean;
 import com.trade.rrenji.net.ServiceHelper;
 import com.trade.rrenji.net.XUtils;
 import com.trade.rrenji.utils.Contetns;
+import com.trade.rrenji.utils.GsonUtils;
+
+import org.xutils.common.Callback;
+import org.xutils.http.HttpMethod;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -264,6 +271,16 @@ public class HomeModelImpl implements HomeModel {
     }
 
     @Override
+    public void getModelAttr(Context mContext, String id, XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.product.getModelAttr");
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        paramBuilder.add("goodsModelId", id);
+        Map<String, String> params = paramBuilder.build();
+        XUtils.getInstance().get(url, params, resultListener);
+    }
+
+
+    @Override
     public void getHomeList(Context mContext, int pageNum, XUtils.ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.home.getNewHomeData");
 //        String sessionKey = Contetns.sessionKey;
@@ -319,5 +336,42 @@ public class HomeModelImpl implements HomeModel {
         return sb.toString();
     }
 
+    @Override
+    public void getAttributeProductList(Context mContext, int priceSort, int page, String model, String memory, String color, String network, String condition, String version, final XUtils.ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.product.getAttributeProductList");
+        url = url + "/" + page + "/" + priceSort;
+        ScreenBean screenBean = new ScreenBean();
+        screenBean.setColor(color);
+        screenBean.setCondition(condition);
+        screenBean.setMemory(memory);
+        screenBean.setNetwork(network);
+        screenBean.setModel(model);
+        screenBean.setVersion(version);
+        RequestParams requestParams = new RequestParams(url);
+        requestParams.setAsJsonContent(true);
+        requestParams.setBodyContent(GsonUtils.getGson().toJson(screenBean));
+
+        x.http().request(HttpMethod.POST, requestParams, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                resultListener.onResponse(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                resultListener.onError(ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 
 }

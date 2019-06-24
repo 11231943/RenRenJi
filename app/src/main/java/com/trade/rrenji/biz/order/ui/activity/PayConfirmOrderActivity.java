@@ -177,6 +177,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     private List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans;
     PayOrderAdminAdapter mPayOrderAdminAdapter;
     private double mSumPrice;//商品原价，
+    private double mTempSumPrice;//商品原价，
     private double mPaySumPrice;//显示优惠，分期，价格
     private boolean isUseCoupon;//是否使用优惠券
     private String mCouponId = "";
@@ -319,6 +320,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
         setActionBarTitle("确认付款");
         initData();
         EventBus.getDefault().register(this);
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -339,6 +341,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
             mCouponId = String.valueOf(bean.getCouponId());
             coupon_txt.setText("使用优惠劵" + bean.getCouponValue() + "元");
             mCouponPrice = bean.getCouponValue();
+            mSumPrice = mTempSumPrice;
             if (mSumPrice - Double.valueOf(mCouponPrice) > 0) {
                 java.text.DecimalFormat myformat = new java.text.DecimalFormat("0.00");
                 String str = myformat.format((mSumPrice - Double.valueOf(mCouponPrice)));
@@ -368,6 +371,7 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     private void initData() {
         mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
         mPaySumPrice = mSumPrice;
+        mTempSumPrice = mSumPrice;
         mSumCount = getIntent().getIntExtra("mSumCount", -0);
         mGoodsDetailBean = (GoodsDetailBean) getIntent().getSerializableExtra("GoodsDetailBean");
         mListBeans = (List<NetAccessoryListBean.DataBean.ResultListBean>) getIntent().getSerializableExtra("accessoryList");

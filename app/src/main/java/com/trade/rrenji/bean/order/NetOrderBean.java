@@ -78,6 +78,16 @@ public class NetOrderBean {
             private double orderSum;
             private double goodsPrice;
             private double restMoney;
+            private double couponValue;
+
+            public double getCouponValue() {
+                return couponValue;
+            }
+
+            public void setCouponValue(double couponValue) {
+                this.couponValue = couponValue;
+            }
+
             private String createTime;
             private List<AccessoryListBean> accessoryList;
 
