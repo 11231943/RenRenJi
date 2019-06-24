@@ -110,6 +110,7 @@ dependencies {
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     compile project(':SuperRecyclerView')
     compile project(':imagepicker')
+    compile project(':cropper')
 //    compile files('libs/alipaySdk-20170922.jar')
     compile(name: 'jdpayauthor_release', ext: 'aar')
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
@@ -119,7 +120,7 @@ dependencies {
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
 
     compile 'com.jakewharton:disklrucache:2.0.2'
-
+//    compile 'com.githang:com.edmodo.cropper:1.0.2'
+//    compile 'com.edmodo:cropper:1.0.1'
     compile (name: 'alipaySdk-20190226', ext: 'aar')
-
 }

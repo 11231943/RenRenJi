@@ -172,6 +172,9 @@ public class OrderAdminAdapter extends RecyclerListAdapter<NetOrderBean.DataBean
                 intent.putExtra("GoodsDetailBean", (Serializable) data);
                 intent.putExtra("mSumPrice", data.getOrderSum());
                 intent.putExtra("mSumCount", mSumCount);
+                intent.putExtra("goodsPrice", data.getGoodsPrice());
+                intent.putExtra("orderType", data.getOrderType());
+                intent.putExtra("couponValue", data.getCouponValue());
                 mContext.startActivity(intent);
             } else if (data.getPayStatus().equals("2") || data.getPayStatus().equals("3")) {
                 Intent intent = new Intent(mContext, LogisticsActivity.class);

@@ -18,17 +18,10 @@ public class DryModelImpl implements DryModel {
 
     @Override
     public void getDryList(Context mContext, int pageNum, ResultListener resultListener) {
-        //{sessionKey}/{timeStamp}/{pageNum}/{token}
         String url = ServiceHelper.buildUrl("api.v2.share.order");
-        String sessionKey = "123456";
-        long timeStamp = System.currentTimeMillis();
-        String token = "1";
-        url = url + sessionKey + "/" + timeStamp + "/" + pageNum + "/" + token;
         ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
-//        paramBuilder.add("sessionKey", "1");
-//        paramBuilder.add("timeStamp", System.currentTimeMillis());
-//        paramBuilder.add("pageNum", pageNum);
-//        paramBuilder.add("token", "1");
+        paramBuilder.add("page", pageNum);
+        paramBuilder.add("rows", 20);
         Map<String, String> params = paramBuilder.build();
         XUtils.getInstance().get(url, params, resultListener);
     }

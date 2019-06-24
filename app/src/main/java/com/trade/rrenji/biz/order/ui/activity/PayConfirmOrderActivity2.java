@@ -2,6 +2,7 @@ package com.trade.rrenji.biz.order.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,15 +21,11 @@ import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.jdpaysdk.author.Constants;
 import com.jdpaysdk.author.JDPayAuthor;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.goods.GoodsDetailBean;
 import com.trade.rrenji.bean.goods.NetAccessoryListBean;
 import com.trade.rrenji.bean.order.ContinuePayBean;
-import com.trade.rrenji.bean.order.CreateOrderBean;
-import com.trade.rrenji.bean.order.CreateOrderBean.AccessoriesBean;
 import com.trade.rrenji.bean.order.CreateOrderBean.OrderGroupPayListBean;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
-import com.trade.rrenji.bean.order.NetOrderBean;
 import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
 import com.trade.rrenji.bean.order.NetPayPlanInfoBean;
 import com.trade.rrenji.bean.order.NetResultCreateOrderBean;
@@ -89,6 +86,9 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     @ViewInject(R.id.goods_detail_detail_buy)
     TextView goods_detail_detail_buy;
 
+    @ViewInject(R.id.coupon_txt)
+    TextView coupon_txt;//优惠券
+
     @ViewInject(R.id.zfb_layout)
     RelativeLayout zfb_layout;
     @ViewInject(R.id.wx_layout)
@@ -104,10 +104,34 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     CheckBox checkbox_wx;
     @ViewInject(R.id.checkbox_jd)
     CheckBox checkbox_jd;
+    @ViewInject(R.id.checkbox_huabei)
+    CheckBox checkbox_huabei;
     @ViewInject(R.id.checkbox_zh)
     CheckBox checkbox_zh;
 
-    private int mType = 0;
+    @ViewInject(R.id.three_plan_price_layout)
+    RelativeLayout three_plan_price_layout;
+    @ViewInject(R.id.six_plan_price_layout)
+    RelativeLayout six_plan_price_layout;
+    @ViewInject(R.id.t_plan_price_layout)
+    RelativeLayout t_plan_price_layout;
+
+    @ViewInject(R.id.three_plan_price)
+    TextView three_plan_price;
+    @ViewInject(R.id.three_plan_price_tip)
+    TextView three_plan_price_tip;
+    @ViewInject(R.id.six_plan_price)
+    TextView six_plan_price;
+    @ViewInject(R.id.six_plan_price_tip)
+    TextView six_plan_price_tip;
+    @ViewInject(R.id.t_plan_price)
+    TextView t_plan_price;
+    @ViewInject(R.id.t_plan_price_tip)
+    TextView t_plan_price_tip;
+
+    List<NetPayPlanInfoBean.DataBean.AliPayListBean> mPayPlanInfoList;
+
+    private int mPayType = 0;
     private String mAddressId = "0";
     private int mCouponId;
 
@@ -117,7 +141,10 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     private List<NetAccessoryListBean.DataBean.ResultListBean> mListBeans;
     PayOrderAdminAdapter mPayOrderAdminAdapter;
     private double mSumPrice;
+    private double mGoodsPrice;
+    private double mCouponValue;//优惠券
     private int mSumCount;
+    private String mOrderType;//支付类型
 
     //---------------------------------------------------------------------------
     private static final int SDK_PAY_FLAG = 1;
@@ -187,7 +214,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
                         Runnable payRunnable = new Runnable() {
                             @Override
                             public void run() {
-                                if (mType == 2) {
+                                if (mPayType == 2 || mPayType == 4) {
                                     PayTask alipay = new PayTask(PayConfirmOrderActivity2.this);
                                     Map<String, String> result = alipay.payV2(orderBean.getResult().getSign(), true);
                                     Log.i("msp", result.toString());
@@ -195,7 +222,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
                                     msg.what = SDK_PAY_FLAG;
                                     msg.obj = result;
                                     mHandler.sendMessage(msg);
-                                } else if (mType == 3) {
+                                } else if (mPayType == 3) {
                                     JDPayAuthor jdPayAuthor = new JDPayAuthor();
                                     String orderId = orderBean.getResult().getOrderId();
                                     String merchant = mMerchant;
@@ -241,19 +268,53 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     private void initData() {
         hit_text.setVisibility(View.GONE);
         mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
+        mGoodsPrice = getIntent().getDoubleExtra("goodsPrice", -0);
+        mCouponValue = getIntent().getDoubleExtra("couponValue", -0);
         mSumCount = getIntent().getIntExtra("mSumCount", -0);
+        mOrderType = getIntent().getStringExtra("orderType");
         mGoodsDetailBean = (ResultListBean) getIntent().getSerializableExtra("GoodsDetailBean");
+        if (mCouponValue <= 0) {
+            coupon_txt.setText("无优惠");
+            coupon_txt.setTextColor(Color.parseColor("#000000"));
+        } else {
+            coupon_txt.setText("使用优惠券" + mCouponValue + "元");
+            coupon_txt.setTextColor(Color.parseColor("#fd5252"));
+        }
         pay_sum_price2.setText("￥" + mSumPrice);
         pre_order_sum.setText(getString(R.string.order_mun, mSumCount));
         order_sum_price.setText("￥" + mSumPrice);
         mPresenter.getUserCreateOrderInfoByUserId(this);
-        mPresenter.getPayPlanInfoList(this, mSumPrice, mGoodsDetailBean.getOrderId());
+        mPresenter.getPayPlanInfoList(this, mGoodsPrice, mGoodsDetailBean.getOrderId());
         mPayOrderAdminAdapter = new PayOrderAdminAdapter(this);
         recycler_view.addItemDecoration(new LinearSpacingDecoration(20, 0));
         recycler_view.setAdapter(mPayOrderAdminAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recycler_view.setLayoutManager(layoutManager);
         mPayOrderAdminAdapter.addAll(buildData(mGoodsDetailBean));
+        changeView("4", 3);
+    }
+
+    /**
+     * // 1-微信；2-支付宝【包含花呗】；3-京东【包含京东白条】；4-蚂蚁花呗分期支付；5-京东白条分期支付；6-组合支付
+     *
+     * @param orderType
+     */
+    private void changeView(String orderType, int plan) {
+        if (orderType.equals("2")) {
+            changeCheckbox(R.id.checkbox_zfb);
+        } else if (orderType.equals("3")) {
+            changeCheckbox(R.id.checkbox_jd);
+        } else if (orderType.equals("4")) {
+            changeCheckbox(R.id.checkbox_huabei);
+        }
+        if (plan == 3) {
+            onChangeColor(R.id.three_plan_price_layout);
+        } else if (plan == 6) {
+            onChangeColor(R.id.six_plan_price_layout);
+        } else if (plan == 12) {
+            onChangeColor(R.id.t_plan_price_layout);
+
+        }
     }
 
     private List<LocalOrderInfoBean> buildData(ResultListBean data) {
@@ -276,24 +337,9 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
         return mList;
     }
 
-    @Event(value = {R.id.zfb_layout, R.id.wx_layout, R.id.jd_layout, R.id.zh_layout, R.id.goods_detail_detail_buy})
+    @Event(value = {R.id.goods_detail_detail_buy})
     private void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.zfb_layout:
-                changeCheckbox(R.id.checkbox_zfb);
-                mType = 2;
-                break;
-            case R.id.wx_layout:
-                changeCheckbox(R.id.checkbox_wx);
-                mType = 1;
-                break;
-            case R.id.jd_layout:
-                changeCheckbox(R.id.checkbox_jd);
-                mType = 3;
-                break;
-            case R.id.zh_layout:
-                changeCheckbox(R.id.checkbox_zh);
-                break;
             case R.id.goods_detail_detail_buy:
                 onPayOrder();
                 break;
@@ -302,7 +348,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
 
     private void onPayOrder() {
         ContinuePayBean createOrderBean = new ContinuePayBean();
-        createOrderBean.setPayType(String.valueOf(mType));
+        createOrderBean.setPayType(String.valueOf(mPayType));
         createOrderBean.setOrderType("1");
         createOrderBean.setOrderId(mGoodsDetailBean.getOrderId());
         List<OrderGroupPayListBean> mOrderGroupPayListBean = new ArrayList<OrderGroupPayListBean>();
@@ -310,11 +356,50 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
         mPresenter.newContinuePay(this, createOrderBean);
     }
 
+
+    /**
+     * 重置花呗分期
+     */
+    private void resetColor() {
+        three_plan_price_layout.setBackgroundResource(R.drawable.goods_paln_item_bg);
+        t_plan_price_layout.setBackgroundResource(R.drawable.goods_paln_item_bg);
+        six_plan_price_layout.setBackgroundResource(R.drawable.goods_paln_item_bg);
+        three_plan_price.setTextColor(Color.parseColor("#000000"));
+        three_plan_price_tip.setTextColor(Color.parseColor("#cccccc"));
+        six_plan_price.setTextColor(Color.parseColor("#000000"));
+        six_plan_price_tip.setTextColor(Color.parseColor("#cccccc"));
+        t_plan_price.setTextColor(Color.parseColor("#000000"));
+        t_plan_price_tip.setTextColor(Color.parseColor("#cccccc"));
+    }
+
+    private void onChangeColor(int id) {
+        resetColor();
+        switch (id) {
+            case R.id.three_plan_price_layout:
+                three_plan_price_layout.setBackgroundResource(R.drawable.goods_paln_item_p_bg);
+                three_plan_price.setTextColor(Color.parseColor("#fd5252"));
+                three_plan_price_tip.setTextColor(Color.parseColor("#fd5252"));
+                break;
+            case R.id.six_plan_price_layout:
+                six_plan_price_layout.setBackgroundResource(R.drawable.goods_paln_item_p_bg);
+                six_plan_price.setTextColor(Color.parseColor("#fd5252"));
+                six_plan_price_tip.setTextColor(Color.parseColor("#fd5252"));
+                break;
+            case R.id.t_plan_price_layout:
+                t_plan_price_layout.setBackgroundResource(R.drawable.goods_paln_item_p_bg);
+                t_plan_price.setTextColor(Color.parseColor("#fd5252"));
+                t_plan_price_tip.setTextColor(Color.parseColor("#fd5252"));
+                break;
+        }
+    }
+
+
     private void changeCheckbox(int id) {
         checkbox_zfb.setChecked(false);
         checkbox_wx.setChecked(false);
         checkbox_jd.setChecked(false);
         checkbox_zh.setChecked(false);
+        checkbox_huabei.setChecked(false);
         switch (id) {
             case R.id.checkbox_zfb:
                 checkbox_zfb.setChecked(true);
@@ -327,6 +412,9 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
                 break;
             case R.id.checkbox_zh:
                 checkbox_zh.setChecked(true);
+                break;
+            case R.id.checkbox_huabei:
+                checkbox_huabei.setChecked(true);
                 break;
         }
     }
@@ -384,7 +472,15 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
 
     @Override
     public void getPayPlanInfoListSuccess(NetPayPlanInfoBean netPayPlanInfoBean) {
-
+        if (netPayPlanInfoBean.getCode().equals(Contetns.RESPONSE_OK)) {
+            mPayPlanInfoList = netPayPlanInfoBean.getData().getAliPayList();
+            three_plan_price.setText("￥" + mPayPlanInfoList.get(0).getFirstPay() + "×" + mPayPlanInfoList.get(0).getPlan());
+            three_plan_price_tip.setText("(含手续费￥" + mPayPlanInfoList.get(0).getPlanFee() + "/期)");
+            six_plan_price.setText("￥" + mPayPlanInfoList.get(1).getFirstPay() + "×" + mPayPlanInfoList.get(1).getPlan());
+            six_plan_price_tip.setText("(含手续费￥" + mPayPlanInfoList.get(1).getPlanFee() + "/期)");
+            t_plan_price.setText("￥" + mPayPlanInfoList.get(2).getFirstPay() + "×" + mPayPlanInfoList.get(2).getPlan());
+            t_plan_price_tip.setText("(含手续费￥" + mPayPlanInfoList.get(2).getPlanFee() + "/期)");
+        }
     }
 
     @Override
