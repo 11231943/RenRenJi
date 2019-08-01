@@ -39,7 +39,7 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 import java.util.List;
 
-@ContentView(R.layout.home_activity_category_super_recyclerview)
+@ContentView(R.layout.activity_category_super_recyclerview)
 public class CategoryListActivity extends BaseActivity implements CategoryActivityListView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();

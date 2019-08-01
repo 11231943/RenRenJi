@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         multiDexEnabled true
         applicationId "com.trade.rrenji"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 30
-        versionName "30.0"
+        versionName "3.0.0"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -45,7 +44,7 @@ android {
             buildConfigField "String", "API_TYPE", '"debug"'
 
             dependencies {
-                debugCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+                debugImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
             }
 
         }
@@ -57,7 +56,7 @@ android {
                 abiFilters "armeabi", "armeabi-v7a","x86"
             }
             dependencies {
-                releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+                releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
             }
         }
     }
@@ -94,33 +93,36 @@ repositories {
 
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
-    compile "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
-    compile "com.android.support:design:${rootProject.ext.supportLibVersion}"
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'org.xutils:xutils:3.3.22'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'jp.wasabeef:glide-transformations:2.0.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
+    implementation "com.android.support:design:${rootProject.ext.supportLibVersion}"
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'junit:junit:4.12'
+    implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'org.xutils:xutils:3.3.22'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.github.bumptech.glide:glide:4.3.1'
+    implementation 'jp.wasabeef:glide-transformations:2.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
-    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
-    compile project(':SuperRecyclerView')
-    compile project(':imagepicker')
-    compile project(':cropper')
-//    compile files('libs/alipaySdk-20170922.jar')
-    compile(name: 'jdpayauthor_release', ext: 'aar')
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-//    compile 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
+    implementation project(':SuperRecyclerView')
+    implementation project(':imagepicker')
+    implementation project(':cropper')
+    //    compile files('libs/alipaySdk-20170922.jar')
+    implementation(name: 'jdpayauthor_release', ext: 'aar')
+    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    //    compile 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation 'com.yanzhenjie.permission:support:2.0.1'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    implementation 'com.jakewharton:disklrucache:2.0.2'
+    //    compile 'com.githang:com.edmodo.cropper:1.0.2'
+    //    compile 'com.edmodo:cropper:1.0.1'
+    implementation(name: 'alipaySdk-20190226', ext: 'aar')
 
-    compile 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
-    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
-
-    compile 'com.jakewharton:disklrucache:2.0.2'
-//    compile 'com.githang:com.edmodo.cropper:1.0.2'
-//    compile 'com.edmodo:cropper:1.0.1'
-    compile (name: 'alipaySdk-20190226', ext: 'aar')
 }

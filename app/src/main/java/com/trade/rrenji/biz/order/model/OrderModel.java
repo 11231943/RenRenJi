@@ -32,4 +32,6 @@ public interface OrderModel extends PlusBaseService {
     void getOrderExpress(Context mContext, String orderId, int orderType, ResultListener resultListener);
 
     void getAfterSaleOrderList(Context mContext, int page, ResultListener resultListener);
+
+    void getUserOrderDetailByOrderId(Context mContext, String orderId, String orderType, ResultListener resultListener);
 }

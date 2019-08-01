@@ -1,6 +1,5 @@
 package com.trade.rrenji.biz.order.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -14,7 +13,6 @@ import com.trade.rrenji.biz.order.presenter.OrderActivityPresenter;
 import com.trade.rrenji.biz.order.presenter.OrderActivityPresenterImpl;
 import com.trade.rrenji.biz.order.ui.adapter.OrderAdminAdapter;
 import com.trade.rrenji.biz.order.ui.view.OrderActivityView;
-import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.Contetns;
 
 import org.xutils.view.annotation.ContentView;

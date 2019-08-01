@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.trade.rrenji.bean.order.ContinuePayBean;
 import com.trade.rrenji.bean.order.CreateOrderBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
+import com.trade.rrenji.bean.order.NetOrderDetailBean;
 import com.trade.rrenji.bean.order.NetPayPlanInfoBean;
 import com.trade.rrenji.bean.order.NetResultCreateOrderBean;
 import com.trade.rrenji.biz.base.BasePresenter;
@@ -154,9 +155,44 @@ public class GetUserCreateOrderInfoPresenterImpl extends BasePresenter<GetUserCr
 
             @Override
             public void onError(Throwable error) {
-                getActivityView().getUserCreateOrderInfoByUserIdError(-10000, "请求错误");
+                if (getActivityView() != null) {
+                    getActivityView().getUserCreateOrderInfoByUserIdError(-10000, "请求错误");
+                }
             }
         });
     }
 
+    @Override
+    public void getUserOrderDetailByOrderId(Context mContext, String orderId, String orderType) {
+        mModel.getUserOrderDetailByOrderId(mContext, orderId, orderType, new XUtils.ResultListener() {
+            @Override
+            public void onResponse(String result) {
+                try {
+                    if (getActivityView() != null) {
+                        getActivityView().hideLoading();
+                    }
+                    Gson gson = new Gson();
+                    final NetOrderDetailBean netShareBean = gson.fromJson(result, NetOrderDetailBean.class);
+                    if (Integer.valueOf(netShareBean.getCode()) == Contetns.STATE_OK) {
+                        if (getActivityView() != null) {
+                            getActivityView().getUserOrderDetailByOrderIdSuccess(netShareBean);
+                        }
+                    } else {
+                        if (getActivityView() != null) {
+                            getActivityView().getUserOrderDetailByOrderIdError(Integer.valueOf(netShareBean.getCode()), netShareBean.getMsg());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                if (getActivityView() != null) {
+                    getActivityView().getUserOrderDetailByOrderIdError(-10000, "请求错误");
+                }
+            }
+        });
+    }
 }

@@ -74,6 +74,19 @@ public class OrderModelImpl implements OrderModel {
     }
 
     @Override
+    public void getUserOrderDetailByOrderId(Context mContext, String orderId, String orderType, ResultListener resultListener) {
+        String url = ServiceHelper.buildUrl("api.v2.order.getUserOrderDetailByOrderId");
+        long timeStamp = System.currentTimeMillis();
+        String token = "1";
+        url = url + SettingUtils.getInstance().getSessionkeyString() + "/" + timeStamp + "/" + token;
+        ServiceHelper.ParamBuilder paramBuilder = new ServiceHelper.ParamBuilder(mContext);
+        Map<String, String> params = paramBuilder.build();
+        params.put("orderId", orderId);
+        params.put("orderType", orderType);
+        XUtils.getInstance().get(url, params, resultListener);
+    }
+
+    @Override
     public void getOrderExpress(Context mContext, String orderId, int orderType, ResultListener resultListener) {
         String url = ServiceHelper.buildUrl("api.v2.order.getOrderExpress");
         url = url + SettingUtils.getInstance().getSessionkeyString();

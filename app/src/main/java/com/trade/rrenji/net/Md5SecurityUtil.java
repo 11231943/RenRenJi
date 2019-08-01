@@ -27,7 +27,7 @@ public class Md5SecurityUtil {
      *
      * @param nameValuePairs
      * @return
-     * @throws Exception
+     * @throws
      */
     public static String getSignatureValue(List<NameValuePair> nameValuePairs) throws Exception {
 

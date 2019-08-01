@@ -35,6 +35,7 @@ import com.trade.rrenji.bean.goods.GoodsDetailBean;
 import com.trade.rrenji.bean.goods.NetAccessoryListBean;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
+import com.trade.rrenji.bean.order.NetOrderDetailBean;
 import com.trade.rrenji.bean.order.NetPayPlanInfoBean;
 import com.trade.rrenji.bean.order.NetResultCreateOrderBean;
 import com.trade.rrenji.bean.order.CreateOrderBean.*;
@@ -860,5 +861,15 @@ public class PayConfirmOrderActivity extends BaseActivity implements GetUserCrea
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void getUserOrderDetailByOrderIdSuccess(NetOrderDetailBean bean) {
+
+    }
+
+    @Override
+    public void getUserOrderDetailByOrderIdError(int code, String msg) {
+
     }
 }

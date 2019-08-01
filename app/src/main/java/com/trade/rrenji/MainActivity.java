@@ -1,5 +1,6 @@
 package com.trade.rrenji;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,11 +29,14 @@ import com.trade.rrenji.utils.FileDownloader;
 import com.trade.rrenji.utils.FragmentTabHost;
 import com.trade.rrenji.utils.TabLayout;
 import com.trade.rrenji.utils.ViewUtils;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.io.File;
+import java.util.List;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements CheckActivityView {
@@ -65,6 +69,9 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
 
     CheckPresenter mCheckPresenter;
 
+    String[] permissions = {Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +81,26 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
         }
 //        mCheckPresenter.getCheck(this);
         initEvent();
+        addPermission();
+
+    }
+    private void addPermission() {
+        AndPermission.with(this)
+                .runtime()
+                .permission(permissions)
+                .onGranted(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+
+                    }
+                })
+                .onDenied(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> data) {
+                        Toast.makeText(MainActivity.this, "沒有权限，请到设置页面授予权限.",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .start();
     }
 
     protected void initEvent() {
@@ -116,7 +143,10 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
                 + getResources().getDimension(R.dimen.indicate_text_offset));
         msgCountLayout.setPadding(leftPadding, 0, 0, 0);
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
     /**
      * 更新消息数
      *

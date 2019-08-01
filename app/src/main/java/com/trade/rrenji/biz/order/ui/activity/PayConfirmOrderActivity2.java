@@ -27,6 +27,7 @@ import com.trade.rrenji.bean.order.CreateOrderBean.OrderGroupPayListBean;
 import com.trade.rrenji.bean.order.LocalOrderInfoBean;
 import com.trade.rrenji.bean.order.NetGetUserCreateOrderBean;
 import com.trade.rrenji.bean.order.NetOrderBean.DataBean.ResultListBean;
+import com.trade.rrenji.bean.order.NetOrderDetailBean;
 import com.trade.rrenji.bean.order.NetPayPlanInfoBean;
 import com.trade.rrenji.bean.order.NetResultCreateOrderBean;
 import com.trade.rrenji.bean.pay.AuthResult;
@@ -145,6 +146,8 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     private double mCouponValue;//优惠券
     private int mSumCount;
     private String mOrderType;//支付类型
+
+    private String mOrderId = "";
 
     //---------------------------------------------------------------------------
     private static final int SDK_PAY_FLAG = 1;
@@ -267,31 +270,14 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
 
     private void initData() {
         hit_text.setVisibility(View.GONE);
-        mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
-        mGoodsPrice = getIntent().getDoubleExtra("goodsPrice", -0);
-        mCouponValue = getIntent().getDoubleExtra("couponValue", -0);
-        mSumCount = getIntent().getIntExtra("mSumCount", -0);
-        mOrderType = getIntent().getStringExtra("orderType");
-        mGoodsDetailBean = (ResultListBean) getIntent().getSerializableExtra("GoodsDetailBean");
-        if (mCouponValue <= 0) {
-            coupon_txt.setText("无优惠");
-            coupon_txt.setTextColor(Color.parseColor("#000000"));
+        mOrderId = getIntent().getStringExtra("orderId");
+        if (TextUtils.isEmpty(mOrderId)) {
+            Toast.makeText(PayConfirmOrderActivity2.this, "订单有误", Toast.LENGTH_SHORT);
+            return;
         } else {
-            coupon_txt.setText("使用优惠券" + mCouponValue + "元");
-            coupon_txt.setTextColor(Color.parseColor("#fd5252"));
+            mPresenter.getUserOrderDetailByOrderId(this, mOrderId, "1");
         }
-        pay_sum_price2.setText("￥" + mSumPrice);
-        pre_order_sum.setText(getString(R.string.order_mun, mSumCount));
-        order_sum_price.setText("￥" + mSumPrice);
-        mPresenter.getUserCreateOrderInfoByUserId(this);
-        mPresenter.getPayPlanInfoList(this, mGoodsPrice, mGoodsDetailBean.getOrderId());
-        mPayOrderAdminAdapter = new PayOrderAdminAdapter(this);
-        recycler_view.addItemDecoration(new LinearSpacingDecoration(20, 0));
-        recycler_view.setAdapter(mPayOrderAdminAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recycler_view.setLayoutManager(layoutManager);
-        mPayOrderAdminAdapter.addAll(buildData(mGoodsDetailBean));
-        changeView("4", 3);
+
     }
 
     /**
@@ -317,7 +303,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
         }
     }
 
-    private List<LocalOrderInfoBean> buildData(ResultListBean data) {
+    private List<LocalOrderInfoBean> buildData(NetOrderDetailBean.DataBean.OrderDetailBean data) {
         List<LocalOrderInfoBean> mList = new ArrayList<LocalOrderInfoBean>();
         LocalOrderInfoBean localOrderInfoBean = new LocalOrderInfoBean();
         localOrderInfoBean.setOrderId(data.getOrderId());
@@ -326,7 +312,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
         localOrderInfoBean.setGoodsPrice(data.getGoodsPrice());
         localOrderInfoBean.setPayPrice(data.getOrderSum());
         mList.add(localOrderInfoBean);
-        for (ResultListBean.AccessoryListBean bean : data.getAccessoryList()) {
+        for (NetOrderDetailBean.DataBean.AccessoryListBean bean : data.getAccessoryList()) {
             LocalOrderInfoBean orderInfoBean = new LocalOrderInfoBean();
             orderInfoBean.setOrderId(bean.getAccessoryId() + "");
             orderInfoBean.setGoodsName(bean.getAccessoryName());
@@ -350,7 +336,7 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
         ContinuePayBean createOrderBean = new ContinuePayBean();
         createOrderBean.setPayType(String.valueOf(mPayType));
         createOrderBean.setOrderType("1");
-        createOrderBean.setOrderId(mGoodsDetailBean.getOrderId());
+        createOrderBean.setOrderId(mOrderId);
         List<OrderGroupPayListBean> mOrderGroupPayListBean = new ArrayList<OrderGroupPayListBean>();
         createOrderBean.setOrderGroupPayList(mOrderGroupPayListBean);
         mPresenter.newContinuePay(this, createOrderBean);
@@ -487,5 +473,41 @@ public class PayConfirmOrderActivity2 extends BaseActivity implements GetUserCre
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void getUserOrderDetailByOrderIdSuccess(NetOrderDetailBean bean) {
+//        mSumPrice = getIntent().getDoubleExtra("mSumPrice", -0);
+//        mGoodsPrice = getIntent().getDoubleExtra("goodsPrice", -0);
+//        mCouponValue = getIntent().getDoubleExtra("couponValue", -0);
+//        mSumCount = getIntent().getIntExtra("mSumCount", -0);
+//        mOrderType = getIntent().getStringExtra("orderType");
+        NetOrderDetailBean.DataBean.OrderDetailBean bean1 = bean.getData().getOrderDetail();
+//        mGoodsDetailBean = (ResultListBean) getIntent().getSerializableExtra("GoodsDetailBean");
+        if (bean1.getCouponValue() == null) {
+            coupon_txt.setText("无优惠");
+            coupon_txt.setTextColor(Color.parseColor("#000000"));
+        } else {
+            coupon_txt.setText("使用优惠券" + bean1.getCouponValue() + "元");
+            coupon_txt.setTextColor(Color.parseColor("#fd5252"));
+        }
+        mPayType = Integer.valueOf(bean1.getPayType());
+        pay_sum_price2.setText("￥" + bean1.getOrderSum());
+        pre_order_sum.setText(getString(R.string.order_mun, (bean1.getAccessoryList().size() + Integer.valueOf(bean1.getGoodsNum()))));
+        order_sum_price.setText("￥" + bean1.getOrderSum());
+        mPresenter.getUserCreateOrderInfoByUserId(this);
+        mPresenter.getPayPlanInfoList(this, bean1.getGoodsPrice(), bean1.getOrderId());
+        mPayOrderAdminAdapter = new PayOrderAdminAdapter(this);
+        recycler_view.addItemDecoration(new LinearSpacingDecoration(20, 0));
+        recycler_view.setAdapter(mPayOrderAdminAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recycler_view.setLayoutManager(layoutManager);
+        mPayOrderAdminAdapter.addAll(buildData(bean1));
+        changeView(bean1.getPayType(), Integer.valueOf(bean1.getPlan()));
+    }
+
+    @Override
+    public void getUserOrderDetailByOrderIdError(int code, String msg) {
+
     }
 }
