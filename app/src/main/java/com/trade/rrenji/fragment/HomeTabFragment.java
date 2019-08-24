@@ -29,6 +29,7 @@ import com.trade.rrenji.biz.home.presenter.HomeActivityPresenter;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenterImpl;
 import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
+import com.trade.rrenji.biz.im.ChatActivity;
 import com.trade.rrenji.biz.search.ui.activity.SearchActivity;
 import com.trade.rrenji.utils.StatusBarUtils;
 import com.trade.rrenji.utils.reservoir.Reservoir;
@@ -56,6 +57,9 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
 
     @ViewInject(R.id.more)
     public RelativeLayout more;
+    @ViewInject(R.id.icon_service)
+    public RelativeLayout iconService;
+
 
     HomeAdapter mHomeAdapter;
 
@@ -68,6 +72,7 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
         Log.e(TAG, "initView");
         mSuperRecyclerView = rootView.findViewById(R.id.near_recycler_view);
         search_layout = rootView.findViewById(R.id.search_layout);
+        iconService = rootView.findViewById(R.id.icon_service);
         more = rootView.findViewById(R.id.more);
         init();
     }
@@ -172,6 +177,13 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 getActivity().startActivity(intent);
 
+            }
+        });
+        iconService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         more.setOnClickListener(new View.OnClickListener() {

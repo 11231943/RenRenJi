@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.trade.rrenji.fragment.MineFragment;
 import com.trade.rrenji.service.UpdateApkService;
 import com.trade.rrenji.utils.FileDownloader;
 import com.trade.rrenji.utils.FragmentTabHost;
+import com.trade.rrenji.utils.SystemUtils;
 import com.trade.rrenji.utils.TabLayout;
 import com.trade.rrenji.utils.ViewUtils;
 import com.yanzhenjie.permission.Action;
@@ -38,8 +40,13 @@ import org.xutils.view.annotation.ViewInject;
 import java.io.File;
 import java.util.List;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
+
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements CheckActivityView {
+
+    private String TAG = MainActivity.class.getSimpleName();
 
     //更新策略：默认替用户下载更新，强制用户安装
     public static final int UPDATE_STRATEGY_STRICT = 3;
@@ -49,7 +56,6 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
     public static final int UPDATE_STRATEGY_OPTIONAL = 2;
 
     private long mExitTime;
-
 
     public String[] tabTags = new String[]{"nearby", "live", "rainbow", "message", "mine"};
     public Class[] tabCls = new Class[]{HomeTabFragment.class, CategoryTabFragment.class,
@@ -77,13 +83,24 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy( builder.build() );
+            StrictMode.setVmPolicy(builder.build());
         }
 //        mCheckPresenter.getCheck(this);
         initEvent();
         addPermission();
-
+        loginIM();
     }
+
+    private void loginIM() {
+        Log.e(TAG," username = "+SystemUtils.getDeviceUUID(this));
+        JMessageClient.login(SystemUtils.getDeviceUUID(this), "123456", new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                Log.e(TAG, "JMessageClient.login = " + s);
+            }
+        });
+    }
+
     private void addPermission() {
         AndPermission.with(this)
                 .runtime()
@@ -97,7 +114,7 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
                 .onDenied(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-                        Toast.makeText(MainActivity.this, "沒有权限，请到设置页面授予权限.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "沒有权限，请到设置页面授予权限.", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .start();
@@ -143,10 +160,12 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
                 + getResources().getDimension(R.dimen.indicate_text_offset));
         msgCountLayout.setPadding(leftPadding, 0, 0, 0);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     /**
      * 更新消息数
      *
@@ -280,7 +299,7 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
                         Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
             } else {
-                MiGoApplication.getApp().exit(false,true);
+                MiGoApplication.getApp().exit(false, true);
                 finish();
             }
             return true;

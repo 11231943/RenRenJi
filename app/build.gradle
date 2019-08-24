@@ -10,6 +10,18 @@ android {
         versionName "3.0.0"
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : "com.trade.rrenji",
+                JPUSH_APPKEY : "3056b88005e051fa2504711e", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+
     }
 
     signingConfigs {
@@ -69,6 +81,11 @@ android {
         flatDir{ dirs'libs'}
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -124,5 +141,9 @@ dependencies {
     //    compile 'com.githang:com.edmodo.cropper:1.0.2'
     //    compile 'com.edmodo:cropper:1.0.1'
     implementation(name: 'alipaySdk-20190226', ext: 'aar')
+//
+    implementation 'cn.jiguang.sdk:jmessage:2.9.0'  // 此处以JMessage 2.9.0 版本为例。
+
+    implementation 'cn.jiguang.sdk:jcore:2.0.0'  // 此处以JCore 2.0.0 版本为例。
 
 }
