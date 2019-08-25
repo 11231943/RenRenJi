@@ -1,5 +1,4 @@
 package com.trade.rrenji.biz.im.adapter;
-
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,17 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.trade.rrenji.R;
-import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.DateFormatUtils;
-import com.trade.rrenji.utils.LoopViewPager;
-import com.viewpagerindicator.LinePageIndicator;
-
 import java.util.Date;
-
-import cn.jpush.im.android.api.content.MessageContent;
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Message;

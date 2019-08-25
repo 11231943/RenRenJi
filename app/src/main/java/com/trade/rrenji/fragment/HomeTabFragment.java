@@ -30,7 +30,9 @@ import com.trade.rrenji.biz.home.presenter.HomeActivityPresenterImpl;
 import com.trade.rrenji.biz.home.ui.adapter.HomeAdapter;
 import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
 import com.trade.rrenji.biz.im.ChatActivity;
+import com.trade.rrenji.biz.im.ChatGroupActivity;
 import com.trade.rrenji.biz.search.ui.activity.SearchActivity;
+import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.StatusBarUtils;
 import com.trade.rrenji.utils.reservoir.Reservoir;
 import com.trade.rrenji.utils.reservoir.ReservoirCallback;
@@ -182,8 +184,14 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
         iconService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                getActivity().startActivity(intent);
+
+                if (SettingUtils.getInstance().getAccountIsAdmin()) {
+                    Intent intent = new Intent(getActivity(), ChatGroupActivity.class);
+                    getActivity().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    getActivity().startActivity(intent);
+                }
             }
         });
         more.setOnClickListener(new View.OnClickListener() {

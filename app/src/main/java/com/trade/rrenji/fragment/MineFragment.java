@@ -93,7 +93,7 @@ public class MineFragment extends Fragment {
         getSystemData();
     }
 
-    private void getSystemData(){
+    private void getSystemData() {
         mPersonalModel.getSystemData(getActivity(), new XUtils.ResultListener() {
             @Override
             public void onResponse(String result) {
@@ -161,6 +161,11 @@ public class MineFragment extends Fragment {
                         SettingUtils.getInstance().setUserAddress(bean.getAddress());
                         user_name.setText(SettingUtils.getInstance().getUsername());
                         user_phone.setText(SettingUtils.getInstance().getPhone());
+                        if (SettingUtils.getInstance().getPhone().equals("15986800825")) {
+                            SettingUtils.getInstance().setAccountIsAdmin(true);
+                        } else {
+                            SettingUtils.getInstance().setAccountIsAdmin(false);
+                        }
                         GlideUtils.getInstance().loadCircleIcon(getActivity(), SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
                     } else if (netMineBean.getCode().equals("666")) {
                         isLogin = false;
@@ -179,7 +184,7 @@ public class MineFragment extends Fragment {
 
     @Event(value = {R.id.user_avatar, R.id.address_layout, R.id.collection_layout, R.id.user_setting, R.id.user_info_layout, R.id.auth_layout
             , R.id.invite_layout, R.id.coupon_layout, R.id.order_detail_layout, R.id.pre_order_layout, R.id.dry_layout, R.id.invite_layout
-    ,R.id.user_chat,R.id.user_server,R.id.user_rule,R.id.renren_zhaoshang,R.id.after_sale})
+            , R.id.user_chat, R.id.user_server, R.id.user_rule, R.id.renren_zhaoshang, R.id.after_sale})
     private void onViewClicked(View view) {
         Intent intent = null;
         Log.e(TAG, "CurrentUid : " + SettingUtils.getInstance().getCurrentUid());
@@ -290,16 +295,16 @@ public class MineFragment extends Fragment {
                 }
                 break;
             case R.id.user_chat:
-                AdActivity.start(getActivity(),SettingUtils.getInstance().getJiaoLiuQun());
+                AdActivity.start(getActivity(), SettingUtils.getInstance().getJiaoLiuQun());
                 break;
             case R.id.user_server:
-                AdActivity.start(getActivity(),SettingUtils.getInstance().getWechat());
+                AdActivity.start(getActivity(), SettingUtils.getInstance().getWechat());
                 break;
             case R.id.user_rule:
-                AdActivity.start(getActivity(),SettingUtils.getInstance().getPingTaiGuiZe());
+                AdActivity.start(getActivity(), SettingUtils.getInstance().getPingTaiGuiZe());
                 break;
             case R.id.renren_zhaoshang:
-                AdActivity.start(getActivity(),SettingUtils.getInstance().getRenRenZhaoShang());
+                AdActivity.start(getActivity(), SettingUtils.getInstance().getRenRenZhaoShang());
                 break;
         }
     }

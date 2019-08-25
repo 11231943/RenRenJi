@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,8 +27,10 @@ import com.trade.rrenji.fragment.TechTabFragment;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.fragment.MineFragment;
 import com.trade.rrenji.service.UpdateApkService;
+import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.FileDownloader;
 import com.trade.rrenji.utils.FragmentTabHost;
+import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.SystemUtils;
 import com.trade.rrenji.utils.TabLayout;
 import com.trade.rrenji.utils.ViewUtils;
@@ -41,6 +44,7 @@ import java.io.File;
 import java.util.List;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.api.BasicCallback;
 
 @ContentView(R.layout.activity_main)
@@ -92,15 +96,24 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
     }
 
     private void loginIM() {
-        String admin = "00000000-18d1-5b7a-ffff-ffff97caa169";
 
-        Log.e(TAG," username = "+SystemUtils.getDeviceUUID(this));
-        JMessageClient.login(admin, "123456", new BasicCallback() {
-            @Override
-            public void gotResult(int i, String s) {
-                Log.e(TAG, "JMessageClient.login = " + s);
+        if (!TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
+            String admin = "";
+            if (SettingUtils.getInstance().getAccountIsAdmin()) {
+                //管理员
+                admin = Contetns.ACCOUNT_ADMIN;
+            } else {
+                //普通用户登录
+                admin = SystemUtils.getDeviceUUID(this);
             }
-        });
+            Log.e(TAG, " username = " + SystemUtils.getDeviceUUID(this));
+            JMessageClient.login(admin, "123456", new BasicCallback() {
+                @Override
+                public void gotResult(int i, String s) {
+                    Log.e(TAG, "JMessageClient.login = " + s);
+                }
+            });
+        }
     }
 
     private void addPermission() {

@@ -181,6 +181,11 @@
             android:name=".biz.data.ui.activity.DataListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".biz.im.ChatGroupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+         />
         <activity
             android:name=".biz.im.ChatActivity"
             android:screenOrientation="portrait"

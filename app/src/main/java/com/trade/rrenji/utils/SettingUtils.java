@@ -34,17 +34,19 @@ public class SettingUtils {
 
     public static final String KEY_CURRENT_UID = "current_uid";
     public static final String KEY_CURRENT_SEX = "current_sex";
-    public static final String KEY_CURRENT_ADDRESS= "current_address";
+    public static final String KEY_CURRENT_ADDRESS = "current_address";
     public static final String NAME_USER_SETTING_PREFIX = "cookie_";
     public static final String NAME_APP_SETTING = "cookie";
+
+    public static final String NAME_APP_IS_ADMIN = "admin";
 
 
     public static final String KEY_SYSTEM_WECHAT = "kefu_wechat";
     public static final String KEY_SYSTEM_JIAOLIUQUN = "rrj_jiaoliuqun";
     public static final String KEY_SYSTEM_EMAIL = "kefu_email";
-    public static final String KEY_SYSTEM_QQ= "kefu_QQ";
-    public static final String KEY_SYSTEM_PINGTAIGUIZE= "rrj_pingtaiguize";
-    public static final String KEY_SYSTEM_ZHAOSHANG= "rrj_zhaoshang";
+    public static final String KEY_SYSTEM_QQ = "kefu_QQ";
+    public static final String KEY_SYSTEM_PINGTAIGUIZE = "rrj_pingtaiguize";
+    public static final String KEY_SYSTEM_ZHAOSHANG = "rrj_zhaoshang";
 
     protected Context mContext;
     /**
@@ -96,15 +98,27 @@ public class SettingUtils {
         }
     }
 
+
     public void setCurrentUid(String uid) {
         synchronized (KEY_CURRENT_UID) {
             mAppSetting.edit().putString(KEY_CURRENT_UID, uid).apply();
         }
     }
 
+    public void setAccountIsAdmin(boolean isAdmin) {
+        getCurrentUserSetting().edit().putBoolean(NAME_APP_IS_ADMIN, isAdmin).apply();
+    }
+
+
+    public boolean getAccountIsAdmin() {
+        return getCurrentUserSetting().getBoolean(NAME_APP_IS_ADMIN, false);
+    }
+
+
     public void setBaichuanPassword(String baichuanPassword) {
         getCurrentUserSetting().edit().putString(BAICHUAN_PASSWORD, baichuanPassword).apply();
     }
+
 
     public String getBaichuanPassword() {
         return getCurrentUserSetting().getString(BAICHUAN_PASSWORD, "");
@@ -113,42 +127,50 @@ public class SettingUtils {
     public void setWechat(String wechat) {
         getCurrentUserSetting().edit().putString(KEY_SYSTEM_WECHAT, wechat).apply();
     }
+
     public String getWechat() {
         return getCurrentUserSetting().getString(KEY_SYSTEM_WECHAT, "");
     }
+
     public void setJiaoLiuQun(String userImg) {
         getCurrentUserSetting().edit().putString(KEY_SYSTEM_JIAOLIUQUN, userImg).apply();
     }
+
     public String getJiaoLiuQun() {
         return getCurrentUserSetting().getString(KEY_SYSTEM_JIAOLIUQUN, "");
     }
+
     public void setSystemEmail(String email) {
         getCurrentUserSetting().edit().putString(KEY_SYSTEM_EMAIL, email).apply();
     }
+
     public String getSystemEmail() {
         return getCurrentUserSetting().getString(KEY_SYSTEM_EMAIL, "");
     }
+
     public void setQQ(String userImg) {
         getCurrentUserSetting().edit().putString(KEY_SYSTEM_QQ, userImg).apply();
     }
+
     public String getQQ() {
         return getCurrentUserSetting().getString(KEY_SYSTEM_QQ, "");
     }
+
     public void setPingTaiGuiZe(String userImg) {
         getCurrentUserSetting().edit().putString(KEY_SYSTEM_PINGTAIGUIZE, userImg).apply();
     }
+
     public String getPingTaiGuiZe() {
         return getCurrentUserSetting().getString(KEY_SYSTEM_PINGTAIGUIZE, "");
     }
+
     public void setRenRenZhaoShang(String userImg) {
         getCurrentUserSetting().edit().putString(KEY_SYSTEM_ZHAOSHANG, userImg).apply();
     }
+
     public String getRenRenZhaoShang() {
         return getCurrentUserSetting().getString(KEY_SYSTEM_ZHAOSHANG, "");
     }
-
-
-
 
 
     public void setUserSex(String userImg) {

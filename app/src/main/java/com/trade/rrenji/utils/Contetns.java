@@ -11,6 +11,7 @@ public class Contetns {
     public static final int JSON_PART = 10000;
     public static final int NET_ERROR = 10001;
     public static String DEVICE_ID = "mDeviceId";
+    public static String ACCOUNT_ADMIN = "00000000-18d1-5b7a-ffff-ffff97caa169";
 
 //    public static String sessionKey = "90574927cfe448a4924496d9d1a38c1b";
 //    public static String sessionKey = SettingUtils.getInstance().getSessionkey();
