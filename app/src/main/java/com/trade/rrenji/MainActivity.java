@@ -92,8 +92,10 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
     }
 
     private void loginIM() {
+        String admin = "00000000-18d1-5b7a-ffff-ffff97caa169";
+
         Log.e(TAG," username = "+SystemUtils.getDeviceUUID(this));
-        JMessageClient.login(SystemUtils.getDeviceUUID(this), "123456", new BasicCallback() {
+        JMessageClient.login(admin, "123456", new BasicCallback() {
             @Override
             public void gotResult(int i, String s) {
                 Log.e(TAG, "JMessageClient.login = " + s);
