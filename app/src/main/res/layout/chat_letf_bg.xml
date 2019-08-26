@@ -40,6 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_account"
         android:layout_marginLeft="-8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:layout_marginRight="75dp"
         android:layout_toRightOf="@+id/user_avatar"
         android:background="@drawable/ease_chatfrom_bg_normal"
@@ -47,7 +49,8 @@
         android:minHeight="45dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        tools:text="你好，请问一下一加pro 128" />
+        android:lineSpacingExtra="4dp"
+        tools:text="你好，请问一下一加pro 128 请问一下一加pro" />
     />
 
 

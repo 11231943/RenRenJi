@@ -1,23 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/user_avatar"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_margin="15dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/user_head_default_gray" />
+
+    <TextView
+        android:id="@+id/un_read_mun"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/category_price_bg"
+        android:gravity="center"
+        android:text="99"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:layout_below="@+id/user_account"
+        android:textColor="#fff"
+        android:textSize="7sp" />
 
     <TextView
         android:id="@+id/user_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="-8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/user_avatar"
         android:textSize="13sp"
         tools:text="15986800825" />
@@ -38,15 +57,27 @@
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_below="@+id/user_account"
-        android:layout_marginLeft="-8dp"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginTop="3dp"
         android:layout_marginRight="75dp"
         android:layout_toRightOf="@+id/user_avatar"
+        android:ellipsize="end"
         android:gravity="center|left"
+        android:maxLines="1"
         android:textSize="14sp"
-        tools:text="你好，请问一下一加pro 128" />
-    />
+        tools:text="你好，请问一下一加pro 128 请问一下一加pro " />
 
 
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/content"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBaseline="@+id/user_avatar"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="#eee"></View>
 </RelativeLayout>

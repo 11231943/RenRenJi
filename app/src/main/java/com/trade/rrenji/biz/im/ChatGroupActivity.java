@@ -1,11 +1,14 @@
 package com.trade.rrenji.biz.im;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gelitenight.superrecyclerview.DividerItemDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.base.BaseActivity;
@@ -58,7 +61,9 @@ public class ChatGroupActivity extends BaseActivity {
 
     private void ref() {
         List<Conversation> list = JMessageClient.getConversationList();
+        mChatAdapter.clear();
         mChatAdapter.addAll(list);
+        mSuperRecyclerView.finishRefreshing();
     }
 
     private void init() {
@@ -67,6 +72,30 @@ public class ChatGroupActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mSuperRecyclerView.setLayoutManager(manager);
         mChatAdapter.addAll(JMessageClient.getConversationList());
+        mChatAdapter.setOnMessageClickListener(new ChatGorupAdapter.onMessageClickListener() {
+            @Override
+            public void onMessage(Conversation data) {
+                data.setUnReadMessageCnt(0);
+                Intent intent = new Intent(ChatGroupActivity.this, ChatActivity.class);
+                intent.putExtra("username", data.getTargetId());
+                intent.putExtra("from", "1");
+                intent.putExtra("title", data.getTitle());
+                startActivity(intent);
+
+            }
+        });
+        mSuperRecyclerView.setOnLoadDataListener(new SuperRecyclerView.OnLoadDataListener() {
+            @Override
+            public void onRefresh() {
+                ref();
+
+            }
+
+            @Override
+            public void onMore() {
+
+            }
+        });
     }
 
 

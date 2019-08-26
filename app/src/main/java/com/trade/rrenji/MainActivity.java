@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.trade.rrenji.bean.account.LoginJsonBean;
 import com.trade.rrenji.bean.check.NetCheckBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.version.presenter.CheckPresenter;
@@ -96,18 +97,16 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
     }
 
     private void loginIM() {
-
+        String userName = "";
         if (!TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
-            String admin = "";
-            if (SettingUtils.getInstance().getAccountIsAdmin()) {
+            if (TextUtils.equals(SettingUtils.getInstance().getPhone(), Contetns.ACCOUNT_ADMIN)) {
                 //管理员
-                admin = Contetns.ACCOUNT_ADMIN;
+                userName = Contetns.ACCOUNT_ADMIN;
             } else {
                 //普通用户登录
-                admin = SystemUtils.getDeviceUUID(this);
+                userName = SettingUtils.getInstance().getPhone();
             }
-            Log.e(TAG, " username = " + SystemUtils.getDeviceUUID(this));
-            JMessageClient.login(admin, "123456", new BasicCallback() {
+            JMessageClient.login(userName, "123456", new BasicCallback() {
                 @Override
                 public void gotResult(int i, String s) {
                     Log.e(TAG, "JMessageClient.login = " + s);

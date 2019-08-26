@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,7 +22,9 @@ import com.trade.rrenji.biz.account.presenter.LoginActivityPresenterImpl;
 import com.trade.rrenji.biz.account.ui.view.LoginActivityView;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.base.ProgressView;
+import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.SettingUtils;
+import com.trade.rrenji.utils.SystemUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -29,11 +32,15 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.UUID;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
+
 /**
  * Created by monster on 8/4/18.
  */
 @ContentView(R.layout.activity_login)
 public class LoginActivity extends BaseActivity implements LoginActivityView {
+    private static String TAG = LoginActivity.class.getSimpleName();
 
     @ViewInject(R.id.login_phone)
     EditText mLoginPhone;
@@ -199,6 +206,7 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
 //        Toast.makeText(LoginActivity.this, "loginSuccess : " + jsonBean.getData().toString(), Toast.LENGTH_SHORT).show();
         if (jsonBean.getCode().equals("0")) {
             SettingUtils.getInstance().saveMineInfo(jsonBean.getData());
+            loginIM(jsonBean);
             if (mType == 1) {
                 setResult(10000);
             }
@@ -206,6 +214,29 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
         } else {
             Toast.makeText(LoginActivity.this, "登陆失败!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void loginIM(LoginJsonBean jsonBean) {
+        String userName = "";
+        if (TextUtils.equals(jsonBean.getData().getPhone(), Contetns.ACCOUNT_ADMIN)) {
+            //管理员
+            userName = Contetns.ACCOUNT_ADMIN;
+        } else {
+            //普通用户登录
+            userName = jsonBean.getData().getPhone();
+        }
+        JMessageClient.register(userName, "123456", new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                Log.e("register", "register s = " + s);
+            }
+        });
+        JMessageClient.login(userName, "123456", new BasicCallback() {
+            @Override
+            public void gotResult(int i, String s) {
+                Log.e(TAG, "JMessageClient.login = " + s);
+            }
+        });
     }
 
     @Override

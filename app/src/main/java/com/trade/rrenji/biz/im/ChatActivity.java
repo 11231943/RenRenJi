@@ -2,6 +2,7 @@ package com.trade.rrenji.biz.im;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -36,26 +37,33 @@ import cn.jpush.im.api.BasicCallback;
 public class ChatActivity extends BaseActivity {
 
     //        private String admin1 = "00000000-18d1-5b7a-ffff-ffff97caa169";
-    private String admin1 = "ffffffff-9e07-1589-0000-00003ada75cb";
     SuperRecyclerView mSuperRecyclerView;
     EditText mMessage;
     TextView mSend;
     ChatAdapter mChatAdapter;
     Conversation mConversation;
     private String mUserName;
+    private String mFrom;
+    private String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_chat_main_layout);
-        setActionBarTitle("客服");
         EventBus.getDefault().register(this);
         mSuperRecyclerView = findViewById(R.id.chat_recycler_view);
         mMessage = findViewById(R.id.message);
         mSend = findViewById(R.id.send);
-        if (!SettingUtils.getInstance().getAccountIsAdmin()) {
-            //不是管理，就直接与管理号建立连接
-            mConversation = JMessageClient.getSingleConversation(Contetns.ACCOUNT_ADMIN, "");
+        mFrom = getIntent().getStringExtra("from");
+        if (TextUtils.equals(mFrom, "1")) {
+            mTitle = getIntent().getStringExtra("title");
+            mConversation = JMessageClient.getSingleConversation(mUserName, "");
+            setActionBarTitle(mTitle);
+        } else if (TextUtils.equals(mFrom, "0")) {
+            mUserName = getIntent().getStringExtra("username");
+            mUserName = Contetns.ACCOUNT_ADMIN;
+            mConversation = JMessageClient.getSingleConversation(mUserName, "");
+            setActionBarTitle("客服");
         }
         init();
     }
@@ -67,17 +75,21 @@ public class ChatActivity extends BaseActivity {
 
     private void ref() {
         if (mConversation == null) {
-            mConversation = JMessageClient.getSingleConversation(admin1, "");
+            mConversation = JMessageClient.getSingleConversation(mUserName, "");
         }
         mChatAdapter.add(mConversation.getLatestMessage());
         mSuperRecyclerView.scrollToPosition(mChatAdapter.getItemCount() - 1);
     }
 
     private void init() {
+        List<Message> listMessage = null;
         if (mConversation == null) {
-            mConversation = Conversation.createSingleConversation(admin1, "");
+            mConversation = Conversation.createSingleConversation(mUserName, "");
+            listMessage = mConversation.getAllMessage();
+        } else {
+            listMessage = mConversation.getAllMessage();
         }
-        List<Message> listMessage = mConversation.getAllMessage();
+
         mChatAdapter = new ChatAdapter(this);
         mSuperRecyclerView.setAdapter(mChatAdapter);
         LinearLayoutManager manager = new LinearLayoutManager(this);

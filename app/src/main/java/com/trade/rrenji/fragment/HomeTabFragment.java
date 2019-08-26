@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import com.trade.rrenji.R;
 import com.trade.rrenji.bean.home.HomeBean;
 import com.trade.rrenji.bean.home.NetHomeBean;
+import com.trade.rrenji.biz.account.ui.activity.LoginActivity;
 import com.trade.rrenji.biz.base.BaseFragment;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenter;
 import com.trade.rrenji.biz.home.presenter.HomeActivityPresenterImpl;
@@ -32,6 +34,7 @@ import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
 import com.trade.rrenji.biz.im.ChatActivity;
 import com.trade.rrenji.biz.im.ChatGroupActivity;
 import com.trade.rrenji.biz.search.ui.activity.SearchActivity;
+import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.StatusBarUtils;
 import com.trade.rrenji.utils.reservoir.Reservoir;
@@ -184,12 +187,17 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
         iconService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (SettingUtils.getInstance().getAccountIsAdmin()) {
-                    Intent intent = new Intent(getActivity(), ChatGroupActivity.class);
-                    getActivity().startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                if (!TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {
+                    if (TextUtils.equals(SettingUtils.getInstance().getPhone(), Contetns.ACCOUNT_ADMIN)) {
+                        Intent intent = new Intent(getActivity(), ChatGroupActivity.class);
+                        getActivity().startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getActivity(), ChatActivity.class);
+                        intent.putExtra("from", "0");
+                        getActivity().startActivity(intent);
+                    }
+                }else {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
                     getActivity().startActivity(intent);
                 }
             }
