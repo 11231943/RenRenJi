@@ -50,7 +50,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:lineSpacingExtra="4dp"
-        tools:text="你好，请问一下一加pro 128 请问一下一加pro" />
+        tools:text="300" />
     />
 
 

@@ -1,4 +1,5 @@
 package com.trade.rrenji.biz.im.adapter;
+
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,13 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.trade.rrenji.R;
 import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.DateFormatUtils;
+
 import java.util.Date;
+
 import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.enums.MessageDirect;
 import cn.jpush.im.android.api.model.Message;
+import cn.jpush.im.android.api.model.UserInfo;
 
 public class ChatAdapter extends RecyclerListAdapter<Message> {
 
@@ -92,7 +97,7 @@ public class ChatAdapter extends RecyclerListAdapter<Message> {
         @Override
         public void bindData(Message data, int position) {
             super.bindData(data, position);
-            mUserAccount.setText(data.getFromUser().getNickname());
+            mUserAccount.setText(data.getFromUser().getNickname().length() > 0 ? data.getFromUser().getNickname() : data.getFromUser().getUserName());
             TextContent stringExtra = (TextContent) data.getContent();
             mContent.setText(stringExtra.getText());
         }
@@ -114,7 +119,7 @@ public class ChatAdapter extends RecyclerListAdapter<Message> {
         @Override
         public void bindData(Message data, int position) {
             super.bindData(data, position);
-            mUserAccount.setText(data.getFromUser().getNickname());
+            mUserAccount.setText(data.getFromUser().getNickname().length() > 0 ? data.getFromUser().getNickname() : data.getFromUser().getUserName());
             TextContent stringExtra = (TextContent) data.getContent();
             mContent.setText(stringExtra.getText());
             mTime.setText(DateFormatUtils.getTimeStringAutoShort2(new Date(data.getCreateTime()), true));

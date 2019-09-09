@@ -56,11 +56,12 @@ public class ChatActivity extends BaseActivity {
         mSend = findViewById(R.id.send);
         mFrom = getIntent().getStringExtra("from");
         if (TextUtils.equals(mFrom, "1")) {
+            mUserName = getIntent().getStringExtra("username");
             mTitle = getIntent().getStringExtra("title");
             mConversation = JMessageClient.getSingleConversation(mUserName, "");
             setActionBarTitle(mTitle);
         } else if (TextUtils.equals(mFrom, "0")) {
-            mUserName = getIntent().getStringExtra("username");
+
             mUserName = Contetns.ACCOUNT_ADMIN;
             mConversation = JMessageClient.getSingleConversation(mUserName, "");
             setActionBarTitle("客服");

@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
@@ -34,17 +36,22 @@ import com.trade.rrenji.biz.home.ui.view.HomeActivityView;
 import com.trade.rrenji.biz.im.ChatActivity;
 import com.trade.rrenji.biz.im.ChatGroupActivity;
 import com.trade.rrenji.biz.search.ui.activity.SearchActivity;
+import com.trade.rrenji.event.MessageServiceEvent;
 import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.SettingUtils;
 import com.trade.rrenji.utils.StatusBarUtils;
 import com.trade.rrenji.utils.reservoir.Reservoir;
 import com.trade.rrenji.utils.reservoir.ReservoirCallback;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.view.annotation.ViewInject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * Created by monster on 23/3/18.
@@ -61,10 +68,11 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
     public RelativeLayout search_layout;
 
     @ViewInject(R.id.more)
-    public RelativeLayout more;
+    public LinearLayout more;
     @ViewInject(R.id.icon_service)
-    public RelativeLayout iconService;
+    public LinearLayout iconService;
 
+    ImageView unReadMsgView;
 
     HomeAdapter mHomeAdapter;
 
@@ -79,6 +87,7 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
         search_layout = rootView.findViewById(R.id.search_layout);
         iconService = rootView.findViewById(R.id.icon_service);
         more = rootView.findViewById(R.id.more);
+        unReadMsgView = rootView.findViewById(R.id.un_read_msg);
         init();
     }
 
@@ -175,7 +184,22 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
         normalDialog.show();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(MessageServiceEvent event) {
+        updateReadMsg();
+    }
+
+    private void updateReadMsg() {
+        int unReadMsg = JMessageClient.getAllUnReadMsgCount();
+        if (unReadMsg > 0) {
+            unReadMsgView.setImageResource(R.drawable.icon_service_un);
+        } else {
+            unReadMsgView.setImageResource(R.drawable.icon_service);
+        }
+    }
+
     private void init() {
+        updateReadMsg();
         search_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +220,7 @@ public class HomeTabFragment extends BaseFragment implements HomeActivityView {
                         intent.putExtra("from", "0");
                         getActivity().startActivity(intent);
                     }
-                }else {
+                } else {
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     getActivity().startActivity(intent);
                 }

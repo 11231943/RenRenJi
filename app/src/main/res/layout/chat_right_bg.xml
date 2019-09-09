@@ -31,12 +31,12 @@
         android:layout_toLeftOf="@+id/user_avatar"
         android:background="@drawable/ease_chatto_bg_focused"
         android:gravity="center|left"
-        android:paddingLeft="15dp"
+        android:paddingLeft="10dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingRight="15dp"
+        android:paddingRight="13dp"
         android:lineSpacingExtra="4dp"
-        tools:text="你好，请问一下一加pro 128 请问一下一加pro 128" />
+        tools:text="50" />
 
 
 </RelativeLayout>
