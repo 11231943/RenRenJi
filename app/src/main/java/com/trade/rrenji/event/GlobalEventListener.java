@@ -1,7 +1,12 @@
 package com.trade.rrenji.event;
 
 import android.content.Context;
+import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.trade.rrenji.biz.im.ChatActivity;
+import com.trade.rrenji.utils.Contetns;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -34,20 +39,18 @@ public class GlobalEventListener {
     private void jumpToActivity(Message msg) {
         UserInfo fromUser = msg.getFromUser();
         Log.e("Message","msg = "+msg.toJson());
-//        final Intent notificationIntent = new Intent(appContext, ShowMessageActivity.class);
-//        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        if (msg.getTargetType() == ConversationType.group) {
-//            GroupInfo groupInfo = (GroupInfo) msg.getTargetInfo();
-//            notificationIntent.putExtra(ShowMessageActivity.EXTRA_IS_GROUP, true);
-//            notificationIntent.putExtra(ShowMessageActivity.EXTRA_GROUPID, groupInfo.getGroupID());
-//        } else {
-//            notificationIntent.putExtra(ShowMessageActivity.EXTRA_IS_GROUP, false);
-//        }
-//
-//        notificationIntent.putExtra(ShowMessageActivity.EXTRA_FROM_USERNAME, fromUser.getUserName());
-//        notificationIntent.putExtra(ShowMessageActivity.EXTRA_FROM_APPKEY, fromUser.getAppKey());
-//        notificationIntent.putExtra(ShowMessageActivity.EXTRA_MSG_TYPE, msg.getContentType().toString());
-//        notificationIntent.putExtra(ShowMessageActivity.EXTRA_MSGID, msg.getId());
-//        appContext.startActivity(notificationIntent);
+        String userName = "";
+        if (TextUtils.equals(fromUser.getUserName(), Contetns.ACCOUNT_ADMIN)) {
+            //管理员
+            userName = Contetns.ACCOUNT_ADMIN;
+        } else {
+            //普通用户登录
+            userName = fromUser.getUserName();
+        }
+        final Intent notificationIntent = new Intent(appContext, ChatActivity.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        notificationIntent.putExtra("from", "0");
+        notificationIntent.putExtra("username", userName);
+        appContext.startActivity(notificationIntent);
     }
 }

@@ -39,24 +39,31 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 @ContentView(R.layout.activity_category_super_recyclerview)
 public class CategoryListActivity extends BaseActivity implements CategoryActivityListView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-    @ViewInject(R.id.price_select_layout)
-    public RelativeLayout price_select_layout;
-    @ViewInject(R.id.price_sort_layout)
-    public RelativeLayout price_sort_layout;
-    @ViewInject(R.id.view_group)
-    public LinearLayout view_group;
-    @ViewInject(R.id.goods_type_select_txt)
-    public TextView goods_type_select_txt;
-    @ViewInject(R.id.select_sort)
-    public ImageView select_sort;
+
     CategoryActivityListPresenter mPresenter = null;
     CategoryListAdapter mCategoryListAdapter;
+    @Bind(R.id.select_sort)
+    ImageView select_sort;
+    @Bind(R.id.goods_type_select_txt)
+    TextView goodsTypeSelectTxt;
+    @Bind(R.id.price_sort_layout)
+    RelativeLayout priceSortLayout;
+    @Bind(R.id.model_select_layout)
+    RelativeLayout modelSelectLayout;
+    @Bind(R.id.price_select_layout)
+    RelativeLayout priceSelectLayout;
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
+    @Bind(R.id.view_group)
+    LinearLayout view_group;
     private CommonPopupWindow mWindow;
     private RecyclerView mPopupRecyclerView;
     private TextView cancel_btn;
@@ -78,6 +85,8 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_category_super_recyclerview);
+        ButterKnife.bind(this);
         setActionBarTitle("产品列表");
         mId = getIntent().getStringExtra("id");
         mType = getIntent().getStringExtra("type");
@@ -190,8 +199,8 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
         mPresenter = null;
     }
 
-    @Event(value = {R.id.price_select_layout, R.id.price_sort_layout})
-    private void onViewClicked(View view) {
+    @OnClick({R.id.price_select_layout, R.id.price_sort_layout})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.price_select_layout:
                 PopupWindow win = mWindow.getPopupWindow();
@@ -226,7 +235,7 @@ public class CategoryListActivity extends BaseActivity implements CategoryActivi
 
     @Override
     public void getCategoryListSuccess(NetCategoryListBean netShareBean) {
-        if (mCategoryListAdapter != null) {
+        if (mPage == 1 && mCategoryListAdapter != null) {
             mCategoryListAdapter.clear();
         }
         List<NetCategoryListBean.DataBean.ResultListBean> listBeans = netShareBean.getData().getResultList();

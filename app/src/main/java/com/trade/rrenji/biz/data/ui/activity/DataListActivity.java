@@ -6,13 +6,12 @@ import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.category.NetCategoryListBean;
 import com.trade.rrenji.bean.home.NetHotDataBean;
+import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.data.presenter.DataActivityListPresenter;
 import com.trade.rrenji.biz.data.presenter.DataActivityListPresenterImpl;
 import com.trade.rrenji.biz.data.ui.apater.DataListAdapter;
 import com.trade.rrenji.biz.data.ui.view.DataActivityListView;
-import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.Contetns;
 
@@ -21,15 +20,17 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ContentView(R.layout.base_activity_super_recyclerview)
 public class DataListActivity extends BaseActivity implements DataActivityListView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     DataActivityListPresenter mPresenter = null;
     DataListAdapter mDataListAdapter;
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
 
     private String mId;
     private int mPage = 1;
@@ -38,6 +39,8 @@ public class DataListActivity extends BaseActivity implements DataActivityListVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         setActionBarTitle("热门活动");
         mId = getIntent().getStringExtra("id");
         init();

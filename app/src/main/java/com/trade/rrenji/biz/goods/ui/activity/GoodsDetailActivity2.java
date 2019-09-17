@@ -14,11 +14,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -63,6 +60,10 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 @ContentView(R.layout.goods_datail_layout2)
 public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityView, AddCollectionActivityView {
@@ -71,88 +72,125 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
 
     GoodsActivityPresenter mPresenter;
     AddCollectionActivityPresenter mAddCollectionPresenter;
+    @Bind(R.id.viewPager)
+    LoopViewPager mLoopViewPager;
+    @Bind(R.id.indicator)
+    CirclePageIndicator mIndicator;
+
+    @Bind(R.id.new_status)
+    ImageView new_status;
+    @Bind(R.id.goods_detail_detail_param_name)
+    TextView goods_detail_detail_param_name;
+    @Bind(R.id.goods_detail_detail_param_price)
+    TextView goods_detail_detail_param_price;
+    @Bind(R.id.price_yuanjia)
+    TextView price_yuanjia;
+    @Bind(R.id.price_jieyue_jine)
+    TextView price_jieyue_jine;
+
+    @Bind(R.id.goods_detail_detail_param_net)
+    TextView goods_detail_detail_param_net;
+    @Bind(R.id.goods_detail_detail_param_version)
+    TextView goods_detail_detail_param_version;
+
+    @Bind(R.id.repair_record)
+    TextView repair_record;
+    @Bind(R.id.edition)
+    TextView edition;
+    @Bind(R.id.battery_life)
+    TextView battery_life;
+    @Bind(R.id.one_base_layout)
+    LinearLayout one_base_layout;
+    @Bind(R.id.card)
+    TextView card;
+    @Bind(R.id.inlet)
+    TextView inlet;
+    @Bind(R.id.version)
+    TextView version;
+    @Bind(R.id.two_base_layout)
+    LinearLayout two_base_layout;
+
+    @Bind(R.id.goods_detail_detail_param)
+    RelativeLayout goods_detail_detail_param;
+
+    @Bind(R.id.goods_detail_name)
+    TextView goods_detail_name;
+    @Bind(R.id.engineer_avatar)
+    ImageView engineer_avatar;
+    @Bind(R.id.engineer_name)
+    TextView engineer_name;
+    @Bind(R.id.engineer_title)
+    TextView engineer_title;
+    @Bind(R.id.engineer_des)
+    TextView engineer_des;
+    @Bind(R.id.testing_desc)
+    TextView testing_desc;
+    @Bind(R.id.testing_chengse)
+    TextView testing_chengse;
+    @Bind(R.id.chengse)
+    View chengse;
+    @Bind(R.id.detail_layout)
+    RelativeLayout detail_layout;
+
+    @Bind(R.id.boss_icon)
+    ImageView boss_icon;
+    @Bind(R.id.phone)
+    TextView phone;
+    @Bind(R.id.boss_content)
+    RelativeLayout boss_content;
+
+    @Bind(R.id.jiyou_replay)
+    TextView jiyou_replay;
+    @Bind(R.id.more_replay)
+    TextView more_replay;
+    @Bind(R.id.more_replay_layout)
+    RelativeLayout more_replay_layout;
+
+    @Bind(R.id.reply_no_main_layout)
+    RelativeLayout reply_no_main_layout;
+    @Bind(R.id.reply_recycler_view)
+    RecyclerView reply_recycler_view;
+    @Bind(R.id.reply_main_layout)
+    RelativeLayout reply_main_layout;
+    @Bind(R.id.reply_layout)
+    RelativeLayout reply_layout;
+
+    @Bind(R.id.id_recyclerview_title)
+    LinearLayout id_recyclerview_title;
+    @Bind(R.id.id_recyclerview)
+    RecyclerView id_recyclerview;
+    @Bind(R.id.zhuanyejiance_layout)
+    LinearLayout zhuanyejiance_layout;
+    @Bind(R.id.qitian_layout)
+    LinearLayout qitian_layout;
+    @Bind(R.id.yinianzhibao_layout)
+    LinearLayout yinianzhibao_layout;
+    @Bind(R.id.shunfen_layout)
+    LinearLayout shunfen_layout;
+    @Bind(R.id.zhengpinbaozheng_layout)
+    LinearLayout zhengpinbaozheng_layout;
+    @Bind(R.id.nianianhuanxin_layout)
+    LinearLayout nianianhuanxin_layout;
+
+    @Bind(R.id.show_changjianwenti_btn)
+    TextView show_changjianwenti_btn;
+    @Bind(R.id.nested_scroll_view)
+    NestedScrollView nested_scroll_view;
+    @Bind(R.id.collection_icon)
+    ImageView collection_icon;
+    @Bind(R.id.oa_crm_custom_left_reset)
+    TextView oa_crm_custom_left_reset;
+    @Bind(R.id.goods_detail_detail_colloect)
+    LinearLayout goods_detail_detail_colloect;
+    @Bind(R.id.goods_detail_detail_client_server)
+    LinearLayout goods_detail_detail_client_server;
+    @Bind(R.id.goods_detail_detail_buy)
+    TextView goods_detail_detail_buy;
+    @Bind(R.id.view_group)
+    RelativeLayout view_group;
 
     private String mGoodsCode = "";
-    @ViewInject(R.id.viewPager)
-    public LoopViewPager mLoopViewPager;
-    @ViewInject(R.id.indicator)
-    public CirclePageIndicator mIndicator;
-    @ViewInject(R.id.new_status)
-    public ImageView new_status;
-    @ViewInject(R.id.goods_detail_detail_param)
-    public RelativeLayout goods_detail_detail_param;
-    @ViewInject(R.id.view_group)
-    public RelativeLayout view_group;
-    @ViewInject(R.id.goods_detail_detail_param_name)
-    public TextView goods_detail_detail_param_name;
-    @ViewInject(R.id.goods_detail_detail_param_price)
-    public TextView goods_detail_detail_param_price;
-    @ViewInject(R.id.price_yuanjia)
-    public TextView price_yuanjia;
-    @ViewInject(R.id.price_jieyue_jine)
-    public TextView price_jieyue_jine;
-    @ViewInject(R.id.goods_detail_detail_param_net)
-    public TextView goods_detail_detail_param_net;
-    @ViewInject(R.id.goods_detail_detail_param_version)
-    public TextView goods_detail_detail_param_version;
-    @ViewInject(R.id.collection_icon)
-    public ImageView collection_icon;
-    @ViewInject(R.id.scroll_view)
-    public ScrollView mScrollView;
 
-    @ViewInject(R.id.nested_scroll_view)
-    public NestedScrollView mNestedScrollView;
-
-    //收藏
-    @ViewInject(R.id.goods_detail_detail_colloect)
-    LinearLayout goods_detail_detail_colloect;
-    //客服
-    @ViewInject(R.id.goods_detail_detail_client_server)
-    LinearLayout goods_detail_detail_client_server;
-    //点击购买
-    @ViewInject(R.id.goods_detail_detail_buy)
-    TextView goods_detail_detail_buy;
-
-    @ViewInject(R.id.repair_record)
-    TextView repair_record;
-    @ViewInject(R.id.edition)
-    TextView edition;
-    @ViewInject(R.id.battery_life)
-    TextView battery_life;
-    @ViewInject(R.id.card)
-    TextView card;
-    @ViewInject(R.id.inlet)
-    TextView inlet;
-    @ViewInject(R.id.version)
-    TextView version;
-    @ViewInject(R.id.goods_detail_name)
-    TextView goods_detail_name;
-    @ViewInject(R.id.engineer_avatar)
-    ImageView engineer_avatar;
-    @ViewInject(R.id.engineer_name)
-    TextView engineer_name;
-    @ViewInject(R.id.engineer_title)
-    TextView engineer_title;
-    @ViewInject(R.id.engineer_des)
-    TextView engineer_des;
-    @ViewInject(R.id.testing_desc)
-    TextView testing_desc;
-    @ViewInject(R.id.testing_chengse)
-    TextView testing_chengse;
-    @ViewInject(R.id.more_replay_layout)
-    RelativeLayout more_replay_layout;
-    @ViewInject(R.id.reply_main_layout)
-    RelativeLayout reply_main_layout;
-
-    @ViewInject(R.id.reply_recycler_view)
-    RecyclerView reply_recycler_view;
-
-    @ViewInject(R.id.reply_no_main_layout)
-    RelativeLayout reply_no_main_layout;
-    @ViewInject(R.id.show_changjianwenti_btn)
-    TextView show_changjianwenti_btn;
-    @ViewInject(R.id.id_recyclerview)
-    RecyclerView id_recyclerview;
     RecyclerImageAdapter mRecyclerImageAdapter;
     ImageView[] imageViewone;
     private NetGoodsDetailBean mNetGoodsDetailBean;
@@ -162,6 +200,7 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
             "有明显使用痕迹或明显磕碰位置（多于三处），屏幕显示正常，功能正常，电池损耗正常。"};
 
     private CommonPopupWindow mWindow;
+    ScrollView mScrollView;
     TextView frequency;
     TextView cpu;
     TextView post;
@@ -188,6 +227,8 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.goods_datail_layout2);
+        ButterKnife.bind(this);
         init();
         mGoodsCode = getIntent().getStringExtra("goodsCode");
         loadData();
@@ -277,9 +318,9 @@ public class GoodsDetailActivity2 extends BaseActivity implements GoodsActivityV
         mAddCollectionPresenter = null;
     }
 
-    @Event(value = {R.id.goods_detail_detail_colloect, R.id.goods_detail_detail_buy, R.id.goods_detail_detail_param
+    @OnClick({R.id.goods_detail_detail_colloect, R.id.goods_detail_detail_buy, R.id.goods_detail_detail_param
             , R.id.more_replay_layout})
-    private void onViewClicked(View view) {
+    public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.more_replay_layout:

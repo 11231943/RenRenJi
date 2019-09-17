@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gelitenight.superrecyclerview.GridSpacingDecoration;
-import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.google.gson.Gson;
 import com.moonster.imagepicker.ImagePicker;
 import com.moonster.imagepicker.data.ImageBean;
@@ -29,9 +28,7 @@ import com.moonster.imagepicker.data.ImagePickType;
 import com.moonster.imagepicker.utils.GlideImagePickerDisplayer;
 import com.trade.rrenji.MiGoApplication;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.goods.NetAccessoryListBean;
 import com.trade.rrenji.bean.upload.NetUploadBean;
-import com.trade.rrenji.biz.account.ui.activity.AccountActivity;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.biz.order.model.OrderModel;
@@ -53,31 +50,31 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 晒单页面
  */
-@ContentView(R.layout.drying_main_layout)
 public class DryingActivity extends BaseActivity {
-
-    @ViewInject(R.id.recycler_view_photo)
-    public RecyclerView mPhotos;
-
-    @ViewInject(R.id.starBar)
-    public StarBar mStarBar;
-    @ViewInject(R.id.starBarTxt)
-    public TextView mStarBarTxt;
-    @ViewInject(R.id.goods_image)
-    public ImageView mGoodsImage;
-
-    @ViewInject(R.id.comment)
-    public EditText mComment;
 
     UploadModel mUploadModel;
     OrderModel mOrderModel;
-
     private static int REQUEST_CODE = 10001;
     PhotoAdapter mPhotoAdapter;
     List<ImageBean> mPhotoPath = new ArrayList<ImageBean>();
+    @Bind(R.id.goods_image)
+    ImageView mGoodsImage;
+    @Bind(R.id.goods_dry_txt)
+    TextView goodsDryTxt;
+    @Bind(R.id.starBar)
+    StarBar mStarBar;
+    @Bind(R.id.starBarTxt)
+    TextView mStarBarTxt;
+    @Bind(R.id.comment)
+    EditText mComment;
+    @Bind(R.id.recycler_view_photo)
+    RecyclerView mPhotos;
     private String mOrderId;
     private String mGoodsImg;
     private String mAddressDetail;
@@ -89,6 +86,8 @@ public class DryingActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.drying_main_layout);
+        ButterKnife.bind(this);
         setActionBarTitle("发表晒单");
         mOrderId = getIntent().getStringExtra("orderId");
         mGoodsImg = getIntent().getStringExtra("goodsImg");
@@ -278,6 +277,7 @@ public class DryingActivity extends BaseActivity {
                     Toast.makeText(DryingActivity.this, "评论失败", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onError(Throwable error) {
                 Toast.makeText(DryingActivity.this, "评论失败", Toast.LENGTH_SHORT).show();

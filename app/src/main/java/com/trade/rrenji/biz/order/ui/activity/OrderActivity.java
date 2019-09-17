@@ -18,28 +18,30 @@ import com.trade.rrenji.biz.order.ui.adapter.OrderAdminAdapter;
 import com.trade.rrenji.biz.order.ui.view.OrderActivityView;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.Contetns;
-import com.trade.rrenji.utils.SettingUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class OrderActivity extends BaseActivity implements OrderActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     OrderActivityPresenter mPresenter;
     OrderAdminAdapter mOrderAdminAdapter = null;
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
 
     private int mIndexPage = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         init();
     }
 

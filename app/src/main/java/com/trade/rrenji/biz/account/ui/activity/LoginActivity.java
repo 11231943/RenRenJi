@@ -12,6 +12,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +26,6 @@ import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.base.ProgressView;
 import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.SettingUtils;
-import com.trade.rrenji.utils.SystemUtils;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -32,27 +33,27 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.UUID;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 
 /**
  * Created by monster on 8/4/18.
  */
-@ContentView(R.layout.activity_login)
 public class LoginActivity extends BaseActivity implements LoginActivityView {
     private static String TAG = LoginActivity.class.getSimpleName();
-
-    @ViewInject(R.id.login_phone)
-    EditText mLoginPhone;
-    @ViewInject(R.id.login_code)
-    EditText mLoginCode;
-    @ViewInject(R.id.login)
-    TextView mLoginButton;
-
-    @ViewInject(R.id.btn_get_code_ac_login)
-    TextView btnGetCode;
-
     LoginActivityPresenter mPresenter;
+
+    @Bind(R.id.login_phone)
+    EditText mLoginPhone;
+    @Bind(R.id.login_code)
+    EditText mLoginCode;
+    @Bind(R.id.btn_get_code_ac_login)
+    TextView btnGetCode;
+    @Bind(R.id.login)
+    TextView mLoginButton;
 
     private InputMethodManager imm = null;
     public static final int LOGIN_SUCCESS = 1;
@@ -80,6 +81,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
         setActionBarTitle("登陆");
         mType = getIntent().getIntExtra("type", -1);
         init();
@@ -122,8 +125,8 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
         mLoginCode.addTextChangedListener(textChangeL);
     }
 
-    @Event(value = {R.id.btn_get_code_ac_login, R.id.login})
-    private void onViewClicked(View view) {
+    @OnClick({R.id.btn_get_code_ac_login, R.id.login})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_get_code_ac_login:
                 String phoneNum = mLoginPhone.getText().toString().trim();

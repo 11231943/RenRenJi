@@ -13,44 +13,58 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.trade.rrenji.bean.account.LoginJsonBean;
 import com.trade.rrenji.bean.check.NetCheckBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.version.presenter.CheckPresenter;
 import com.trade.rrenji.biz.version.presenter.CheckPresenterImpl;
 import com.trade.rrenji.biz.version.ui.view.CheckActivityView;
-import com.trade.rrenji.fragment.HomeTabFragment;
 import com.trade.rrenji.fragment.CategoryTabFragment;
-import com.trade.rrenji.fragment.TechTabFragment;
 import com.trade.rrenji.fragment.DryingTabFragment;
+import com.trade.rrenji.fragment.HomeTabFragment;
 import com.trade.rrenji.fragment.MineFragment;
+import com.trade.rrenji.fragment.TechTabFragment;
 import com.trade.rrenji.service.UpdateApkService;
 import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.FileDownloader;
 import com.trade.rrenji.utils.FragmentTabHost;
 import com.trade.rrenji.utils.SettingUtils;
-import com.trade.rrenji.utils.SystemUtils;
 import com.trade.rrenji.utils.TabLayout;
+import com.trade.rrenji.utils.TabLayoutNoIndicator;
 import com.trade.rrenji.utils.ViewUtils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 
-import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.io.File;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.api.BasicCallback;
 
-@ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements CheckActivityView {
 
+    @Bind(android.R.id.tabs)
+    TabWidget tabs;
+    @Bind(android.R.id.tabcontent)
+    FrameLayout tabcontent;
+    @Bind(R.id.container)
+    FrameLayout container;
+    @Bind(android.R.id.tabhost)
+    FragmentTabHost mTabHost;
+    @Bind(R.id.main_tabs)
+    TabLayoutNoIndicator mTabLayout;
+    @Bind(R.id.msgCount)
+    TextView msgCount;
+    @Bind(R.id.msgCountLayout)
+    FrameLayout msgCountLayout;
     private String TAG = MainActivity.class.getSimpleName();
 
     //更新策略：默认替用户下载更新，强制用户安装
@@ -68,18 +82,16 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
     int[] tabCustomView = new int[]{R.layout.main_tab_near, R.layout.main_tab_live,
             R.layout.main_tab_discovered, R.layout.main_tab_drying, R.layout.main_tab_mime};
 
-    @ViewInject(android.R.id.tabhost)
-    public FragmentTabHost mTabHost;
-    @ViewInject(R.id.main_tabs)
-    public TabLayout mTabLayout;
-    @ViewInject(R.id.msgCount)
-    public TextView msgCount;
-    @ViewInject(R.id.msgCountLayout)
-    public View msgCountLayout;
+//    @ViewInject(android.R.id.tabhost)
+//    public FragmentTabHost mTabHost;
+//    @ViewInject(R.id.main_tabs)
+//    public TabLayout mTabLayout;
+//    @ViewInject(R.id.msgCount)
+//    public TextView msgCount;
+//    @ViewInject(R.id.msgCountLayout)
+//    public View msgCountLayout;
     private int mCurrentItem;
-
     CheckPresenter mCheckPresenter;
-
     String[] permissions = {Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
 
 
@@ -90,6 +102,8 @@ public class MainActivity extends BaseActivity implements CheckActivityView {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
         }
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 //        mCheckPresenter.getCheck(this);
         initEvent();
         addPermission();

@@ -32,7 +32,6 @@ import com.trade.rrenji.biz.account.ui.view.UpdateUserInfoActivityView;
 import com.trade.rrenji.biz.address.picker.AddressPicker;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.base.NetBaseResultBean;
-//import com.trade.rrenji.biz.photo.ImageEditActivity;
 import com.trade.rrenji.biz.upload.model.UploadModel;
 import com.trade.rrenji.biz.upload.model.UploadModelImpl;
 import com.trade.rrenji.net.XUtils;
@@ -52,27 +51,44 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@ContentView(R.layout.account_main_layout)
+//import com.trade.rrenji.biz.photo.ImageEditActivity;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class AccountActivity extends BaseActivity implements UpdateUserInfoActivityView {
     public static final int CROP_IMAGE = 7;
     public static final int CROP_OPTIONS_SQUARE_ONLY = 1;
+    @Bind(R.id.user_avatar)
+    ImageView userAvatar;
+    @Bind(R.id.user_avatar_go)
+    ImageView userAvatarGo;
+    @Bind(R.id.user_avatar_layout)
+    RelativeLayout userAvatarLayout;
+    @Bind(R.id.user_name)
+    EditText userName;
+    @Bind(R.id.user_name_go)
+    ImageView userNameGo;
+    @Bind(R.id.user_name_layout)
+    RelativeLayout userNameLayout;
+    @Bind(R.id.user_phone)
+    TextView userPhone;
+    @Bind(R.id.user_phone_go)
+    ImageView userPhoneGo;
+    @Bind(R.id.user_phone_layout)
+    RelativeLayout userPhoneLayout;
+    @Bind(R.id.text_sex)
+    TextView textSex;
+    @Bind(R.id.icon_sex_go)
+    ImageView iconSexGo;
+    @Bind(R.id.bind_sex)
+    RelativeLayout bindSex;
+    @Bind(R.id.text_address)
+    TextView textAddress;
+    @Bind(R.id.text_address_go)
+    ImageView textAddressGo;
+    @Bind(R.id.address_layout)
+    RelativeLayout addressLayout;
     private int cropOptions = CROP_OPTIONS_SQUARE_ONLY;
-    @ViewInject(R.id.user_phone)
-    TextView user_phone;
-    @ViewInject(R.id.user_name)
-    EditText user_name;
-    @ViewInject(R.id.text_sex)
-    TextView text_sex;
-    @ViewInject(R.id.text_address)
-    TextView text_address;
-    @ViewInject(R.id.user_avatar)
-    ImageView user_avatar;
-    @ViewInject(R.id.bind_sex)
-    RelativeLayout bind_sex;
-    @ViewInject(R.id.address_layout)
-    RelativeLayout address_layout;
-    @ViewInject(R.id.user_avatar_layout)
-    RelativeLayout user_avatar_layout;
 
     UpdateUserInfoActivityPresenter mPresenter;
     private AddressPicker mAddressPicker;
@@ -96,6 +112,8 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.account_main_layout);
+        ButterKnife.bind(this);
         setActionBarTitle("资料编辑");
         mUploadModel = new UploadModelImpl(this);
         initUser();
@@ -116,29 +134,29 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
 
 
     private void initUser() {
-        text_sex.setText(SettingUtils.getInstance().getUserSex().equals("0") ? "男" : "女");
-        user_avatar_layout.setOnClickListener(new View.OnClickListener() {
+        textSex.setText(SettingUtils.getInstance().getUserSex().equals("0") ? "男" : "女");
+        userAvatarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pick();
             }
         });
-        text_address.setText(SettingUtils.getInstance().getUserAddress());
-        user_name.setText(SettingUtils.getInstance().getUsername());
+        textAddress.setText(SettingUtils.getInstance().getUserAddress());
+        userName.setText(SettingUtils.getInstance().getUsername());
 
         if (TextUtils.isEmpty(SettingUtils.getInstance().getUserImg())) {
-            GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon, R.drawable.user_default_icon, user_avatar);
+            GlideUtils.getInstance().loadIcon(this, R.drawable.user_default_icon, R.drawable.user_default_icon, userAvatar);
 
         } else {
-            GlideUtils.getInstance().loadCircleIcon(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, user_avatar);
+            GlideUtils.getInstance().loadCircleIcon(this, SettingUtils.getInstance().getUserImg(), R.drawable.user_default_icon, userAvatar);
         }
-        bind_sex.setOnClickListener(new View.OnClickListener() {
+        bindSex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
             }
         });
-        address_layout.setOnClickListener(new View.OnClickListener() {
+        addressLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mAddressPicker != null) {
@@ -159,7 +177,7 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
                         mProvince = province;
                         mCity = city;
                         mCounty = county;
-                        text_address.setText(getString(R.string.account_address_show, province, city));
+                        textAddress.setText(getString(R.string.account_address_show, province, city));
                     }
                 });
         ThreadPoolManager.getInstance().addTask(new MyRunnable());
@@ -179,7 +197,7 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mSex = which + "";
-                text_sex.setText(item[which]);
+                textSex.setText(item[which]);
             }
         });
         AlertDialog alertDialog = builder.create();
@@ -210,14 +228,14 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
         if (TextUtils.isEmpty(mPathStr)) {
             mPathStr = SettingUtils.getInstance().getUserImg();
         }
-        String mUserName = user_name.getText().toString().trim();
+        String mUserName = userName.getText().toString().trim();
 
         if (null == mUserName || "".equals(mUserName)) {
             Toast.makeText(this, "请填写昵称!", Toast.LENGTH_SHORT).show();
             return;
         }
-        String sex = text_sex.getText().toString().trim();
-        String mAddress = text_address.getText().toString().trim();
+        String sex = textSex.getText().toString().trim();
+        String mAddress = textAddress.getText().toString().trim();
         if (null == mAddress || "".equals(mAddress)) {
             Toast.makeText(this, "请填写地址!", Toast.LENGTH_SHORT).show();
             return;
@@ -279,7 +297,7 @@ public class AccountActivity extends BaseActivity implements UpdateUserInfoActiv
         if (requestCode == CROP_IMAGE) {
             if (data != null && data.getStringExtra("dest_file") != null) {
                 avatarPath = data.getStringExtra("dest_file");
-                GlideUtils.getInstance().loadCircleIcon(this, avatarPath, R.drawable.user_default_icon, user_avatar);
+                GlideUtils.getInstance().loadCircleIcon(this, avatarPath, R.drawable.user_default_icon, userAvatar);
                 showUploadDialog();
                 mUploadModel.upload(this, mPathStr, new XUtils.ResultListener() {
                     @Override

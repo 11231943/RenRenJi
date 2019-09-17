@@ -5,6 +5,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,9 @@ import com.trade.rrenji.biz.invite.ui.view.InviteActivityView;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 邀请好友
  */
@@ -25,9 +30,14 @@ import org.xutils.view.annotation.ViewInject;
 public class UserInvitePageActivity extends BaseActivity implements InviteActivityView {
 
     InviteActivityPresenter mPresenter;
-
-    @ViewInject(R.id.invite_code)
-    public TextView invite_code;
+    @Bind(R.id.invite_bg)
+    ImageView inviteBg;
+    @Bind(R.id.tip_1)
+    TextView tip1;
+    @Bind(R.id.invite_code)
+    TextView invite_code;
+    @Bind(R.id.invite_layout)
+    RelativeLayout inviteLayout;
 
     private ClipboardManager mClipboard = null;
 
@@ -35,6 +45,8 @@ public class UserInvitePageActivity extends BaseActivity implements InviteActivi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.user_invite_main_layout);
+        ButterKnife.bind(this);
         setActionBarTitle("邀请好友");
         invite_code.setOnClickListener(new View.OnClickListener() {
             @Override

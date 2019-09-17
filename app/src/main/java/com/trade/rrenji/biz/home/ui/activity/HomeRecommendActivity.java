@@ -20,15 +20,16 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class HomeRecommendActivity extends BaseActivity implements HomeRecommendActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     HomeRecommendActivityPresenter mPresenter = null;
     HomeRecommendAdapter mCategoryListAdapter;
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
 
     private int mType;
     private int mPageIndex = 1;
@@ -36,6 +37,8 @@ public class HomeRecommendActivity extends BaseActivity implements HomeRecommend
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         setActionBarTitle("产品列表");
         mType = getIntent().getIntExtra("type", -1);
         init();

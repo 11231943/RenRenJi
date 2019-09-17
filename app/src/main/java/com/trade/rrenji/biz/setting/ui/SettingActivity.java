@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.trade.rrenji.R;
@@ -16,17 +18,35 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-@ContentView(R.layout.setting_main_layout)
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SettingActivity extends BaseActivity {
 
-    @ViewInject(R.id.login_out)
-    public TextView login_out;
-
     Handler mHandler = new Handler();
+    @Bind(R.id.icon_setting)
+    ImageView iconSetting;
+    @Bind(R.id.icon_go)
+    ImageView iconGo;
+    @Bind(R.id.bind_wchat)
+    RelativeLayout bindWchat;
+    @Bind(R.id.cache_size)
+    TextView cacheSize;
+    @Bind(R.id.clear_cache)
+    RelativeLayout clearCache;
+    @Bind(R.id.version_name)
+    TextView versionName;
+    @Bind(R.id.about_version)
+    RelativeLayout aboutVersion;
+    @Bind(R.id.login_out)
+    TextView login_out;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.setting_main_layout);
+        ButterKnife.bind(this);
         setActionBarTitle("设置");
 //        if (!TextUtils.isEmpty(SettingUtils.getInstance().getSessionkey())) {
 //            login_out.setVisibility(View.VISIBLE);
@@ -35,8 +55,8 @@ public class SettingActivity extends BaseActivity {
 //        }
     }
 
-    @Event(value = {R.id.login_out})
-    private void onViewClicked(View view) {
+    @OnClick({R.id.login_out})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login_out:
                 if (!TextUtils.isEmpty(SettingUtils.getInstance().getCurrentUid())) {

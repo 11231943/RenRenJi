@@ -3,6 +3,7 @@ package com.trade.rrenji.biz.goods.ui.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
+
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
@@ -19,23 +20,23 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class GoodsReplyCommentActivity extends BaseActivity implements ReplyCommentActivityView {
 
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     ReplyCommentActivityPresenter mReplyCommentActivityPresenter;
-
     ReplyCommentAdapter mReplyCommentAdapter;
-
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
     private int mIndexPage = 1;
-
     private String mGoodsCode = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         setActionBarTitle("机友评论");
         mGoodsCode = getIntent().getStringExtra("goodsCode");
         init();

@@ -5,23 +5,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
-import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.personal.NetPersonalBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.personal.presenter.PersonalActivityPresenter;
 import com.trade.rrenji.biz.personal.presenter.PersonalActivityPresenterImpl;
 import com.trade.rrenji.biz.personal.ui.adapter.PersonalAdapter;
 import com.trade.rrenji.biz.personal.ui.view.PersonalActivityView;
-import com.trade.rrenji.biz.sale.presenter.SaleActivityPresenter;
-import com.trade.rrenji.biz.sale.presenter.SaleActivityPresenterImpl;
-import com.trade.rrenji.biz.sale.ui.adapter.SaleAdapter;
-import com.trade.rrenji.biz.sale.ui.view.SaleActivityView;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.Contetns;
 import com.trade.rrenji.utils.GlideUtils;
@@ -31,31 +27,39 @@ import com.trade.rrenji.utils.StatusBarUtils;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-@ContentView(R.layout.personal_main_layout)
+
 public class PersonalActivity extends BaseActivity implements PersonalActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.recycler_view)
-    public RecyclerView mRecyclerView;
-
-    @ViewInject(R.id.join_day)
-    public TextView join_day;
-
-    @ViewInject(R.id.user_name)
-    public TextView user_name;
-    @ViewInject(R.id.user_phone)
-    public TextView user_phone;
-
-    @ViewInject(R.id.back_icon)
-    public ImageView back_icon;
-
-    @ViewInject(R.id.user_avatar)
-    public ImageView user_avatar;
-
-
     PersonalActivityPresenter mPresenter;
     PersonalAdapter mPersonalAdapter = null;
+    @Bind(R.id.back_icon)
+    ImageView back_icon;
+    @Bind(R.id.user_avatar)
+    ImageView user_avatar;
+    @Bind(R.id.user_name)
+    TextView user_name;
+    @Bind(R.id.user_phone)
+    TextView user_phone;
+    @Bind(R.id.user_info_layout)
+    RelativeLayout user_info_layout;
+    @Bind(R.id.join_day)
+    TextView join_day;
+    @Bind(R.id.wx_icon)
+    ImageView wx_icon;
+    @Bind(R.id.wx_rz_txt)
+    TextView wx_rz_txt;
+    @Bind(R.id.zfb_icon)
+    ImageView zfb_icon;
+    @Bind(R.id.personal_layout)
+    LinearLayout personal_layout;
+    @Bind(R.id.smrz_layout)
+    RelativeLayout smrz_layout;
+    @Bind(R.id.recycler_view)
+    RecyclerView mRecyclerView;
 
     private int mIndexPage = 1;
     private int mType = 0;
@@ -64,6 +68,8 @@ public class PersonalActivity extends BaseActivity implements PersonalActivityVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.personal_main_layout);
+        ButterKnife.bind(this);
         StatusBarUtils.setWindowStatusBarColor(this, R.color.mine_red);
         mType = getIntent().getIntExtra("type", -1);
         mId = getIntent().getStringExtra("id");

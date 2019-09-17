@@ -13,7 +13,6 @@ import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.category.presenter.CategoryActivityListPresenter;
 import com.trade.rrenji.biz.category.presenter.CategoryActivityListPresenterImpl;
 import com.trade.rrenji.biz.category.ui.apater.CategoryClassListAdapter;
-import com.trade.rrenji.biz.category.ui.apater.CategoryListAdapter;
 import com.trade.rrenji.biz.category.ui.view.CategoryActivityListView;
 import com.trade.rrenji.fragment.DryingTabFragment;
 import com.trade.rrenji.utils.Contetns;
@@ -23,15 +22,18 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ContentView(R.layout.base_activity_super_recyclerview)
 public class CategoryClassListActivity extends BaseActivity implements CategoryActivityListView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
 
     CategoryActivityListPresenter mPresenter = null;
     CategoryClassListAdapter mCategoryListAdapter;
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
 
     private String mId;
     private String mType;
@@ -42,6 +44,8 @@ public class CategoryClassListActivity extends BaseActivity implements CategoryA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         setActionBarTitle("产品列表");
         mId = getIntent().getStringExtra("id");
         mType = getIntent().getStringExtra("type");

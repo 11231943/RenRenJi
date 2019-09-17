@@ -41,9 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 //
 //            attachPresenter();
 //        }
-
         injectViews();
-
         attachPresenter();
 
     }

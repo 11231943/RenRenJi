@@ -9,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,11 +22,9 @@ import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.address.UserAddressCurd;
 import com.trade.rrenji.biz.address.picker.AddressPicker;
 import com.trade.rrenji.biz.address.presenter.DelAddressActivityPresenter;
-import com.trade.rrenji.biz.address.presenter.DelAddressActivityPresenterImpl;
 import com.trade.rrenji.biz.address.presenter.UpdateAddressActivityPresenter;
 import com.trade.rrenji.biz.address.presenter.UpdateAddressActivityPresenterImpl;
 import com.trade.rrenji.biz.address.ui.view.UpdateActivityView;
-
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.event.address.GoAddressActivityEvent;
@@ -39,29 +40,46 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ContentView(R.layout.address_add)
 public class UpdateAddressActivity extends BaseActivity implements UpdateActivityView {
 
     public static final int TYPE_ONCREATE = 0;
     public static final int TYPE_UPDATE = 1;
 
-    @ViewInject(R.id.address_name)
-    EditText address_name;
-    @ViewInject(R.id.address_phone)
-    EditText address_phone;
-    @ViewInject(R.id.address)
-    TextView address;
-    @ViewInject(R.id.address_info)
-    EditText address_info;
-    @ViewInject(R.id.address_default)
-    CheckBox address_default;
-
-    @ViewInject(R.id.delete_btn)
-    TextView delete_btn;
-
     String mProvince;
     String mCity;
     String mCounty;
+    @Bind(R.id.address_name)
+    EditText addressName;
+    @Bind(R.id.address_name_icon_go)
+    ImageView addressNameIconGo;
+    @Bind(R.id.address_name_layout)
+    LinearLayout addressNameLayout;
+    @Bind(R.id.address_phone)
+    EditText addressPhone;
+    @Bind(R.id.address_phone_icon_go)
+    ImageView addressPhoneIconGo;
+    @Bind(R.id.address_phone_layout)
+    LinearLayout addressPhoneLayout;
+    @Bind(R.id.address)
+    TextView address;
+    @Bind(R.id.address_img)
+    ImageView addressImg;
+    @Bind(R.id.address_layout)
+    RelativeLayout addressLayout;
+    @Bind(R.id.address_address_layout)
+    LinearLayout addressAddressLayout;
+    @Bind(R.id.address_info)
+    EditText addressInfo;
+    @Bind(R.id.address_info_layout)
+    LinearLayout addressInfoLayout;
+    @Bind(R.id.address_default)
+    CheckBox addressDefault;
+    @Bind(R.id.delete_btn)
+    TextView deleteBtn;
 
     private int mType = 0;
 
@@ -80,6 +98,8 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.address_add);
+        ButterKnife.bind(this);
         initActionBar();
         mType = getIntent().getIntExtra("type", -1);
         if (mType == TYPE_UPDATE) {
@@ -112,12 +132,12 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
 
     boolean check() {
 
-        String name = address_name.getText().toString();
+        String name = addressName.getText().toString();
         if (null == name || "".equals(name)) {
             Toast.makeText(this, "请填写收件人!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        String phone = address_phone.getText().toString();
+        String phone = addressPhone.getText().toString();
         if (null == phone || "".equals(phone)) {
             Toast.makeText(this, "请填写联系方式!", Toast.LENGTH_SHORT).show();
             return false;
@@ -131,7 +151,7 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
             Toast.makeText(this, "操作失败!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        String detail = address_info.getText().toString();
+        String detail = addressInfo.getText().toString();
         if (null == detail || "".equals(detail)) {
             Toast.makeText(this, "操作失败!", Toast.LENGTH_SHORT).show();
             return false;
@@ -145,32 +165,32 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
         UserAddressCurd userAddressCurd = new UserAddressCurd();
         userAddressCurd.setAddressId(addressId);
         userAddressCurd.setCity(mCity);
-        userAddressCurd.setConsigneeName(address_name.getText().toString().trim());
-        userAddressCurd.setConsigneeTel(address_phone.getText().toString().trim());
+        userAddressCurd.setConsigneeName(addressName.getText().toString().trim());
+        userAddressCurd.setConsigneeTel(addressPhone.getText().toString().trim());
         userAddressCurd.setDistrict(mCounty);
-        userAddressCurd.setLocation(address_info.getText().toString().trim());
+        userAddressCurd.setLocation(addressInfo.getText().toString().trim());
         userAddressCurd.setProvince(mProvince);
-        userAddressCurd.setIsDefault(address_default.isChecked() ? 1 : 0);
+        userAddressCurd.setIsDefault(addressDefault.isChecked() ? 1 : 0);
         mPresenter.updateAddress(this, mType, userAddressCurd);
     }
 
     private void initView() {
         if (bean != null) {
-            address_name.setText(bean.getConsigneeName());
-            address_name.setSelection(bean.getConsigneeName().length());
-            address_phone.setText(bean.getConsigneeTel());
+            addressName.setText(bean.getConsigneeName());
+            addressName.setSelection(bean.getConsigneeName().length());
+            addressPhone.setText(bean.getConsigneeTel());
             address.setText(getString(R.string.address_show, bean.getProvince(), bean.getCity(), bean.getDistrict()));
-            address_info.setText(bean.getLocation());
+            addressInfo.setText(bean.getLocation());
             mProvince = bean.getProvince();
             mCity = bean.getCity();
             mCounty = bean.getDistrict();
-            address_default.setChecked(bean.isDefault());
+            addressDefault.setChecked(bean.isDefault());
         }
 
         if (mType == 0) {
-            delete_btn.setVisibility(View.GONE);
+            deleteBtn.setVisibility(View.GONE);
         } else {
-            delete_btn.setVisibility(View.VISIBLE);
+            deleteBtn.setVisibility(View.VISIBLE);
         }
         address.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +218,7 @@ public class UpdateAddressActivity extends BaseActivity implements UpdateActivit
                     }
                 });
         ThreadPoolManager.getInstance().addTask(new MyRunnable());
-        delete_btn.setOnClickListener(new View.OnClickListener() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setAddressTip(bean.getAddressId(), getResources().getString(R.string.del_address_info), -1);

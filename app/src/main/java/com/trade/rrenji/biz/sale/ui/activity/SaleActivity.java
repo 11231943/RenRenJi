@@ -17,23 +17,24 @@ import com.trade.rrenji.fragment.DryingTabFragment;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+
 public class SaleActivity extends BaseActivity implements SaleActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     SaleActivityPresenter mPresenter;
     SaleAdapter mSaleAdapter = null;
-
-
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
     private int mIndexPage = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         init();
     }
 

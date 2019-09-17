@@ -7,7 +7,6 @@ import android.widget.Toast;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.communty.NetCommuntyBean;
 import com.trade.rrenji.bean.renren.NetRenRebBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.renren.presenter.RenRenActivityPresenter;
@@ -22,21 +21,24 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class RenRenListActivity extends BaseActivity implements RenRenActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     RenRenActivityPresenter mPresenter = null;
     HotCommunityAdapter mCategoryListAdapter;
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
     private int mPage = 1;
     private int mRows = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         setActionBarTitle("人人之家");
         init();
     }

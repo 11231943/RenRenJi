@@ -3,16 +3,12 @@ package com.trade.rrenji.biz.im;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.gelitenight.superrecyclerview.DividerItemDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
 import com.trade.rrenji.biz.base.BaseActivity;
-import com.trade.rrenji.biz.im.adapter.ChatAdapter;
 import com.trade.rrenji.biz.im.adapter.ChatGorupAdapter;
 import com.trade.rrenji.event.MessageServiceEvent;
 import com.trade.rrenji.utils.Contetns;
@@ -24,25 +20,23 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.jpush.im.android.api.JMessageClient;
-import cn.jpush.im.android.api.content.TextContent;
 import cn.jpush.im.android.api.model.Conversation;
-import cn.jpush.im.android.api.model.Message;
-import cn.jpush.im.api.BasicCallback;
 
 public class ChatGroupActivity extends BaseActivity {
 
-    SuperRecyclerView mSuperRecyclerView;
-    EditText mMessage;
-    TextView mSend;
     ChatGorupAdapter mChatAdapter;
     Conversation mConversation;
-    private String mUserName;
+    @Bind(R.id.chat_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_chat_group_main_layout);
+        ButterKnife.bind(this);
         setActionBarTitle("私信");
         EventBus.getDefault().register(this);
         mSuperRecyclerView = findViewById(R.id.chat_recycler_view);

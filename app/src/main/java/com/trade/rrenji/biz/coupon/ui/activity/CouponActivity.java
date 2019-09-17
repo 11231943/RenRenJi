@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.NetAddressBean;
 import com.trade.rrenji.bean.coupon.NetCouponBean;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.biz.coupon.presenter.CouponActivityPresenter;
@@ -22,24 +21,25 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+
 public class CouponActivity extends BaseActivity implements CouponActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     CouponActivityPresenter mPresenter;
     CouponAdapter mCouponAdapter = null;
-
-
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
     private int mIndexPage = 1;
     private int mType = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         init();
         mType = getIntent().getIntExtra("type", -1);
     }

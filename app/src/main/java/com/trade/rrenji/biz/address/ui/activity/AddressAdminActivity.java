@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
@@ -20,12 +19,9 @@ import com.trade.rrenji.biz.address.ui.adapter.AddressAdminAdapter;
 import com.trade.rrenji.biz.address.ui.view.AddressActivityView;
 import com.trade.rrenji.biz.address.ui.view.DelAddressActivityView;
 import com.trade.rrenji.biz.base.BaseActivity;
-
 import com.trade.rrenji.biz.base.NetBaseResultBean;
 import com.trade.rrenji.event.address.GoAddressActivityEvent;
-import com.trade.rrenji.event.order.GoOrderActivityEvent;
 import com.trade.rrenji.fragment.DryingTabFragment;
-import com.trade.rrenji.fragment.RecyclerListAdapter;
 import com.trade.rrenji.utils.Contetns;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,16 +32,17 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class AddressAdminActivity extends BaseActivity implements AddressActivityView, DelAddressActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     AddressActivityPresenter mPresenter;
     DelAddressActivityPresenter mDelAddressActivityPresenter;
     AddressAdminAdapter mAddressAdminAdapter = null;
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
 
     private int mIndexPage = 1;
     private int mType = 0;
@@ -53,6 +50,8 @@ public class AddressAdminActivity extends BaseActivity implements AddressActivit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         init();
         mType = getIntent().getIntExtra("type", -1);

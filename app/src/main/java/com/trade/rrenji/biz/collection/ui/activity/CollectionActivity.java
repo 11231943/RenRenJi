@@ -22,23 +22,24 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
-@ContentView(R.layout.base_activity_super_recyclerview)
+
 public class CollectionActivity extends BaseActivity implements CollectionActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
     CollectionActivityPresenter mPresenter;
     CollectionAdapter mCollectionAdapter = null;
-
-
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
     private int mPageIndex = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_super_recyclerview);
+        ButterKnife.bind(this);
         init();
     }
 
@@ -113,7 +114,7 @@ public class CollectionActivity extends BaseActivity implements CollectionActivi
         if (netBaseResultBean.getCode().equals(Contetns.RESPONSE_OK)) {
             Toast.makeText(this, "取消收藏成功", Toast.LENGTH_SHORT).show();
             loadData();
-        }else{
+        } else {
             Toast.makeText(this, "取消收藏失败", Toast.LENGTH_SHORT).show();
         }
     }

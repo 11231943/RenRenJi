@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,30 +26,32 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ContentView(R.layout.logistics_main_activity)
 public class LogisticsActivity extends BaseActivity implements LogisticsView {
-    @ViewInject(R.id.back_icon)
-    public RelativeLayout back_icon;
 
-    @ViewInject(R.id.logistics_id)
-    public TextView logistics_id;
-    @ViewInject(R.id.logistics_last_txt)
-    public TextView logistics_last_txt;
-    @ViewInject(R.id.logistics_last_time)
-    public TextView logistics_last_time;
-
-    @ViewInject(R.id.logistics_address_name)
-    public TextView logistics_address_name;
-    @ViewInject(R.id.logistics_address)
-    public TextView logistics_address;
-    @ViewInject(R.id.logistics_more)
-    public TextView logistics_more;
-    @ViewInject(R.id.new_status_txt)
-    public TextView new_status_txt;
-
-
-    @ViewInject(R.id.recycler_view_layout)
-    public RecyclerView recycler_view_layout;
+    @Bind(R.id.back_icon)
+    RelativeLayout back_icon;
+    @Bind(R.id.new_status_txt)
+    TextView new_status_txt;
+    @Bind(R.id.logistics_id)
+    TextView logistics_id;
+    @Bind(R.id.logistics_icon)
+    ImageView logistics_icon;
+    @Bind(R.id.logistics_last_txt)
+    TextView logistics_last_txt;
+    @Bind(R.id.logistics_last_time)
+    TextView logistics_last_time;
+    @Bind(R.id.logistics_address_name)
+    TextView logistics_address_name;
+    @Bind(R.id.logistics_address)
+    TextView logistics_address;
+    @Bind(R.id.logistics_more)
+    TextView logistics_more;
+    @Bind(R.id.recycler_view_layout)
+    RecyclerView recycler_view_layout;
 
     /**
      * mType = 0 未发货
@@ -182,6 +186,8 @@ public class LogisticsActivity extends BaseActivity implements LogisticsView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.logistics_main_activity);
+        ButterKnife.bind(this);
         StatusBarUtils.setWindowStatusBarColor(this, R.color.mine_red);
         mType = Integer.valueOf(getIntent().getStringExtra("mType"));
         mData = (NetOrderBean.DataBean.ResultListBean) getIntent().getSerializableExtra("data");
@@ -221,8 +227,8 @@ public class LogisticsActivity extends BaseActivity implements LogisticsView {
         logistics_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(LogisticsActivity.this,TraceActivity.class);
-                intent.putExtra("data",mNetLogisticsBean);
+                Intent intent = new Intent(LogisticsActivity.this, TraceActivity.class);
+                intent.putExtra("data", mNetLogisticsBean);
                 startActivity(intent);
             }
         });

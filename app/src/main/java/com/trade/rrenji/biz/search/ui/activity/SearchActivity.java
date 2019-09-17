@@ -7,14 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gelitenight.superrecyclerview.LinearSpacingDecoration;
 import com.gelitenight.superrecyclerview.SuperRecyclerView;
 import com.trade.rrenji.R;
-import com.trade.rrenji.bean.address.NetAddressBean;
-import com.trade.rrenji.bean.category.NetCategoryListBean;
 import com.trade.rrenji.bean.search.NetSearchBean;
 import com.trade.rrenji.bean.search.NetSearchValueBean;
 import com.trade.rrenji.biz.base.BaseActivity;
@@ -33,26 +32,30 @@ import org.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 @ContentView(R.layout.search_main_layout)
 public class SearchActivity extends BaseActivity implements SearchActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.recycler_view_top)
-    public RecyclerView recycler_view_top;
-
-    @ViewInject(R.id.super_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
-
-    @ViewInject(R.id.search_value)
-    public EditText search_value;
-
-    @ViewInject(R.id.btn_search)
-    public TextView btn_search;
 
     SearchActivityPresenter mSearchActivityPresenter;
     SearchAdapter mSearchAdapter;
     SearchValueAdapter mSearchValueAdapter;
+
+    @Bind(R.id.search_value)
+    EditText search_value;
+
+    @Bind(R.id.btn_search)
+    TextView btn_search;
+    @Bind(R.id.recycler_view_top)
+    RecyclerView recycler_view_top;
+
+    @Bind(R.id.super_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
 
     private int mPageIndex = 1;
     private int mPageSize = 20;
@@ -62,6 +65,8 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_main_layout);
+        ButterKnife.bind(this);
         init();
     }
 
@@ -127,8 +132,8 @@ public class SearchActivity extends BaseActivity implements SearchActivityView {
         mSearchActivityPresenter = null;
     }
 
-    @Event(value = {R.id.back_layout, R.id.address_layout})
-    private void onViewClicked(View view) {
+    @OnClick({R.id.back_layout, R.id.address_layout})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_layout:
                 finish();

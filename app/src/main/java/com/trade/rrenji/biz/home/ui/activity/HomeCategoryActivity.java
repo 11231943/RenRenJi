@@ -23,12 +23,7 @@ import com.trade.rrenji.bean.category.NetScreenBean;
 import com.trade.rrenji.bean.category.NetScreenListBean;
 import com.trade.rrenji.bean.category.PopupCategoryBean;
 import com.trade.rrenji.biz.base.BaseActivity;
-import com.trade.rrenji.biz.category.presenter.CategoryActivityListPresenter;
-import com.trade.rrenji.biz.category.presenter.CategoryActivityListPresenterImpl;
-import com.trade.rrenji.biz.category.ui.activity.CategoryListActivity;
-import com.trade.rrenji.biz.category.ui.apater.CategoryClassListAdapter;
 import com.trade.rrenji.biz.category.ui.apater.PopupAdapter;
-import com.trade.rrenji.biz.category.ui.view.CategoryActivityListView;
 import com.trade.rrenji.biz.home.presenter.HomeCategoryActivityPresenter;
 import com.trade.rrenji.biz.home.presenter.HomeCategoryActivityPresenterImpl;
 import com.trade.rrenji.biz.home.ui.adapter.HomeCategoryAdapter;
@@ -44,24 +39,27 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 import java.util.List;
 
-@ContentView(R.layout.home_activity_category_super_recyclerview)
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class HomeCategoryActivity extends BaseActivity implements HomeCategoryActivityView {
 
     private static String TAG = DryingTabFragment.class.getSimpleName();
-    @ViewInject(R.id.base_activity_recycler_view)
-    public SuperRecyclerView mSuperRecyclerView;
 
-    @ViewInject(R.id.price_select_layout)
-    public RelativeLayout price_select_layout;
-    @ViewInject(R.id.price_sort_layout)
-    public RelativeLayout price_sort_layout;
-
-    @ViewInject(R.id.view_group)
-    public LinearLayout view_group;
-    @ViewInject(R.id.goods_type_select_txt)
-    public TextView goods_type_select_txt;
-    @ViewInject(R.id.select_sort)
-    public ImageView select_sort;
+    @Bind(R.id.select_sort)
+    ImageView select_sort;
+    @Bind(R.id.goods_type_select_txt)
+    TextView goods_type_select_txt;
+    @Bind(R.id.price_sort_layout)
+    RelativeLayout price_sort_layout;
+    @Bind(R.id.model_select_layout)
+    RelativeLayout model_select_layout;
+    @Bind(R.id.price_select_layout)
+    RelativeLayout price_select_layout;
+    @Bind(R.id.base_activity_recycler_view)
+    SuperRecyclerView mSuperRecyclerView;
+    @Bind(R.id.view_group)
+    LinearLayout view_group;
 
     private CommonPopupWindow mWindow;
     HomeCategoryActivityPresenter mPresenter = null;
@@ -86,6 +84,8 @@ public class HomeCategoryActivity extends BaseActivity implements HomeCategoryAc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_activity_category_super_recyclerview);
+        ButterKnife.bind(this);
         setActionBarTitle("产品列表");
         mCategoryId = getIntent().getStringExtra("categoryId");
         init();

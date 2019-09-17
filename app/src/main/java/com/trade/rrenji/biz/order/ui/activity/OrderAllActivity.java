@@ -14,6 +14,7 @@ import com.trade.rrenji.biz.base.ActionBarHelper;
 import com.trade.rrenji.biz.base.BaseActivity;
 import com.trade.rrenji.utils.CollectionUtils;
 import com.trade.rrenji.utils.TabLayout;
+import com.trade.rrenji.utils.TabLayoutUnderline;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -21,17 +22,19 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 @ContentView(R.layout.activity_order_all_layout)
 public class OrderAllActivity extends BaseActivity {
 
     private static String TAG = OrderAllActivity.class.getSimpleName();
-
-    @ViewInject(R.id.goods_tabs)
-    public TabLayout mTabLayout;
-    @ViewInject(R.id.pager)
-    public ViewPager mPager;
-    @ViewInject(R.id.toolbar)
-    public Toolbar mToolbar;
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+    @Bind(R.id.goods_tabs)
+    TabLayoutUnderline mTabLayout;
+    @Bind(R.id.pager)
+    ViewPager mPager;
 
     private TabAdapter mTabAdapter;
     List<OrderClassify> mList = null;
@@ -40,6 +43,8 @@ public class OrderAllActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_all_layout);
+        ButterKnife.bind(this);
         init();
     }
 
